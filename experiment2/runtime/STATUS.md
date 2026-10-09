@@ -20,3 +20,12 @@ worker ownership, requested models/efforts, and canonical English base prompts
 are unchanged. Preserve original readiness evidence and require the coordinator
 release before evaluation. See confirmed-measurement-sequence.json and the
 prospective EXPERIMENT_2_PLAN.md. Experiment 1 remains unchanged.
+
+The owner requested immediate concurrency 20. Twenty active workers were verified.
+Runtime reconnection then terminated the foreground coordinator and workers;
+20 uniquely completed pending responses were recovered without inference calls.
+All worker audits passed. Parent-observed exit codes and durations for recovered
+turns remain null. A fresh coordinator release and recorded provenance history
+authorize only unrequested next turns. The twenty-worker continuation now uses
+a detached supervisor; see runtime-recovery-01.json, resume-authorization-01.json,
+and processes-resume-01.json.

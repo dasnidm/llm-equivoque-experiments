@@ -118,6 +118,12 @@ def main():
         'frozen_analysis_outputs_before_packaging': baseline,
         'delivery_source_sha256': digest(Path(__file__)),
         'explorer_source_sha256': digest(ROOT / 'experiment2/explorer.py')}
+    recovery_path = ROOT / 'experiment2/runtime/runtime-recovery-01.json'
+    recovery = read_json(recovery_path) if recovery_path.exists() else {}
+    ledger['recovered_native_turns'] = len(recovery.get('recovered_turns', []))
+    ledger['recovery_model_invocations_added'] = recovery.get('model_invocations_added', 0)
+    ledger['unknown_exit_status_turns'] = recovery.get('unknown_exit_status_turns', 0)
+    ledger['recovery_evidence_sha256'] = digest(recovery_path) if recovery else None
     write_json(output / 'invocation-ledger.json', ledger)
     report = output / 'REPORT.md'
     with report.open('a') as handle:
@@ -134,6 +140,18 @@ def main():
         handle.write('\nexplorer.html provides an offline configuration/frame selector for recorded\n'
             'endpoint means and trial answers, with visible valid counts. It performs no\n'
             'new inferential analysis; use estimates.csv for paired contrasts and intervals.\n')
+        if recovery:
+            handle.write(f'\nRuntime reconnection interrupted the original coordinator and workers.\n'
+                f'{ledger["recovered_native_turns"]} pending responses were recovered from unique, schema-valid\n'
+                'final native completion events with matching sessions, prompts, systems, and\n'
+                'schemas, within the frozen deadline. No requests were replayed. Original\n'
+                'parent-observed exit statuses and monotonic durations for these turns remain\n'
+                'unknown. Their trial observations are retained, while the affected complete\n'
+                'trials are excluded from latency summaries requiring all ten durations.\n')
+        handle.write('\nTechnical token columns sum the native-reported usage counters across\n'
+            'invocations. Counter semantics after native session resumption are not established\n'
+            'as marginal billable usage; these sums are not billing estimates. Native WebSocket\n'
+            'reconnection diagnostics remain in the raw logs even when a final turn completes.\n')
     create_explorer(output)
     html = output / 'index.html'
     html.write_text(html.read_text().replace('</html>',

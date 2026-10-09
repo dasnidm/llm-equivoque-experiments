@@ -4,6 +4,9 @@ from pathlib import Path
 import subprocess
 ROOT=Path(__file__).resolve().parents[2]
 RUN='equivoque-2026-10-09-v1'
+import fcntl
+publication_lock=(ROOT/'work/coordinator/publication.lock').open('a')
+fcntl.flock(publication_lock,fcntl.LOCK_EX)
 assignments=json.loads((ROOT/'preparation/current-runtime/executor-assignments-01.json').read_text())['executors']
 for e,a in assignments.items():
     w=a['logical_worker'];tree=ROOT/'work/worker-trees'/RUN/e

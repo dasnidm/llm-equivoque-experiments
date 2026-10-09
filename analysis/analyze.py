@@ -58,6 +58,11 @@ def load_records(root=ROOT, allow_incomplete=False):
         executor_by_trial = {}
         for profile in directory.glob('executor-*-provenance.json'):
             metadata = read_json(profile)
+            if metadata['logical_worker'] != worker:
+                raise ValueError('Executor provenance changes logical ownership')
+            manifest_ids = {t['trial_id'] for t in manifest['trials']}
+            if not set(metadata['trial_ids']) <= manifest_ids:
+                raise ValueError('Executor provenance lists unassigned trials')
             for trial_id in metadata['trial_ids']:
                 if trial_id in executor_by_trial:
                     raise ValueError('Overlapping exclusive executor provenance')

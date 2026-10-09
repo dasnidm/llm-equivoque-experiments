@@ -9,6 +9,9 @@ from equivoque.audit import audit_worker
 from equivoque.core import read_json,write_json,digest,frozen_hashes
 from equivoque.runner import now
 RUN='equivoque-2026-10-09-v1'
+import fcntl
+publication_lock=(ROOT/'work/coordinator/publication.lock').open('a')
+fcntl.flock(publication_lock,fcntl.LOCK_EX)
 REPO='dasnidm/llm-equivoque-experiments'
 assignments=read_json(ROOT/'preparation/current-runtime/executor-assignments-01.json')['executors']
 progress=read_json(ROOT/'preparation/current-runtime/collection-progress.json')

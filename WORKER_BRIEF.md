@@ -94,6 +94,12 @@ The CLI can emit a code-mode-host warning while the request offers zero tools;
 preserve that warning and the inspected request. All actual tool events still
 block live readiness/collection.
 
+The provider rejects `uniqueItems` in strict JSON output schemas. The shared
+transport omits only that keyword in the effective provider schema, for every
+configuration/frame, and logs both schemas. Canonical prompts still request two
+distinct choices; the unchanged local parser rejects duplicates without a
+corrective turn. Audits verify the exact provider-schema adaptation.
+
 ## Main coordinator commands
 
 ```bash

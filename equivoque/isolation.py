@@ -11,7 +11,7 @@ import subprocess
 import threading
 
 from .core import write_json
-from .transport import overrides
+from .transport import overrides, provider_schema
 
 
 def inspect_request(protocol, configuration, directory, catalog_path):
@@ -22,8 +22,8 @@ def inspect_request(protocol, configuration, directory, catalog_path):
     system = directory / 'system.txt'
     system.write_text(protocol.data['system'])
     schema = directory / 'schema.json'
-    schema.write_text(json.dumps({'type': 'object', 'additionalProperties': False,
-        'required': ['ready'], 'properties': {'ready': {'type': 'boolean'}}}))
+    effective_schema = provider_schema(protocol.schema(1, frame='cards'))
+    schema.write_text(json.dumps(effective_schema))
     bodies = []
 
     class Handler(BaseHTTPRequestHandler):
@@ -81,6 +81,8 @@ def inspect_request(protocol, configuration, directory, catalog_path):
             errors.append('Native request changes model or effort')
         if body.get('text', {}).get('format', {}).get('type') != 'json_schema':
             errors.append('Native request lacks the required output schema')
+        if body.get('text', {}).get('format', {}).get('schema') != effective_schema:
+            errors.append('Native request changes the provider output schema')
     report = {'passed': passed and not errors, 'errors': errors,
         'configuration': configuration, 'offline_cli_invocations': 1,
         'live_subject_invocations': 0, 'tool_counts': [len(b.get('tools', [])) for b in bodies],

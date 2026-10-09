@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from .core import Protocol, digest, operate, read_json, write_json
+from .transport import provider_schema
 
 
 def audit_worker(manifest_path, directory, allow_simulation=False):
@@ -58,6 +59,9 @@ def audit_worker(manifest_path, directory, allow_simulation=False):
                 errors.append(f'Prompt mismatch: {trial_id} turn {index}')
             if record.get('schema') != protocol.schema(index, remaining, trial['frame']):
                 errors.append(f'Schema mismatch: {trial_id} turn {index}')
+            if state.get('transport') == 'codex-native' and (
+                    record.get('provider_schema') != provider_schema(record.get('schema'))):
+                errors.append(f'Provider schema mismatch: {trial_id} turn {index}')
             if record.get('session_id_before') != session:
                 errors.append(f'Broken request continuity: {trial_id} turn {index}')
             returned_session = record.get('session_id')

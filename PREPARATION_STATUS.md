@@ -73,3 +73,9 @@ zero offered tools plus exact visible context. Frozen prompts, schedules, seeds,
 model/effort matrix, deadlines, and sample size are unchanged. A coordinated new
 source/hash freeze and seven matching live preflight reports are still required
 before the launch gate opens.
+
+The coordinated `preflight-03` passed operational isolation but exposed a live
+strict-schema rejection of `uniqueItems` at Turn 1. Those failures are preserved.
+The shared transport now omits that unsupported provider keyword while retaining
+the canonical schema, unchanged distinct-choice prompt, and unchanged duplicate
+validation. Both schemas are logged and audited. No evaluation trial was started.

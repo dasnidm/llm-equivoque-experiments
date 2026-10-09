@@ -45,6 +45,20 @@ def overrides(system_path, effort):
     return result
 
 
+def provider_schema(schema):
+    """Omit only the unsupported strict-schema keyword; validate it locally.
+
+    The canonical stimulus/schema remains unchanged. This adaptation is fixed
+    across all frames/models; duplicate selections are failures, never corrected.
+    """
+    if isinstance(schema, dict):
+        return {key: provider_schema(value) for key, value in schema.items()
+                if key != 'uniqueItems'}
+    if isinstance(schema, list):
+        return [provider_schema(value) for value in schema]
+    return schema
+
+
 class CodexTransport:
     name = 'codex-native'
 
@@ -61,7 +75,8 @@ class CodexTransport:
         system_path = directory / 'subject-system.txt'
         system_path.write_text(self.protocol.data['system'])
         schema_path = directory / f'turn-{attempt:02d}.schema.json'
-        schema_path.write_text(json.dumps(schema) + '\n')
+        effective_schema = provider_schema(schema)
+        schema_path.write_text(json.dumps(effective_schema) + '\n')
         command = ['codex', 'exec']
         if session_id:
             command.append('resume')
@@ -125,4 +140,6 @@ class CodexTransport:
             'usage': usage[-1] if usage else None,
             'tool_events': tools, 'metadata_fallback': metadata_fallback,
             'malformed_event_lines': malformed_lines,
+            'provider_schema': effective_schema,
+            'provider_schema_note': 'uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.',
         }

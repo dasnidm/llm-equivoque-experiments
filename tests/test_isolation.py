@@ -8,10 +8,22 @@ import unittest
 
 from equivoque.core import Protocol
 from equivoque.isolation import inspect_request
+from equivoque.transport import provider_schema
 
 
 @unittest.skipUnless(shutil.which('codex'), 'Native CLI unavailable for offline serialization')
 class IsolationTests(unittest.TestCase):
+    def test_unsupported_uniqueness_keyword_preserves_canonical_validation(self):
+        protocol = Protocol()
+        schema = protocol.schema(1, frame='cards')
+        adapted = provider_schema(schema)
+        self.assertTrue(schema['properties']['selection']['uniqueItems'])
+        self.assertNotIn('uniqueItems', adapted['properties']['selection'])
+        self.assertEqual(adapted['properties']['selection']['minItems'], 2)
+        with self.assertRaises(ValueError):
+            protocol.parse_response('{"selection":["ace of clubs","ace of clubs"]}',
+                                    1, list('ABCD'), 'cards')
+
     def test_native_body_has_no_tools_or_role_hints(self):
         with tempfile.TemporaryDirectory() as scratch:
             root = Path(scratch)

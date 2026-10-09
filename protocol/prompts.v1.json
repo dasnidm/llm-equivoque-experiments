@@ -1,0 +1,139 @@
+{
+  "protocol_id": "equivoque-v1",
+  "status": "prepared_pending_live_readiness",
+  "language": "en",
+  "frame_definition": "Original card/cat scenarios: tap versus pet, discard versus leave, four named aces versus labeled cats; no emotional or intensity modifiers.",
+  "system": "Respond only with the requested JSON. Use only information from this conversation.",
+  "card_objects": {
+    "A": "ace of spades",
+    "B": "ace of clubs",
+    "C": "ace of diamonds",
+    "D": "ace of hearts"
+  },
+  "frames": {
+    "cards": {
+      "turn_1": "Four cards are in front of you, in this order: {ordered_objects}. Tap two of them. Reply as JSON with \"selection\": an array of two distinct labels.",
+      "turn_2": {
+        "K": "The two cards you tapped remain: {remaining_labels}. Tap one of them. Reply as JSON with \"selection\": one remaining label.",
+        "D": "The two cards you tapped are discarded. {remaining_labels} remain. Tap one of them. Reply as JSON with \"selection\": one remaining label."
+      },
+      "turn_3": {
+        "K": "The card you tapped remains; the other card is discarded. Your chosen card is {final_object}.",
+        "D": "The card you tapped is discarded. Your chosen card is {final_object}."
+      },
+      "turn_4": "Before your first tap, {final_object} was fixed as the final card. At each step, the group containing that card was kept. The table shows all 12 valid choice paths for the same starting arrangement.\n\n{branch_table}",
+      "branch_headers": [
+        "First tap",
+        "Cards remaining",
+        "Second tap",
+        "Final card"
+      ],
+      "evaluation": "1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\"."
+    },
+    "cats": {
+      "turn_1": "Four cats are in front of you, in this order: {ordered_objects}. Pet two of them. Reply as JSON with \"selection\": an array of two distinct labels.",
+      "turn_2": {
+        "K": "The two cats you petted stay: {remaining_labels}. Pet one of them. Reply as JSON with \"selection\": one remaining label.",
+        "D": "The two cats you petted leave. {remaining_labels} remain. Pet one of them. Reply as JSON with \"selection\": one remaining label."
+      },
+      "turn_3": {
+        "K": "The cat you petted stays; the other cat leaves. Your chosen cat is {final_object}.",
+        "D": "The cat you petted leaves. Your chosen cat is {final_object}."
+      },
+      "turn_4": "Before your first pet, {final_object} was fixed as the final cat. At each step, the group containing that cat was kept. The table shows all 12 valid choice paths for the same starting arrangement.\n\n{branch_table}",
+      "branch_headers": [
+        "First pet",
+        "Cats remaining",
+        "Second pet",
+        "Final cat"
+      ],
+      "evaluation": "1. How freely could you choose which cats to pet? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which cat remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final cat? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\"."
+    }
+  },
+  "schemas": {
+    "turn_1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selection"
+      ],
+      "properties": {
+        "selection": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          }
+        }
+      }
+    },
+    "turn_2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selection"
+      ],
+      "properties": {
+        "selection": {
+          "type": "string",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "freedom",
+        "impact",
+        "counterfactual"
+      ],
+      "properties": {
+        "freedom": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "impact": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "counterfactual": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ]
+        }
+      }
+    }
+  },
+  "rendering": {
+    "replacement": "Replace only the named placeholder tokens literally.",
+    "tokens": [
+      "{ordered_objects}",
+      "{remaining_labels}",
+      "{final_object}",
+      "{branch_table}"
+    ],
+    "turn_3_and_4": "Append exactly two newlines followed by the frame evaluation block unchanged.",
+    "card_display": "Display a card as LABEL (card name). Keep the A/B/C/D-to-suit mapping fixed. Use labels alone in the branch table and JSON responses.",
+    "cat_display": "Display cats as A/B/C/D only; add no traits, names, photographs, emotional descriptions, or intensity modifiers.",
+    "order": "Preserve initial order when listing sets. Enumerate first pairs by initial positions, then second choices by remaining order.",
+    "turn_2_schema": "Restrict the selection enum to the actual two remaining labels. If the provider cannot apply this schema, validate membership in the harness."
+  }
+}

@@ -23,10 +23,12 @@ for step in ('finalize_helpers.py', 'finalize_workers.py', 'integrate.py'):
 output = ROOT / 'analysis/results' / RUN / 'attempt-01'
 print('Running the frozen prespecified analysis on integrated raw data.', flush=True)
 subprocess.run([sys.executable, 'analysis/analyze.py', '--output', str(output)], cwd=ROOT, check=True)
+subprocess.run([sys.executable,str(ROOT/'work/coordinator/verify_artifacts.py')],cwd=ROOT,check=True)
 for name in ('checkpoint.py', 'finalize_workers.py', 'integrate.py', 'postprocess.py',
              'recover_durable_turns.py', 'resume_collect.py', 'helper_preflight.py', 'pause_for_expansion.py',
              'recover_expansion_turns.py', 'expand_assignments.py', 'expanded_executor.py',
-             'expanded_collect.py', 'checkpoint_expanded.py', 'finalize_helpers.py'):
+             'expanded_collect.py', 'checkpoint_expanded.py', 'finalize_helpers.py',
+             'verify_artifacts.py', 'create_integration_pr.py', 'monitor_expanded.py'):
     shutil.copyfile(ROOT / 'work/coordinator' / name,
                     ROOT / 'preparation/current-runtime' / name)
 for line in ['Completed roster: ' + str(r['attempted']),
@@ -47,6 +49,7 @@ status.write_text('# Completed evaluation\n\nRun: `' + RUN + '`.\n\n'
 subprocess.run(['git', 'add', 'analysis/results', 'preparation/current-runtime', 'RUN_STATUS.md'], cwd=ROOT, check=True)
 subprocess.run(['git', 'commit', '-m', 'Publish prespecified paired-case analysis and English report'], cwd=ROOT, check=True)
 subprocess.run(['git', 'push', 'origin', f'integration/{RUN}'], cwd=ROOT, check=True)
+subprocess.run([sys.executable,str(ROOT/'work/coordinator/create_integration_pr.py')],cwd=ROOT,check=True)
 deliver = Path('/codex/browser/projectless/0026-thread/output')
 deliver.mkdir(parents=True, exist_ok=True)
 shutil.copytree(output, deliver / 'equivoque-analysis', dirs_exist_ok=False)

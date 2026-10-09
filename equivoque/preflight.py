@@ -7,6 +7,7 @@ import uuid
 from .core import ROOT, Protocol, digest, frozen_hashes, read_json, write_json
 from .runner import now, run_trial
 from .transport import CodexTransport, DISABLED_FEATURES, overrides
+from .isolation import inspect_request
 
 
 def preflight(manifest_path, directory, live=False):
@@ -31,12 +32,20 @@ def preflight(manifest_path, directory, live=False):
     report['codex_version'] = version.stdout.strip()
     if version.returncode or version.stdout.strip() != config['codex_version']:
         report['errors'].append('Codex CLI version differs from the frozen version')
+    auth = subprocess.run(['codex', 'login', 'status'], text=True,
+                          capture_output=True, timeout=10)
+    report['auth_route'] = (auth.stdout + auth.stderr).strip()
+    if live and (auth.returncode or report['auth_route'] != 'Logged in using ChatGPT'):
+        report['errors'].append('The frozen ChatGPT login route is unavailable')
     catalog_command = ['codex', 'debug', 'models']
     if not live:
         catalog_command.append('--bundled')
     catalog_result = subprocess.run(catalog_command, capture_output=True,
                                     text=True, timeout=60)
     (directory / 'catalog.stderr.txt').write_text(catalog_result.stderr)
+    (directory / 'catalog.json').write_text(catalog_result.stdout)
+    if catalog_result.returncode or 'fallback metadata' in catalog_result.stderr.lower():
+        report['errors'].append('The refreshed model catalog is unavailable or uses fallback metadata')
     try:
         catalog = json.loads(catalog_result.stdout)
         models = catalog if isinstance(catalog, list) else catalog.get('models', [])
@@ -64,6 +73,11 @@ def preflight(manifest_path, directory, live=False):
     feature_lines = {line.split()[0]: line.split()[-1]
                      for line in effective.stdout.splitlines() if line.split()}
     for feature in DISABLED_FEATURES:
+        # The managed remote executor forces this capability flag on. With
+        # shell_tool off it must remain inert: inspect the actual tool schemas.
+        if feature == 'unified_exec':
+            report['observed_unified_exec_flag'] = feature_lines.get(feature)
+            continue
         if feature_lines.get(feature) != 'false':
             report['errors'].append('Subject feature not disabled: ' + feature)
     prompt = 'Reply with the JSON object {"ready":true}.'
@@ -79,6 +93,17 @@ def preflight(manifest_path, directory, live=False):
             report['errors'].append('Unexpected repository/harness prompt context')
     except (json.JSONDecodeError, TypeError, AttributeError):
         report['errors'].append('Cannot inspect subject prompt context')
+    report['offline_inspections'] = []
+    if not report['errors']:
+        for configuration in config['configurations']:
+            inspection = inspect_request(protocol, configuration,
+                directory / 'offline-isolation' / configuration['configuration_id'],
+                directory / 'catalog.json')
+            report['offline_inspections'].append(inspection)
+            report['errors'].extend(inspection['errors'])
+            if not inspection['passed']:
+                report['errors'].append('Operational isolation failed: ' + configuration['configuration_id'])
+                break
     report['checks'].append({'name': 'offline-config-and-catalog',
                              'passed': not report['errors']})
     write_json(report_path, report)
@@ -92,7 +117,7 @@ def preflight(manifest_path, directory, live=False):
         transport = CodexTransport(protocol, config['turn_deadline_seconds'])
         state = run_trial(calibration_trial, protocol, transport,
                           directory / 'native-session-check.json', sandbox.parent)
-        report['subject_invocations'] += len(state['turns'])
+        report['subject_invocations'] += len(state['turns']) + int(state.get('pending_turn') is not None)
         report['checks'].append({'name': 'native-four-turn-session',
                                  'passed': state['status'] == 'complete'})
         if state['status'] != 'complete':

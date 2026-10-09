@@ -48,3 +48,28 @@ behavior before the main coordinator generates a launch record.
 **No evaluation data have been collected.** Code/manifests/assignments can be
 prepared and published while this live gate remains pending; execution readiness
 must not be reported as complete before it passes.
+
+## Current-session corrections
+
+The current runtime's startup HTTP policy is unrestricted. Preserved probes
+reached github.com and chatgpt.com with HTTP 200; the unauthenticated Codex model
+endpoint returned HTTP 401. No proxy bypass or TLS verification change was used.
+The status service reports policy state `unknown`, so that field alone does not
+establish enforcement; the connectivity/inference evidence is recorded separately.
+
+The inherited ChatGPT login initially could not refresh its token. The owner
+completed the normal device-login flow in this session, using the same ChatGPT
+route. The refreshed catalog then included all seven specified models and all
+three required effort settings. A separate gpt-6-sol/low developmental request
+returned valid JSON with no metadata fallback or tool events. This is not an
+evaluation trial.
+
+The original A–G preflights and their post-login `preflight-02` attempts are
+preserved. They exposed residual structured CLI role/mode hints and an inert
+`unified_exec` capability flag. The common transport now explicitly suppresses
+the role/mode hints; common preflight additionally inspects actual native request
+bodies for every configuration, without credentials or inference, and requires
+zero offered tools plus exact visible context. Frozen prompts, schedules, seeds,
+model/effort matrix, deadlines, and sample size are unchanged. A coordinated new
+source/hash freeze and seven matching live preflight reports are still required
+before the launch gate opens.

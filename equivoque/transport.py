@@ -27,9 +27,18 @@ def overrides(system_path, effort):
         'skills.include_instructions': False, 'skills.bundled.enabled': False,
         'tools.update_plan.enabled': False,
         'tools.experimental_request_user_input.enabled': False,
+        # This CLI's structured feature settings also carry default role hints.
+        # A bare feature=false leaves those hints in the visible subject input.
+        'features.multi_agent_v2.enabled': False,
+        'features.multi_agent_v2.usage_hint_enabled': False,
+        'features.multi_agent_v2.usage_hint_text': '',
+        'features.multi_agent_v2.root_agent_usage_hint_text': '',
+        'features.multi_agent_v2.subagent_usage_hint_text': '',
+        'features.multi_agent_v2.multi_agent_mode_hint_text': '',
+        'features.code_mode.enabled': False,
     }
     values.update({'features.' + feature: False
-                   for feature in DISABLED_FEATURES})
+                   for feature in DISABLED_FEATURES if feature != 'multi_agent_v2'})
     result = []
     for key, value in values.items():
         result.extend(['-c', key + '=' + json.dumps(value)])
@@ -99,8 +108,9 @@ class CodexTransport:
                  and event.get('item', {}).get('type') in
                  ('command_execution', 'mcp_tool_call', 'web_search',
                   'file_change', 'collab_agent_tool_call')]
-        metadata_fallback = any('fallback metadata' in str(event).lower()
-                                for event in events)
+        stderr = stderr_path.read_text()
+        metadata_fallback = ('fallback metadata' in stderr.lower() or
+            any('fallback metadata' in str(event).lower() for event in events))
         next_id = ids[-1] if ids else session_id
         ok = (process.returncode == 0 and not timed_out and len(messages) == 1
               and bool(usage) and bool(next_id) and not tools
@@ -109,7 +119,7 @@ class CodexTransport:
         return {
             'ok': ok, 'session_id': next_id,
             'text': messages[-1] if messages else '',
-            'events': events, 'stderr': stderr_path.read_text(),
+            'events': events, 'stderr': stderr,
             'command': command, 'exit_code': process.returncode,
             'timeout': timed_out, 'duration_seconds': time.monotonic() - start,
             'usage': usage[-1] if usage else None,

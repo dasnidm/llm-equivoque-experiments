@@ -82,6 +82,18 @@ A failed preflight is preserved. After a concrete environment correction, use a
 new explicitly numbered preflight output directory and pass its readiness path
 to run; account for every earlier calibration attempt. Do not overwrite old logs.
 
+The current runtime requires the structured multi-agent hint settings in the
+shared transport to suppress role/mode text. Its remote-executor capability flag
+`unified_exec` stays true even with `shell_tool` false. Readiness therefore also
+inspects every configuration's actual native request body using an unauthenticated
+loopback endpoint that rejects before inference. These offline diagnostics must
+offer zero tools and contain only the canonical system message, empty-directory
+environment context, and requested prompt. They are not model responses, do not
+count toward live calibration/evaluation, and never replace the ChatGPT transport.
+The CLI can emit a code-mode-host warning while the request offers zero tools;
+preserve that warning and the inspected request. All actual tool events still
+block live readiness/collection.
+
 ## Main coordinator commands
 
 ```bash

@@ -1,0 +1,389 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "1791575539s since unix epoch",
+  "overallStatus": "warning",
+  "codexVersion": "0.159.0-alpha.3",
+  "checks": {
+    "app_server.status": {
+      "id": "app_server.status",
+      "category": "app-server",
+      "status": "ok",
+      "summary": "background server is not running",
+      "details": {
+        "control socket": "/run/codex-environment/codex-home/app-server-control/app-server-control.sock",
+        "daemon state dir": "/run/codex-environment/codex-home/app-server-daemon",
+        "dedicated pid file": "/run/codex-environment/codex-home/app-server-daemon/daemon.pid (missing)",
+        "dedicated update-loop pid file": "/run/codex-environment/codex-home/app-server-daemon/daemon-updater.pid (missing)",
+        "mode": "ephemeral",
+        "pid file": "/run/codex-environment/codex-home/app-server-daemon/app-server.pid (missing)",
+        "settings": "/run/codex-environment/codex-home/app-server-daemon/settings.json (missing)",
+        "status": "not running",
+        "update-loop pid file": "/run/codex-environment/codex-home/app-server-daemon/app-server-updater.pid (missing)"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "auth.credentials": {
+      "id": "auth.credentials",
+      "category": "auth",
+      "status": "ok",
+      "summary": "auth is configured",
+      "details": {
+        "auth file": "/run/codex-environment/codex-home/auth.json",
+        "auth storage mode": "File",
+        "stored API key": "false",
+        "stored ChatGPT tokens": "true",
+        "stored agent identity": "false",
+        "stored auth mode": "chatgpt"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "config.load": {
+      "id": "config.load",
+      "category": "config",
+      "status": "ok",
+      "summary": "config loaded",
+      "details": {
+        "CODEX_HOME": "/run/codex-environment/codex-home",
+        "active thread overrides": "not inspected",
+        "config.toml": [
+          "/run/codex-environment/codex-home/config.toml",
+          "missing"
+        ],
+        "configuration load ms": "10",
+        "configuration scope": "invocation config, including cloud-managed policy",
+        "cwd": "/workspace/llm-equivoque-experiments",
+        "enabled feature flags": "daemon_auto_start, shell_tool, view_image, sleep_tool, unified_exec, unified_exec_tty, unified_exec_zsh_fork, shell_snapshot, content_item_kinds, code_mode_host, terminal_resize_reflow, sqlite, write_stdin_approval, hooks, enable_request_compression, unbounded_connection_retries, worktrees, system_proxy_fallback, multi_agent, apps, tool_search_always_defer_mcp_tools, tool_suggest, plugins, in_app_browser, in_app_chat, in_app_dictation, in_app_local_automation, in_app_updates, browser_use, browser_use_full_cdp_access, browser_use_external, computer_use, remote_plugin, plugin_sharing, image_generation, resize_all_images, item_ids, skill_mcp_dependency_install, skill_search, mentions_v2, steer, guardian_approval, guardian_reuse_parent_compaction, goals, collaboration_modes, tool_call_mcp_elicitation, auth_elicitation, fast_mode, realtime_conversation, tui_app_server, compaction_image_budget, workspace_dependencies",
+        "feature flag overrides": "none",
+        "feature flags enabled": "52",
+        "log dir": "/run/codex-environment/codex-home/log",
+        "mcp servers": "0",
+        "model": "<default>",
+        "model provider": "openai",
+        "sqlite home": "/run/codex-environment/codex-home"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "git.environment": {
+      "id": "git.environment",
+      "category": "git",
+      "status": "ok",
+      "summary": "git executable found; execution not verified",
+      "details": {
+        ".git entry": "directory",
+        "PATH git #1": "/usr/local/bin/git",
+        "PATH git #2": "/usr/bin/git",
+        "PATH git #3": "/bin/git",
+        "PATH git #4": "/opt/codex/runtimes/codex-primary-runtime/dependencies/bin/fallback/git",
+        "PATH git entries": "4",
+        "git execution": "not inspected (PATH helpers are not executed)",
+        "repo detected": "true",
+        "repo root": "/workspace/llm-equivoque-experiments",
+        "selected git": "/usr/local/bin/git"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "installation": {
+      "id": "installation",
+      "category": "install",
+      "status": "ok",
+      "summary": "installation looks consistent",
+      "details": {
+        "PATH codex #1": "/opt/codex/bin/codex",
+        "current executable": "/opt/codex/bin/codex",
+        "install context": "other (package /opt/codex, bin /opt/codex/bin, resources /opt/codex/codex-resources, path /opt/codex/codex-path)",
+        "managed by Vite+": "false",
+        "managed by bun": "false",
+        "managed by npm": "false",
+        "managed by pnpm": "false",
+        "managed package root": "not set"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "mcp.config": {
+      "id": "mcp.config",
+      "category": "mcp",
+      "status": "ok",
+      "summary": "no MCP servers configured",
+      "details": {},
+      "remediation": null,
+      "durationMs": 0
+    },
+    "network.env": {
+      "id": "network.env",
+      "category": "network",
+      "status": "ok",
+      "summary": "network-related environment looks readable",
+      "details": {
+        "SSL_CERT_FILE": "readable file /etc/ssl/certs/ca-certificates.crt",
+        "managed proxy": "not configured",
+        "proxy env vars present": "HTTP_PROXY, HTTPS_PROXY, NO_PROXY, http_proxy, https_proxy, no_proxy",
+        "respect system proxy": "disabled"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "network.provider_reachability": {
+      "id": "network.provider_reachability",
+      "category": "reachability",
+      "status": "ok",
+      "summary": "active provider endpoints are reachable over HTTP",
+      "details": {
+        "ChatGPT inference URL": "https://chatgpt.com/backend-api/<redacted> reachable (HTTP 405)",
+        "reachability mode": "ChatGPT auth"
+      },
+      "remediation": null,
+      "durationMs": 89
+    },
+    "network.websocket_reachability": {
+      "id": "network.websocket_reachability",
+      "category": "websocket",
+      "status": "ok",
+      "summary": "Responses WebSocket handshake succeeded",
+      "details": {
+        "DNS": "2 IPv4, 2 IPv6, first IPv4",
+        "auth mode": "chatgpt",
+        "connect timeout": "15000 ms",
+        "endpoint": "wss://chatgpt.com/backend-api/<redacted>",
+        "handshake result": "HTTP 101 Switching Protocols",
+        "model provider": "openai",
+        "provider name": "OpenAI",
+        "proxy env vars present": "HTTP_PROXY, HTTPS_PROXY, NO_PROXY, http_proxy, https_proxy, no_proxy",
+        "reasoning header": "false",
+        "server model present": "false",
+        "supports websockets": "true",
+        "wire API": "responses"
+      },
+      "remediation": null,
+      "durationMs": 3061
+    },
+    "runtime.provenance": {
+      "id": "runtime.provenance",
+      "category": "runtime",
+      "status": "ok",
+      "summary": "running local build on linux-x86_64",
+      "details": {
+        "commit": "unknown",
+        "current executable": "/opt/codex/bin/codex",
+        "install method": "other (package /opt/codex, bin /opt/codex/bin, resources /opt/codex/codex-resources, path /opt/codex/codex-path)",
+        "platform": "linux-x86_64",
+        "version": "0.159.0-alpha.3"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "runtime.search": {
+      "id": "runtime.search",
+      "category": "search",
+      "status": "ok",
+      "summary": "search command found (bundled); execution not verified",
+      "details": {
+        "search command": "/opt/codex/codex-path/rg",
+        "search command readiness": "file exists",
+        "search provider": "bundled"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "sandbox.filesystem_paths": {
+      "id": "sandbox.filesystem_paths",
+      "category": "sandbox",
+      "status": "ok",
+      "summary": "no explicit filesystem paths to probe",
+      "details": {},
+      "remediation": null,
+      "durationMs": 0
+    },
+    "sandbox.helpers": {
+      "id": "sandbox.helpers",
+      "category": "sandbox",
+      "status": "ok",
+      "summary": "sandbox configuration is readable",
+      "details": {
+        "approval policy": "OnRequest",
+        "codex-linux-sandbox helper": "/run/codex-environment/codex-home/tmp/arg0/codex-arg0lBlADQ/codex-linux-sandbox",
+        "denied-read glob rules": "0",
+        "denied-read rules": "0",
+        "execve wrapper helper": "/run/codex-environment/codex-home/tmp/arg0/codex-arg0lBlADQ/codex-execve-wrapper",
+        "filesystem sandbox": "restricted",
+        "glob scan max depth": "unbounded",
+        "managed filesystem source": "none",
+        "network sandbox": "restricted"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "security.endpoint": {
+      "id": "security.endpoint",
+      "category": "security",
+      "status": "ok",
+      "summary": "endpoint protection is not inspected on this platform",
+      "details": {
+        "endpoint products": "not inspected on this platform"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "state.paths": {
+      "id": "state.paths",
+      "category": "state",
+      "status": "ok",
+      "summary": "state paths and databases are inspectable",
+      "details": {
+        "CODEX_HOME": "/run/codex-environment/codex-home (dir)",
+        "active rollout files": "2 files, 19589 total bytes, 9794 average bytes",
+        "archived rollout files": "0 files, 0 total bytes, 0 average bytes",
+        "goals DB": "/run/codex-environment/codex-home/goals_1.sqlite (file)",
+        "goals DB integrity": "ok",
+        "log DB": "/run/codex-environment/codex-home/logs_2.sqlite (file)",
+        "log DB integrity": "ok",
+        "log dir": "/run/codex-environment/codex-home/log (dir)",
+        "memories DB": "/run/codex-environment/codex-home/memories_1.sqlite (file)",
+        "memories DB integrity": "ok",
+        "memories v2 DB": "/run/codex-environment/codex-home/memories_v2_1.sqlite (missing)",
+        "memories v2 DB integrity": "skipped (missing)",
+        "queue DB": "/run/codex-environment/codex-home/queue_1.sqlite (file)",
+        "queue DB integrity": "ok",
+        "sqlite home": "/run/codex-environment/codex-home (dir)",
+        "state DB": "/run/codex-environment/codex-home/state_5.sqlite (file)",
+        "state DB integrity": "ok",
+        "thread history DB": "/run/codex-environment/codex-home/thread_history_1.sqlite (file)",
+        "thread history DB integrity": "ok"
+      },
+      "remediation": null,
+      "durationMs": 22
+    },
+    "state.rollout_db_parity": {
+      "id": "state.rollout_db_parity",
+      "category": "threads",
+      "status": "ok",
+      "summary": "rollout files and state DB thread inventory agree",
+      "details": {
+        "default model provider": "openai",
+        "rollout DB active files": "2",
+        "rollout DB active rows": "2",
+        "rollout DB archive mismatches": "0",
+        "rollout DB archived files": "0",
+        "rollout DB archived rows": "0",
+        "rollout DB duplicate DB paths": "0",
+        "rollout DB duplicate rollout thread ids": "0",
+        "rollout DB malformed file names": "0",
+        "rollout DB missing active rows": "0",
+        "rollout DB missing archived rows": "0",
+        "rollout DB model providers": "openai=2",
+        "rollout DB rows": "2",
+        "rollout DB scan cap reached": "false",
+        "rollout DB scan errors": "0",
+        "rollout DB sources": "exec=2",
+        "rollout DB stale rows": "0"
+      },
+      "remediation": null,
+      "durationMs": 6
+    },
+    "system.disk": {
+      "id": "system.disk",
+      "category": "disk",
+      "status": "ok",
+      "summary": "sufficient free disk space (29.8 GiB)",
+      "details": {
+        "CODEX_HOME available": "29.8 GiB",
+        "failure threshold": "1.0 GiB",
+        "warning threshold": "5.0 GiB",
+        "worktree available": "29.8 GiB"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "system.environment": {
+      "id": "system.environment",
+      "category": "system",
+      "status": "ok",
+      "summary": "OS language C",
+      "details": {
+        "EDITOR": "not set",
+        "GH_PAGER": "set",
+        "GIT_PAGER": "set",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "LC_CTYPE": "C.UTF-8",
+        "PAGER": "set",
+        "VISUAL": "not set",
+        "os": "Debian 13.0.0 [64-bit]",
+        "os language": "C",
+        "os type": "Debian",
+        "os version": "13.0.0"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "terminal.env": {
+      "id": "terminal.env",
+      "category": "terminal",
+      "status": "warning",
+      "summary": "TERM=dumb - colors and cursor control are disabled in this non-interactive run",
+      "details": {
+        "COLORTERM": "present",
+        "NO_COLOR": "1",
+        "TERM": "dumb",
+        "color output": "disabled (NO_COLOR)",
+        "effective locale": "C.UTF-8",
+        "stderr is terminal": "false",
+        "stdin is terminal": "false",
+        "stdout is terminal": "false",
+        "terminal": "dumb",
+        "terminal size": "80x24"
+      },
+      "issues": [
+        {
+          "severity": "warning",
+          "cause": "TERM=dumb - colors and cursor control are disabled in this non-interactive run",
+          "measured": "TERM=dumb",
+          "expected": null,
+          "remedy": null,
+          "fields": [
+            "TERM"
+          ]
+        }
+      ],
+      "remediation": null,
+      "durationMs": 2
+    },
+    "terminal.title": {
+      "id": "terminal.title",
+      "category": "title",
+      "status": "ok",
+      "summary": "terminal title default",
+      "details": {
+        "terminal title activity": "true",
+        "terminal title items": "activity, project-name",
+        "terminal title project source": "git repo root",
+        "terminal title project value": "llm-equivoque-experim...",
+        "terminal title source": "default"
+      },
+      "remediation": null,
+      "durationMs": 0
+    },
+    "updates.status": {
+      "id": "updates.status",
+      "category": "updates",
+      "status": "ok",
+      "summary": "update configuration is locally consistent",
+      "details": {
+        "check for update on startup": "true",
+        "latest version": "0.162.1",
+        "latest version status": "current version is not older",
+        "update action": "manual or unknown",
+        "version cache": [
+          "/run/codex-environment/codex-home/version.json",
+          "missing"
+        ]
+      },
+      "remediation": null,
+      "durationMs": 2750
+    }
+  }
+}

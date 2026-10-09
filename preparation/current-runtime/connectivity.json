@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-10-09T19:48:13.599302+00:00",
+  "policy": {
+    "version": 1,
+    "vpn_configured": false,
+    "http_proxy": "http://proxy:8080",
+    "http_network_policy": {
+      "type": "unrestricted"
+    },
+    "tcp_connect_proxy": "http://proxy:8088",
+    "tcp_network_access": {
+      "domains": [],
+      "ip_ranges": []
+    }
+  },
+  "http_probes": [
+    {
+      "url": "https://github.com",
+      "authenticated": false,
+      "exit_code": 0,
+      "http_status": "200",
+      "stderr": ""
+    },
+    {
+      "url": "https://chatgpt.com",
+      "authenticated": false,
+      "exit_code": 0,
+      "http_status": "200",
+      "stderr": ""
+    },
+    {
+      "url": "https://chatgpt.com/backend-api/codex/models?client_version=0.159.0-alpha.3",
+      "authenticated": false,
+      "exit_code": 0,
+      "http_status": "401",
+      "stderr": ""
+    }
+  ],
+  "note": "Proxy and TLS settings preserved; unauthenticated probes establish routing, not model authorization."
+}

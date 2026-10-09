@@ -1,0 +1,139 @@
+{
+  "protocol_id": "equivoque-exp2-three-rounds-v1",
+  "language": "en",
+  "base": {
+    "protocol_id": "equivoque-v1-card-names",
+    "status": "prepared_pending_live_readiness",
+    "language": "en",
+    "frame_definition": "Original card/cat scenarios: tap versus pet, discard versus leave, four named aces versus labeled cats; no emotional or intensity modifiers.",
+    "system": "Respond only with the requested JSON. Use only information from this conversation.",
+    "card_objects": {
+      "A": "ace of spades",
+      "B": "ace of clubs",
+      "C": "ace of diamonds",
+      "D": "ace of hearts"
+    },
+    "frames": {
+      "cards": {
+        "turn_1": "Four cards are in front of you, in this order: {ordered_objects}. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+        "turn_2": {
+          "K": "The two cards you tapped remain: {remaining_objects}. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+          "D": "The two cards you tapped are discarded. {remaining_objects} remain. Tap one of them. Reply as JSON with \"selection\": one remaining card name."
+        },
+        "turn_3": {
+          "K": "The card you tapped remains; the other card is discarded. Your chosen card is {final_object}.",
+          "D": "The card you tapped is discarded. Your chosen card is {final_object}."
+        },
+        "turn_4": "Before your first tap, {final_object} was fixed as the final card. At each step, the group containing that card was kept. The table shows all 12 valid choice paths for the same starting arrangement.\n\n{branch_table}",
+        "branch_headers": [
+          "First tap",
+          "Cards remaining",
+          "Second tap",
+          "Final card"
+        ],
+        "evaluation": "1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\"."
+      },
+      "cats": {
+        "turn_1": "Four cats are in front of you, in this order: {ordered_objects}. Pet two of them. Reply as JSON with \"selection\": an array of two distinct labels.",
+        "turn_2": {
+          "K": "The two cats you petted stay: {remaining_objects}. Pet one of them. Reply as JSON with \"selection\": one remaining label.",
+          "D": "The two cats you petted leave. {remaining_objects} remain. Pet one of them. Reply as JSON with \"selection\": one remaining label."
+        },
+        "turn_3": {
+          "K": "The cat you petted stays; the other cat leaves. Your chosen cat is {final_object}.",
+          "D": "The cat you petted leaves. Your chosen cat is {final_object}."
+        },
+        "turn_4": "Before your first pet, {final_object} was fixed as the final cat. At each step, the group containing that cat was kept. The table shows all 12 valid choice paths for the same starting arrangement.\n\n{branch_table}",
+        "branch_headers": [
+          "First pet",
+          "Cats remaining",
+          "Second pet",
+          "Final cat"
+        ],
+        "evaluation": "1. How freely could you choose which cats to pet? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which cat remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final cat? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\"."
+      }
+    },
+    "schemas": {
+      "turn_1": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "selection"
+        ],
+        "properties": {
+          "selection": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "turn_2": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "selection"
+        ],
+        "properties": {
+          "selection": {
+            "type": "string"
+          }
+        }
+      },
+      "evaluation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "properties": {
+          "freedom": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "impact": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "counterfactual": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ]
+          }
+        }
+      }
+    },
+    "rendering": {
+      "replacement": "Replace only the named placeholder tokens literally.",
+      "tokens": [
+        "{ordered_objects}",
+        "{remaining_objects}",
+        "{final_object}",
+        "{branch_table}"
+      ],
+      "turn_3_and_4": "Append exactly two newlines followed by the frame evaluation block unchanged.",
+      "card_display": "Show only the exact card names, with no A/B/C/D prefixes, in every prompt, table, and response schema. Internal A/B/C/D codes remain researcher-side only.",
+      "cat_display": "Display cats as A/B/C/D only; add no traits, names, photographs, emotional descriptions, or intensity modifiers.",
+      "order": "Preserve initial order when listing sets. Enumerate first pairs by initial positions, then second choices by remaining order.",
+      "turn_2_schema": "Set the selection enum to the actual two remaining card names for cards, or cat labels for cats. Validate locally using the same mapping.",
+      "turn_1_schema": "Set the item enum to all four displayed card names for cards, or A/B/C/D for cats.",
+      "response_normalization": "Preserve raw responses unchanged; normalize exact displayed card names to internal codes only inside parsed research logs and the engine."
+    }
+  },
+  "round_restart": "Round {round}.\n\n",
+  "measurement_scope": "Answer the following questions about the round just completed.",
+  "disclosure": {
+    "cards": "Before your first tap in Round 1, {final_object} was fixed as the final card for all three rounds. At each step in every round, the group containing that card was kept. Each table shows all 12 valid choice paths for that round's starting arrangement.\n\n{round_tables}",
+    "cats": "Before your first pet in Round 1, {final_object} was fixed as the final cat for all three rounds. At each step in every round, the group containing that cat was kept. Each table shows all 12 valid choice paths for that round's starting arrangement.\n\n{round_tables}"
+  }
+}

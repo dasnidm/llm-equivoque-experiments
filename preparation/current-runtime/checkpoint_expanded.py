@@ -16,11 +16,12 @@ for e,a in assignments.items():
         state=json.loads(state_path.read_text())
         if state['status']in ('complete','failed','interrupted'):
             paths.extend([str(state_path.relative_to(tree)),str(state_path.with_suffix('.journal.jsonl').relative_to(tree))])
-    for name in ('provenance.json',f'executor-{e}-provenance.json'):
+    for name in ('provenance.json',f'executor-{e}-provenance.json',f'executor-{e}-resume-02.json'):
         if (directory/name).exists():paths.append(str(relative/name))
     for path in directory.glob('preflight*/readiness.json'):
         if json.loads(path.read_text()).get('ended_at'):paths.append(str(path.parent.relative_to(tree)))
     for path in directory.glob('recovery-*'):paths.append(str(path.relative_to(tree)))
+    for path in directory.glob('systemic-drain-*'):paths.append(str(path.relative_to(tree)))
     if not paths:continue
     subprocess.run(['git','add','--',*paths],cwd=tree,check=True)
     if subprocess.run(['git','diff','--cached','--quiet'],cwd=tree).returncode:

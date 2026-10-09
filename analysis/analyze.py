@@ -39,6 +39,24 @@ def load_records(root=ROOT, allow_incomplete=False):
     scheduled = read_json(root / 'manifests' / run / 'schedule.json')
     records, turn_rows, audits = [], [], []
     seen_ids, sessions, calibration_sessions = set(), set(), set()
+    runtime = root / 'preparation/current-runtime'
+    resume_path = runtime / 'executor-assignments-02.json'
+    resume_ids = set()
+    resume_at = None
+    if resume_path.exists():
+        resume = read_json(resume_path)
+        resume_ids = {trial_id for entry in resume['executors'].values()
+                      for trial_id in entry['trial_ids']}
+        resume_at = read_json(runtime / 'coordinator-launch-04.json')['released_at']
+    for path in runtime.glob('service-preflight-*/*.json'):
+        session = read_json(path).get('session_id')
+        if session:
+            calibration_sessions.add(session)
+    for path in runtime.glob('development-access-*.json'):
+        data = read_json(path)
+        session = data.get('session_id') or data.get('result', {}).get('session_id')
+        if session:
+            calibration_sessions.add(session)
     for worker in config['workers']:
         directory = root / 'results' / run / f'worker-{worker}'
         manifest_path = root / 'manifests' / run / f'worker-{worker}.json'
@@ -93,8 +111,12 @@ def load_records(root=ROOT, allow_incomplete=False):
                 raise ValueError('Native session reused across shards')
             if session:
                 sessions.add(session)
+            epoch = 'expanded-01' if trial['trial_id'] in executor_by_trial else 'initial-or-resume'
+            if trial['trial_id'] in resume_ids and state.get('started_at'):
+                epoch = ('resume-02' if state['started_at'] >= resume_at
+                         else 'spans-expanded-01-resume-02')
             row = {**trial, 'actual_executor_id': executor_by_trial.get(trial['trial_id'], worker),
-                   'execution_epoch': 'expanded-01' if trial['trial_id'] in executor_by_trial else 'initial-or-resume',
+                   'execution_epoch': epoch,
                    'status': state.get('status', 'unattempted'),
                    'route': state.get('route', ''), 'session_id': session,
                    'started_at': state.get('started_at'),
@@ -110,6 +132,8 @@ def load_records(root=ROOT, allow_incomplete=False):
                     'trial_id': trial['trial_id'], 'case_id': trial['case_id'],
                     'configuration_id': trial['configuration_id'],
                     'worker_id': worker, 'actual_executor_id': executor_by_trial.get(trial['trial_id'], worker),
+                    'execution_epoch': ('resume-02' if resume_at and turn['requested_at'] >= resume_at
+                                        else epoch.replace('spans-expanded-01-resume-02', 'expanded-01')),
                     'frame': trial['frame'], 'turn': turn['turn'],
                     'ok': turn['ok'], 'duration_seconds': turn['duration_seconds'],
                     'input_tokens': usage.get('input_tokens'),
@@ -451,6 +475,16 @@ def main():
     provenance['worker_calibration_invocations'] = sum(r['subject_invocations'] for r in calibration)
     provenance['development_invocations'] = sum(read_json(p).get('subject_invocations', 0)
         for p in (ROOT / 'preparation/current-runtime').glob('development-access-*.json'))
+    service_calibration = []
+    for path in (ROOT / 'preparation/current-runtime').glob('service-preflight-*/readiness.json'):
+        readiness = read_json(path)
+        service_calibration.append({'attempt': path.parent.name, 'ready': readiness['ready'],
+            'subject_invocations': readiness['subject_invocations'],
+            'base_commit': readiness['base_commit'], 'freeze_sha256': readiness['freeze_sha256']})
+    pd.DataFrame(service_calibration).to_csv(output / 'tables/service_calibration_attempts.csv', index=False)
+    provenance['shared_service_calibration_invocations'] = sum(r['subject_invocations'] for r in service_calibration)
+    provenance['non_evaluation_invocations'] = (provenance['worker_calibration_invocations']
+        + provenance['development_invocations'] + provenance['shared_service_calibration_invocations'])
     write_json(output / 'provenance.json', provenance)
     lines = ['# Equivoque evaluation report', '',
         f'Run: `{config["run_id"]}`. Integration revision: `{revision}`.',
@@ -479,10 +513,11 @@ def main():
         'Native CLI subjects also receive the documented empty-directory environment context. Its working-directory paths contain the repository/run name, including the word equivoque. This is a possible topic cue before disclosure, even though no repository files, worker instructions, assigned target, or invariant rule are supplied. The context is part of the frozen harness and common across conditions; results describe judgments under that context, not the canonical message text in isolation. The protocol was not changed and trials were not replaced after collection began.', '',
         'A runtime reattachment stopped the coordinator and worker parents during collection. Seven already-requested native turns finished in their CLI children and left final durable event streams. Each had one schema-valid response, one final turn.completed event, matching session/system/prompt/schema, and no tools or metadata fallback. The coordinator recovered those responses without a new model invocation. Their original process exit codes and monotonic latencies are unavailable and remain missing; endpoint responses and available usage are retained. Fresh live readiness checks preceded resumption, with no replacement trials.', '',
         'The user subsequently requested ten additional executor processes and immediate concurrency 17. Original A–G manifests, the 2,100-trial roster, canonical stimuli, models, efforts, targets, cases and subject paths remained unchanged. Only unstarted evaluation IDs were exclusively subdivided; existing partial trials stayed with their original executors. Ten helper native-session checks added 40 separately retained calibration invocations. Seven existing native requests drained before subdivision and were reconciled without replay. Their exit status 0 was observed from /proc, but original monotonic latencies remain missing. Changing concurrency and manifest subsequences is an operational scheduling amendment, not a randomized scaling experiment.', '',
+        'Seven evaluation turns subsequently exceeded the frozen 300-second native deadline. These trials remain failed, with their timeout records and any valid earlier endpoints retained; no failed or uncertain request was replayed. New trial intake was paused. Ten other already-requested native responses finished within the deadline and were reconciled from their final streams with observed exit status 0; their monotonic durations remain missing. Eight safe partial sessions resumed only their next unrequested turn. Twenty-one shared live service checks passed before another launch gate. The same 17 executors resumed with fair whole-trial permits and measured concurrency increases from 2 to 4, 7, 10 and 17; longer pending responses reduce subsequent intake. This scheduling history is preserved as technical evidence, without causal claims about scaling or the cause of the slowdown.', '',
         'Disclosure combines an explanation, exhaustive evidence, and a later measurement. Its change cannot isolate the effect of any one component. Card and cat wording also differs in names, action verbs, and removal terms. Frame differences do not isolate only object category. These are model-generated judgments in one task family, not human agency measures.', '',
         'Valid Turn 3 endpoints contribute even when Turn 4 fails. Within-trial changes and frame differences use endpoint-valid pairs. All assigned failures and unattempted trials remain in denominators; missing ratings are not imputed. Sparse route contrasts remain insufficient, without replacement trials.', '',
         'See tables/estimates.csv for point estimates, contributing cases/trials, valid bootstrap counts, intervals, and insufficient cells. tables/missingness.csv contains endpoint denominators. Other CSVs retain route counts, counterfactual transitions, evidence consistency, target/position, choices, worker/time descriptions, and technical summaries. Static SVG and PNG figures have captions in figure_captions.json.', '',
-        f'Worker calibration requested {provenance["worker_calibration_invocations"]} subject invocations across preserved attempts; development requested {provenance["development_invocations"]} additional invocations. These, loopback request inspections, simulations, and the previous pilot are excluded from evaluation. CLI HTTP retries are not observable as a reliable total; no cost is inferred without billing evidence. Backend model versions are not independently exposed by the CLI event stream. Exact requested models, effort settings, commands, usage, raw responses, and failures are preserved in the raw records.', '']
+        f'Worker calibration requested {provenance["worker_calibration_invocations"]} subject invocations across preserved attempts; development requested {provenance["development_invocations"]} and shared service checks requested {provenance["shared_service_calibration_invocations"]} additional invocations, for {provenance["non_evaluation_invocations"]} non-evaluation invocations in total. These, loopback request inspections, simulations, and the previous pilot are excluded from evaluation. Shared service calls are counted once; inherited per-executor readiness adds no calls. CLI HTTP retries are not observable as a reliable total; no cost is inferred without billing evidence. Backend model versions are not independently exposed by the CLI event stream. Exact requested models, effort settings, commands, usage, raw responses, and failures are preserved in the raw records.', '']
     (output / 'REPORT.md').write_text('\n'.join(lines))
     # A portable artifact browser: no hosting, network calls, or external assets.
     import html

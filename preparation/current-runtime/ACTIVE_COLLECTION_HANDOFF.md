@@ -13,8 +13,8 @@ Read `EXECUTION_AMENDMENT.md` before interpreting the old seven-process wording.
 
 Before launching any process, inspect the active process list and
 `collection-progress.json`. The active external collection controller is
-`work/coordinator/expanded_collect.py`, which launches
-`work/coordinator/expanded_executor.py`. The checkpoint monitor is
+`work/coordinator/resume_collect_02.py`, which launches
+`work/coordinator/resume_executor_02.py`. The checkpoint monitor is
 `work/coordinator/monitor_expanded.py`; the completion/analysis controller is
 `work/coordinator/postprocess.py`. Each executor has its own worktree and branch
 `worker/equivoque-2026-10-09-v1/{a..q}`.
@@ -49,9 +49,13 @@ collection failure. Main is not automatically merged.
 All preflight failures, calibration calls, original recovery logs and unknown
 timing/exit metadata remain separate from evaluation. Ten helper session checks
 added 40 calibration invocations; all retained worker/helper preflights total
-383 calls, plus two development calls. Neither simulation nor the earlier pilot
+383 calls, plus five development calls and 21 shared service checks. Neither simulation nor the earlier pilot
 is evaluation. Do not inspect or tune outcomes while collection is ongoing.
 
 ## Actual systemic failure update
 
-Seventeen-executor collection is now paused after seven actual native 300-second timeouts. Current accounting: 1,034 complete, 7 failed, 8 safe partial, 1,051 unattempted. All ten calls active at global pause drained normally inside the deadline; exits were observed and raw streams reconciled without new calls. No uncertain pending evaluation turn remains. The old expanded controller, checkpoint monitor and postprocessor have stopped; do not assume those jobs are still running. A shared 21-configuration live service recheck is running at concurrency 2 in `work/coordinator/recheck_service.py`. Follow `service-preflight-01/readiness.json` and the paused union audit. New collection requires an explicitly numbered gate/epoch and must omit all complete/failed IDs. The eight partial native sessions may resume only their next unanswered turn. A simple access diagnostic took 212.58 seconds; subsequent low-concurrency probes took 87.40 and 3.73 seconds. Frozen source, network policy and account route remain unchanged. No final analysis has run.
+The previous expanded epoch was paused after seven actual native 300-second timeouts. Current accounting: 1,034 complete, 7 failed, 8 safe partial, 1,051 unattempted. All ten calls active at global pause drained normally inside the deadline; exits were observed and raw streams reconciled without new calls. No uncertain pending evaluation turn remains. The old expanded controller, checkpoint monitor and postprocessor have stopped; do not assume those jobs are still running. A shared 21-configuration live service recheck subsequently passed at concurrency 2 in `work/coordinator/recheck_service.py`. Follow `service-preflight-01/readiness.json` and the paused union audit. New collection requires an explicitly numbered gate/epoch and must omit all complete/failed IDs. The eight partial native sessions may resume only their next unanswered turn. A simple access diagnostic took 212.58 seconds; subsequent low-concurrency probes took 87.40 and 3.73 seconds. Frozen source, network policy and account route remain unchanged. No final analysis has run.
+
+## Service-rechecked resumption epoch 02
+
+All 21 fresh shared live checks passed. Collection resumed at 21:51:58 UTC with controller `work/coordinator/resume_collect_02.py`, seventeen processes running `resume_executor_02.py`, assignment `executor-assignments-02.json`, and gate `coordinator-launch-04.json`. The eight known-safe partial sessions continue only their next turn; 1,051 IDs were unstarted. All terminal IDs, including seven failed cases, are omitted. Fair whole-trial permits control actual service concurrency separately from the seventeen processes. Intake increases on measured performance and falls before the unchanged deadline when responses slow. The current checkpoint monitor and postprocessor have been restarted. Read current `collection-progress.json` and process list before any action; do not launch either old controller or duplicate executors. Shared 21-call service preflight is counted once, separately from 383 worker/helper calls and five development calls.

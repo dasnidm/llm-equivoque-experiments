@@ -1,0 +1,14 @@
+# Worker E completion
+
+Run: `equivoque-2026-10-09-v1`.
+Approved base: `c7651dbc5ff3fa2e0e40b9eb63715f3b0f40e372`.
+Freeze SHA-256: `4d19cee4c0ecb44029c66d054f86d02bda8c81598667af2aa491cb1298dc66e4`.
+Manifest SHA-256: `a8fa389be27a1c758fb75071bcaa0fed1f52225cce33c62534191c075302da73`.
+
+Assigned 300; attempted 300; statuses: {"complete": 298, "failed": 2, "unattempted": 0}.
+Valid pre: 300; valid post: 298.
+Evaluation subject invocations: 1200; calibration invocations across retained attempts: 57.
+Overlapping partial-trial count: 2.
+Median recorded turn latency: 5.985 seconds.
+
+Raw logs, failed preflights, exact canonical/provider schemas, readiness, provenance, audit, route/configuration/frame counts, available usage, and all errors are retained in this assigned directory. HTTP attempts and billing costs are unavailable. No replacement trials, shared-source edits during collection, or final analysis were performed by this worker.

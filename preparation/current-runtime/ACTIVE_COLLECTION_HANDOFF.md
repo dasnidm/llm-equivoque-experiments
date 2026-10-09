@@ -51,3 +51,7 @@ timing/exit metadata remain separate from evaluation. Ten helper session checks
 added 40 calibration invocations; all retained worker/helper preflights total
 383 calls, plus two development calls. Neither simulation nor the earlier pilot
 is evaluation. Do not inspect or tune outcomes while collection is ongoing.
+
+## Actual systemic failure update
+
+Seventeen-executor collection is now paused after seven actual native 300-second timeouts. Current accounting: 1,034 complete, 7 failed, 8 safe partial, 1,051 unattempted. All ten calls active at global pause drained normally inside the deadline; exits were observed and raw streams reconciled without new calls. No uncertain pending evaluation turn remains. The old expanded controller, checkpoint monitor and postprocessor have stopped; do not assume those jobs are still running. A shared 21-configuration live service recheck is running at concurrency 2 in `work/coordinator/recheck_service.py`. Follow `service-preflight-01/readiness.json` and the paused union audit. New collection requires an explicitly numbered gate/epoch and must omit all complete/failed IDs. The eight partial native sessions may resume only their next unanswered turn. A simple access diagnostic took 212.58 seconds; subsequent low-concurrency probes took 87.40 and 3.73 seconds. Frozen source, network policy and account route remain unchanged. No final analysis has run.

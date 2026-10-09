@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import subprocess
+from archive_native import archive_trial
 ROOT=Path(__file__).resolve().parents[2]
 RUN='equivoque-2026-10-09-v1'
 import fcntl
@@ -16,6 +17,7 @@ for e,a in assignments.items():
         state=json.loads(state_path.read_text())
         if state['status']in ('complete','failed','interrupted'):
             paths.extend([str(state_path.relative_to(tree)),str(state_path.with_suffix('.journal.jsonl').relative_to(tree))])
+            paths.append(str(archive_trial(e,w,directory,state).relative_to(tree)))
     for name in ('provenance.json',f'executor-{e}-provenance.json',f'executor-{e}-resume-02.json'):
         if (directory/name).exists():paths.append(str(relative/name))
     for path in directory.glob('preflight*/readiness.json'):

@@ -17,7 +17,7 @@ while True:
         break
     time.sleep(5)
 time.sleep(5)
-for step in ('finalize_helpers.py', 'finalize_workers.py', 'integrate.py'):
+for step in ('checkpoint_expanded.py', 'finalize_helpers.py', 'finalize_workers.py', 'integrate.py'):
     print('Starting ' + step, flush=True)
     subprocess.run([sys.executable, str(ROOT / 'work/coordinator' / step)], cwd=ROOT, check=True)
 output = ROOT / 'analysis/results' / RUN / 'attempt-01'
@@ -33,6 +33,7 @@ for name in ('checkpoint.py', 'finalize_workers.py', 'integrate.py', 'postproces
              'prepare_resume_02.py', 'resume_executor_02.py', 'resume_collect_02.py'):
     shutil.copyfile(ROOT / 'work/coordinator' / name,
                     ROOT / 'preparation/current-runtime' / name)
+shutil.copyfile(ROOT / 'work/coordinator/archive_native.py', ROOT / 'preparation/current-runtime/archive_native.py')
 for line in ['Completed roster: ' + str(r['attempted']),
              'Completed trials: ' + str(r['completed']),
              'Evaluation subject invocations: ' + str(r['subject_invocations'])]:

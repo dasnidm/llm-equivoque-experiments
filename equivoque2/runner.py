@@ -166,12 +166,13 @@ def run_worker(manifest_path, readiness_path, launch_path, controls):
                 print(json.dumps({'worker': worker, 'trial_id': trial['trial_id'],
                                   'status': state['status'], 'at': now()}), flush=True)
                 if state['status'] != 'complete' and (not state['turns'] or not state['turns'][-1].get('ok')):
-                    write_json(Path(controls) / 'HALT.json', {'worker': worker,
+                    permit.halt({'worker': worker,
                         'trial_id': trial['trial_id'], 'at': now(), 'reason': state.get('error')})
                     return False
             finally:
                 permit.release()
     finally:
+        permit.lock.close()
         fcntl.flock(lock, fcntl.LOCK_UN)
         lock.close()
     return True

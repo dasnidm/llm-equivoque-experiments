@@ -82,13 +82,24 @@ def audit_worker(manifest_path, directory, allow_simulation=False):
                 by_name = {Path(item['path']).name: directory / item['path'] for item in files}
                 required = [f'turn-{index:02d}.events.jsonl', f'turn-{index:02d}.stderr.txt',
                             f'turn-{index:02d}.schema.json', 'subject-system.txt']
-                if not all(name in by_name for name in required):
+                if not all(name in by_name and by_name[name].is_file() for name in required):
                     errors.append('Incomplete native archive: ' + trial_id)
-                elif (json.loads(by_name[required[2]].read_text()) != provider_schema(schema) or
-                        by_name['subject-system.txt'].read_text() != protocol.data['system'] or
-                        by_name[required[1]].read_text() != record['stderr'] or
-                        [json.loads(line) for line in by_name[required[0]].read_text().splitlines()] != record['events']):
-                    errors.append('Native archive/record discrepancy: ' + trial_id)
+                else:
+                    native_events, malformed = [], 0
+                    for line in by_name[required[0]].read_text().splitlines():
+                        try:
+                            native_events.append(json.loads(line))
+                        except ValueError:
+                            malformed += 1
+                    try:
+                        mismatch = (json.loads(by_name[required[2]].read_text()) != provider_schema(schema) or
+                            by_name['subject-system.txt'].read_text() != protocol.data['system'] or
+                            by_name[required[1]].read_text() != record['stderr'] or
+                            native_events != record['events'] or malformed != record.get('malformed_event_lines', 0))
+                    except ValueError:
+                        mismatch = True
+                    if mismatch:
+                        errors.append('Native archive/record discrepancy: ' + trial_id)
             if not record.get('ok'):
                 if state['status'] == 'complete':
                     errors.append('Failed response in complete trial: ' + trial_id)

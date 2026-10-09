@@ -1,7 +1,8 @@
 # Experiment 2: Three repeated equivoque rounds before disclosure
 
-**Run:** `equivoque-2026-10-09-exp2-v1`  
-**Authorized:** October 9, 2026; 420 trials and 20 worker processes.  
+**Run:** `equivoque-2026-10-09-exp2-v1`
+
+**Authorized:** October 9, 2026; 420 trials and 20 worker processes.
 **Status:** Prospective protocol. Freeze all stimuli, assignments, and analysis specifications before evaluation.
 
 ## Objective and unit of observation

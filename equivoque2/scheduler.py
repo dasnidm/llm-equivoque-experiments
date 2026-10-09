@@ -56,3 +56,9 @@ class Permit:
                 raise ValueError('Missing or duplicated active permit')
             q['active'] = [item for item in q['active'] if item['pid'] != self.pid]
         self.transact(remove)
+
+    def halt(self, record):
+        def write_once(q):
+            if not (self.directory / 'HALT.json').exists():
+                write_json(self.directory / 'HALT.json', record)
+        self.transact(write_once)

@@ -9,7 +9,7 @@ from equivoque.isolation import inspect_request
 from equivoque.runner import now
 from equivoque.transport import CodexTransport, DISABLED_FEATURES, overrides
 from .protocol import CONFIG, FREEZE, RepeatedProtocol, frozen_hashes
-from .runner import run_trial
+from .runner import archive_native, run_trial
 
 
 def cli_checks(config, directory, protocol, errors):
@@ -91,8 +91,11 @@ def shared(directory):
                           'properties': {'ready': {'type': 'boolean'}}}
                 report['subject_invocations'] += 1
                 write_json(directory / 'readiness.json', report)
-                result = transport.request(c, request, schema, None,
-                    ROOT / 'work/service-preflight' / config['run_id'] / str(uuid.uuid4()), 1)
+                native = ROOT / 'work/service-preflight' / config['run_id'] / str(uuid.uuid4())
+                requested_at = now()
+                result = transport.request(c, request, schema, None, native, 1)
+                result.update(prompt=request, schema=schema, requested_at=requested_at, received_at=now(),
+                    raw_files=archive_native(native, directory / 'native-raw' / c['configuration_id'], directory))
                 write_json(directory / (c['configuration_id'] + '.json'), result)
                 passed = result['ok'] and json.loads(result['text'] or 'null') == {'ready': True}
                 report['checks'].append({'configuration_id': c['configuration_id'], 'passed': bool(passed)})

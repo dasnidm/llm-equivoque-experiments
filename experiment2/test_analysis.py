@@ -14,10 +14,10 @@ def synthetic_frame(config):
         for k in range(10):
             for frame in ('cards', 'cats'):
                 row = {'configuration_id': c['configuration_id'], 'case_id': f'case-{k:03d}', 'frame': frame}
-                for m in range(1, 5):
+                for m in range(1, 4):
                     row[f'm{m}_impact'] = 50.
                     row[f'm{m}_freedom'] = 100.
-                    row[f'm{m}_counterfactual'] = 'yes' if m < 4 else 'no'
+                    row[f'm{m}_counterfactual'] = 'yes' if m < 3 else 'no'
                 rows.append(row)
     return pd.DataFrame(rows)
 
@@ -37,11 +37,11 @@ class AnalysisTests(unittest.TestCase):
         config = read_json(CONFIG)
         df = synthetic_frame(config)
         cid = config['configurations'][0]['configuration_id']
-        df.loc[df.configuration_id == cid, 'm3_impact'] = 30.
+        df.loc[df.configuration_id == cid, 'm2_impact'] = 30.
         mask = (df.configuration_id == cid) & (df.frame == 'cards') & (df.case_id != 'case-000')
-        df.loc[mask, 'm3_impact'] = np.nan
+        df.loc[mask, 'm2_impact'] = np.nan
         result = estimates(config, df)
-        overall = result[(result.configuration_id == 'ALL_EQUAL_CONFIGURATIONS') & (result.metric == 'm3_minus_m1_impact')].iloc[0]
+        overall = result[(result.configuration_id == 'ALL_EQUAL_CONFIGURATIONS') & (result.metric == 'm2_minus_m1_impact')].iloc[0]
         self.assertAlmostEqual(overall.estimate, -20 / 21)
         self.assertAlmostEqual(overall.ci_low, -20 / 21)
         self.assertAlmostEqual(overall.ci_high, -20 / 21)
@@ -53,9 +53,9 @@ class AnalysisTests(unittest.TestCase):
         for i, sign in ((0, 1), (1, -1)):
             cid = config['configurations'][i]['configuration_id']
             mask = df.configuration_id == cid
-            df.loc[mask, 'm3_impact'] = 50 + sign * df.loc[mask, 'case_id'].str[-3:].astype(int)
+            df.loc[mask, 'm2_impact'] = 50 + sign * df.loc[mask, 'case_id'].str[-3:].astype(int)
         result = estimates(config, df)
-        overall = result[(result.configuration_id == 'ALL_EQUAL_CONFIGURATIONS') & (result.metric == 'm3_minus_m1_impact')].iloc[0]
+        overall = result[(result.configuration_id == 'ALL_EQUAL_CONFIGURATIONS') & (result.metric == 'm2_minus_m1_impact')].iloc[0]
         self.assertEqual(overall.estimate, 0.)
         self.assertEqual(overall.ci_low, 0.)
         self.assertEqual(overall.ci_high, 0.)

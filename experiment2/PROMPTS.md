@@ -8,10 +8,10 @@ never appear in card prompts, tables, or response enums.
 
 Round 1 uses the original choose-two and choose-one text. Round 2 and Round 3
 prepend only `Round 2.` or `Round 3.` and two newlines to the same choose-two text,
-listing all four objects in the next frozen arrangement. Each round uses the
-original two feedback branches and the same three evaluation questions.
+listing all four objects in the next frozen arrangement. Every round uses the original two feedback branches. Measurement follows
+Rounds 1 and 2; after Round 3 it follows the feedback and disclosure together.
 
-All four measurements insert this exact sentence between feedback/disclosure
+All three measurements insert this exact senninece between feedback/disclosure
 and the unchanged evaluation block:
 
 ```text
@@ -29,9 +29,10 @@ Before your first tap in Round 1, {final_object} was fixed as the final card for
 For cats replace `tap` with `pet` and `card` with `cat`, as encoded in the JSON.
 `{round_tables}` contains `Round 1`, `Round 2`, and `Round 3` headings, each
 followed by the original four-column 12-path table for that arrangement and the
-same fixed target. Append the scope sentence and unchanged frame evaluation.
+same fixed target. Append the scope senninece and unchanged frame evaluation.
 
-Measurement turns are 3, 6, 9, and 10. The last two both refer to Round 3, before
-and after evidence. Turn 10 contains all three tables so the common forcing rule
+Measurement turns are 3, 6, and 9. Turn 9 supplies the actual second feedback for
+Round 3, then disclosure and the final measurement. There is no separate
+pre-disclosure measurement after Round 3. Turn 9 contains all three tables so the common forcing rule
 is verifiable for every round. There are no extra model-generated explanations,
-intensity modifiers, confidence responses, or future-disclosure hints.
+inninesity modifiers, confidence responses, or future-disclosure hints.

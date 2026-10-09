@@ -1,4 +1,4 @@
-"""Ten sequential native turns, exact raw archives, and no uncertain replay."""
+"""Nine sequential native turns, exact raw archives, and no uncertain replay."""
 import fcntl
 import json
 from pathlib import Path
@@ -58,7 +58,7 @@ def run_trial(trial, protocol, transport, state_path, scratch):
     native = Path(scratch) / state['scratch_id']
     result_root = state_path.parent if state_path.name == 'native-session-check.json' else state_path.parent.parent
     archive = result_root / 'native-raw' / trial['trial_id'].replace('/', '__')
-    for turn in range(len(state['turns']) + 1, 11):
+    for turn in range(len(state['turns']) + 1, 10):
         round_number, local_turn = phase(turn)
         current = state['rounds'][round_number - 1]
         feedback = current['route'][-1] if current['route'] else None

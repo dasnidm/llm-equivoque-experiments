@@ -44,7 +44,7 @@ def audit_worker(manifest_path, directory, allow_simulation=False):
                          for i, order in enumerate(trial['round_orders'], 1)]
         session = None
         for index, record in enumerate(turns, 1):
-            if index > 10 or record.get('turn') != index:
+            if index > 9 or record.get('turn') != index:
                 errors.append('Nonsequential turns: ' + trial_id)
                 break
             round_number, local_turn = phase(index)
@@ -118,13 +118,12 @@ def audit_worker(manifest_path, directory, allow_simulation=False):
                     selected if local_turn == 1 else [selected], trial['target'])
                 current['route'] += operation
             else:
-                measurement = 4 if index == 10 else round_number
+                measurement = 3 if index == 9 else round_number
                 valid[f'm{measurement}'] += 1
-                if local_turn == 3:
-                    routes[(trial['configuration_id'], trial['frame'], round_number, current['route'])] += 1
+                routes[(trial['configuration_id'], trial['frame'], round_number, current['route'])] += 1
         if reconstructed != state.get('rounds'):
             errors.append('Round engine state differs: ' + trial_id)
-        if state['status'] == 'complete' and (len(turns) != 10 or any(r['remaining'] != [trial['target']] for r in reconstructed)):
+        if state['status'] == 'complete' and (len(turns) != 9 or any(r['remaining'] != [trial['target']] for r in reconstructed)):
             errors.append('Incomplete or wrong final complete trial: ' + trial_id)
         if session:
             if session in sessions and sessions[session] != trial_id:

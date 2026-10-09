@@ -299,6 +299,10 @@ def write_tables(df, turns, summary, output):
                 tables / f'descriptive_{name}.csv')
     technical = turns.groupby(['configuration_id', 'frame', 'worker_id']).agg(
         returned_invocations=('trial_id', 'size'),
+        known_duration_turns=('duration_seconds', 'count'),
+        known_exit_code_turns=('exit_code', 'count'),
+        reported_usage_turns=('input_tokens', 'count'),
+        timeout_turns=('timeout', 'sum'),
         latency_mean_seconds=('duration_seconds', 'mean'),
         latency_median_seconds=('duration_seconds', 'median'),
         latency_p95_seconds=('duration_seconds', lambda x: x.quantile(.95)),
@@ -315,6 +319,7 @@ def write_tables(df, turns, summary, output):
     timed['hour_utc'] = pd.to_datetime(timed.requested_at).dt.floor('h')
     timed.groupby(['configuration_id', 'hour_utc']).agg(
         returned_invocations=('trial_id', 'size'),
+        known_duration_turns=('duration_seconds', 'count'),
         latency_median_seconds=('duration_seconds', 'median')).to_csv(tables / 'descriptive_time.csv')
 
 
@@ -450,6 +455,8 @@ def main():
         'valid_pre': int(df.pre_impact.notna().sum()),
         'valid_post': int(df.post_impact.notna().sum()),
         'subject_invocations': sum(a['subject_invocations'] for a in audits),
+        'unknown_duration_turns': int(turns.duration_seconds.isna().sum()),
+        'unknown_exit_code_turns': int(turns.exit_code.isna().sum()),
         'actual_http_requests': None, 'billing_cost': None,
         'observed_provider_model': None,
         'native_versions_note': 'The CLI logs requested model/effort. Its public event stream does not independently identify backend model versions.',

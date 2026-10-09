@@ -43,6 +43,8 @@ assert sum(int(r['subject_invocations'])for r in service_calibration)==42
 provenance=read_json(output/'provenance.json')
 assert provenance['development_invocations']==5
 assert provenance['non_evaluation_invocations']==430
+assert provenance['unknown_duration_turns']==41
+assert provenance['unknown_exit_code_turns']==24
 assert sum(r['execution_epoch']=='resume-03'for r in trials)==458
 assert sum(r['execution_epoch']=='spans-resume-02-resume-03'for r in trials)==13
 assert sum(r['execution_epoch']=='spans-expanded-01-resume-02'for r in trials)==8

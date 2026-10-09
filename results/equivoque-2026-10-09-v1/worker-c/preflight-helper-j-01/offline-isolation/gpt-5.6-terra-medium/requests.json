@@ -1,0 +1,292 @@
+[
+  {
+    "client_metadata": {
+      "root_turn_id": "01a1227f-5270-7780-8aec-44c2fac6b3b4",
+      "session_id": "01a1227f-5247-7712-b97b-25ffd0793e10",
+      "thread_id": "01a1227f-5247-7712-b97b-25ffd0793e10",
+      "turn_id": "01a1227f-5270-7780-8aec-44c2fac6b3b4",
+      "x-codex-installation-id": "5b41ef9f-fd6b-46b0-b046-74064296c4c4",
+      "x-codex-turn-metadata": "{\"installation_id\":\"5b41ef9f-fd6b-46b0-b046-74064296c4c4\",\"session_id\":\"01a1227f-5247-7712-b97b-25ffd0793e10\",\"thread_id\":\"01a1227f-5247-7712-b97b-25ffd0793e10\",\"agent_name\":\"/root\",\"turn_id\":\"01a1227f-5270-7780-8aec-44c2fac6b3b4\",\"window_id\":\"01a1227f-5247-7712-b97b-25ffd0793e10:0\",\"window_number\":0,\"context_window_id\":\"01a1227f-5247-7712-b97b-261977e4cc4b\",\"request_kind\":\"turn\",\"root_turn_id\":\"01a1227f-5270-7780-8aec-44c2fac6b3b4\",\"thread_source\":\"user\",\"turn_trigger\":\"exec\",\"sandbox\":\"seccomp\",\"sandbox_mode\":\"read-only\",\"auto_review_enabled\":false,\"node_repl_auto_review_required\":false,\"node_repl_disabled\":false,\"workspaces\":{\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-v1/j\":{\"associated_remote_urls\":{\"origin\":\"https://github.com/dasnidm/llm-equivoque-experiments.git\"},\"latest_git_commit_hash\":\"c7651dbc5ff3fa2e0e40b9eb63715f3b0f40e372\",\"has_changes\":true}},\"turn_started_at_unix_ms\":1791580131954,\"analytics_enabled\":true,\"model\":\"gpt-5.6-terra\",\"reasoning_effort\":\"medium\"}",
+      "x-codex-window-id": "01a1227f-5247-7712-b97b-25ffd0793e10:0"
+    },
+    "include": [
+      "reasoning.encrypted_content"
+    ],
+    "input": [
+      {
+        "id": "at_f063be04-b410-5efa-9132-6e91a48f3e13",
+        "role": "developer",
+        "tools": [
+          {
+            "description": "",
+            "name": "functions",
+            "tools": [
+              {
+                "description": "Run JavaScript code to orchestrate/compose tool calls\n- Evaluates the provided JavaScript code in a fresh V8 isolate as an async module.\n- All nested tools are available on the global `tools` object, for example `await tools.exec_command(...)`. Tool names are exposed as normalized JavaScript identifiers, for example `await tools.mcp__ologs__get_profile(...)`.\n- Nested tool methods take either a string or an object as their input argument.\n- Nested tools return either an object or a string, based on the description.\n- Runs raw JavaScript -- no Node, no file system, no network access, no console.\n- Accepts raw JavaScript source text, not JSON, quoted strings, or markdown code fences.\n- You may optionally start the tool input with a first-line pragma like `// @exec: {\"yield_time_ms\": 10000, \"max_output_tokens\": 1000}`.\n- `yield_time_ms` asks `exec` to yield early if the script is still running. Defaults to 30000 ms.\n- `max_output_tokens` sets the token budget for direct `exec` results. Defaults to 10000 tokens.\n- When the JS code is fully evaluated, the isolate's lifetime ends and unawaited promises are silently discarded.\n\n- Global helpers:\n- `exit()`: Immediately ends the current script successfully (like an early return from the top level).\n- `text(value: string | number | boolean | undefined | null)`: Appends a text item. Non-string values are stringified with `JSON.stringify(...)` when possible.\n- `image(imageUrlOrItem: string | { image_url: string; detail?: \"auto\" | \"low\" | \"high\" | \"original\" | null } | ImageContent, detail?: \"auto\" | \"low\" | \"high\" | \"original\" | null)`: Appends an image item. `image_url` should be a base64-encoded `data:` URL. To forward an MCP tool image, pass an individual `ImageContent` block from `result.content`, for example `image(result.content[0])`. MCP image blocks may request detail with `_meta: { \"codex/imageDetail\": \"original\" }`. When provided, the second `detail` argument overrides any detail embedded in the first argument.\n- `audio(audioUrlOrItem: string | { audio_url: string } | AudioContent)`: Appends an audio item. `audio_url` should be a base64-encoded `data:` URL. To forward an MCP tool audio block, pass an individual `AudioContent` block from `result.content`, for example `audio(result.content[0])`.\n- `generatedImage(result: { image_url: string; output_hint?: string })`: Appends an image-generation result and its optional output hint. HTTP(S) URLs are not supported.\n- `store(key: string, value: any)`: stores a serializable value under a string key for later `exec` calls in the same session.\n- `load(key: string)`: returns the stored value for a string key, or `undefined` if it is missing.\n- `notify(value: string | number | boolean | undefined | null)`: immediately injects an extra `custom_tool_call_output` for the current `exec` call. Values are stringified like `text(...)`.\n- `setTimeout(callback: () => void, delayMs?: number)`: schedules a callback to run later and returns a timeout id. Pending timeouts do not keep `exec` alive by themselves; await an explicit promise if you need to wait for one.\n- `clearTimeout(timeoutId?: number)`: cancels a timeout created by `setTimeout`.\n- `ALL_TOOLS`: metadata for the enabled nested tools as `{ name, description }` entries.\n- `yield_control()`: yields the accumulated output to the model immediately while the script keeps running.\n\n### `apply_patch`\nThe `apply_patch` tool can be used to edit files. This is a FREEFORM tool, so do not wrap the patch in JSON.\n\nexec tool declaration:\n```ts\ndeclare const tools: { apply_patch(input: string): Promise<unknown>; };\n```",
+                "format": {
+                  "definition": "\nstart: pragma_source | plain_source\npragma_source: PRAGMA_LINE NEWLINE SOURCE\nplain_source: SOURCE\n\nPRAGMA_LINE: /[ \\t]*\\/\\/ @exec:[^\\r\\n]*/\nNEWLINE: /\\r?\\n/\nSOURCE: /[\\s\\S]+/\n",
+                  "syntax": "lark",
+                  "type": "grammar"
+                },
+                "name": "exec",
+                "type": "custom"
+              },
+              {
+                "description": "Waits on a yielded `exec` cell and returns new output or completion.\n- Use `wait` only after `exec` returns `Script running with cell ID ...`.\n- `cell_id` identifies the running `exec` cell to resume.\n- `yield_time_ms` controls how long to wait for more output before yielding again. Defaults to 10000 ms.\n- `max_tokens` limits how much new output this wait call returns. Defaults to 10000 tokens.\n- `terminate: true` stops the running cell; false or omitted waits for output.\n- `wait` returns only the new output since the last yield, or the final completion or termination result for that cell.\n- If the cell is still running, `wait` may yield again with the same `cell_id`.\n- If the cell has already finished, `wait` returns the completed result and closes the cell.",
+                "name": "wait",
+                "parameters": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "cell_id": {
+                      "description": "Identifier of the running exec cell.",
+                      "type": "string"
+                    },
+                    "max_tokens": {
+                      "description": "Output token budget for this wait call. Defaults to 10000 tokens.",
+                      "type": "number"
+                    },
+                    "terminate": {
+                      "description": "True stops the running exec cell; false or omitted waits for output.",
+                      "type": "boolean"
+                    },
+                    "yield_time_ms": {
+                      "description": "Wait before yielding more output. Defaults to 10000 ms.",
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "cell_id"
+                  ],
+                  "type": "object"
+                },
+                "strict": false,
+                "type": "function"
+              }
+            ],
+            "type": "namespace"
+          },
+          {
+            "description": "Tools for spawning and managing sub-agents.",
+            "name": "collaboration",
+            "tools": [
+              {
+                "description": "Send a follow-up task to an existing non-root target agent and trigger a turn if it is idle. If the target is already running, deliver the task promptly at message boundaries while sampling, or after the pending tool call completes.",
+                "name": "followup_task",
+                "parameters": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "message": {
+                      "description": "Message text to send to the target agent.",
+                      "encrypted": true,
+                      "type": "string"
+                    },
+                    "target": {
+                      "description": "Agent id or canonical task name to send a follow-up task to (from spawn_agent).",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "target",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "strict": false,
+                "type": "function"
+              },
+              {
+                "description": "Interrupt an agent's current turn, if any, and return its previous status. The agent remains available for messages and follow-up tasks.",
+                "name": "interrupt_agent",
+                "parameters": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "target": {
+                      "description": "Agent id or canonical task name to interrupt (from spawn_agent).",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "target"
+                  ],
+                  "type": "object"
+                },
+                "strict": false,
+                "type": "function"
+              },
+              {
+                "description": "List live agents in the current root thread tree. Optionally filter by task-path prefix.",
+                "name": "list_agents",
+                "parameters": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "path_prefix": {
+                      "description": "Task-path prefix filter without a trailing slash. Omit to list all live agents.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "strict": false,
+                "type": "function"
+              },
+              {
+                "description": "Send a message to an existing agent. The message will be delivered promptly. Does not trigger a new turn.",
+                "name": "send_message",
+                "parameters": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "message": {
+                      "description": "Message text to queue on the target agent.",
+                      "encrypted": true,
+                      "type": "string"
+                    },
+                    "target": {
+                      "description": "Relative or canonical task name to message (from spawn_agent).",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "target",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "strict": false,
+                "type": "function"
+              },
+              {
+                "description": "\n        \n        Available model overrides (optional; inherited parent model is preferred):\n- `gpt-6.1-sol`: Latest workhorse model for coding and everyday work. Reasoning efforts: low (default), medium, high, xhigh, max, ultra. Service tiers: priority.\n- `gpt-6-astra`: Frontier intelligence for the most demanding work. Reasoning efforts: low, medium (default), high, xhigh, max, ultra. Service tiers: priority.\n- `gpt-6-sol`: Previous generation workhorse model. Reasoning efforts: low, medium (default), high, xhigh, max, ultra. Service tiers: priority.\n- `gpt-6-luna`: Fast and affordable model for easier tasks. Reasoning efforts: low, medium (default), high, xhigh, max. Service tiers: priority.\n- `gpt-5.6-sol`: Older generation workhorse model. Reasoning efforts: low (default), medium, high, xhigh, max, ultra. Service tiers: priority.\n        Spawns an agent to work on the specified task. If your current task is `/root/task1` and you spawn_agent with task_name \"task_3\" the agent will have canonical task name `/root/task1/task_3`.\nYou are then able to refer to this agent as `task_3` or `/root/task1/task_3` interchangeably. However an agent `/root/task2/task_3` would only be able to communicate with this agent via its canonical name `/root/task1/task_3`.\nThe spawned agent will have the same tools as you and the ability to spawn its own subagents.\n\nIt will be able to send you and other running agents messages, and its final answer will be provided to you when it finishes.\nThe new agent's canonical task name will be provided to it along with the message.\n\nNote that passing `fork_turns=\"none\"` will not pass any surrounding context to the spawned subagent, which may cause the agent to lack the context it needs to complete its task, whereas `fork_turns=\"all\"` will provide the subagent with all surrounding context.\n",
+                "name": "spawn_agent",
+                "parameters": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "fork_turns": {
+                      "description": "Optional number of turns to fork. Defaults to `all`. Use `none`, `all`, or a positive integer string such as `3` to fork only the most recent turns.",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Initial plain-text task for the new agent.",
+                      "encrypted": true,
+                      "type": "string"
+                    },
+                    "model": {
+                      "description": "Model override for the new agent. Omit unless an explicit override is needed.",
+                      "type": "string"
+                    },
+                    "reasoning_effort": {
+                      "description": "Reasoning effort override for the new agent. Omit to inherit the parent effort.",
+                      "type": "string"
+                    },
+                    "task_name": {
+                      "description": "Task name for the new agent. Use lowercase letters, digits, and underscores.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "task_name",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "strict": false,
+                "type": "function"
+              },
+              {
+                "description": "Wait for a mailbox update from any live agent, including queued messages and final-status notifications. The wait also ends early when new user input is steered into the active turn. Does not return the content; returns either a summary of which agents have updates (if any), an interruption summary for steered input, or a timeout summary if no activity arrives before the deadline.",
+                "name": "wait_agent",
+                "parameters": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "timeout_ms": {
+                      "description": "Timeout in milliseconds. Defaults to 30000, min 10000, max 3600000.",
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                },
+                "strict": false,
+                "type": "function"
+              }
+            ],
+            "type": "namespace"
+          }
+        ],
+        "type": "additional_tools"
+      },
+      {
+        "content": [
+          {
+            "text": "Respond only with the requested JSON. Use only information from this conversation.",
+            "type": "input_text"
+          }
+        ],
+        "id": "msg_db6a2c62-596d-5092-aa80-f2b646781e3e",
+        "role": "developer",
+        "type": "message"
+      },
+      {
+        "content": [
+          {
+            "text": "<environment_context>\n  <cwd>/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-v1/j/results/equivoque-2026-10-09-v1/worker-c/preflight-helper-j-01/offline-isolation/gpt-5.6-terra-medium/subject</cwd>\n  <shell>bash</shell>\n  <current_date>2026-10-09</current_date>\n  <timezone>Etc/UTC</timezone>\n  <filesystem><workspace_roots><root>/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-v1/j/results/equivoque-2026-10-09-v1/worker-c/preflight-helper-j-01/offline-isolation/gpt-5.6-terra-medium/subject</root></workspace_roots><permission_profile type=\"managed\"><file_system type=\"restricted\"><entry access=\"read\"><special>:root</special></entry></file_system></permission_profile></filesystem>\n</environment_context>",
+            "type": "input_text"
+          }
+        ],
+        "id": "msg_01a1227f-5375-7712-b0c4-292a9ed74f2b",
+        "role": "user",
+        "type": "message"
+      },
+      {
+        "content": [
+          {
+            "text": "Reply with the JSON object {\"ready\":true}.",
+            "type": "input_text"
+          }
+        ],
+        "id": "msg_01a1227f-5383-7901-97a3-cf102423e1de",
+        "role": "user",
+        "type": "message"
+      }
+    ],
+    "model": "gpt-5.6-terra",
+    "parallel_tool_calls": false,
+    "prompt_cache_key": "01a1227f-5247-7712-b97b-25ffd0793e10",
+    "reasoning": {
+      "context": "all_turns",
+      "effort": "medium"
+    },
+    "store": false,
+    "stream": true,
+    "text": {
+      "format": {
+        "name": "codex_output_schema",
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "selection": {
+              "items": {
+                "enum": [
+                  "ace of spades",
+                  "ace of clubs",
+                  "ace of diamonds",
+                  "ace of hearts"
+                ],
+                "type": "string"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            }
+          },
+          "required": [
+            "selection"
+          ],
+          "type": "object"
+        },
+        "strict": true,
+        "type": "json_schema"
+      },
+      "verbosity": "low"
+    },
+    "tool_choice": "auto"
+  }
+]

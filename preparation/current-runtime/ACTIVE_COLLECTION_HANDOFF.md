@@ -1,3 +1,7 @@
+# Completed collection and analysis — do not launch inference
+
+All 2,100 assigned trials are terminal: 2,093 complete and seven failed, with 8,392 evaluation invocations. All 17 executors ended with exit code 0. Complete raw data are integrated and audited; the current report is `analysis/results/equivoque-2026-10-09-v1/attempt-02/REPORT.md`, and the verified portable package is `analysis/results/equivoque-2026-10-09-v1/equivoque-analysis.zip`. Review PR: https://github.com/dasnidm/llm-equivoque-experiments/pull/35. No main merge occurred. Below is preserved historical execution guidance, not a request to restart collection.
+
 # Active collection handoff
 
 The frozen preparation documents are historical. Actual evaluation began on

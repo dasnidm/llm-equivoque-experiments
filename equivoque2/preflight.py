@@ -1,4 +1,4 @@
-"""Separate shared access checks and 20 native nine-turn calibration sessions."""
+"""Separate shared access checks and 20 native ten-turn calibration sessions."""
 import json
 from pathlib import Path
 import subprocess
@@ -116,20 +116,17 @@ def worker(manifest_path, directory, shared_path):
     directory.mkdir(parents=True, exist_ok=False)
     config, manifest, protocol = read_json(CONFIG), read_json(manifest_path), RepeatedProtocol()
     service = read_json(shared_path)
-    revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     report = {'run_id': config['run_id'], 'worker_id': manifest['worker_id'],
         'started_at': now(), 'ready': False, 'errors': [], 'subject_invocations': 0,
         'freeze_sha256': digest(FREEZE), 'manifest_sha256': digest(manifest_path),
-        'shared_service_sha256': digest(shared_path), 'base_commit': service['base_commit'],
-        'execution_commit': revision}
+        'shared_service_sha256': digest(shared_path), 'base_commit': subprocess.check_output(
+            ['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()}
     try:
         expected = ROOT / 'manifests' / config['run_id'] / f"worker-{manifest['worker_id']}.json"
         if digest(manifest_path) != digest(expected) or manifest['run_id'] != config['run_id']:
             report['errors'].append('Manifest differs from assigned shard')
-        if not service['ready'] or service['freeze_sha256'] != digest(FREEZE):
+        if not service['ready'] or service['freeze_sha256'] != digest(FREEZE) or service['base_commit'] != report['base_commit']:
             report['errors'].append('Shared live readiness does not match this source')
-        if subprocess.run(['git', 'merge-base', '--is-ancestor', service['base_commit'], revision], cwd=ROOT).returncode:
-            report['errors'].append('Worker source is not descended from the approved common source')
         report.update(cli_checks(config, directory, protocol, report['errors']))
         index = config['workers'].index(manifest['worker_id'])
         c = config['configurations'][index % 21]
@@ -151,11 +148,11 @@ def worker(manifest_path, directory, shared_path):
                 directory / 'native-session-check.json', ROOT / 'work/worker-preflight' / config['run_id'] / manifest['worker_id'])
             report['subject_invocations'] = len(state['turns']) + int(state.get('pending_turn') is not None)
             report['session_id'] = state['session_id']
-            if state['status'] != 'complete' or len(state['turns']) != 9:
-                report['errors'].append('Native nine-turn session/schema/resume check failed')
+            if state['status'] != 'complete' or len(state['turns']) != 10:
+                report['errors'].append('Native ten-turn session/schema/resume check failed')
     except Exception as error:
         report['errors'].append(f'{type(error).__name__}: {error}')
-    report.update(ready=not report['errors'] and report['subject_invocations'] == 9, ended_at=now())
+    report.update(ready=not report['errors'] and report['subject_invocations'] == 10, ended_at=now())
     write_json(directory / 'readiness.json', report)
     return report
 

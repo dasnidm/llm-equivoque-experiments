@@ -21,7 +21,7 @@ def snapshot(config):
     workers, seen, ages, durations = {}, set(), [], []
     for w in config['workers']:
         d = tree(config, w) / 'results' / config['run_id'] / f'worker-{w}'
-        counts, calls, measurements = {}, 0, [0] * 3
+        counts, calls, measurements = {}, 0, [0] * 4
         for p in (d / 'trials').glob('*.json'):
             s = read_json(p)
             if s['trial']['trial_id'] in seen:
@@ -29,7 +29,7 @@ def snapshot(config):
             seen.add(s['trial']['trial_id'])
             counts[s['status']] = counts.get(s['status'], 0) + 1
             calls += len(s['turns']) + int(s.get('pending_turn') is not None)
-            for i, turn in enumerate((3, 6, 9)):
+            for i, turn in enumerate((3, 6, 9, 10)):
                 measurements[i] += int(len(s['turns']) >= turn and 'parsed' in s['turns'][turn - 1])
             if s.get('pending_turn'):
                 ages.append((datetime.datetime.now(datetime.timezone.utc) -

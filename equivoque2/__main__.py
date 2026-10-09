@@ -7,7 +7,7 @@ from .runner import run_worker
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Experiment 2 frozen nine-turn trials')
+    parser = argparse.ArgumentParser(description='Experiment 2 frozen ten-turn trials')
     commands = parser.add_subparsers(dest='command', required=True)
     service = commands.add_parser('service-preflight')
     service.add_argument('--output', required=True)

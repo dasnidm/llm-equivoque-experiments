@@ -9,9 +9,9 @@
 
 Measure changes in model-generated judgments after three repetitions of the
 same four-object procedure within one conversation, and after a final disclosure.
-One **trial** contains three rounds and three measurements. The rounds are not
+One **trial** contains three rounds and four measurements. The rounds are not
 independent trials. Each trial has a new native conversation that persists for
-all nine turns; other trials and the paired card/cat trial have separate sessions.
+all ten turns; other trials and the paired card/cat trial have separate sessions.
 
 The hidden target is assigned before the first request and remains the same in
 all three rounds. Restore all four objects at each round's start. Predetermine
@@ -37,8 +37,8 @@ settings; backend versions and equal computation across labels are not assumed.
 | Trials per configuration | 20: 10 cards + 10 cats |
 | Independent native trial sessions | 420 |
 | Choice rounds within those sessions | 1,260 |
-| Measurement occasions per trial | 3 |
-| Planned evaluation turns | 3,780 |
+| Measurement occasions per trial | 4 |
+| Planned evaluation turns | 4,200 |
 | Worker processes/worktrees/result branches | 20: A–T |
 | Assigned trials per worker | 21 |
 
@@ -48,7 +48,7 @@ partners may run on different workers; worker identity is not the pairing unit.
 Development, offline simulations, shared live service probes, and worker
 calibration sessions are separately labeled and excluded from evaluation.
 
-## Nine-turn sequence and exact measurements
+## Ten-turn sequence and exact measurements
 
 | Turn | Round / phase | Requested response |
 | --- | --- | --- |
@@ -60,13 +60,8 @@ calibration sessions are separately labeled and excluded from evaluation.
 | 6 | Round 2: second feedback and measurement M2 | Freedom, impact, counterfactual |
 | 7 | Round 3: restore four objects, choose two | Two distinct names/labels |
 | 8 | Round 3: first feedback, choose one | One remaining name/label |
-| 9 | Round 3: second feedback, disclose the common fixed target and all three exhaustive tables; M3 | Freedom, impact, counterfactual |
-
-There is no measurement between Round 3 and disclosure. This follows the owner's
-sequence: Round 1, intermediate questions, Round 2, intermediate questions,
-Round 3, final disclosure, last questions. The superseded ten-turn preparation
-included an additional unrequested measurement after Round 3; its 221 calibration
-invocations remain separate from evaluation, with their original source and hashes.
+| 9 | Round 3: second feedback and measurement M3 | Freedom, impact, counterfactual |
+| 10 | Disclose the common fixed target and all three exhaustive tables; M4 | Freedom, impact, counterfactual |
 
 Use the original English system message, card/tap/discard and cat/pet/leave
 choice and feedback text, full named aces for cards, A–D labels for cats, and
@@ -77,10 +72,10 @@ counterfactual is exactly yes/no. Each measurement refers to the round just
 completed, including Round 3 after disclosure.
 
 Only these structural additions are allowed: neutral Round 2/3 restart labels,
-the same measurement-scope sentence at all three measurements, and final text
-explaining that the target/rule applied throughout all three rounds. Turn 9
+the same measurement-scope sentence at all four measurements, and final text
+explaining that the target/rule applied throughout all three rounds. Turn 10
 includes three 12-row tables, one for each predetermined arrangement. No hidden
-target or rule is disclosed before Turn 9; earlier final feedback necessarily
+target or rule is disclosed before Turn 10; earlier final feedback necessarily
 names the object that remained, just as in experiment 1.
 
 The single stimulus source is `experiment2/protocol/prompts.json`, retaining a
@@ -111,14 +106,14 @@ frozen file unchanged. Use new result branches and a separate integration branch
 
 Use the existing pinned native Codex CLI and ChatGPT authentication route.
 Verify actual model access, refreshed catalog/effort support, zero offered
-subject tools, exact visible context, strict schemas, and nine-turn resume
+subject tools, exact visible context, strict schemas, and ten-turn resume
 continuity. Retain the frozen 300-second turn deadline and unsupported
 `uniqueItems` adaptation with mandatory local duplicate-choice rejection.
 
 A shared preflight inspects actual native bodies for all 21 configurations and
 makes one separately logged live access probe per configuration. Each of 20
 workers verifies the shared evidence and its frozen source/manifest, inspects
-its effective native request, and completes a separate nine-turn live calibration
+its effective native request, and completes a separate ten-turn live calibration
 session. A coordinator release requires all 20 matching readiness reports.
 
 Launch all 20 OS worker processes. Use fair whole-trial permits, starting with
@@ -138,12 +133,12 @@ Audit all valid partial endpoints, failures, and assigned-but-unattempted trials
 
 ## Prespecified analysis
 
-The primary longitudinal contrast is mean within-trial **M2 minus M1 impact**,
+The primary longitudinal contrast is mean within-trial **M3 minus M1 impact**,
 reported for each requested configuration pooled over frames and an equally
 weighted mean across the 21 configurations. This asks whether judgments change
-before explicit disclosure. Secondary contrasts are M2−M1 freedom, and M3−M2
-and M3−M1 for impact and freedom. Report means and distributions at every
-occasion, adjacent counterfactual yes/no transitions, complete three-answer
+before explicit disclosure. Secondary contrasts are M2−M1, M3−M2, and M4−M3 for
+impact and freedom; also retain M4−M1. Report means and distributions at every
+occasion, adjacent counterfactual yes/no transitions, complete four-answer
 trajectories, and first observed pre-disclosure no by measurement. Do not infer
 unobserved transitions or treat no as proof the subject identified the hidden rule.
 
@@ -171,10 +166,8 @@ Do not present 420 trials as 420 independent starting cases: this design has ten
 
 Repetition bundles additional choice experiences, repeated measurement, repeated
 final labels, and a longer conversation. There is no unrepeated control, so an
-M1→M2 change cannot isolate the causal effect of repetition alone. M2→M3 additionally
-includes the third choice round, explanation, exhaustive evidence, and a later
-measurement; there is no Round 3 pre-disclosure baseline to isolate disclosure.
-The frame
+M1→M3 change cannot isolate the causal effect of repetition alone. Disclosure
+bundles explanation, exhaustive evidence, and a later measurement. The frame
 contrast changes nouns, names, and action verbs together. Scores are task-specific
 model judgments, not human subjective experience or calibrated probabilities.
 

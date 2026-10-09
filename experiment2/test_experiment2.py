@@ -46,8 +46,8 @@ class SimulationTransport:
         elif local == 2:
             answer = {'selection': schema['properties']['selection']['enum'][0]}
         else:
-            m = 3 if attempt == 9 else r
-            answer = {'freedom': 100, 'impact': [100, 60, 1][m - 1],
+            m = 4 if attempt == 10 else r
+            answer = {'freedom': 100, 'impact': [100, 60, 30, 1][m - 1],
                       'counterfactual': 'yes' if m < 3 else 'no'}
         text = json.dumps(answer)
         events = [{'type': 'thread.started', 'thread_id': session_id},
@@ -76,13 +76,13 @@ class Experiment2Tests(unittest.TestCase):
     def test_exact_original_base_and_measurement_block(self):
         self.assertEqual(self.protocol.data, read_json(ROOT / 'protocol/prompts.v1.json'))
         trial = self.assigned['a'][0]
-        for turn in range(1, 10):
+        for turn in range(1, 11):
             p = self.protocol.prompt(trial, turn, 'K', ['A', 'B'])
-            if turn in (3, 6, 9):
+            if turn in (3, 6, 9, 10):
                 self.assertTrue(p.endswith(self.protocol.data['frames'][trial['frame']]['evaluation']))
                 self.assertEqual(p.count(self.protocol.spec['measurement_scope']), 1)
-            self.assertEqual('was fixed' in p, turn == 9)
-        disclosure = self.protocol.prompt(trial, 9, 'K')
+            self.assertEqual('was fixed' in p, turn == 10)
+        disclosure = self.protocol.prompt(trial, 10)
         self.assertEqual(disclosure.count('| --- | --- | --- | --- |'), 3)
         self.assertIn('for all three rounds', disclosure)
 
@@ -116,7 +116,7 @@ class Experiment2Tests(unittest.TestCase):
                 for r, order in enumerate(c['round_orders'], 1):
                     for branch in branches(order, c['target']):
                         self.assertEqual(branch['final'], c['target'])
-                        for local in ((1, 2) if r == 3 else (1, 2, 3)):
+                        for local in (1, 2, 3):
                             turn = (r - 1) * 3 + local
                             p = self.protocol.prompt(trial, turn,
                                 branch['route'][0 if local == 2 else 1], branch['remaining'])
@@ -124,9 +124,9 @@ class Experiment2Tests(unittest.TestCase):
                             if frame == 'cards':
                                 self.assertIsNone(re.search(r'\b[A-D]\b', p))
                 if frame == 'cards':
-                    self.assertIsNone(re.search(r'\b[A-D]\b', self.protocol.prompt(trial, 9, 'K')))
+                    self.assertIsNone(re.search(r'\b[A-D]\b', self.protocol.prompt(trial, 10)))
 
-    def test_full_simulation_3780_turns_and_unique_sessions(self):
+    def test_full_simulation_4200_turns_and_unique_sessions(self):
         transport, sessions = SimulationTransport(), set()
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -138,7 +138,7 @@ class Experiment2Tests(unittest.TestCase):
                     path = output / 'trials' / (t['trial_id'].replace('/', '__') + '.json')
                     state = run_trial(t, self.protocol, transport, path, root / 'scratch')
                     self.assertEqual(state['status'], 'complete')
-                    self.assertEqual(len(state['turns']), 9)
+                    self.assertEqual(len(state['turns']), 10)
                     self.assertEqual({record['session_id'] for record in state['turns']}, {state['session_id']})
                     self.assertNotIn(state['session_id'], sessions)
                     sessions.add(state['session_id'])
@@ -146,10 +146,10 @@ class Experiment2Tests(unittest.TestCase):
                         self.assertEqual(r['remaining'], [t['target']])
                 report = audit_worker(manifest, output, allow_simulation=True)
                 self.assertTrue(report['integrity_ok'], report['errors'][:3])
-                self.assertEqual(report['subject_invocations'], 189)
-                self.assertEqual(report['valid_measurements'], {'m1': 21, 'm2': 21, 'm3': 21})
+                self.assertEqual(report['subject_invocations'], 210)
+                self.assertEqual(report['valid_measurements'], {'m1': 21, 'm2': 21, 'm3': 21, 'm4': 21})
                 self.assertFalse(audit_worker(manifest, output)['integrity_ok'])
-            self.assertEqual(transport.calls, 3780)
+            self.assertEqual(transport.calls, 4200)
             before = transport.calls
             run_trial(t, self.protocol, transport, path, root / 'scratch')
             self.assertEqual(transport.calls, before)
@@ -180,7 +180,7 @@ class Experiment2Tests(unittest.TestCase):
             state['rounds'][2].update(remaining=list(trial['round_orders'][2]), route='')
             write_json(path, state)
             state = run_trial(trial, self.protocol, transport, path, temporary)
-            self.assertEqual(transport.calls, 12)
+            self.assertEqual(transport.calls, 14)
             self.assertEqual(state['status'], 'complete')
 
     def test_native_archive_and_journal_tampering_detected(self):
@@ -193,7 +193,7 @@ class Experiment2Tests(unittest.TestCase):
                               root / 'results/trials/trial.json', root / 'scratch')
             report = audit_worker(manifest, root / 'results')
             self.assertTrue(report['integrity_ok'], report['errors'])
-            self.assertEqual(report['raw_files_verified'], 28)
+            self.assertEqual(report['raw_files_verified'], 31)
             source = root / 'results' / state['turns'][-1]['raw_files'][0]['path']
             source.write_text('TAMPERED')
             self.assertFalse(audit_worker(manifest, root / 'results')['integrity_ok'])

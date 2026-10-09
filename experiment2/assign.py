@@ -1,6 +1,5 @@
 """Create or reuse exactly one GitHub assignment per experiment 2 worker."""
 import argparse
-import hashlib
 import json
 import re
 import subprocess
@@ -45,14 +44,8 @@ Plan: https://github.com/{REPOSITORY}/blob/{base}/EXPERIMENT_2_PLAN.md
             issue = matches[0]
             if base not in issue['body'] or digest(manifest) not in issue['body'] or digest(FREEZE) not in issue['body']:
                 previous = re.search(r'Base commit: `([a-f0-9]{40})`', issue['body'])
-                if not args.refresh_preparation or not previous:
+                if not args.refresh_preparation or not previous or digest(manifest) not in issue['body']:
                     raise ValueError('Existing issue has different assignment provenance: ' + w)
-                old_bytes = subprocess.check_output(['git', 'show', previous.group(1) + ':' + str(manifest.relative_to(ROOT))], cwd=ROOT)
-                old_manifest, new_manifest = json.loads(old_bytes), read_json(manifest)
-                if (hashlib.sha256(old_bytes).hexdigest() not in issue['body'] or
-                        old_manifest['trials'] != new_manifest['trials'] or
-                        old_manifest['schedule_sha256'] != new_manifest['schedule_sha256']):
-                    raise ValueError('Preparation refresh would change the assigned trial roster')
                 for other in config['workers']:
                     trial_directory = ROOT / 'work/worker-trees' / config['run_id'] / other / 'results' / config['run_id'] / f'worker-{other}' / 'trials'
                     if any(trial_directory.glob('*.json')):

@@ -27,7 +27,7 @@ def main():
                 subprocess.run(['git', 'read-tree', '-mu', 'HEAD'], cwd=tree, check=True)
             if subprocess.check_output(['git', 'status', '--porcelain'], cwd=tree, text=True).strip():
                 raise ValueError('Existing worktree contains local changes')
-            subprocess.run(['git', 'merge', '--no-edit', base], cwd=tree, check=True)
+            subprocess.run(['git', 'merge', '--ff-only', base], cwd=tree, check=True)
             continue
         tree.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(['git', 'worktree', 'add', '--no-checkout', '-b', branch, str(tree), base], cwd=ROOT, check=True)

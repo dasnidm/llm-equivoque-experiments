@@ -2,14 +2,14 @@
 
 Read `EXPERIMENT_2_PLAN.md` and `experiment2/PROMPTS.md`. The run is
 `equivoque-2026-10-09-exp2-v1`: 20 worker **processes** A–T, 21 assigned trials
-each. Every trial uses one new native subject session across nine sequential
-turns: two choose-two/choose-one/measurement rounds, then a third choose-two/choose-one round, then disclosure/measurement.
+each. Every trial uses one new native subject session across ten sequential
+turns: three choose-two/choose-one/measurement rounds, then disclosure/measurement.
 Subjects receive only frozen English stimuli and the inspected empty-directory
 native context. They have no tools or repository/assignment instructions.
 
 Use your own `worker/<run_id>/<letter>` result branch and worktree at the common
 approved preparation commit. Verify `experiment2/protocol/freeze.json` and
-`manifests/<run_id>/worker-<letter>.json`. Run live nine-turn calibration separately
+`manifests/<run_id>/worker-<letter>.json`. Run live ten-turn calibration separately
 from evaluation. Shared 21-configuration service checks and all 20 worker
 readiness reports must match before the coordinator releases collection.
 
@@ -24,7 +24,7 @@ Preserve exact prompts, schemas, answers, native event streams/stderr, sessions,
 timestamps, usage, failures, and all three engine traces. The runner archives
 native files with SHA-256 checks. Write only your assigned result directory.
 Audit, commit, and push your results on your branch; integrate only through the
-separate experiment 2 integration branch. Keep writnine repository materials
+separate experiment 2 integration branch. Keep written repository materials
 and reports in English. Never merge to main or include credentials/session storage.
 
 Commands are available as `python -m equivoque2`: `service-preflight` is shared;

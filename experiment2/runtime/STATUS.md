@@ -2,22 +2,21 @@
 
 Run: `equivoque-2026-10-09-exp2-v1`.
 
-The final sequence follows the owner's original instruction: Round 1/questions,
-Round 2/questions, Round 3/disclosure/final questions. Three measurements, nine
-native turns per trial: 420 sessions and 3,780 planned evaluation invocations.
-Requested models/efforts, all ten paired cases, three round orders, targets,
-worker ownership, and all 420 trial IDs are unchanged.
+The owner explicitly confirmed a measurement after Round 3 before disclosure.
+Final sequence: Round 1/questions, Round 2/questions, Round 3/questions,
+then final disclosure/last questions. Four measurements, ten native turns per
+trial: 420 sessions and 4,200 planned evaluation invocations.
 
-Revised protocol/concurrency/integrity/numerical validation: 11 tests passed.
-A 420-trial/3,780-turn simulation and nine PNG/SVG figure families passed.
-Those outputs are simulation-only and were discarded. Original experiment 1
-frozen files and completed results remain unchanged.
+The confirmed sequence exactly matches the validated preparation source
+`1b397809ed98ce20521a3e4903a0a4c93800c816` and its original freeze. All 53 source,
+prompt, plan, analysis, and manifest files are restored byte for byte. Twenty
+workers completed ten-turn native calibration, and all 21 shared live model/effort
+checks passed. Those 221 invocations are calibration only. All 620 worker native
+calibration files passed integrity audit. The temporary nine-turn draft produced
+no evaluation observations or additional model calls.
 
-The initial ten-turn draft added an unrequested pre-disclosure measurement after
-Round 3. Its 21 shared access probes and 200 worker calibration turns are preserved
-and excluded from evaluation. All twenty original calibration sessions and 620
-exact native files passed integrity audit before the sequence revision.
-
-Fresh readiness for the revised source and nine-turn sequence is required before
-coordinator release. No evaluation has started. See measurement-sequence-correction.json,
-the source freeze, numbered readiness attempts, and EXPERIMENT_2_PLAN.md.
+All 420 trial IDs, ten shared paired cases, three round arrangements, targets,
+worker ownership, requested models/efforts, and canonical English base prompts
+are unchanged. Preserve original readiness evidence and require the coordinator
+release before evaluation. See confirmed-measurement-sequence.json and the
+prospective EXPERIMENT_2_PLAN.md. Experiment 1 remains unchanged.

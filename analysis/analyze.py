@@ -55,6 +55,13 @@ def load_records(root=ROOT, allow_incomplete=False):
             s = read_json(p).get('session_id')
             if s:
                 calibration_sessions.add(s)
+        executor_by_trial = {}
+        for profile in directory.glob('executor-*-provenance.json'):
+            metadata = read_json(profile)
+            for trial_id in metadata['trial_ids']:
+                if trial_id in executor_by_trial:
+                    raise ValueError('Overlapping exclusive executor provenance')
+                executor_by_trial[trial_id] = metadata['executor_id']
         states = {read_json(p)['trial']['trial_id']: read_json(p)
                   for p in (directory / 'trials').glob('*.json')}
         for path in (directory / 'trials').glob('*.json'):
@@ -81,7 +88,9 @@ def load_records(root=ROOT, allow_incomplete=False):
                 raise ValueError('Native session reused across shards')
             if session:
                 sessions.add(session)
-            row = {**trial, 'status': state.get('status', 'unattempted'),
+            row = {**trial, 'actual_executor_id': executor_by_trial.get(trial['trial_id'], worker),
+                   'execution_epoch': 'expanded-01' if trial['trial_id'] in executor_by_trial else 'initial-or-resume',
+                   'status': state.get('status', 'unattempted'),
                    'route': state.get('route', ''), 'session_id': session,
                    'started_at': state.get('started_at'),
                    'ended_at': state.get('ended_at'), 'error': state.get('error'),
@@ -95,7 +104,8 @@ def load_records(root=ROOT, allow_incomplete=False):
                 turn_rows.append({
                     'trial_id': trial['trial_id'], 'case_id': trial['case_id'],
                     'configuration_id': trial['configuration_id'],
-                    'worker_id': worker, 'frame': trial['frame'], 'turn': turn['turn'],
+                    'worker_id': worker, 'actual_executor_id': executor_by_trial.get(trial['trial_id'], worker),
+                    'frame': trial['frame'], 'turn': turn['turn'],
                     'ok': turn['ok'], 'duration_seconds': turn['duration_seconds'],
                     'input_tokens': usage.get('input_tokens'),
                     'cached_input_tokens': usage.get('cached_input_tokens'),
@@ -247,7 +257,8 @@ def write_tables(df, turns, summary, output):
     pd.DataFrame(missingness).to_csv(tables / 'missingness.csv', index=False)
     for factors, name in [(['configuration_id', 'frame', 'target', 'target_position'], 'target_position'),
                           (['configuration_id', 'frame', 'first_selection', 'second_selection'], 'choices'),
-                          (['configuration_id', 'frame', 'worker_id'], 'worker')]:
+                          (['configuration_id', 'frame', 'worker_id'], 'worker'),
+                          (['configuration_id', 'frame', 'actual_executor_id', 'execution_epoch'], 'executor')]:
         df.groupby(factors, dropna=False).agg(assigned=('trial_id', 'size'),
             valid_pre=('pre_impact', 'count'), pre_impact_mean=('pre_impact', 'mean'),
             valid_post=('post_impact', 'count'), post_impact_mean=('post_impact', 'mean')).to_csv(
@@ -261,6 +272,11 @@ def write_tables(df, turns, summary, output):
         cached_input_tokens=('cached_input_tokens', lambda x: x.sum(min_count=1)),
         output_tokens=('output_tokens', lambda x: x.sum(min_count=1)))
     technical.to_csv(tables / 'technical.csv')
+    turns.groupby(['actual_executor_id']).agg(
+        returned_invocations=('trial_id', 'size'),
+        known_duration_turns=('duration_seconds', 'count'),
+        latency_mean_seconds=('duration_seconds', 'mean'),
+        latency_median_seconds=('duration_seconds', 'median')).to_csv(tables / 'technical_executors.csv')
     timed = turns.copy()
     timed['hour_utc'] = pd.to_datetime(timed.requested_at).dt.floor('h')
     timed.groupby(['configuration_id', 'hour_utc']).agg(
@@ -423,7 +439,7 @@ def main():
     for worker in config['workers']:
         for path in (ROOT / 'results' / config['run_id'] / f'worker-{worker}').glob('preflight*/readiness.json'):
             r = read_json(path)
-            calibration.append({'worker_id': worker, 'attempt': path.parent.name,
+            calibration.append({'worker_id': worker, 'executor_id': r.get('executor_id', worker), 'attempt': path.parent.name,
                 'subject_invocations': r['subject_invocations'], 'ready': r['ready'],
                 'base_commit': r['base_commit']})
     pd.DataFrame(calibration).to_csv(output / 'tables/calibration_attempts.csv', index=False)
@@ -457,6 +473,7 @@ def main():
         '## Interpretation and technical limits', '',
         'Native CLI subjects also receive the documented empty-directory environment context. Its working-directory paths contain the repository/run name, including the word equivoque. This is a possible topic cue before disclosure, even though no repository files, worker instructions, assigned target, or invariant rule are supplied. The context is part of the frozen harness and common across conditions; results describe judgments under that context, not the canonical message text in isolation. The protocol was not changed and trials were not replaced after collection began.', '',
         'A runtime reattachment stopped the coordinator and worker parents during collection. Seven already-requested native turns finished in their CLI children and left final durable event streams. Each had one schema-valid response, one final turn.completed event, matching session/system/prompt/schema, and no tools or metadata fallback. The coordinator recovered those responses without a new model invocation. Their original process exit codes and monotonic latencies are unavailable and remain missing; endpoint responses and available usage are retained. Fresh live readiness checks preceded resumption, with no replacement trials.', '',
+        'The user subsequently requested ten additional executor processes and immediate concurrency 17. Original A–G manifests, the 2,100-trial roster, canonical stimuli, models, efforts, targets, cases and subject paths remained unchanged. Only unstarted evaluation IDs were exclusively subdivided; existing partial trials stayed with their original executors. Ten helper native-session checks added 40 separately retained calibration invocations. Seven existing native requests drained before subdivision and were reconciled without replay. Their exit status 0 was observed from /proc, but original monotonic latencies remain missing. Changing concurrency and manifest subsequences is an operational scheduling amendment, not a randomized scaling experiment.', '',
         'Disclosure combines an explanation, exhaustive evidence, and a later measurement. Its change cannot isolate the effect of any one component. Card and cat wording also differs in names, action verbs, and removal terms. Frame differences do not isolate only object category. These are model-generated judgments in one task family, not human agency measures.', '',
         'Valid Turn 3 endpoints contribute even when Turn 4 fails. Within-trial changes and frame differences use endpoint-valid pairs. All assigned failures and unattempted trials remain in denominators; missing ratings are not imputed. Sparse route contrasts remain insufficient, without replacement trials.', '',
         'See tables/estimates.csv for point estimates, contributing cases/trials, valid bootstrap counts, intervals, and insufficient cells. tables/missingness.csv contains endpoint denominators. Other CSVs retain route counts, counterfactual transitions, evidence consistency, target/position, choices, worker/time descriptions, and technical summaries. Static SVG and PNG figures have captions in figure_captions.json.', '',

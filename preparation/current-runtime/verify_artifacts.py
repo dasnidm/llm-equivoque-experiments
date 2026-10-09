@@ -39,11 +39,12 @@ calibration=rows('calibration_attempts.csv')
 assert sum(int(r['subject_invocations'])for r in calibration)==383
 assert sum(r['attempt'].startswith('preflight-helper-')for r in calibration)==10
 service_calibration=rows('service_calibration_attempts.csv')
-assert sum(int(r['subject_invocations'])for r in service_calibration)==21
+assert sum(int(r['subject_invocations'])for r in service_calibration)==42
 provenance=read_json(output/'provenance.json')
 assert provenance['development_invocations']==5
-assert provenance['non_evaluation_invocations']==409
-assert sum(r['execution_epoch']=='resume-02'for r in trials)==1051
+assert provenance['non_evaluation_invocations']==430
+assert sum(r['execution_epoch']=='resume-03'for r in trials)==458
+assert sum(r['execution_epoch']=='spans-resume-02-resume-03'for r in trials)==13
 assert sum(r['execution_epoch']=='spans-expanded-01-resume-02'for r in trials)==8
 assert sum(len(read_json(p)['turns']) for p in (ROOT/'results'/RUN).glob('worker-*/trials/*.json'))==len(turns)
 import hashlib
@@ -63,7 +64,7 @@ report={'passed':True,'trial_rows':len(trials),'returned_turn_rows':len(turns),
         'svg_png_figure_pairs_verified':len(captions),
         'csv_tables':len(list((output/'tables').glob('*.csv'))),
         'worker_calibration_invocations_excluded':383,'helper_calibration_checks_excluded':10,
-        'shared_service_calibration_invocations_excluded':21,'non_evaluation_invocations_excluded':409,
+        'shared_service_calibration_invocations_excluded':42,'non_evaluation_invocations_excluded':430,
         'terminal_native_archives_verified':len(archives),'exact_native_files_verified':native_files,
         'analysis_sha256':digest(ROOT/'analysis/analyze.py'),'canonical_hashes_unchanged':True}
 write_json(output/'artifact_validation.json',report)

@@ -1,4 +1,4 @@
-"""Retain operational progress and publish immutable checkpoints every 150 trials."""
+"""Retain operational progress and publish immutable checkpoints every 100 trials or five minutes."""
 import datetime
 import json
 from pathlib import Path
@@ -15,11 +15,14 @@ while True:
     p=json.loads(STATUS.read_text())
     record={k:p[k]for k in ('updated_at','completed','attempted','subject_invocations','active_limit','halted')}
     record['active_executors']=sum(e['process_running']for e in p['executors'].values())
-    start=datetime.datetime.fromisoformat('2026-10-09T21:51:58.317400+00:00')
+    epoch=p.get('execution_epoch','resume-03')
+    gate=json.loads((ROOT/'preparation/current-runtime/coordinator-launch-05.json').read_text())
+    start=datetime.datetime.fromisoformat(gate['released_at'])
     seconds=(datetime.datetime.fromisoformat(p['updated_at'])-start).total_seconds()
+    record['execution_epoch']=epoch
     record['elapsed_since_expansion_seconds']=seconds
-    record['completed_since_expansion']=p['completed']-1034
-    record['average_trials_per_minute_since_expansion']=(p['completed']-1034)*60/seconds
+    record['completed_since_expansion']=p['completed']-1622
+    record['average_trials_per_minute_since_expansion']=(p['completed']-1622)*60/seconds
     with HISTORY.open('a')as handle:handle.write(json.dumps(record)+'\n')
     print(json.dumps(record),flush=True)
     if p['halted']or all(e['exit_code']==0 for e in p['executors'].values()):break

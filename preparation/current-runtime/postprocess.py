@@ -30,7 +30,9 @@ for name in ('checkpoint.py', 'finalize_workers.py', 'integrate.py', 'postproces
              'expanded_collect.py', 'checkpoint_expanded.py', 'finalize_helpers.py',
              'verify_artifacts.py', 'create_integration_pr.py', 'monitor_expanded.py',
              'drain_systemic_failure.py', 'reconcile_systemic_drain.py', 'recheck_service.py',
-             'prepare_resume_02.py', 'resume_executor_02.py', 'resume_collect_02.py'):
+             'prepare_resume_02.py', 'resume_executor_02.py', 'resume_collect_02.py',
+             'recover_reattachment_03.py', 'recheck_service_02.py', 'prepare_resume_03.py',
+             'resume_executor_03.py', 'resume_collect_03.py'):
     shutil.copyfile(ROOT / 'work/coordinator' / name,
                     ROOT / 'preparation/current-runtime' / name)
 shutil.copyfile(ROOT / 'work/coordinator/archive_native.py', ROOT / 'preparation/current-runtime/archive_native.py')
@@ -45,6 +47,7 @@ status.write_text('# Completed evaluation\n\nRun: `' + RUN + '`.\n\n'
     + 'All seven workers passed live readiness at the common frozen source. '
     + 'Concurrency was measured at two and four before expansion to seven. The user subsequently authorized ten additional executors and immediate concurrency 17; the original A–G manifests and total 2,100-trial roster remained unchanged. '
     + 'Seven actual 300-second timeouts remain terminal failures. After draining already-requested responses without replay and passing 21 shared service checks, all 17 executors resumed with measured whole-trial concurrency and delay-sensitive intake. '
+    + 'A second runtime reattachment was reconciled from 17 final native responses without replay, followed by another 21 shared service checks and a separately gated resumption. '
     + 'All raw records, prior preflight failures, session IDs, hashes, and errors are retained. '
     + 'The coordinator audited the seven-shard union before integrating results on the separate integration branch.\n\n'
     + f'See `analysis/results/{RUN}/attempt-01/REPORT.md` for the English report and endpoint denominators, '

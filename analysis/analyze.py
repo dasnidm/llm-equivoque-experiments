@@ -40,14 +40,20 @@ def load_records(root=ROOT, allow_incomplete=False):
     records, turn_rows, audits = [], [], []
     seen_ids, sessions, calibration_sessions = set(), set(), set()
     runtime = root / 'preparation/current-runtime'
-    resume_path = runtime / 'executor-assignments-02.json'
-    resume_ids = set()
-    resume_at = None
-    if resume_path.exists():
-        resume = read_json(resume_path)
-        resume_ids = {trial_id for entry in resume['executors'].values()
-                      for trial_id in entry['trial_ids']}
-        resume_at = read_json(runtime / 'coordinator-launch-04.json')['released_at']
+    resumes = []
+    for number in (2, 3):
+        resume_path = runtime / f'executor-assignments-{number:02d}.json'
+        if resume_path.exists():
+            resume = read_json(resume_path)
+            ids = {trial_id for entry in resume['executors'].values()
+                   for trial_id in entry['trial_ids']}
+            gate = read_json(runtime / f'coordinator-launch-{number + 2:02d}.json')
+            resumes.append((f'resume-{number:02d}', gate['released_at'], ids))
+    def turn_epoch(trial_id, stamp, default):
+        for name, released, ids in reversed(resumes):
+            if trial_id in ids and stamp >= released:
+                return name
+        return default
     for path in runtime.glob('service-preflight-*/*.json'):
         session = read_json(path).get('session_id')
         if session:
@@ -111,10 +117,10 @@ def load_records(root=ROOT, allow_incomplete=False):
                 raise ValueError('Native session reused across shards')
             if session:
                 sessions.add(session)
-            epoch = 'expanded-01' if trial['trial_id'] in executor_by_trial else 'initial-or-resume'
-            if trial['trial_id'] in resume_ids and state.get('started_at'):
-                epoch = ('resume-02' if state['started_at'] >= resume_at
-                         else 'spans-expanded-01-resume-02')
+            default_epoch = 'expanded-01' if trial['trial_id'] in executor_by_trial else 'initial-or-resume'
+            epochs = list(dict.fromkeys(turn_epoch(trial['trial_id'], t['requested_at'], default_epoch)
+                                        for t in state.get('turns', [])))
+            epoch = (epochs[0] if len(epochs) == 1 else 'spans-' + '-'.join(epochs)) if epochs else default_epoch
             row = {**trial, 'actual_executor_id': executor_by_trial.get(trial['trial_id'], worker),
                    'execution_epoch': epoch,
                    'status': state.get('status', 'unattempted'),
@@ -132,8 +138,7 @@ def load_records(root=ROOT, allow_incomplete=False):
                     'trial_id': trial['trial_id'], 'case_id': trial['case_id'],
                     'configuration_id': trial['configuration_id'],
                     'worker_id': worker, 'actual_executor_id': executor_by_trial.get(trial['trial_id'], worker),
-                    'execution_epoch': ('resume-02' if resume_at and turn['requested_at'] >= resume_at
-                                        else epoch.replace('spans-expanded-01-resume-02', 'expanded-01')),
+                    'execution_epoch': turn_epoch(trial['trial_id'], turn['requested_at'], default_epoch),
                     'frame': trial['frame'], 'turn': turn['turn'],
                     'ok': turn['ok'], 'duration_seconds': turn['duration_seconds'],
                     'input_tokens': usage.get('input_tokens'),
@@ -514,6 +519,7 @@ def main():
         'A runtime reattachment stopped the coordinator and worker parents during collection. Seven already-requested native turns finished in their CLI children and left final durable event streams. Each had one schema-valid response, one final turn.completed event, matching session/system/prompt/schema, and no tools or metadata fallback. The coordinator recovered those responses without a new model invocation. Their original process exit codes and monotonic latencies are unavailable and remain missing; endpoint responses and available usage are retained. Fresh live readiness checks preceded resumption, with no replacement trials.', '',
         'The user subsequently requested ten additional executor processes and immediate concurrency 17. Original A–G manifests, the 2,100-trial roster, canonical stimuli, models, efforts, targets, cases and subject paths remained unchanged. Only unstarted evaluation IDs were exclusively subdivided; existing partial trials stayed with their original executors. Ten helper native-session checks added 40 separately retained calibration invocations. Seven existing native requests drained before subdivision and were reconciled without replay. Their exit status 0 was observed from /proc, but original monotonic latencies remain missing. Changing concurrency and manifest subsequences is an operational scheduling amendment, not a randomized scaling experiment.', '',
         'Seven evaluation turns subsequently exceeded the frozen 300-second native deadline. These trials remain failed, with their timeout records and any valid earlier endpoints retained; no failed or uncertain request was replayed. New trial intake was paused. Ten other already-requested native responses finished within the deadline and were reconciled from their final streams with observed exit status 0; their monotonic durations remain missing. Eight safe partial sessions resumed only their next unrequested turn. Twenty-one shared live service checks passed before another launch gate. The same 17 executors resumed with fair whole-trial permits and measured concurrency increases from 2 to 4, 7, 10 and 17; longer pending responses reduce subsequent intake. This scheduling history is preserved as technical evidence, without causal claims about scaling or the cause of the slowdown.', '',
+        'A second runtime reattachment stopped the collection parents with 17 turns pending in durable state. Each already-requested turn left one schema-valid final native response inside its unchanged deadline, with matching session/system/prompt/schema and no tools or model-metadata fallback. Their native event logs retain WebSocket 403 reconnect errors and the CLI transport switch to HTTPS before successful completion. All 17 responses were reconciled without new invocations. Original per-turn process exit codes and monotonic durations could not be uniquely recovered and remain missing. Four trials ended at Turn 4; thirteen continued only their next unrequested turn. Another shared 21-configuration live check passed before a separately numbered gate and measured concurrency ramp. No failed trial was repeated or replaced.', '',
         'Disclosure combines an explanation, exhaustive evidence, and a later measurement. Its change cannot isolate the effect of any one component. Card and cat wording also differs in names, action verbs, and removal terms. Frame differences do not isolate only object category. These are model-generated judgments in one task family, not human agency measures.', '',
         'Valid Turn 3 endpoints contribute even when Turn 4 fails. Within-trial changes and frame differences use endpoint-valid pairs. All assigned failures and unattempted trials remain in denominators; missing ratings are not imputed. Sparse route contrasts remain insufficient, without replacement trials.', '',
         'See tables/estimates.csv for point estimates, contributing cases/trials, valid bootstrap counts, intervals, and insufficient cells. tables/missingness.csv contains endpoint denominators. Other CSVs retain route counts, counterfactual transitions, evidence consistency, target/position, choices, worker/time descriptions, and technical summaries. Static SVG and PNG figures have captions in figure_captions.json.', '',

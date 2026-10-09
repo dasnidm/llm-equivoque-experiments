@@ -18,7 +18,7 @@ for e,a in assignments.items():
         if state['status']in ('complete','failed','interrupted'):
             paths.extend([str(state_path.relative_to(tree)),str(state_path.with_suffix('.journal.jsonl').relative_to(tree))])
             paths.append(str(archive_trial(e,w,directory,state).relative_to(tree)))
-    for name in ('provenance.json',f'executor-{e}-provenance.json',f'executor-{e}-resume-02.json'):
+    for name in ('provenance.json',f'executor-{e}-provenance.json',f'executor-{e}-resume-02.json',f'executor-{e}-resume-03.json'):
         if (directory/name).exists():paths.append(str(relative/name))
     for path in directory.glob('preflight*/readiness.json'):
         if json.loads(path.read_text()).get('ended_at'):paths.append(str(path.parent.relative_to(tree)))

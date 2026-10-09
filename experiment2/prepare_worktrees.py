@@ -21,8 +21,13 @@ def main():
         branch = f"worker/{config['run_id']}/{worker}"
         tree = ROOT / 'work/worker-trees' / config['run_id'] / worker
         if tree.exists():
-            if subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=tree, text=True).strip() != base:
-                raise ValueError('Existing worktree differs from approved source')
+            # --no-checkout starts with an empty index; sparse-checkout set
+            # alone does not populate it. These are new preparation worktrees.
+            if {p.name for p in tree.iterdir()} == {'.git'}:
+                subprocess.run(['git', 'read-tree', '-mu', 'HEAD'], cwd=tree, check=True)
+            if subprocess.check_output(['git', 'status', '--porcelain'], cwd=tree, text=True).strip():
+                raise ValueError('Existing worktree contains local changes')
+            subprocess.run(['git', 'merge', '--ff-only', base], cwd=tree, check=True)
             continue
         tree.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(['git', 'worktree', 'add', '--no-checkout', '-b', branch, str(tree), base], cwd=ROOT, check=True)
@@ -31,6 +36,7 @@ def main():
                     '/results/' + config['run_id'] + '/']
         subprocess.run(['git', 'sparse-checkout', 'set', '--no-cone', '--stdin'],
                        input='\n'.join(patterns) + '\n', cwd=tree, text=True, check=True)
+        subprocess.run(['git', 'read-tree', '-mu', 'HEAD'], cwd=tree, check=True)
         print(worker.upper() + ': ' + branch, flush=True)
 
 

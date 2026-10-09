@@ -1,6 +1,7 @@
 """Create or reuse exactly one GitHub assignment per experiment 2 worker."""
 import argparse
 import json
+import re
 import subprocess
 
 from equivoque.core import ROOT, digest, read_json, write_json
@@ -12,6 +13,7 @@ REPOSITORY = 'dasnidm/llm-equivoque-experiments'
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--base', required=True)
+    parser.add_argument('--refresh-preparation', action='store_true')
     args = parser.parse_args()
     frozen_hashes()
     config = read_json(CONFIG)
@@ -41,7 +43,20 @@ Plan: https://github.com/{REPOSITORY}/blob/{base}/EXPERIMENT_2_PLAN.md
         if matches:
             issue = matches[0]
             if base not in issue['body'] or digest(manifest) not in issue['body'] or digest(FREEZE) not in issue['body']:
-                raise ValueError('Existing issue has different assignment provenance: ' + w)
+                previous = re.search(r'Base commit: `([a-f0-9]{40})`', issue['body'])
+                if not args.refresh_preparation or not previous or digest(manifest) not in issue['body']:
+                    raise ValueError('Existing issue has different assignment provenance: ' + w)
+                for other in config['workers']:
+                    trial_directory = ROOT / 'work/worker-trees' / config['run_id'] / other / 'results' / config['run_id'] / f'worker-{other}' / 'trials'
+                    if any(trial_directory.glob('*.json')):
+                        raise ValueError('Cannot revise assignment preparation after evaluation starts')
+                subprocess.run(['git', 'merge-base', '--is-ancestor', previous.group(1), base], cwd=ROOT, check=True)
+                path = ROOT / 'work/coordinator' / config['run_id'] / f'assignment-refresh-{w}.json'
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps({'body': body}))
+                subprocess.run(['gh', 'api', '--method', 'PATCH',
+                    f"repos/{REPOSITORY}/issues/{issue['number']}", '--input', str(path),
+                    '--jq', '.html_url'], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
             url = issue['url']
         else:
             path = ROOT / 'work/coordinator' / config['run_id'] / f'assignment-{w}.md'

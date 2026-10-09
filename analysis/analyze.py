@@ -57,6 +57,15 @@ def load_records(root=ROOT, allow_incomplete=False):
                 calibration_sessions.add(s)
         states = {read_json(p)['trial']['trial_id']: read_json(p)
                   for p in (directory / 'trials').glob('*.json')}
+        for path in (directory / 'trials').glob('*.json'):
+            state = read_json(path)
+            raw = [json.loads(line) for line in path.with_suffix('.journal.jsonl').read_text().splitlines()]
+            responses = [x for x in raw if x.get('type') == 'response_checkpoint']
+            for record, original in zip(state['turns'], responses):
+                checkpoint = {k: v for k, v in original.items() if k != 'type'}
+                parsed_record = {k: v for k, v in record.items() if k != 'parsed'}
+                if checkpoint != parsed_record:
+                    raise ValueError('Full raw response/checkpoint mismatch, including provider options')
         if states:
             provenance = read_json(directory / 'provenance.json')
             if provenance['manifest_sha256'] != digest(manifest_path) or (
@@ -145,7 +154,8 @@ def estimate_record(configuration, metric, point, samples, n, cases,
     enough = primary_eligible and len(valid) >= .95 * len(samples) and n > 0
     interval = np.percentile(valid, [2.5, 97.5]) if enough else (np.nan, np.nan)
     return {'configuration_id': configuration, 'metric': metric,
-            'estimate': point if primary_eligible else np.nan,
+            'estimate': point if primary_eligible and (
+                metric != 'primary_route_association' or enough) else np.nan,
             'ci_low': interval[0], 'ci_high': interval[1],
             'n_trials': n, 'n_cases': cases, 'valid_bootstrap_replicates': len(valid),
             'bootstrap_replicates': len(samples),
@@ -201,6 +211,9 @@ def write_tables(df, turns, summary, output):
     summary.to_csv(tables / 'estimates.csv', index=False)
     counts = df.groupby(['configuration_id', 'frame', 'status']).size().rename('count')
     counts.to_csv(tables / 'trial_status.csv')
+    df[df.status.isin(['failed', 'interrupted'])].groupby(
+        ['configuration_id', 'frame', 'error'], dropna=False).size().rename('count').to_csv(
+            tables / 'failure_types.csv')
     routes = df[df.pre_impact.notna()].groupby(['configuration_id', 'frame', 'route']).size()
     index = pd.MultiIndex.from_product([sorted(df.configuration_id.unique()),
         ['cards', 'cats'], ROUTES], names=['configuration_id', 'frame', 'route'])
@@ -332,6 +345,22 @@ def figures(df, summary, output):
            yticks=range(len(configurations)), yticklabels=configurations)
     ax.legend()
     save(fig, 'post_evidence_consistency', 'Endpoint-specific valid Turn 4 denominators; post counterfactual no and impact 1 match the disclosed fixed-target evidence. The CSV retains counts and denominators.')
+    fig, axes = plt.subplots(1, 2, figsize=(12, 10), sharey=True)
+    transitions = [('yes', 'yes'), ('yes', 'no'), ('no', 'yes'), ('no', 'no')]
+    for ax, frame in zip(axes, ('cards', 'cats')):
+        values = np.zeros((len(configurations), 4), dtype=int)
+        for y, c in enumerate(configurations):
+            g = df[(df.configuration_id == c) & (df.frame == frame)]
+            for x, (pre, post) in enumerate(transitions):
+                values[y, x] = ((g.pre_counterfactual == pre) & (g.post_counterfactual == post)).sum()
+        ax.imshow(values, norm=Normalize(0, 50), cmap='Blues', aspect='auto')
+        for y in range(len(configurations)):
+            for x in range(4):
+                ax.text(x, y, str(values[y, x]), ha='center', va='center',
+                        color='white' if values[y, x] > 30 else 'black')
+        ax.set(xticks=range(4), xticklabels=['yes → yes', 'yes → no', 'no → yes', 'no → no'],
+               yticks=range(len(configurations)), yticklabels=configurations, title=frame.title())
+    save(fig, 'counterfactual_transitions', 'Counts of valid within-trial pre/post counterfactual pairs. Missing endpoints are excluded from transitions and remain visible in the missingness table. No is evidence-consistent after disclosure.')
     fig, axes = plt.subplots(1, 2, figsize=(13, 10), sharey=True)
     failures = df.assign(failed=df.status.isin(['failed', 'interrupted'])).groupby('configuration_id').failed.mean().reindex(configurations)
     axes[0].barh(range(len(configurations)), failures)
@@ -377,18 +406,79 @@ def main():
     write_json(output / 'provenance.json', provenance)
     write_json(output / 'union_audit.json', {'integrity_ok': True, 'workers': audits})
     primary = summary[summary.metric == 'primary_route_association']
+    def markdown_table(table, columns):
+        def cell(value):
+            if pd.isna(value):
+                return '—'
+            if isinstance(value, (float, np.floating)):
+                return f'{value:.2f}'
+            return str(value).replace('|', '\\|')
+        return ['| ' + ' | '.join(columns) + ' |',
+                '| ' + ' | '.join(['---'] * len(columns)) + ' |'] + [
+            '| ' + ' | '.join(cell(row[k]) for k in columns) + ' |'
+            for _, row in table.iterrows()]
+
+    calibration = []
+    for worker in config['workers']:
+        for path in (ROOT / 'results' / config['run_id'] / f'worker-{worker}').glob('preflight*/readiness.json'):
+            r = read_json(path)
+            calibration.append({'worker_id': worker, 'attempt': path.parent.name,
+                'subject_invocations': r['subject_invocations'], 'ready': r['ready'],
+                'base_commit': r['base_commit']})
+    pd.DataFrame(calibration).to_csv(output / 'tables/calibration_attempts.csv', index=False)
+    provenance['worker_calibration_invocations'] = sum(r['subject_invocations'] for r in calibration)
+    provenance['development_invocations'] = sum(read_json(p).get('subject_invocations', 0)
+        for p in (ROOT / 'preparation/current-runtime').glob('development-access-*.json'))
+    write_json(output / 'provenance.json', provenance)
     lines = ['# Equivoque evaluation report', '',
         f'Run: `{config["run_id"]}`. Integration revision: `{revision}`.',
         f'Protocol SHA-256: `{provenance["protocol_sha256"]}`.', '',
         '**Collection incomplete: interpret all outputs as partial.**' if provenance['incomplete_collection'] else '**Collection finished; raw-data integrity checks passed.**', '',
         f'{len(df)} assigned trials; {provenance["valid_pre"]} valid pre-disclosure endpoints and {provenance["valid_post"]} valid post-disclosure endpoints.',
         f'{int((primary.status == "estimable").sum())} of 21 primary route associations were estimable under the prespecified thresholds.', '',
+        '## Primary route associations', '',
         'The primary estimate equally weights KK and DD versus KD and DK. Routes arise from model choices; contrasts are associations. Cases are shared across frames and configurations. The 2,000 bootstrap replicates resample all 50 paired starting cases together using the frozen seed. Intervals are nominal pointwise percentile 95% intervals, with no confirmatory significance claims.', '',
+        *markdown_table(primary, ['configuration_id', 'estimate', 'ci_low', 'ci_high',
+            'n_KK', 'n_DD', 'n_KD', 'n_DK', 'n_cases', 'valid_bootstrap_replicates', 'status']), '',
+        '## Within-trial disclosure changes', '',
+        *markdown_table(summary[summary.metric.str.startswith('disclosure_change')],
+            ['configuration_id', 'metric', 'estimate', 'ci_low', 'ci_high', 'n_trials', 'n_cases', 'status']), '',
+        '## Paired cats-minus-cards differences', '',
+        *markdown_table(summary[summary.metric.str.startswith('cats_minus_cards')],
+            ['configuration_id', 'metric', 'estimate', 'ci_low', 'ci_high', 'n_pairs', 'n_cases', 'status']), '',
+        '## Post-disclosure evidence consistency and missingness', '',
+        *markdown_table(pd.read_csv(output / 'tables/post_evidence_consistency.csv'),
+            ['configuration_id', 'frame', 'assigned', 'valid_post', 'counterfactual_no_count',
+             'counterfactual_no_rate', 'minimum_impact_count', 'minimum_impact_rate']), '',
+        *markdown_table(pd.read_csv(output / 'tables/missingness.csv'),
+            ['configuration_id', 'frame', 'assigned', 'valid_pre', 'valid_post',
+             'valid_pre_post_pairs', 'failed', 'interrupted', 'unattempted']), '',
+        '## Interpretation and technical limits', '',
         'Disclosure combines an explanation, exhaustive evidence, and a later measurement. Its change cannot isolate the effect of any one component. Card and cat wording also differs in names, action verbs, and removal terms. Frame differences do not isolate only object category. These are model-generated judgments in one task family, not human agency measures.', '',
         'Valid Turn 3 endpoints contribute even when Turn 4 fails. Within-trial changes and frame differences use endpoint-valid pairs. All assigned failures and unattempted trials remain in denominators; missing ratings are not imputed. Sparse route contrasts remain insufficient, without replacement trials.', '',
         'See tables/estimates.csv for point estimates, contributing cases/trials, valid bootstrap counts, intervals, and insufficient cells. tables/missingness.csv contains endpoint denominators. Other CSVs retain route counts, counterfactual transitions, evidence consistency, target/position, choices, worker/time descriptions, and technical summaries. Static SVG and PNG figures have captions in figure_captions.json.', '',
-        'Calibration, developmental probes, simulations, and the previous pilot are excluded. CLI HTTP retries are not observable as a reliable total; no cost is inferred without billing evidence. Backend model versions are not independently exposed by the CLI event stream. Exact requested models, effort settings, commands, usage, raw responses, and failures are preserved in the raw records.', '']
+        f'Worker calibration requested {provenance["worker_calibration_invocations"]} subject invocations across preserved attempts; development requested {provenance["development_invocations"]} additional invocations. These, loopback request inspections, simulations, and the previous pilot are excluded from evaluation. CLI HTTP retries are not observable as a reliable total; no cost is inferred without billing evidence. Backend model versions are not independently exposed by the CLI event stream. Exact requested models, effort settings, commands, usage, raw responses, and failures are preserved in the raw records.', '']
     (output / 'REPORT.md').write_text('\n'.join(lines))
+    # A portable artifact browser: no hosting, network calls, or external assets.
+    import html
+    captions = read_json(output / 'figure_captions.json')
+    panels = ''.join(f'<article><h2>{html.escape(k.replace("_", " "))}</h2>'
+        f'<img src="figures/{k}.svg" alt="{html.escape(caption)}">'
+        f'<p>{html.escape(caption)}</p><a href="figures/{k}.png">PNG</a> · '
+        f'<a href="figures/{k}.svg">SVG</a></article>' for k, caption in captions.items())
+    links = ''.join(f'<li><a href="tables/{p.name}">{html.escape(p.name)}</a></li>'
+                    for p in sorted((output / 'tables').glob('*.csv')))
+    (output / 'index.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width"><title>Equivoque results</title>'
+        '<style>body{font:16px system-ui;max-width:1200px;margin:2rem auto;padding:0 1rem;line-height:1.5}'
+        'img{max-width:100%;max-height:1000px}article{border-top:1px solid #ccc;padding:2rem 0}'
+        'select{font:inherit;padding:.5rem}code{overflow-wrap:anywhere}</style>'
+        f'<h1>Equivoque results</h1><p>Run: {config["run_id"]}</p><p>Integration: <code>{revision}</code></p>'
+        '<p><a href="REPORT.md">English report</a> · <a href="provenance.json">Provenance</a></p>'
+        '<label>Figure <select id="figure"><option value="all">All figures</option>'
+        + ''.join(f'<option>{html.escape(k.replace("_", " "))}</option>' for k in captions)
+        + '</select></label>' + panels + '<h2>Tables</h2><ul>' + links + '</ul>'
+        '<script>document.querySelector("select").onchange=e=>document.querySelectorAll("article").forEach(a=>a.hidden=e.target.value!=="all"&&a.querySelector("h2").textContent!==e.target.value)</script></html>')
     print(json.dumps(provenance, indent=2))
 
 

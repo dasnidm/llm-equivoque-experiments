@@ -1,0 +1,160 @@
+{
+  "command": [
+    "codex",
+    "exec",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--skip-git-repo-check",
+    "--json",
+    "--model",
+    "gpt-5.6-terra",
+    "--output-schema",
+    "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-v1/a/work/preflight-subjects/2f83b1d0-eb17-4dea-897b-e3c6f53f620e/turn-01.schema.json",
+    "-c",
+    "model_reasoning_effort=\"medium\"",
+    "-c",
+    "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-v1/a/work/preflight-subjects/2f83b1d0-eb17-4dea-897b-e3c6f53f620e/subject-system.txt\"",
+    "-c",
+    "project_doc_max_bytes=0",
+    "-c",
+    "developer_instructions=\"\"",
+    "-c",
+    "web_search=\"disabled\"",
+    "-c",
+    "include_apps_instructions=false",
+    "-c",
+    "include_collaboration_mode_instructions=false",
+    "-c",
+    "include_permissions_instructions=false",
+    "-c",
+    "skills.include_instructions=false",
+    "-c",
+    "skills.bundled.enabled=false",
+    "-c",
+    "tools.update_plan.enabled=false",
+    "-c",
+    "tools.experimental_request_user_input.enabled=false",
+    "-c",
+    "features.multi_agent_v2.enabled=false",
+    "-c",
+    "features.multi_agent_v2.usage_hint_enabled=false",
+    "-c",
+    "features.multi_agent_v2.usage_hint_text=\"\"",
+    "-c",
+    "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+    "-c",
+    "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+    "-c",
+    "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+    "-c",
+    "features.code_mode.enabled=false",
+    "-c",
+    "features.shell_tool=false",
+    "-c",
+    "features.unified_exec=false",
+    "-c",
+    "features.apps=false",
+    "-c",
+    "features.plugins=false",
+    "-c",
+    "features.remote_plugin=false",
+    "-c",
+    "features.multi_agent=false",
+    "-c",
+    "features.code_mode_host=false",
+    "-c",
+    "features.browser_use=false",
+    "-c",
+    "features.browser_use_external=false",
+    "-c",
+    "features.computer_use=false",
+    "-c",
+    "features.view_image=false",
+    "-c",
+    "features.image_generation=false",
+    "-c",
+    "features.skill_search=false",
+    "-c",
+    "features.sleep_tool=false",
+    "-c",
+    "features.hooks=false",
+    "-c",
+    "features.memories=false",
+    "-c",
+    "features.workspace_dependencies=false",
+    "-c",
+    "features.unbounded_connection_retries=false",
+    "-c",
+    "features.goals=false",
+    "--sandbox",
+    "read-only",
+    "-C",
+    "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-v1/a/work/preflight-subjects/2f83b1d0-eb17-4dea-897b-e3c6f53f620e/subject",
+    "-"
+  ],
+  "duration_seconds": 3.8747898740000437,
+  "events": [
+    {
+      "thread_id": "01a12242-1a42-7520-993b-96efe330ceaa",
+      "type": "thread.started"
+    },
+    {
+      "item": {
+        "id": "item_0",
+        "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+        "type": "error"
+      },
+      "type": "item.completed"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "item": {
+        "id": "item_1",
+        "text": "{\"ready\":true}",
+        "type": "agent_message"
+      },
+      "type": "item.completed"
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 2609,
+        "output_tokens": 15,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "exit_code": 0,
+  "malformed_event_lines": 0,
+  "metadata_fallback": false,
+  "ok": true,
+  "provider_schema": {
+    "additionalProperties": false,
+    "properties": {
+      "ready": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "ready"
+    ],
+    "type": "object"
+  },
+  "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+  "session_id": "01a12242-1a42-7520-993b-96efe330ceaa",
+  "stderr": "",
+  "text": "{\"ready\":true}",
+  "timeout": false,
+  "tool_events": [],
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 2609,
+    "output_tokens": 15,
+    "reasoning_output_tokens": 0
+  }
+}

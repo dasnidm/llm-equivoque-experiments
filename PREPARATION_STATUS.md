@@ -8,7 +8,9 @@ and one Git worktree/result branch per worker.
 ## Prepared and verified offline
 
 - Common English prompts: cards/tap/discard, cats/pet/leave, chosen-card/cat
-  attribution, no emotional/intensity modifiers, three evaluation fields.
+  attribution, no emotional/intensity modifiers, three evaluation fields. Cards
+  display and accept full names only; cats use A/B/C/D. No card subject sees the
+  engine codes, including in response schemas or counterfactual tables.
 - Fixed target and all 1,152 target/order/choice paths; 2,304 frame-specific
   four-turn prompt paths; deterministic 12-row disclosure tables.
 - Native exec/resume transport with canonical system text and disabled subject
@@ -16,7 +18,7 @@ and one Git worktree/result branch per worker.
 - A–G disjoint manifests: 300 trials each, 150 per frame, 1,200 planned turns.
   Shared cases remain paired. Each worker has 14 trials in 18 configurations and
   16 trials in three configurations. Total: 2,100 trials and 8,400 planned turns.
-- Six meaningful offline checks, including the full simulation-only dry run,
+- Seven meaningful offline checks, including the full simulation-only dry run,
   failure preservation, session uniqueness, and raw-log tampering detection.
 - Common worker brief, worktree/launcher scripts, hash freeze, readiness and
   coordinator-release gates, separate result and integration branches.

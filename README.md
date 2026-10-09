@@ -4,7 +4,8 @@ A four-object experiment on model-generated judgments of choice freedom and
 influence on a fixed outcome, before and after exhaustive evidence. The frames
 retain **card/tap** and **cat/pet**, **discard/leave**, and parallel **your chosen
 card/cat** wording. Emotional/intensity modifiers are omitted. All materials
-and subject prompts are English.
+and subject prompts are English. Cards are displayed and selected by their full
+names, without A/B/C/D prefixes; cats retain A/B/C/D labels.
 
 ## Prepared run
 

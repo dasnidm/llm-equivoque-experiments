@@ -28,7 +28,9 @@ integration_branch: integration/equivoque-2026-10-09-v1
 > Use your assigned worktree/branch at the published base commit. Read
 > EXPERIMENT_PLAN.md and PROMPTS.md. Verify protocol/freeze.json and your manifest
 > before model calls. Use the shared equivoque runner and canonical
-> protocol/prompts.v1.json unchanged. Keep all written work in English.
+> protocol/prompts.v1.json unchanged. Card prompts, responses, schemas, and
+> tables use exact card names only; cats use A/B/C/D labels. Keep all written
+> work in English.
 >
 > First run live preflight. It checks model/effort inventory, tool restrictions,
 > one isolated native four-turn session, and all remaining model/effort access

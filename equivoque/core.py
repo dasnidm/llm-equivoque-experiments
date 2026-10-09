@@ -57,18 +57,26 @@ class Protocol:
 
     def display(self, frame, labels):
         if frame == 'cards':
-            return ', '.join(f'{x} ({self.data["card_objects"][x]})'
-                             for x in labels)
+            return ', '.join(self.data['card_objects'][x] for x in labels)
         return ', '.join(labels)
+
+    def choice_names(self, frame):
+        return self.data['card_objects'] if frame == 'cards' else {
+            label: label for label in LABELS}
+
+    def parse_response(self, text, turn, remaining=None, frame='cats'):
+        return parse_response(text, turn, remaining, self.choice_names(frame))
 
     def table(self, trial):
         headings = self.data['frames'][trial['frame']]['branch_headers']
         lines = ['| ' + ' | '.join(headings) + ' |',
                  '| --- | --- | --- | --- |']
         for row in branches(trial['order'], trial['target']):
-            lines.append('| ' + ' | '.join([', '.join(row['first']),
-                         ', '.join(row['remaining']), row['second'],
-                         row['final']]) + ' |')
+            frame = trial['frame']
+            lines.append('| ' + ' | '.join([self.display(frame, row['first']),
+                         self.display(frame, row['remaining']),
+                         self.display(frame, [row['second']]),
+                         self.display(frame, [row['final']])]) + ' |')
         return '\n'.join(lines)
 
     def prompt(self, trial, turn, feedback=None, remaining=None):
@@ -78,7 +86,7 @@ class Protocol:
         if turn in (2, 3):
             template = template[feedback]
         values = {'ordered_objects': self.display(frame, trial['order']),
-                  'remaining_labels': ', '.join(remaining or []),
+                  'remaining_objects': self.display(frame, remaining or []),
                   'final_object': self.display(frame, [trial['target']]),
                   'branch_table': self.table(trial) if turn == 4 else ''}
         for key, value in values.items():
@@ -89,29 +97,38 @@ class Protocol:
             template += '\n\n' + f['evaluation']
         return template
 
-    def schema(self, turn, remaining=None):
+    def schema(self, turn, remaining=None, frame='cats'):
         key = f'turn_{turn}' if turn < 3 else 'evaluation'
         schema = json.loads(json.dumps(self.data['schemas'][key]))
-        if turn == 2:
-            schema['properties']['selection']['enum'] = list(remaining)
+        names = self.choice_names(frame)
+        if turn == 1:
+            schema['properties']['selection']['items']['enum'] = list(names.values())
+        elif turn == 2:
+            schema['properties']['selection']['enum'] = [names[x] for x in remaining]
         return schema
 
 
-def parse_response(text, turn, remaining=None):
+def parse_response(text, turn, remaining=None, choice_names=None):
     value = json.loads(text)
     if not isinstance(value, dict):
         raise ValueError('Expected a JSON object')
     if turn < 3:
+        names = choice_names or {label: label for label in LABELS}
+        reverse = {name: label for label, name in names.items()}
         if set(value) != {'selection'}:
             raise ValueError('Unexpected selection fields')
         selection = value['selection']
         if turn == 1:
             if (not isinstance(selection, list) or len(selection) != 2 or
-                    any(not isinstance(x, str) or x not in LABELS
+                    any(not isinstance(x, str) or x not in reverse
                         for x in selection) or len(set(selection)) != 2):
-                raise ValueError('Expected two distinct A/B/C/D labels')
-        elif not isinstance(selection, str) or selection not in remaining:
-            raise ValueError('Expected one actually remaining label')
+                raise ValueError('Expected two distinct displayed object names')
+            value['selection'] = [reverse[x] for x in selection]
+        elif (not isinstance(selection, str) or selection not in reverse or
+              reverse[selection] not in remaining):
+            raise ValueError('Expected one actually remaining object name')
+        else:
+            value['selection'] = reverse[selection]
     else:
         if set(value) != {'freedom', 'impact', 'counterfactual'}:
             raise ValueError('Unexpected evaluation fields')

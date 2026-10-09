@@ -18,14 +18,16 @@ for the experimental subjects. Each worker owns its existing frozen manifest:
 2,100 trials and 8,400 planned turns across 21 model/effort configurations.
 
 The canonical prompts retain cards/tap/discard and cats/pet/leave, four named
-aces versus A–D cats, and "your chosen card/cat". Do not add emotional or
+aces versus A–D cats, and "your chosen card/cat". Card subjects see and answer
+with full card names only, with no A–D prefixes anywhere in their prompts,
+remaining lists, branch tables, or schemas. A–D card codes are research-internal. Do not add emotional or
 intensity modifiers or paraphrase the prompts. Evaluation is freedom and impact
 on 1–100 scales plus a yes/no counterfactual. Turn 4 supplies the fixed-target
 explanation and all 12 valid paths, followed by the same three questions.
 
 The previous session implemented the engine, native Codex exec/resume transport,
 durable logging, audits, balanced manifests, worker/worktree launchers, and
-readiness/release gates. Six offline tests passed, including the full
+readiness/release gates. Seven offline tests passed, including the full
 SIMULATION-ONLY 2,100-trial/8,400-turn run. No evaluation data were collected.
 Live inference was blocked by the OLD environment's proxy (chatgpt.com CONNECT
 403). I changed network access to allow all domains and opened this NEW session

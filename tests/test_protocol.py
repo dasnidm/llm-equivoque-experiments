@@ -1,6 +1,7 @@
 import collections
 import itertools
 import json
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -27,7 +28,7 @@ class FakeTransport:
             return {'ok': False, 'session_id': session_id, 'text': '',
                     'events': [], 'tool_events': [], 'usage': None}
         if attempt == 1:
-            answer = {'selection': ['A', 'B']}
+            answer = {'selection': schema['properties']['selection']['items']['enum'][:2]}
         elif attempt == 2:
             answer = {'selection': schema['properties']['selection']['enum'][0]}
         else:
@@ -60,6 +61,8 @@ class ProtocolTests(unittest.TestCase):
                             prompt = self.protocol.prompt(trial, turn, feedback, row['remaining'])
                             self.assertNotIn('{final_object}', prompt)
                             self.assertNotIn('happily', prompt)
+                            if frame == 'cards':
+                                self.assertIsNone(re.search(r'\b[A-D]\b', prompt))
                             if turn < 4:
                                 self.assertNotIn('was fixed', prompt)
                             if turn > 2:
@@ -101,6 +104,24 @@ class ProtocolTests(unittest.TestCase):
             parse_response('{"selection":["A","A"]}', 1)
         with self.assertRaises(ValueError):
             parse_response('{"selection":"A"}', 2, ['C', 'D'])
+
+    def test_card_names_are_used_and_normalized_for_the_engine(self):
+        names = ['ace of spades', 'ace of clubs', 'ace of diamonds', 'ace of hearts']
+        self.assertEqual(self.protocol.schema(1, frame='cards')[
+            'properties']['selection']['items']['enum'], names)
+        self.assertEqual(self.protocol.schema(2, ['C', 'D'], 'cards')[
+            'properties']['selection']['enum'], names[2:])
+        self.assertEqual(self.protocol.parse_response(
+            json.dumps({'selection': [names[0], names[3]]}), 1, frame='cards'),
+            {'selection': ['A', 'D']})
+        self.assertEqual(self.protocol.parse_response(
+            json.dumps({'selection': names[2]}), 2, ['C', 'D'], 'cards'),
+            {'selection': 'C'})
+        with self.assertRaises(ValueError):
+            self.protocol.parse_response('{"selection":["A","B"]}', 1, frame='cards')
+        with self.assertRaises(ValueError):
+            self.protocol.parse_response(json.dumps({'selection': names[0]}),
+                                         2, ['C', 'D'], 'cards')
 
     def test_full_2100_trial_simulation_and_audits(self):
         # Mock data stay in a temporary directory and are rejected by the

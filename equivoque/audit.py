@@ -3,7 +3,7 @@ import collections
 import json
 from pathlib import Path
 
-from .core import Protocol, digest, operate, parse_response, read_json, write_json
+from .core import Protocol, digest, operate, read_json, write_json
 
 
 def audit_worker(manifest_path, directory, allow_simulation=False):
@@ -56,7 +56,7 @@ def audit_worker(manifest_path, directory, allow_simulation=False):
             feedback = route[-1] if route else None
             if record.get('prompt') != protocol.prompt(trial, index, feedback, remaining):
                 errors.append(f'Prompt mismatch: {trial_id} turn {index}')
-            if record.get('schema') != protocol.schema(index, remaining):
+            if record.get('schema') != protocol.schema(index, remaining, trial['frame']):
                 errors.append(f'Schema mismatch: {trial_id} turn {index}')
             if record.get('session_id_before') != session:
                 errors.append(f'Broken request continuity: {trial_id} turn {index}')
@@ -71,7 +71,8 @@ def audit_worker(manifest_path, directory, allow_simulation=False):
                     errors.append(f'Failed response in completed trial: {trial_id}')
                 break
             try:
-                parsed = parse_response(record['text'], index, remaining)
+                parsed = protocol.parse_response(record['text'], index,
+                                                 remaining, trial['frame'])
             except (ValueError, TypeError) as error:
                 if state.get('status') == 'complete' or 'parsed' in record:
                     errors.append(f'Invalid parsed response: {trial_id}: {error}')

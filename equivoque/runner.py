@@ -8,7 +8,7 @@ from pathlib import Path
 import subprocess
 import uuid
 
-from .core import ROOT, Protocol, digest, frozen_hashes, operate, parse_response
+from .core import ROOT, Protocol, digest, frozen_hashes, operate
 from .core import read_json, write_json
 from .transport import CodexTransport
 
@@ -49,7 +49,7 @@ def run_trial(trial, protocol, transport, state_path, scratch):
     for turn in range(len(state['turns']) + 1, 5):
         feedback = state['route'][-1] if state['route'] else None
         prompt = protocol.prompt(trial, turn, feedback, state['remaining'])
-        schema = protocol.schema(turn, state['remaining'])
+        schema = protocol.schema(turn, state['remaining'], trial['frame'])
         request = {'turn': turn, 'prompt': prompt, 'schema': schema,
                    'requested_at': now(), 'session_id_before': state['session_id']}
         state['pending_turn'] = request
@@ -76,7 +76,8 @@ def run_trial(trial, protocol, transport, state_path, scratch):
             write_json(state_path, state)
             return state
         try:
-            parsed = parse_response(result['text'], turn, state['remaining'])
+            parsed = protocol.parse_response(result['text'], turn,
+                                             state['remaining'], trial['frame'])
             record['parsed'] = parsed
             if turn < 3:
                 selected = parsed['selection']

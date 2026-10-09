@@ -73,13 +73,16 @@ transport retries can produce more requests. Report both quantities.
 Retain the owner's original scenarios: four named aces with **tap** instructions
 and **discard** feedback, versus four labeled cats with **pet** instructions and
 **leave** feedback. Remove emotional or intensity modifiers such as happily.
-Cards and cats share A/B/C/D labels, starting-case assignments, informational
-sequence, judgment questions, scales, and output formats.
+Cards and cats share starting-case assignments, informational sequence,
+judgment questions, scales, and response structure. Card subjects see and return
+card names; cat subjects see and return A/B/C/D labels.
 
-Cards map A = ace of spades, B = ace of clubs, C = ace of diamonds, D = ace of
-hearts. Display the assigned order with both labels and card names. Cats display
-A/B/C/D only, without individual traits or names. Preserve the mapping across
-cases and show labels alone in the branch table and responses.
+Research codes map A = ace of spades, B = ace of clubs, C = ace of diamonds,
+D = ace of hearts. The card prompts, remaining lists, tables, and response schemas
+use only the full card names, without A/B/C/D prefixes. Cats display A/B/C/D only,
+without individual traits or names. The engine normalizes exact card-name answers
+to internal research codes after preserving raw responses. Preserve this pairing
+mapping across cases; never show the code mapping to card subjects.
 
 Retain **your chosen card/cat** as requested, including when the selected object
 was removed. This is the scenario's outcome-attribution wording, not a factual
@@ -109,8 +112,9 @@ add selective thinking instructions, or tune prompts against evaluation outcomes
 
 ## 4. Fixed-target engine
 
-Start with four labels in a predetermined displayed order. The subject selects
-two distinct labels, then one label from the remaining two. Before Turn 1, assign
+Start with four objects in a predetermined displayed order. The subject selects
+two distinct card names or cat labels, then one of the remaining two. Internally
+use paired research codes for the invariant engine. Before Turn 1, assign
 one target, independent of every model output. Apply the same rule at both steps:
 
 ```text
@@ -164,9 +168,9 @@ proposed concrete default; freeze its implementation and actual seeds together.
 
 | Turn | Subject receives | Subject returns |
 | --- | --- | --- |
-| 1 | Object noun, displayed labels, select-two instruction | Two distinct labels |
-| 2 | Actual first K/D feedback, two remaining labels, select-one instruction | One remaining label |
-| 3 | Actual second K/D feedback, final label, three questions | Pre-disclosure JSON |
+| 1 | Four displayed objects, select-two instruction | Two distinct card names or cat labels |
+| 2 | Actual first K/D feedback, two remaining objects, select-one instruction | One remaining card name or cat label |
+| 3 | Actual second K/D feedback, final object, three questions | Pre-disclosure JSON |
 | 4 | Fixed-target explanation, exhaustive 12-row table, same three questions | Post-disclosure JSON |
 
 The program's keeping/removing actions are not model calls. A completed trial
@@ -248,8 +252,8 @@ Proposed uniform defaults to validate and freeze during development:
   or provider idempotency/response recovery guarantees no duplicate turn.
   Ambiguous session state ends that trial as interrupted; do not restart it under
   the same ID or manufacture continuity.
-- Invalid JSON, out-of-range ratings, duplicate/invalid first labels, invalid
-  second labels, or refusal are logged response failures. Do not add a corrective
+- Invalid JSON, out-of-range ratings, duplicate/invalid first selections, invalid
+  second selections, or refusal are logged response failures. Do not add a corrective
   turn or rerun the trial. Valid repeated choices and undesired ratings are data.
 - Resume unstarted trials or a uniquely recoverable native session from its last
   durable checkpoint. Never rerun a completed trial. Preserve every attempt.

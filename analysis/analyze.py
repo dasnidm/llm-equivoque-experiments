@@ -86,8 +86,9 @@ def load_records(root=ROOT, allow_incomplete=False):
                    'started_at': state.get('started_at'),
                    'ended_at': state.get('ended_at'), 'error': state.get('error'),
                    'target_position': trial['order'].index(trial['target']) + 1,
-                   'recorded_turn_seconds': sum(t.get('duration_seconds', 0)
-                                                for t in state.get('turns', [])),
+                   'recorded_turn_seconds': (sum(t['duration_seconds'] for t in state.get('turns', []))
+                       if all(t.get('duration_seconds') is not None for t in state.get('turns', []))
+                       else np.nan),
                    **endpoints(state)}
             for turn in state.get('turns', []):
                 usage = turn.get('usage') or {}
@@ -455,6 +456,7 @@ def main():
              'valid_pre_post_pairs', 'failed', 'interrupted', 'unattempted']), '',
         '## Interpretation and technical limits', '',
         'Native CLI subjects also receive the documented empty-directory environment context. Its working-directory paths contain the repository/run name, including the word equivoque. This is a possible topic cue before disclosure, even though no repository files, worker instructions, assigned target, or invariant rule are supplied. The context is part of the frozen harness and common across conditions; results describe judgments under that context, not the canonical message text in isolation. The protocol was not changed and trials were not replaced after collection began.', '',
+        'A runtime reattachment stopped the coordinator and worker parents during collection. Seven already-requested native turns finished in their CLI children and left final durable event streams. Each had one schema-valid response, one final turn.completed event, matching session/system/prompt/schema, and no tools or metadata fallback. The coordinator recovered those responses without a new model invocation. Their original process exit codes and monotonic latencies are unavailable and remain missing; endpoint responses and available usage are retained. Fresh live readiness checks preceded resumption, with no replacement trials.', '',
         'Disclosure combines an explanation, exhaustive evidence, and a later measurement. Its change cannot isolate the effect of any one component. Card and cat wording also differs in names, action verbs, and removal terms. Frame differences do not isolate only object category. These are model-generated judgments in one task family, not human agency measures.', '',
         'Valid Turn 3 endpoints contribute even when Turn 4 fails. Within-trial changes and frame differences use endpoint-valid pairs. All assigned failures and unattempted trials remain in denominators; missing ratings are not imputed. Sparse route contrasts remain insufficient, without replacement trials.', '',
         'See tables/estimates.csv for point estimates, contributing cases/trials, valid bootstrap counts, intervals, and insufficient cells. tables/missingness.csv contains endpoint denominators. Other CSVs retain route counts, counterfactual transitions, evidence consistency, target/position, choices, worker/time descriptions, and technical summaries. Static SVG and PNG figures have captions in figure_captions.json.', '',

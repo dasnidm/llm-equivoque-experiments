@@ -1,0 +1,122 @@
+{
+  "pending_turn": {
+    "local_turn": 1,
+    "prompt": "Four cats are in front of you, in this order: C, D, B, A. Pet two of them. Reply as JSON with \"selection\": an array of two distinct labels.",
+    "requested_at": "2026-10-09T23:39:25.674647+00:00",
+    "round": 1,
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "selection": {
+          "items": {
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "selection"
+      ],
+      "type": "object"
+    },
+    "session_id_before": null,
+    "turn": 1
+  },
+  "protocol_sha256": "eb478e1675f9048373b8a35c038e86c96c132147f7b18db6fc077dc5c1433c84",
+  "rounds": [
+    {
+      "order": [
+        "C",
+        "D",
+        "B",
+        "A"
+      ],
+      "remaining": [
+        "C",
+        "D",
+        "B",
+        "A"
+      ],
+      "round": 1,
+      "route": ""
+    },
+    {
+      "order": [
+        "B",
+        "C",
+        "A",
+        "D"
+      ],
+      "remaining": [
+        "B",
+        "C",
+        "A",
+        "D"
+      ],
+      "round": 2,
+      "route": ""
+    },
+    {
+      "order": [
+        "C",
+        "B",
+        "A",
+        "D"
+      ],
+      "remaining": [
+        "C",
+        "B",
+        "A",
+        "D"
+      ],
+      "round": 3,
+      "route": ""
+    }
+  ],
+  "scratch_id": "f4b8c371-10bd-480a-a14d-8ac06b1dd891",
+  "session_id": null,
+  "started_at": "2026-10-09T23:39:25.674469+00:00",
+  "status": "active",
+  "transport": "codex-native",
+  "trial": {
+    "case_id": "case-010",
+    "configuration_id": "gpt-6-sol-high",
+    "effort": "high",
+    "frame": "cats",
+    "model": "gpt-6-sol",
+    "round_orders": [
+      [
+        "C",
+        "D",
+        "B",
+        "A"
+      ],
+      [
+        "B",
+        "C",
+        "A",
+        "D"
+      ],
+      [
+        "C",
+        "B",
+        "A",
+        "D"
+      ]
+    ],
+    "run_id": "equivoque-2026-10-09-exp2-v1",
+    "target": "B",
+    "trial_id": "equivoque-2026-10-09-exp2-v1/gpt-6-sol-high/cats/case-010",
+    "worker_id": "t"
+  },
+  "turns": []
+}

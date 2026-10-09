@@ -41,7 +41,7 @@ def main():
     if provenance['run_id'] != config['run_id']:
         raise ValueError('Wrong analysis output')
     baseline = {str(p.relative_to(output)): digest(p) for p in output.rglob('*') if p.is_file()}
-    calibration, calibration_sessions, evaluation_sessions, choices = [], set(), set(), []
+    calibration, calibration_sessions, evaluation_sessions, choices, traces = [], set(), set(), [], []
     shared = ROOT / 'experiment2/runtime/shared-preflight-01'
     shared_ready = read_json(shared / 'readiness.json')
     assert shared_ready['ready'] and shared_ready['subject_invocations'] == 21
@@ -81,6 +81,15 @@ def main():
                 assert state['session_id'] not in evaluation_sessions
                 evaluation_sessions.add(state['session_id'])
             remaining = {r: list(trial['round_orders'][r - 1]) for r in (1, 2, 3)}
+            for rnd in state['rounds']:
+                traces.append({'trial_id': trial['trial_id'], 'case_id': trial['case_id'],
+                    'configuration_id': trial['configuration_id'], 'frame': trial['frame'], 'worker': w,
+                    'round': rnd['round'], 'display_order_internal': json.dumps(rnd['order']),
+                    'recorded_remaining_internal': json.dumps(rnd['remaining']), 'route': rnd['route'],
+                    'recorded_choice_steps': len(rnd['route']), 'complete_choice_pair': len(rnd['route']) == 2,
+                    'measurement_valid': any(r['turn'] == rnd['round'] * 3 and 'parsed' in r for r in state['turns']),
+                    'terminal_trial_status': state['status'], 'source': str(path.relative_to(ROOT)),
+                    'source_sha256': digest(path)})
             for record in state['turns']:
                 if record['local_turn'] not in (1, 2):
                     continue
@@ -103,6 +112,7 @@ def main():
     assert not calibration_sessions & evaluation_sessions
     csv_file(output / 'tables/calibration_invocations.csv', calibration)
     csv_file(output / 'tables/choices.csv', choices)
+    csv_file(output / 'tables/round_traces.csv', traces)
     patterns = collections.Counter((r['configuration_id'], r['frame'], r['round'], r['step'],
         r['remaining_before'], r['selected_internal_labels'], r['operation']) for r in choices if r['valid_choice'])
     csv_file(output / 'tables/choice_patterns.csv', [dict(zip(
@@ -133,8 +143,9 @@ def main():
             'Calibration archives were reverified, and their session IDs are disjoint from\n'
             'evaluation. The temporary nine-turn preparation draft collected no observations;\n'
             'the owner-confirmed sequence retains Round 3 questions before final disclosure.\n\n'
-            'calibration_invocations.csv provides the call ledger. choices.csv and\n'
-            'choice_patterns.csv export recorded choice steps descriptively. They retain\n'
+            'calibration_invocations.csv provides the call ledger. choices.csv,\n'
+            'choice_patterns.csv, and round_traces.csv export recorded choices and partial\n'
+            'round routes descriptively, including rounds without a valid score. They retain\n'
             'trial/case/round membership and do not add inferential contrasts. The packaging\n'
             'utility leaves the frozen analysis source, estimates, plots, and raw data unchanged.\n')
         handle.write('\nexplorer.html provides an offline configuration/frame selector for recorded\n'

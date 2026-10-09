@@ -378,9 +378,13 @@ def figures(df, summary, output):
                 else:
                     ax.text(0, y, 'insufficient', ha='center', fontsize=8)
             ax.axvline(0, color='gray', linewidth=.7)
-            ax.set(xlim=(-99, 99), yticks=range(len(configurations)), yticklabels=configurations,
+            valid = s[s.status == 'estimable']
+            lo = min(0., valid.ci_low.min()) if len(valid) else -1.
+            hi = max(0., valid.ci_high.max()) if len(valid) else 1.
+            padding = max(1., (hi - lo) * .08)
+            ax.set(xlim=(lo - padding, hi + padding), yticks=range(len(configurations)), yticklabels=configurations,
                    title=metric.replace('_', ' '), xlabel='Rating difference (points)')
-        save(fig, name, 'Nominal pointwise 95% percentile intervals from 2,000 paired-case cluster replicates. Primary associations require at least 10 trials per route and 95% estimable replicates. Changes use within-trial pairs; frame differences use within-case card/cat pairs. No confirmatory tests.')
+        save(fig, name, 'Nominal pointwise 95% percentile intervals from 2,000 paired-case cluster replicates. Panel x-axis limits adapt to observed intervals, include zero, and leave margin for boundary estimates; possible rating differences range from -99 to 99. Primary associations require at least 10 trials per route and 95% estimable replicates. Changes use within-trial pairs; frame differences use within-case card/cat pairs. No confirmatory tests.')
     fig, axes = plt.subplots(1, 2, figsize=(12, 5), sharex=True, sharey=True)
     for ax, phase in zip(axes, ('pre', 'post')):
         for frame in ('cards', 'cats'):
@@ -498,12 +502,21 @@ def main():
     provenance['non_evaluation_invocations'] = (provenance['worker_calibration_invocations']
         + provenance['development_invocations'] + provenance['shared_service_calibration_invocations'])
     write_json(output / 'provenance.json', provenance)
+    impact_changes = summary[summary.metric == 'disclosure_change_impact']
+    freedom_changes = summary[summary.metric == 'disclosure_change_freedom']
+    pre_ceiling = int((df.pre_impact == 100).sum())
+    post_floor = int((df.post_impact == 1).sum())
+    primary_zero_intervals = int(((primary.ci_low <= 0) & (primary.ci_high >= 0)).sum())
     lines = ['# Equivoque evaluation report', '',
         f'Run: `{config["run_id"]}`. Integration revision: `{revision}`.',
         f'Protocol SHA-256: `{provenance["protocol_sha256"]}`.', '',
         '**Collection incomplete: interpret all outputs as partial.**' if provenance['incomplete_collection'] else '**Collection finished; raw-data integrity checks passed.**', '',
         f'{len(df)} assigned trials; {provenance["valid_pre"]} valid pre-disclosure endpoints and {provenance["valid_post"]} valid post-disclosure endpoints.',
         f'{int((primary.status == "estimable").sum())} of 21 primary route associations were estimable under the prespecified thresholds.', '',
+        '## Observed results', '',
+        f'Primary route associations ranged from {primary.estimate.min():.2f} to {primary.estimate.max():.2f} impact points across the 21 configurations. All {primary_zero_intervals} nominal pointwise intervals included zero. This is not an equivalence claim: {pre_ceiling} of {provenance["valid_pre"]} valid pre-disclosure impact ratings were already at the upper boundary of 100, leaving little observed variation for route contrasts.', '',
+        f'All {post_floor} valid post-disclosure impact ratings were at the lower boundary of 1, and all valid post-disclosure counterfactual responses were no. Configuration-level within-trial impact changes ranged from {impact_changes.estimate.min():.2f} to {impact_changes.estimate.max():.2f} points. Freedom changes ranged from {freedom_changes.estimate.min():.2f} to {freedom_changes.estimate.max():.2f} points; freedom to select remained near its upper boundary. The responses distinguish freedom to choose from influence on the final object under the disclosed forcing rule.', '',
+        'Repeated boundary ratings produce degenerate bootstrap intervals in many cells. These intervals describe the recorded judgments in this task and frozen harness; they do not establish exact zero effects outside it. Disclosure occurred later and bundled explanation with exhaustive evidence, so the large change is descriptive and cannot isolate a causal effect of disclosure alone. Frame differences and all configuration-level intervals are retained below and in the CSV tables.', '',
         '## Primary route associations', '',
         'The primary estimate equally weights KK and DD versus KD and DK. Routes arise from model choices; contrasts are associations. Cases are shared across frames and configurations. The 2,000 bootstrap replicates resample all 50 paired starting cases together using the frozen seed. Intervals are nominal pointwise percentile 95% intervals, with no confirmatory significance claims.', '',
         *markdown_table(primary, ['configuration_id', 'estimate', 'ci_low', 'ci_high',

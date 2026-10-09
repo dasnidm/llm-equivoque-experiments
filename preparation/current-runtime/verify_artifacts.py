@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT))
 from equivoque.core import read_json,write_json,digest,frozen_hashes
 RUN='equivoque-2026-10-09-v1'
-output=ROOT/'analysis/results'/RUN/'attempt-01'
+output=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT/'analysis/results'/RUN/'attempt-01'
 frozen_hashes()
 def rows(name):
     with (output/'tables'/name).open(newline='')as file:return list(csv.DictReader(file))

@@ -1,0 +1,2844 @@
+{
+  "ended_at": "2026-10-09T23:23:40.268817+00:00",
+  "pending_turn": null,
+  "protocol_sha256": "eb478e1675f9048373b8a35c038e86c96c132147f7b18db6fc077dc5c1433c84",
+  "rounds": [
+    {
+      "order": [
+        "A",
+        "D",
+        "B",
+        "C"
+      ],
+      "remaining": [
+        "D"
+      ],
+      "round": 1,
+      "route": "KD"
+    },
+    {
+      "order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "remaining": [
+        "D"
+      ],
+      "round": 2,
+      "route": "DK"
+    },
+    {
+      "order": [
+        "B",
+        "C",
+        "D",
+        "A"
+      ],
+      "remaining": [
+        "D"
+      ],
+      "round": 3,
+      "route": "DK"
+    }
+  ],
+  "scratch_id": "a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4",
+  "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+  "started_at": "2026-10-09T23:23:06.069923+00:00",
+  "status": "complete",
+  "transport": "codex-native",
+  "trial": {
+    "case_id": "case-006",
+    "configuration_id": "gpt-5.6-luna-low",
+    "effort": "low",
+    "frame": "cards",
+    "model": "gpt-5.6-luna",
+    "round_orders": [
+      [
+        "A",
+        "D",
+        "B",
+        "C"
+      ],
+      [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      [
+        "B",
+        "C",
+        "D",
+        "A"
+      ]
+    ],
+    "run_id": "equivoque-2026-10-09-exp2-v1",
+    "target": "D",
+    "trial_id": "calibration/equivoque-2026-10-09-exp2-v1/a",
+    "worker_id": "a"
+  },
+  "turns": [
+    {
+      "command": [
+        "codex",
+        "exec",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-01.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "--sandbox",
+        "read-only",
+        "-C",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject",
+        "-"
+      ],
+      "duration_seconds": 2.720496052999806,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":[\"ace of spades\",\"ace of hearts\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 1783,
+            "output_tokens": 23,
+            "reasoning_output_tokens": 0
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "A",
+          "D"
+        ]
+      },
+      "prompt": "Four cards are in front of you, in this order: ace of spades, ace of hearts, ace of clubs, ace of diamonds. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:08.795428+00:00",
+      "requested_at": "2026-10-09T23:23:06.070181+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": null,
+      "stderr": "",
+      "text": "{\"selection\":[\"ace of spades\",\"ace of hearts\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 1,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 1783,
+        "output_tokens": 23,
+        "reasoning_output_tokens": 0
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-02.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a122fa-3828-7011-b784-d9bd51888244",
+        "-"
+      ],
+      "duration_seconds": 2.9204462529996817,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":\"ace of spades\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 3608,
+            "output_tokens": 67,
+            "reasoning_output_tokens": 24
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "A"
+      },
+      "prompt": "The two cards you tapped remain: ace of spades, ace of hearts. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of spades",
+              "ace of hearts"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.events.jsonl",
+          "sha256": "5a2a6945e2c06e889cb000d2244566f7f88c051127a1dd66ad7b811ab8728df5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.schema.json",
+          "sha256": "b31985243818943ba7b54d36babd0a2bea96d72733227d299a1143e713e43f83"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:11.718630+00:00",
+      "requested_at": "2026-10-09T23:23:08.797342+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of spades",
+              "ace of hearts"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": "01a122fa-3828-7011-b784-d9bd51888244",
+      "stderr": "",
+      "text": "{\"selection\":\"ace of spades\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 2,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 3608,
+        "output_tokens": 67,
+        "reasoning_output_tokens": 24
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-03.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a122fa-3828-7011-b784-d9bd51888244",
+        "-"
+      ],
+      "duration_seconds": 4.925132792001023,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 5615,
+            "output_tokens": 164,
+            "reasoning_output_tokens": 93
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The card you tapped is discarded. Your chosen card is ace of hearts.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.events.jsonl",
+          "sha256": "5a2a6945e2c06e889cb000d2244566f7f88c051127a1dd66ad7b811ab8728df5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.schema.json",
+          "sha256": "b31985243818943ba7b54d36babd0a2bea96d72733227d299a1143e713e43f83"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.events.jsonl",
+          "sha256": "832d0f92770f39f10dabaadbf0e62e36d6d73a56a0526b8ccdb6467beb1cf341"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:16.646610+00:00",
+      "requested_at": "2026-10-09T23:23:11.720532+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": "01a122fa-3828-7011-b784-d9bd51888244",
+      "stderr": "",
+      "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 3,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 5615,
+        "output_tokens": 164,
+        "reasoning_output_tokens": 93
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-04.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a122fa-3828-7011-b784-d9bd51888244",
+        "-"
+      ],
+      "duration_seconds": 3.021419088001494,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":[\"ace of spades\",\"ace of clubs\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 7774,
+            "output_tokens": 187,
+            "reasoning_output_tokens": 93
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "A",
+          "B"
+        ]
+      },
+      "prompt": "Round 2.\n\nFour cards are in front of you, in this order: ace of spades, ace of clubs, ace of diamonds, ace of hearts. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.events.jsonl",
+          "sha256": "5a2a6945e2c06e889cb000d2244566f7f88c051127a1dd66ad7b811ab8728df5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.schema.json",
+          "sha256": "b31985243818943ba7b54d36babd0a2bea96d72733227d299a1143e713e43f83"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.events.jsonl",
+          "sha256": "832d0f92770f39f10dabaadbf0e62e36d6d73a56a0526b8ccdb6467beb1cf341"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.events.jsonl",
+          "sha256": "bd1dab7e0a1b4a5b5039bc69850ffefeea3abe01ab92e9ca328f89622cfad62a"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:19.671132+00:00",
+      "requested_at": "2026-10-09T23:23:16.648813+00:00",
+      "round": 2,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": "01a122fa-3828-7011-b784-d9bd51888244",
+      "stderr": "",
+      "text": "{\"selection\":[\"ace of spades\",\"ace of clubs\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 4,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 7774,
+        "output_tokens": 187,
+        "reasoning_output_tokens": 93
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-05.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a122fa-3828-7011-b784-d9bd51888244",
+        "-"
+      ],
+      "duration_seconds": 3.1733556980016147,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":\"ace of hearts\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 9975,
+            "output_tokens": 242,
+            "reasoning_output_tokens": 129
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "D"
+      },
+      "prompt": "The two cards you tapped are discarded. ace of diamonds, ace of hearts remain. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of diamonds",
+              "ace of hearts"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.events.jsonl",
+          "sha256": "5a2a6945e2c06e889cb000d2244566f7f88c051127a1dd66ad7b811ab8728df5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.schema.json",
+          "sha256": "b31985243818943ba7b54d36babd0a2bea96d72733227d299a1143e713e43f83"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.events.jsonl",
+          "sha256": "832d0f92770f39f10dabaadbf0e62e36d6d73a56a0526b8ccdb6467beb1cf341"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.events.jsonl",
+          "sha256": "bd1dab7e0a1b4a5b5039bc69850ffefeea3abe01ab92e9ca328f89622cfad62a"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.events.jsonl",
+          "sha256": "0ad5b49e55835c86e2910c9a243a0034c18cd5774e3b415fe28baeed16976ec5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:22.851152+00:00",
+      "requested_at": "2026-10-09T23:23:19.675019+00:00",
+      "round": 2,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of diamonds",
+              "ace of hearts"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": "01a122fa-3828-7011-b784-d9bd51888244",
+      "stderr": "",
+      "text": "{\"selection\":\"ace of hearts\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 5,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 9975,
+        "output_tokens": 242,
+        "reasoning_output_tokens": 129
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-06.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a122fa-3828-7011-b784-d9bd51888244",
+        "-"
+      ],
+      "duration_seconds": 3.3765758070003358,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 1792,
+            "input_tokens": 12375,
+            "output_tokens": 309,
+            "reasoning_output_tokens": 168
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The card you tapped remains; the other card is discarded. Your chosen card is ace of hearts.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.events.jsonl",
+          "sha256": "5a2a6945e2c06e889cb000d2244566f7f88c051127a1dd66ad7b811ab8728df5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.schema.json",
+          "sha256": "b31985243818943ba7b54d36babd0a2bea96d72733227d299a1143e713e43f83"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.events.jsonl",
+          "sha256": "832d0f92770f39f10dabaadbf0e62e36d6d73a56a0526b8ccdb6467beb1cf341"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.events.jsonl",
+          "sha256": "bd1dab7e0a1b4a5b5039bc69850ffefeea3abe01ab92e9ca328f89622cfad62a"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.events.jsonl",
+          "sha256": "0ad5b49e55835c86e2910c9a243a0034c18cd5774e3b415fe28baeed16976ec5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.events.jsonl",
+          "sha256": "49747d1a8b34dc4e9e63c6e9006505ccd5c9adddeaf4abf0580a87d95f4333c2"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:26.231616+00:00",
+      "requested_at": "2026-10-09T23:23:22.853779+00:00",
+      "round": 2,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": "01a122fa-3828-7011-b784-d9bd51888244",
+      "stderr": "",
+      "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 6,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 1792,
+        "input_tokens": 12375,
+        "output_tokens": 309,
+        "reasoning_output_tokens": 168
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-07.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a122fa-3828-7011-b784-d9bd51888244",
+        "-"
+      ],
+      "duration_seconds": 3.3241947650003567,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":[\"ace of clubs\",\"ace of diamonds\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 3584,
+            "input_tokens": 14897,
+            "output_tokens": 348,
+            "reasoning_output_tokens": 183
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "B",
+          "C"
+        ]
+      },
+      "prompt": "Round 3.\n\nFour cards are in front of you, in this order: ace of clubs, ace of diamonds, ace of hearts, ace of spades. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.events.jsonl",
+          "sha256": "5a2a6945e2c06e889cb000d2244566f7f88c051127a1dd66ad7b811ab8728df5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.schema.json",
+          "sha256": "b31985243818943ba7b54d36babd0a2bea96d72733227d299a1143e713e43f83"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.events.jsonl",
+          "sha256": "832d0f92770f39f10dabaadbf0e62e36d6d73a56a0526b8ccdb6467beb1cf341"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.events.jsonl",
+          "sha256": "bd1dab7e0a1b4a5b5039bc69850ffefeea3abe01ab92e9ca328f89622cfad62a"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.events.jsonl",
+          "sha256": "0ad5b49e55835c86e2910c9a243a0034c18cd5774e3b415fe28baeed16976ec5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.events.jsonl",
+          "sha256": "49747d1a8b34dc4e9e63c6e9006505ccd5c9adddeaf4abf0580a87d95f4333c2"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.events.jsonl",
+          "sha256": "6d125a2f990eeb9d1bdf1f027e7a637790e22d066bbae0b889805abdc9d57fba"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:29.565580+00:00",
+      "requested_at": "2026-10-09T23:23:26.238766+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": "01a122fa-3828-7011-b784-d9bd51888244",
+      "stderr": "",
+      "text": "{\"selection\":[\"ace of clubs\",\"ace of diamonds\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 7,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 3584,
+        "input_tokens": 14897,
+        "output_tokens": 348,
+        "reasoning_output_tokens": 183
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-08.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a122fa-3828-7011-b784-d9bd51888244",
+        "-"
+      ],
+      "duration_seconds": 3.623665794999397,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":\"ace of hearts\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 3584,
+            "input_tokens": 17479,
+            "output_tokens": 377,
+            "reasoning_output_tokens": 193
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "D"
+      },
+      "prompt": "The two cards you tapped are discarded. ace of hearts, ace of spades remain. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of hearts",
+              "ace of spades"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.events.jsonl",
+          "sha256": "5a2a6945e2c06e889cb000d2244566f7f88c051127a1dd66ad7b811ab8728df5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.schema.json",
+          "sha256": "b31985243818943ba7b54d36babd0a2bea96d72733227d299a1143e713e43f83"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.events.jsonl",
+          "sha256": "832d0f92770f39f10dabaadbf0e62e36d6d73a56a0526b8ccdb6467beb1cf341"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.events.jsonl",
+          "sha256": "bd1dab7e0a1b4a5b5039bc69850ffefeea3abe01ab92e9ca328f89622cfad62a"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.events.jsonl",
+          "sha256": "0ad5b49e55835c86e2910c9a243a0034c18cd5774e3b415fe28baeed16976ec5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.events.jsonl",
+          "sha256": "49747d1a8b34dc4e9e63c6e9006505ccd5c9adddeaf4abf0580a87d95f4333c2"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.events.jsonl",
+          "sha256": "6d125a2f990eeb9d1bdf1f027e7a637790e22d066bbae0b889805abdc9d57fba"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-08.events.jsonl",
+          "sha256": "6239c75ba18074631902a9936867eadccc2b43d304048d8808ef6fd8cff031b9"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-08.schema.json",
+          "sha256": "9908d77f2346961cccf62e3c635ed6a210ace6743bc7a20339105d74a8cc4dda"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-08.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:33.195393+00:00",
+      "requested_at": "2026-10-09T23:23:29.569697+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of hearts",
+              "ace of spades"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": "01a122fa-3828-7011-b784-d9bd51888244",
+      "stderr": "",
+      "text": "{\"selection\":\"ace of hearts\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 8,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 3584,
+        "input_tokens": 17479,
+        "output_tokens": 377,
+        "reasoning_output_tokens": 193
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-09.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a122fa-3828-7011-b784-d9bd51888244",
+        "-"
+      ],
+      "duration_seconds": 3.1721731800007547,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 5376,
+            "input_tokens": 20233,
+            "output_tokens": 403,
+            "reasoning_output_tokens": 193
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The card you tapped remains; the other card is discarded. Your chosen card is ace of hearts.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.events.jsonl",
+          "sha256": "5a2a6945e2c06e889cb000d2244566f7f88c051127a1dd66ad7b811ab8728df5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.schema.json",
+          "sha256": "b31985243818943ba7b54d36babd0a2bea96d72733227d299a1143e713e43f83"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.events.jsonl",
+          "sha256": "832d0f92770f39f10dabaadbf0e62e36d6d73a56a0526b8ccdb6467beb1cf341"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.events.jsonl",
+          "sha256": "bd1dab7e0a1b4a5b5039bc69850ffefeea3abe01ab92e9ca328f89622cfad62a"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.events.jsonl",
+          "sha256": "0ad5b49e55835c86e2910c9a243a0034c18cd5774e3b415fe28baeed16976ec5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.events.jsonl",
+          "sha256": "49747d1a8b34dc4e9e63c6e9006505ccd5c9adddeaf4abf0580a87d95f4333c2"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.events.jsonl",
+          "sha256": "6d125a2f990eeb9d1bdf1f027e7a637790e22d066bbae0b889805abdc9d57fba"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-08.events.jsonl",
+          "sha256": "6239c75ba18074631902a9936867eadccc2b43d304048d8808ef6fd8cff031b9"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-08.schema.json",
+          "sha256": "9908d77f2346961cccf62e3c635ed6a210ace6743bc7a20339105d74a8cc4dda"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-08.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-09.events.jsonl",
+          "sha256": "8c86445e3db2e79c8f45cfa19c2641e4de704e1d3bafeea204425d9912f9d4ae"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-09.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-09.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:36.373521+00:00",
+      "requested_at": "2026-10-09T23:23:33.199532+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": "01a122fa-3828-7011-b784-d9bd51888244",
+      "stderr": "",
+      "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 9,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 5376,
+        "input_tokens": 20233,
+        "output_tokens": 403,
+        "reasoning_output_tokens": 193
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/turn-10.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/a/work/worker-preflight/equivoque-2026-10-09-exp2-v1/a/a701f4ba-51d3-4bea-a95a-9aa5bd0f7fc4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a122fa-3828-7011-b784-d9bd51888244",
+        "-"
+      ],
+      "duration_seconds": 3.8774923870005296,
+      "events": [
+        {
+          "thread_id": "01a122fa-3828-7011-b784-d9bd51888244",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"freedom\":100,\"impact\":1,\"counterfactual\":\"no\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 7168,
+            "input_tokens": 24192,
+            "output_tokens": 466,
+            "reasoning_output_tokens": 228
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 4,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "no",
+        "freedom": 100,
+        "impact": 1
+      },
+      "prompt": "Before your first tap in Round 1, ace of hearts was fixed as the final card for all three rounds. At each step in every round, the group containing that card was kept. Each table shows all 12 valid choice paths for that round's starting arrangement.\n\nRound 1\n\n| First tap | Cards remaining | Second tap | Final card |\n| --- | --- | --- | --- |\n| ace of spades, ace of hearts | ace of spades, ace of hearts | ace of spades | ace of hearts |\n| ace of spades, ace of hearts | ace of spades, ace of hearts | ace of hearts | ace of hearts |\n| ace of spades, ace of clubs | ace of hearts, ace of diamonds | ace of hearts | ace of hearts |\n| ace of spades, ace of clubs | ace of hearts, ace of diamonds | ace of diamonds | ace of hearts |\n| ace of spades, ace of diamonds | ace of hearts, ace of clubs | ace of hearts | ace of hearts |\n| ace of spades, ace of diamonds | ace of hearts, ace of clubs | ace of clubs | ace of hearts |\n| ace of hearts, ace of clubs | ace of hearts, ace of clubs | ace of hearts | ace of hearts |\n| ace of hearts, ace of clubs | ace of hearts, ace of clubs | ace of clubs | ace of hearts |\n| ace of hearts, ace of diamonds | ace of hearts, ace of diamonds | ace of hearts | ace of hearts |\n| ace of hearts, ace of diamonds | ace of hearts, ace of diamonds | ace of diamonds | ace of hearts |\n| ace of clubs, ace of diamonds | ace of spades, ace of hearts | ace of spades | ace of hearts |\n| ace of clubs, ace of diamonds | ace of spades, ace of hearts | ace of hearts | ace of hearts |\n\nRound 2\n\n| First tap | Cards remaining | Second tap | Final card |\n| --- | --- | --- | --- |\n| ace of spades, ace of clubs | ace of diamonds, ace of hearts | ace of diamonds | ace of hearts |\n| ace of spades, ace of clubs | ace of diamonds, ace of hearts | ace of hearts | ace of hearts |\n| ace of spades, ace of diamonds | ace of clubs, ace of hearts | ace of clubs | ace of hearts |\n| ace of spades, ace of diamonds | ace of clubs, ace of hearts | ace of hearts | ace of hearts |\n| ace of spades, ace of hearts | ace of spades, ace of hearts | ace of spades | ace of hearts |\n| ace of spades, ace of hearts | ace of spades, ace of hearts | ace of hearts | ace of hearts |\n| ace of clubs, ace of diamonds | ace of spades, ace of hearts | ace of spades | ace of hearts |\n| ace of clubs, ace of diamonds | ace of spades, ace of hearts | ace of hearts | ace of hearts |\n| ace of clubs, ace of hearts | ace of clubs, ace of hearts | ace of clubs | ace of hearts |\n| ace of clubs, ace of hearts | ace of clubs, ace of hearts | ace of hearts | ace of hearts |\n| ace of diamonds, ace of hearts | ace of diamonds, ace of hearts | ace of diamonds | ace of hearts |\n| ace of diamonds, ace of hearts | ace of diamonds, ace of hearts | ace of hearts | ace of hearts |\n\nRound 3\n\n| First tap | Cards remaining | Second tap | Final card |\n| --- | --- | --- | --- |\n| ace of clubs, ace of diamonds | ace of hearts, ace of spades | ace of hearts | ace of hearts |\n| ace of clubs, ace of diamonds | ace of hearts, ace of spades | ace of spades | ace of hearts |\n| ace of clubs, ace of hearts | ace of clubs, ace of hearts | ace of clubs | ace of hearts |\n| ace of clubs, ace of hearts | ace of clubs, ace of hearts | ace of hearts | ace of hearts |\n| ace of clubs, ace of spades | ace of diamonds, ace of hearts | ace of diamonds | ace of hearts |\n| ace of clubs, ace of spades | ace of diamonds, ace of hearts | ace of hearts | ace of hearts |\n| ace of diamonds, ace of hearts | ace of diamonds, ace of hearts | ace of diamonds | ace of hearts |\n| ace of diamonds, ace of hearts | ace of diamonds, ace of hearts | ace of hearts | ace of hearts |\n| ace of diamonds, ace of spades | ace of clubs, ace of hearts | ace of clubs | ace of hearts |\n| ace of diamonds, ace of spades | ace of clubs, ace of hearts | ace of hearts | ace of hearts |\n| ace of hearts, ace of spades | ace of hearts, ace of spades | ace of hearts | ace of hearts |\n| ace of hearts, ace of spades | ace of hearts, ace of spades | ace of spades | ace of hearts |\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.events.jsonl",
+          "sha256": "ed6a65e70c2972f27d9ca291a597a49c6a58f4574692ee22fe0c20d8da0a8793"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.events.jsonl",
+          "sha256": "5a2a6945e2c06e889cb000d2244566f7f88c051127a1dd66ad7b811ab8728df5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.schema.json",
+          "sha256": "b31985243818943ba7b54d36babd0a2bea96d72733227d299a1143e713e43f83"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.events.jsonl",
+          "sha256": "832d0f92770f39f10dabaadbf0e62e36d6d73a56a0526b8ccdb6467beb1cf341"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.events.jsonl",
+          "sha256": "bd1dab7e0a1b4a5b5039bc69850ffefeea3abe01ab92e9ca328f89622cfad62a"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.events.jsonl",
+          "sha256": "0ad5b49e55835c86e2910c9a243a0034c18cd5774e3b415fe28baeed16976ec5"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.events.jsonl",
+          "sha256": "49747d1a8b34dc4e9e63c6e9006505ccd5c9adddeaf4abf0580a87d95f4333c2"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-06.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.events.jsonl",
+          "sha256": "6d125a2f990eeb9d1bdf1f027e7a637790e22d066bbae0b889805abdc9d57fba"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-07.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-08.events.jsonl",
+          "sha256": "6239c75ba18074631902a9936867eadccc2b43d304048d8808ef6fd8cff031b9"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-08.schema.json",
+          "sha256": "9908d77f2346961cccf62e3c635ed6a210ace6743bc7a20339105d74a8cc4dda"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-08.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-09.events.jsonl",
+          "sha256": "8c86445e3db2e79c8f45cfa19c2641e4de704e1d3bafeea204425d9912f9d4ae"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-09.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-09.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-10.events.jsonl",
+          "sha256": "c983587ce20a611238390ccc03a78c0cbc2141036a730346055c19e6ff0bb155"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-10.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/calibration__equivoque-2026-10-09-exp2-v1__a/turn-10.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:23:40.262922+00:00",
+      "requested_at": "2026-10-09T23:23:36.379509+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a122fa-3828-7011-b784-d9bd51888244",
+      "session_id_before": "01a122fa-3828-7011-b784-d9bd51888244",
+      "stderr": "",
+      "text": "{\"freedom\":100,\"impact\":1,\"counterfactual\":\"no\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 10,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 7168,
+        "input_tokens": 24192,
+        "output_tokens": 466,
+        "reasoning_output_tokens": 228
+      }
+    }
+  ]
+}

@@ -29,3 +29,12 @@ turns remain null. A fresh coordinator release and recorded provenance history
 authorize only unrequested next turns. The twenty-worker continuation now uses
 a detached supervisor; see runtime-recovery-01.json, resume-authorization-01.json,
 and processes-resume-01.json.
+
+Collection finished: all 420 assigned sessions completed, 4,200 evaluation
+invocations, zero failed/interrupted/unattempted trials. All twenty worker audits
+passed, verifying 13,020 evaluation native files and 420 unique sessions. Four
+measurement occasions each have 420 valid endpoints. Final worker commits are
+pushed and match explicitly fetched remote refs. Result PRs 57–76 target the
+separate experiment 2 integration branch. Both freezes are unchanged: 53 new
+protocol files and 32 original experiment 1 files. Integration and frozen analysis
+are the remaining steps.

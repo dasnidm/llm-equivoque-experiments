@@ -25,7 +25,7 @@ targeting the completed experiment 1 integration branch. Main is unchanged.
 Assignment issues 36–55 already exist; do not create duplicates.
 
 Deliverables: `analysis/results/equivoque-2026-10-09-exp2-v1/attempt-01/REPORT.md`,
-nineteen tidy CSVs, nine PNG/SVG figure families, `index.html`, `explorer.html`,
+eighteen tidy CSVs, nine PNG/SVG figure families, `index.html`, `explorer.html`,
 `artifact-manifest.json`, and sibling `attempt-01-analysis.zip` with SHA-256.
 The offline explorer filters configuration/frame and displays recorded endpoints;
 it adds no inferential contrasts. Calibration and partial choices/routes have

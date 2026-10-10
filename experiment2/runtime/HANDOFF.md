@@ -22,7 +22,7 @@ recorded, not interpreted as randomized scaling or model-speed comparisons.
 Twenty finalized worker branches and result PRs 57–76 are integrated only on
 `integration/equivoque-2026-10-09-exp2-v1`. Integration review is draft PR 56,
 targeting the completed experiment 1 integration branch. Main is unchanged.
-Assignment issues 36–55 already exist; do not create duplicates.
+Assignment issues 36–55 are closed as completed; do not create duplicates.
 
 Deliverables: `analysis/results/equivoque-2026-10-09-exp2-v1/attempt-01/REPORT.md`,
 eighteen tidy CSVs, nine PNG/SVG figure families, `index.html`, `explorer.html`,

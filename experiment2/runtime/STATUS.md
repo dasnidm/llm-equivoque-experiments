@@ -54,3 +54,9 @@ Twenty recovered parent-observed durations/exit statuses remain unknown.
 All artifact hashes, ZIP integrity, export counts, and 21-configuration/frame
 explorer checks passed. Experiment 1 sources, protocol, results, and analysis
 are byte-for-byte unchanged from their completed integration revision.
+
+Publication verified: integrated report/data are on GitHub. All twenty result
+PRs 57–76 are marked merged; completed assignment issues 36–55 are closed.
+Draft review PR 56 remains open. Remote main is unchanged. See
+remote-verification.json and completed-assignments.json. No collection processes
+remain active for this run.

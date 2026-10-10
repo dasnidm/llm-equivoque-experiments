@@ -1,53 +1,44 @@
-# Experiment 2 continuation handoff
+# Experiment 2 completed handoff
 
-Owner-confirmed sequence: Round 1 / M1, Round 2 / M2, Round 3 / M3,
-then final disclosure / M4. Ten turns per trial, 420 sessions, 4,200 planned
-invocations. Twenty OS workers A–T; active permit limit 20 at owner request.
+Run `equivoque-2026-10-09-exp2-v1`: 420/420 complete, 4,200 evaluation invocations,
+zero failed/interrupted/unattempted trials, 420 unique native evaluation sessions.
+Each trial has Round 1 / M1, Round 2 / M2, Round 3 / M3, then disclosure / M4.
+All twenty OS workers completed their 21 assigned trials and exited successfully.
+Do not launch workers, preflights, or replacement trials for this completed run.
 
-Run: `equivoque-2026-10-09-exp2-v1`.
-Integration branch: `integration/equivoque-2026-10-09-exp2-v1`.
-Approved frozen source: `1b397809ed98ce20521a3e4903a0a4c93800c816`.
-Freeze SHA-256: `e704ca265a351cddf2431cae2ae7c5eedc530365a938952fc6c18c1432d53c81`.
-The temporary nine-turn preparation draft collected no data; the final files
-exactly match the original validated ten-turn preparation. Keep frozen files unchanged.
+Approved preparation source: `1b397809ed98ce20521a3e4903a0a4c93800c816`.
+Confirmed 53-file freeze: `e704ca265a351cddf2431cae2ae7c5eedc530365a938952fc6c18c1432d53c81`.
+The temporary nine-turn draft collected no observations. The owner-confirmed
+four-measurement sequence exactly matches the validated ten-turn preparation.
+Calibration: 221 native invocations in 41 sessions, excluded from all estimates.
+All 13,020 evaluation native archive files passed SHA-256 and record audits.
 
-Current progress is authoritative in collection-progress.json. The detached
-supervisor/worker PIDs and controls are in processes-resume-01.json. Check actual
-process state, not only PID existence: zombies are terminated. Do not launch
-another supervisor or shard while current processes are live.
+Twenty pending responses were recovered after runtime reconnection, with zero
+new calls or replays. Their original parent-observed exit statuses and durations
+remain null. Exact before/after evidence and old gates are preserved. The owner
+requested immediate concurrency twenty; operational overrides and latency are
+recorded, not interpreted as randomized scaling or model-speed comparisons.
 
-Original runtime reconnection terminated foreground workers. Twenty unique
-completed pending responses were reconciled from native completion events with
-zero new model calls. Original exit statuses and durations remain null. See
-runtime-recovery-01.json and resume-authorization-01.json. Fresh continuation
-gate: coordinator-launch-resume-01.json. Resume retains original native sessions;
-only an unrequested next turn may be called. Never replay a pending/failed/completed
-request. Never silently replace failed trials, models, efforts, targets, or prompts.
+Twenty finalized worker branches and result PRs 57–76 are integrated only on
+`integration/equivoque-2026-10-09-exp2-v1`. Integration review is draft PR 56,
+targeting the completed experiment 1 integration branch. Main is unchanged.
+Assignment issues 36–55 already exist; do not create duplicates.
 
-All twenty complete ten-turn readiness sessions and 21 shared access probes
-remain valid: 221 calibration invocations in 41 sessions, excluded from evaluation.
-Readiness lives under worker-*/preflight-01 and shared-preflight-01. GitHub issues
-36–55 already assign A–T; integration review is draft PR 56. Reuse without duplication.
+Deliverables: `analysis/results/equivoque-2026-10-09-exp2-v1/attempt-01/REPORT.md`,
+nineteen tidy CSVs, nine PNG/SVG figure families, `index.html`, `explorer.html`,
+`artifact-manifest.json`, and sibling `attempt-01-analysis.zip` with SHA-256.
+The offline explorer filters configuration/frame and displays recorded endpoints;
+it adds no inferential contrasts. Calibration and partial choices/routes have
+separate descriptive exports. See provenance.json and invocation-ledger.json.
 
-Immutable terminal data checkpoints use `python -m experiment2.publish --phase
-checkpoint` with fresh tool credentials. Do not capture active changing trial
-files as complete records. Recovery snapshots and gate histories are immutable.
-Do not include credentials, authorization headers, or native session storage.
+Primary R3–R1 impact: -17.207 points; nominal pointwise 95% ten-case cluster
+bootstrap interval -21.214 to -13.436 (2,000 frozen-seed replicates).
+Mean impact across occasions: 100.000, 96.229, 82.793, 1.000.
+Counterfactual no counts: 0, 16, 72, 420. Freedom and influence are distinct.
+No unrepeated control; changes describe the repeated task and question sequence,
+not repetition's isolated causal effect, general reasoning ranks, or human experience.
 
-After every assigned ID is terminal and all workers stop, run publish --phase
-finalize. Open/reuse twenty audited result PRs with `python -m
-experiment2.result_prs` before merging. Commit coordinator evidence so root is
-clean, then run publish --phase integrate. Integrate only the separate experiment
-2 branch, preserving experiment 1 and main.
-
-Run frozen analysis: `python -m experiment2.analyze --output
-analysis/results/equivoque-2026-10-09-exp2-v1/attempt-01` (new directory required).
-Then `python -m experiment2.deliver --output` with the same directory adds
-calibration accounting, descriptive choice exports, offline explorer, artifact
-hashes, and ZIP without changing frozen estimators. Primary: R3 minus R1 impact.
-Ten shared case clusters, 2,000 frozen-seed bootstrap replicates, no imputation,
-no causal repetition/control or model-ranking claim. Preserve valid partials.
-
-Push integrated raw results and English report/tables/PNG/SVG/HTML/ZIP to the
-integration branch, refresh PR 56 via REST with concrete audited counts, and
-verify remote heads. Do not merge main. Update this handoff/status upon completion.
+All artifact hashes, ZIP integrity, CSV counts, and the offline 21-configuration
+explorer passed final checks. Preserve all raw files and frozen analysis source.
+Experiment 1 remains separate and unchanged. Future work should interpret the
+existing results or create a separately authorized prospective experiment.

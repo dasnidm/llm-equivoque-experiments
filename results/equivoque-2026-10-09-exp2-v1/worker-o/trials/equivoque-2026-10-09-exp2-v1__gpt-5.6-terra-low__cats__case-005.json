@@ -1,0 +1,3004 @@
+{
+  "ended_at": "2026-10-09T23:49:23.807125+00:00",
+  "pending_turn": null,
+  "protocol_sha256": "eb478e1675f9048373b8a35c038e86c96c132147f7b18db6fc077dc5c1433c84",
+  "rounds": [
+    {
+      "order": [
+        "C",
+        "B",
+        "A",
+        "D"
+      ],
+      "remaining": [
+        "D"
+      ],
+      "round": 1,
+      "route": "DD"
+    },
+    {
+      "order": [
+        "D",
+        "A",
+        "B",
+        "C"
+      ],
+      "remaining": [
+        "D"
+      ],
+      "round": 2,
+      "route": "KK"
+    },
+    {
+      "order": [
+        "D",
+        "A",
+        "C",
+        "B"
+      ],
+      "remaining": [
+        "D"
+      ],
+      "round": 3,
+      "route": "KK"
+    }
+  ],
+  "scratch_id": "420cfbf5-e5d7-4d63-a09c-14057b1c73f9",
+  "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+  "started_at": "2026-10-09T23:47:41.492101+00:00",
+  "status": "complete",
+  "transport": "codex-native",
+  "trial": {
+    "case_id": "case-005",
+    "configuration_id": "gpt-5.6-terra-low",
+    "effort": "low",
+    "frame": "cats",
+    "model": "gpt-5.6-terra",
+    "round_orders": [
+      [
+        "C",
+        "B",
+        "A",
+        "D"
+      ],
+      [
+        "D",
+        "A",
+        "B",
+        "C"
+      ],
+      [
+        "D",
+        "A",
+        "C",
+        "B"
+      ]
+    ],
+    "run_id": "equivoque-2026-10-09-exp2-v1",
+    "target": "D",
+    "trial_id": "equivoque-2026-10-09-exp2-v1/gpt-5.6-terra-low/cats/case-005",
+    "worker_id": "o"
+  },
+  "turns": [
+    {
+      "command": [
+        "codex",
+        "exec",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-01.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "--sandbox",
+        "read-only",
+        "-C",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject",
+        "-"
+      ],
+      "duration_seconds": 12.598332342999129,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48145a56e975d4f-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48145a8cf093fcd-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48145af4d1b2625-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48145babbff8134-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48145cd68176c96-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"selection\":[\"C\",\"B\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 1792,
+            "input_tokens": 2689,
+            "output_tokens": 50,
+            "reasoning_output_tokens": 30
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "C",
+          "B"
+        ]
+      },
+      "prompt": "Four cats are in front of you, in this order: C, B, A, D. Pet two of them. Reply as JSON with \"selection\": an array of two distinct labels.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        }
+      ],
+      "received_at": "2026-10-09T23:47:54.091963+00:00",
+      "requested_at": "2026-10-09T23:47:41.492628+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": null,
+      "stderr": "2026-10-09T23:47:42.429565Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:43.110841Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:43.657634Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:44.246447Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:45.310511Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:47.061774Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:50.071936Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"selection\":[\"C\",\"B\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 1,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 1792,
+        "input_tokens": 2689,
+        "output_tokens": 50,
+        "reasoning_output_tokens": 30
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-02.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+        "-"
+      ],
+      "duration_seconds": 12.595995841000331,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48145f35e88c672-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48145f71d2dcc7b-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48145fcbabe34af-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814607a98ca152-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481461d4a627a63-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"selection\":\"A\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 1792,
+            "input_tokens": 5447,
+            "output_tokens": 113,
+            "reasoning_output_tokens": 76
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "A"
+      },
+      "prompt": "The two cats you petted leave. A, D remain. Pet one of them. Reply as JSON with \"selection\": one remaining label.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "A",
+              "D"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.events.jsonl",
+          "sha256": "a47ba62526c82a559d68c16dd3e45487319df0b69ee8ad4a0c65f8704559240b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.schema.json",
+          "sha256": "f4ea8f3b60cc5dc0360b8cc5f438f57adee6553cb63ad60c7e909f788e696e04"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.stderr.txt",
+          "sha256": "c4ba4e5ecc7b62ca59a1fb9216fc67f73de2d7b2489e7991a29fa1552cb0ce9b"
+        }
+      ],
+      "received_at": "2026-10-09T23:48:06.690341+00:00",
+      "requested_at": "2026-10-09T23:47:54.093537+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "A",
+              "D"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "stderr": "2026-10-09T23:47:55.054441Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:55.704442Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:56.147498Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:56.740686Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:57.755967Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:47:59.380803Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:02.852681Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"selection\":\"A\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 2,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 1792,
+        "input_tokens": 5447,
+        "output_tokens": 113,
+        "reasoning_output_tokens": 76
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-03.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+        "-"
+      ],
+      "duration_seconds": 12.703618677000122,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481464549afdf62-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48146486fc2cc7b-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481464e8efdc14a-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814659eb4f2625-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 1792,
+            "input_tokens": 8409,
+            "output_tokens": 173,
+            "reasoning_output_tokens": 108
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The cat you petted leaves. Your chosen cat is D.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cats to pet? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which cat remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final cat? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.events.jsonl",
+          "sha256": "a47ba62526c82a559d68c16dd3e45487319df0b69ee8ad4a0c65f8704559240b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.schema.json",
+          "sha256": "f4ea8f3b60cc5dc0360b8cc5f438f57adee6553cb63ad60c7e909f788e696e04"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.stderr.txt",
+          "sha256": "c4ba4e5ecc7b62ca59a1fb9216fc67f73de2d7b2489e7991a29fa1552cb0ce9b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.events.jsonl",
+          "sha256": "a4ddf0a88dffd613ee8f9780b3d988047b8197b0ac2ac5033c453c7d906b509e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.stderr.txt",
+          "sha256": "acf8d7be9953fa3fbe46237239eb0bf545bcd87d930089673b3ad7883d2d92ad"
+        }
+      ],
+      "received_at": "2026-10-09T23:48:19.396998+00:00",
+      "requested_at": "2026-10-09T23:48:06.692324+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "stderr": "2026-10-09T23:48:07.110510Z ERROR codex_models_manager::manager: failed to refresh available models: exceeded retry limit, last status: 429 Too Many Requests, request id: req_141f2b1571884d9fa46efe45132193fe\n2026-10-09T23:48:07.875057Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:08.762653Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:09.238842Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:09.745243Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:10.881952Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:12.541138Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 3,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 1792,
+        "input_tokens": 8409,
+        "output_tokens": 173,
+        "reasoning_output_tokens": 108
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-04.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+        "-"
+      ],
+      "duration_seconds": 5.1865983239986235,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":[\"D\",\"A\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 3584,
+            "input_tokens": 11467,
+            "output_tokens": 213,
+            "reasoning_output_tokens": 128
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "D",
+          "A"
+        ]
+      },
+      "prompt": "Round 2.\n\nFour cats are in front of you, in this order: D, A, B, C. Pet two of them. Reply as JSON with \"selection\": an array of two distinct labels.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.events.jsonl",
+          "sha256": "a47ba62526c82a559d68c16dd3e45487319df0b69ee8ad4a0c65f8704559240b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.schema.json",
+          "sha256": "f4ea8f3b60cc5dc0360b8cc5f438f57adee6553cb63ad60c7e909f788e696e04"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.stderr.txt",
+          "sha256": "c4ba4e5ecc7b62ca59a1fb9216fc67f73de2d7b2489e7991a29fa1552cb0ce9b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.events.jsonl",
+          "sha256": "a4ddf0a88dffd613ee8f9780b3d988047b8197b0ac2ac5033c453c7d906b509e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.stderr.txt",
+          "sha256": "acf8d7be9953fa3fbe46237239eb0bf545bcd87d930089673b3ad7883d2d92ad"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.events.jsonl",
+          "sha256": "72c58ba52f9db8b286e5e7020bd3a9ad3e2c007dd75c1bf63e46f996c8c32ecf"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:48:24.587475+00:00",
+      "requested_at": "2026-10-09T23:48:19.399531+00:00",
+      "round": 2,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "stderr": "",
+      "text": "{\"selection\":[\"D\",\"A\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 4,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 3584,
+        "input_tokens": 11467,
+        "output_tokens": 213,
+        "reasoning_output_tokens": 128
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-05.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+        "-"
+      ],
+      "duration_seconds": 5.435616066999501,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":\"D\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 5376,
+            "input_tokens": 14583,
+            "output_tokens": 244,
+            "reasoning_output_tokens": 142
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "D"
+      },
+      "prompt": "The two cats you petted stay: D, A. Pet one of them. Reply as JSON with \"selection\": one remaining label.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "D",
+              "A"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.events.jsonl",
+          "sha256": "a47ba62526c82a559d68c16dd3e45487319df0b69ee8ad4a0c65f8704559240b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.schema.json",
+          "sha256": "f4ea8f3b60cc5dc0360b8cc5f438f57adee6553cb63ad60c7e909f788e696e04"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.stderr.txt",
+          "sha256": "c4ba4e5ecc7b62ca59a1fb9216fc67f73de2d7b2489e7991a29fa1552cb0ce9b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.events.jsonl",
+          "sha256": "a4ddf0a88dffd613ee8f9780b3d988047b8197b0ac2ac5033c453c7d906b509e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.stderr.txt",
+          "sha256": "acf8d7be9953fa3fbe46237239eb0bf545bcd87d930089673b3ad7883d2d92ad"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.events.jsonl",
+          "sha256": "72c58ba52f9db8b286e5e7020bd3a9ad3e2c007dd75c1bf63e46f996c8c32ecf"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.events.jsonl",
+          "sha256": "f99ef54b26eba6bc78a134eb345a720e2b32392ac1265446924b6129fa128dec"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.schema.json",
+          "sha256": "7030bc57a4cf56560fb986a5802c369dcc3bc1b854000822e3ef791bb8392437"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:48:30.030449+00:00",
+      "requested_at": "2026-10-09T23:48:24.590707+00:00",
+      "round": 2,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "D",
+              "A"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "stderr": "",
+      "text": "{\"selection\":\"D\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 5,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 5376,
+        "input_tokens": 14583,
+        "output_tokens": 244,
+        "reasoning_output_tokens": 142
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-06.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+        "-"
+      ],
+      "duration_seconds": 13.605304372000319,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48146d9f975cc7b-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48146de8d13c672-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48146e478e53d32-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48146eeeff6cd77-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48147024c85a152-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 8192,
+            "input_tokens": 17876,
+            "output_tokens": 306,
+            "reasoning_output_tokens": 176
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The cat you petted stays; the other cat leaves. Your chosen cat is D.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cats to pet? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which cat remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final cat? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.events.jsonl",
+          "sha256": "a47ba62526c82a559d68c16dd3e45487319df0b69ee8ad4a0c65f8704559240b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.schema.json",
+          "sha256": "f4ea8f3b60cc5dc0360b8cc5f438f57adee6553cb63ad60c7e909f788e696e04"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.stderr.txt",
+          "sha256": "c4ba4e5ecc7b62ca59a1fb9216fc67f73de2d7b2489e7991a29fa1552cb0ce9b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.events.jsonl",
+          "sha256": "a4ddf0a88dffd613ee8f9780b3d988047b8197b0ac2ac5033c453c7d906b509e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.stderr.txt",
+          "sha256": "acf8d7be9953fa3fbe46237239eb0bf545bcd87d930089673b3ad7883d2d92ad"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.events.jsonl",
+          "sha256": "72c58ba52f9db8b286e5e7020bd3a9ad3e2c007dd75c1bf63e46f996c8c32ecf"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.events.jsonl",
+          "sha256": "f99ef54b26eba6bc78a134eb345a720e2b32392ac1265446924b6129fa128dec"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.schema.json",
+          "sha256": "7030bc57a4cf56560fb986a5802c369dcc3bc1b854000822e3ef791bb8392437"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.events.jsonl",
+          "sha256": "e4146e21ac194a05835917e512ce9aaee4ec72342edd727dfc8b9374c7b90749"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.stderr.txt",
+          "sha256": "a9f112b3211f9be460ed54372042e6c0cca705cf6e7ea9622ad92596e700bfbd"
+        }
+      ],
+      "received_at": "2026-10-09T23:48:43.641811+00:00",
+      "requested_at": "2026-10-09T23:48:30.033711+00:00",
+      "round": 2,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "stderr": "2026-10-09T23:48:31.750079Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:32.588596Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:33.158421Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:33.754562Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:34.735632Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:36.372486Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:39.490827Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 6,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 8192,
+        "input_tokens": 17876,
+        "output_tokens": 306,
+        "reasoning_output_tokens": 176
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-07.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+        "-"
+      ],
+      "duration_seconds": 11.392432541000744,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814728dddac672-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481472beefcff43-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814731cac1df62-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481473c7847df62-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48147518fb7ff43-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"selection\":[\"D\",\"A\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 11008,
+            "input_tokens": 21267,
+            "output_tokens": 334,
+            "reasoning_output_tokens": 184
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "D",
+          "A"
+        ]
+      },
+      "prompt": "Round 3.\n\nFour cats are in front of you, in this order: D, A, C, B. Pet two of them. Reply as JSON with \"selection\": an array of two distinct labels.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.events.jsonl",
+          "sha256": "a47ba62526c82a559d68c16dd3e45487319df0b69ee8ad4a0c65f8704559240b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.schema.json",
+          "sha256": "f4ea8f3b60cc5dc0360b8cc5f438f57adee6553cb63ad60c7e909f788e696e04"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.stderr.txt",
+          "sha256": "c4ba4e5ecc7b62ca59a1fb9216fc67f73de2d7b2489e7991a29fa1552cb0ce9b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.events.jsonl",
+          "sha256": "a4ddf0a88dffd613ee8f9780b3d988047b8197b0ac2ac5033c453c7d906b509e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.stderr.txt",
+          "sha256": "acf8d7be9953fa3fbe46237239eb0bf545bcd87d930089673b3ad7883d2d92ad"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.events.jsonl",
+          "sha256": "72c58ba52f9db8b286e5e7020bd3a9ad3e2c007dd75c1bf63e46f996c8c32ecf"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.events.jsonl",
+          "sha256": "f99ef54b26eba6bc78a134eb345a720e2b32392ac1265446924b6129fa128dec"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.schema.json",
+          "sha256": "7030bc57a4cf56560fb986a5802c369dcc3bc1b854000822e3ef791bb8392437"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.events.jsonl",
+          "sha256": "e4146e21ac194a05835917e512ce9aaee4ec72342edd727dfc8b9374c7b90749"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.stderr.txt",
+          "sha256": "a9f112b3211f9be460ed54372042e6c0cca705cf6e7ea9622ad92596e700bfbd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.events.jsonl",
+          "sha256": "1b9ab7e904c0388a29dc34be01f9d5386bc7142d559be2bb460a5a7369080219"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.stderr.txt",
+          "sha256": "1eb0befa924f4732a5a548504dfd611b3d724824567b37ac21b874906810ea1b"
+        }
+      ],
+      "received_at": "2026-10-09T23:48:55.054207+00:00",
+      "requested_at": "2026-10-09T23:48:43.651802+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "stderr": "2026-10-09T23:48:44.615835Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:45.247133Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:45.653070Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:46.142805Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:47.148209Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:48.789463Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:52.163534Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"selection\":[\"D\",\"A\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 7,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 11008,
+        "input_tokens": 21267,
+        "output_tokens": 334,
+        "reasoning_output_tokens": 184
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-08.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+        "-"
+      ],
+      "duration_seconds": 11.651779223999256,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48147718d8c37b2-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814774fa056a6a-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481477ade1ac14a-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48147853f39df62-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481479affcac672-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"selection\":\"D\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 13824,
+            "input_tokens": 24704,
+            "output_tokens": 349,
+            "reasoning_output_tokens": 184
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "D"
+      },
+      "prompt": "The two cats you petted stay: D, A. Pet one of them. Reply as JSON with \"selection\": one remaining label.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "D",
+              "A"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.events.jsonl",
+          "sha256": "a47ba62526c82a559d68c16dd3e45487319df0b69ee8ad4a0c65f8704559240b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.schema.json",
+          "sha256": "f4ea8f3b60cc5dc0360b8cc5f438f57adee6553cb63ad60c7e909f788e696e04"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.stderr.txt",
+          "sha256": "c4ba4e5ecc7b62ca59a1fb9216fc67f73de2d7b2489e7991a29fa1552cb0ce9b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.events.jsonl",
+          "sha256": "a4ddf0a88dffd613ee8f9780b3d988047b8197b0ac2ac5033c453c7d906b509e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.stderr.txt",
+          "sha256": "acf8d7be9953fa3fbe46237239eb0bf545bcd87d930089673b3ad7883d2d92ad"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.events.jsonl",
+          "sha256": "72c58ba52f9db8b286e5e7020bd3a9ad3e2c007dd75c1bf63e46f996c8c32ecf"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.events.jsonl",
+          "sha256": "f99ef54b26eba6bc78a134eb345a720e2b32392ac1265446924b6129fa128dec"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.schema.json",
+          "sha256": "7030bc57a4cf56560fb986a5802c369dcc3bc1b854000822e3ef791bb8392437"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.events.jsonl",
+          "sha256": "e4146e21ac194a05835917e512ce9aaee4ec72342edd727dfc8b9374c7b90749"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.stderr.txt",
+          "sha256": "a9f112b3211f9be460ed54372042e6c0cca705cf6e7ea9622ad92596e700bfbd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.events.jsonl",
+          "sha256": "1b9ab7e904c0388a29dc34be01f9d5386bc7142d559be2bb460a5a7369080219"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.stderr.txt",
+          "sha256": "1eb0befa924f4732a5a548504dfd611b3d724824567b37ac21b874906810ea1b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-08.events.jsonl",
+          "sha256": "ec7d7e464ccbd20557b2139278031fb1eacba08b9f92d606d336d35546481a43"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-08.schema.json",
+          "sha256": "7030bc57a4cf56560fb986a5802c369dcc3bc1b854000822e3ef791bb8392437"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-08.stderr.txt",
+          "sha256": "ca07412427ea112668cdbbbdc42c70a60ceafb6253b93a576f8c5f0fe3075cee"
+        }
+      ],
+      "received_at": "2026-10-09T23:49:06.712155+00:00",
+      "requested_at": "2026-10-09T23:48:55.058630+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "D",
+              "A"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "stderr": "2026-10-09T23:48:55.923826Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:56.773503Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:57.287566Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:57.835468Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:48:58.767318Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:00.458609Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:03.961858Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"selection\":\"D\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 8,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 13824,
+        "input_tokens": 24704,
+        "output_tokens": 349,
+        "reasoning_output_tokens": 184
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-09.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+        "-"
+      ],
+      "duration_seconds": 11.590949035999074,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48147b81f906a6a-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48147bc0cad37b2-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48147c21afc34af-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48147cc7c613fcd-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48147e1f919cd77-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 16640,
+            "input_tokens": 28302,
+            "output_tokens": 393,
+            "reasoning_output_tokens": 200
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The cat you petted stays; the other cat leaves. Your chosen cat is D.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cats to pet? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which cat remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final cat? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.events.jsonl",
+          "sha256": "a47ba62526c82a559d68c16dd3e45487319df0b69ee8ad4a0c65f8704559240b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.schema.json",
+          "sha256": "f4ea8f3b60cc5dc0360b8cc5f438f57adee6553cb63ad60c7e909f788e696e04"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.stderr.txt",
+          "sha256": "c4ba4e5ecc7b62ca59a1fb9216fc67f73de2d7b2489e7991a29fa1552cb0ce9b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.events.jsonl",
+          "sha256": "a4ddf0a88dffd613ee8f9780b3d988047b8197b0ac2ac5033c453c7d906b509e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.stderr.txt",
+          "sha256": "acf8d7be9953fa3fbe46237239eb0bf545bcd87d930089673b3ad7883d2d92ad"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.events.jsonl",
+          "sha256": "72c58ba52f9db8b286e5e7020bd3a9ad3e2c007dd75c1bf63e46f996c8c32ecf"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.events.jsonl",
+          "sha256": "f99ef54b26eba6bc78a134eb345a720e2b32392ac1265446924b6129fa128dec"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.schema.json",
+          "sha256": "7030bc57a4cf56560fb986a5802c369dcc3bc1b854000822e3ef791bb8392437"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.events.jsonl",
+          "sha256": "e4146e21ac194a05835917e512ce9aaee4ec72342edd727dfc8b9374c7b90749"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.stderr.txt",
+          "sha256": "a9f112b3211f9be460ed54372042e6c0cca705cf6e7ea9622ad92596e700bfbd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.events.jsonl",
+          "sha256": "1b9ab7e904c0388a29dc34be01f9d5386bc7142d559be2bb460a5a7369080219"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.stderr.txt",
+          "sha256": "1eb0befa924f4732a5a548504dfd611b3d724824567b37ac21b874906810ea1b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-08.events.jsonl",
+          "sha256": "ec7d7e464ccbd20557b2139278031fb1eacba08b9f92d606d336d35546481a43"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-08.schema.json",
+          "sha256": "7030bc57a4cf56560fb986a5802c369dcc3bc1b854000822e3ef791bb8392437"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-08.stderr.txt",
+          "sha256": "ca07412427ea112668cdbbbdc42c70a60ceafb6253b93a576f8c5f0fe3075cee"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-09.events.jsonl",
+          "sha256": "0495a89c3ef1bd0c5d79ddb365e19d3acd996e25832f34058860ecee6da95708"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-09.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-09.stderr.txt",
+          "sha256": "24af26bb3e1ea7302394623026292a2fb72ce787f58a8f88506a027f788e3e79"
+        }
+      ],
+      "received_at": "2026-10-09T23:49:18.308613+00:00",
+      "requested_at": "2026-10-09T23:49:06.716131+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "stderr": "2026-10-09T23:49:07.083899Z ERROR codex_models_manager::manager: failed to refresh available models: exceeded retry limit, last status: 429 Too Many Requests, request id: req_b819ad67d56c43b09432f41e9de28d19\n2026-10-09T23:49:07.371827Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:08.119758Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:08.579806Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:09.211780Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:10.178541Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:11.836180Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:15.310388Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 9,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 16640,
+        "input_tokens": 28302,
+        "output_tokens": 393,
+        "reasoning_output_tokens": 200
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/turn-10.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/420cfbf5-e5d7-4d63-a09c-14057b1c73f9/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+        "-"
+      ],
+      "duration_seconds": 5.484023707998858,
+      "events": [
+        {
+          "thread_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"freedom\":100,\"impact\":1,\"counterfactual\":\"no\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 19456,
+            "input_tokens": 32653,
+            "output_tokens": 449,
+            "reasoning_output_tokens": 228
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 4,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "no",
+        "freedom": 100,
+        "impact": 1
+      },
+      "prompt": "Before your first pet in Round 1, D was fixed as the final cat for all three rounds. At each step in every round, the group containing that cat was kept. Each table shows all 12 valid choice paths for that round's starting arrangement.\n\nRound 1\n\n| First pet | Cats remaining | Second pet | Final cat |\n| --- | --- | --- | --- |\n| C, B | A, D | A | D |\n| C, B | A, D | D | D |\n| C, A | B, D | B | D |\n| C, A | B, D | D | D |\n| C, D | C, D | C | D |\n| C, D | C, D | D | D |\n| B, A | C, D | C | D |\n| B, A | C, D | D | D |\n| B, D | B, D | B | D |\n| B, D | B, D | D | D |\n| A, D | A, D | A | D |\n| A, D | A, D | D | D |\n\nRound 2\n\n| First pet | Cats remaining | Second pet | Final cat |\n| --- | --- | --- | --- |\n| D, A | D, A | D | D |\n| D, A | D, A | A | D |\n| D, B | D, B | D | D |\n| D, B | D, B | B | D |\n| D, C | D, C | D | D |\n| D, C | D, C | C | D |\n| A, B | D, C | D | D |\n| A, B | D, C | C | D |\n| A, C | D, B | D | D |\n| A, C | D, B | B | D |\n| B, C | D, A | D | D |\n| B, C | D, A | A | D |\n\nRound 3\n\n| First pet | Cats remaining | Second pet | Final cat |\n| --- | --- | --- | --- |\n| D, A | D, A | D | D |\n| D, A | D, A | A | D |\n| D, C | D, C | D | D |\n| D, C | D, C | C | D |\n| D, B | D, B | D | D |\n| D, B | D, B | B | D |\n| A, C | D, B | D | D |\n| A, C | D, B | B | D |\n| A, B | D, C | D | D |\n| A, B | D, C | C | D |\n| C, B | D, A | D | D |\n| C, B | D, A | A | D |\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cats to pet? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which cat remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final cat? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.events.jsonl",
+          "sha256": "e86800d77e580c991eb44675c5440c6dca0631713f5f3bfd4d851f97d10119a0"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-01.stderr.txt",
+          "sha256": "6a40710bb581d3b6642d6d798d1dea9c41d85fc2f27418883f0ac1a440469d25"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.events.jsonl",
+          "sha256": "a47ba62526c82a559d68c16dd3e45487319df0b69ee8ad4a0c65f8704559240b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.schema.json",
+          "sha256": "f4ea8f3b60cc5dc0360b8cc5f438f57adee6553cb63ad60c7e909f788e696e04"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-02.stderr.txt",
+          "sha256": "c4ba4e5ecc7b62ca59a1fb9216fc67f73de2d7b2489e7991a29fa1552cb0ce9b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.events.jsonl",
+          "sha256": "a4ddf0a88dffd613ee8f9780b3d988047b8197b0ac2ac5033c453c7d906b509e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-03.stderr.txt",
+          "sha256": "acf8d7be9953fa3fbe46237239eb0bf545bcd87d930089673b3ad7883d2d92ad"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.events.jsonl",
+          "sha256": "72c58ba52f9db8b286e5e7020bd3a9ad3e2c007dd75c1bf63e46f996c8c32ecf"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.events.jsonl",
+          "sha256": "f99ef54b26eba6bc78a134eb345a720e2b32392ac1265446924b6129fa128dec"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.schema.json",
+          "sha256": "7030bc57a4cf56560fb986a5802c369dcc3bc1b854000822e3ef791bb8392437"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.events.jsonl",
+          "sha256": "e4146e21ac194a05835917e512ce9aaee4ec72342edd727dfc8b9374c7b90749"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-06.stderr.txt",
+          "sha256": "a9f112b3211f9be460ed54372042e6c0cca705cf6e7ea9622ad92596e700bfbd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.events.jsonl",
+          "sha256": "1b9ab7e904c0388a29dc34be01f9d5386bc7142d559be2bb460a5a7369080219"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.schema.json",
+          "sha256": "c714177917b3b57d19332ee9106bff294b89e5981a139aa2e864ca1dfb89481d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-07.stderr.txt",
+          "sha256": "1eb0befa924f4732a5a548504dfd611b3d724824567b37ac21b874906810ea1b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-08.events.jsonl",
+          "sha256": "ec7d7e464ccbd20557b2139278031fb1eacba08b9f92d606d336d35546481a43"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-08.schema.json",
+          "sha256": "7030bc57a4cf56560fb986a5802c369dcc3bc1b854000822e3ef791bb8392437"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-08.stderr.txt",
+          "sha256": "ca07412427ea112668cdbbbdc42c70a60ceafb6253b93a576f8c5f0fe3075cee"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-09.events.jsonl",
+          "sha256": "0495a89c3ef1bd0c5d79ddb365e19d3acd996e25832f34058860ecee6da95708"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-09.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-09.stderr.txt",
+          "sha256": "24af26bb3e1ea7302394623026292a2fb72ce787f58a8f88506a027f788e3e79"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-10.events.jsonl",
+          "sha256": "c75cd411836757188f447d125a33eaa57c1e3e291aa6e41db0f28435bada3b5f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-10.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-terra-low__cats__case-005/turn-10.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:49:23.801994+00:00",
+      "requested_at": "2026-10-09T23:49:18.315006+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "session_id_before": "01a12310-bb65-77a3-8f74-1d396fb6ed48",
+      "stderr": "",
+      "text": "{\"freedom\":100,\"impact\":1,\"counterfactual\":\"no\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 10,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 19456,
+        "input_tokens": 32653,
+        "output_tokens": 449,
+        "reasoning_output_tokens": 228
+      }
+    }
+  ]
+}

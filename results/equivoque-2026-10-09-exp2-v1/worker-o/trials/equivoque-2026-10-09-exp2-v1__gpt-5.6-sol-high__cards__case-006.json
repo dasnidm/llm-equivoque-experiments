@@ -1,0 +1,3004 @@
+{
+  "ended_at": "2026-10-09T23:51:07.827852+00:00",
+  "pending_turn": null,
+  "protocol_sha256": "eb478e1675f9048373b8a35c038e86c96c132147f7b18db6fc077dc5c1433c84",
+  "rounds": [
+    {
+      "order": [
+        "A",
+        "D",
+        "B",
+        "C"
+      ],
+      "remaining": [
+        "D"
+      ],
+      "round": 1,
+      "route": "DK"
+    },
+    {
+      "order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "remaining": [
+        "D"
+      ],
+      "round": 2,
+      "route": "KD"
+    },
+    {
+      "order": [
+        "B",
+        "C",
+        "D",
+        "A"
+      ],
+      "remaining": [
+        "D"
+      ],
+      "round": 3,
+      "route": "DD"
+    }
+  ],
+  "scratch_id": "19f4b5c4-3eab-4bd7-8935-2887697572ab",
+  "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+  "started_at": "2026-10-09T23:49:23.809007+00:00",
+  "status": "complete",
+  "transport": "codex-native",
+  "trial": {
+    "case_id": "case-006",
+    "configuration_id": "gpt-5.6-sol-high",
+    "effort": "high",
+    "frame": "cards",
+    "model": "gpt-5.6-sol",
+    "round_orders": [
+      [
+        "A",
+        "D",
+        "B",
+        "C"
+      ],
+      [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      [
+        "B",
+        "C",
+        "D",
+        "A"
+      ]
+    ],
+    "run_id": "equivoque-2026-10-09-exp2-v1",
+    "target": "D",
+    "trial_id": "equivoque-2026-10-09-exp2-v1/gpt-5.6-sol-high/cards/case-006",
+    "worker_id": "o"
+  },
+  "turns": [
+    {
+      "command": [
+        "codex",
+        "exec",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-01.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "--sandbox",
+        "read-only",
+        "-C",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject",
+        "-"
+      ],
+      "duration_seconds": 5.53550525799983,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":[\"ace of spades\",\"ace of clubs\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 2176,
+            "input_tokens": 2708,
+            "output_tokens": 58,
+            "reasoning_output_tokens": 33
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "A",
+          "B"
+        ]
+      },
+      "prompt": "Four cards are in front of you, in this order: ace of spades, ace of hearts, ace of clubs, ace of diamonds. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:49:29.345567+00:00",
+      "requested_at": "2026-10-09T23:49:23.809172+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": null,
+      "stderr": "",
+      "text": "{\"selection\":[\"ace of spades\",\"ace of clubs\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 1,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 2176,
+        "input_tokens": 2708,
+        "output_tokens": 58,
+        "reasoning_output_tokens": 33
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-02.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+        "-"
+      ],
+      "duration_seconds": 11.661215026000718,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481484aedae7a63-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148506ae97a63-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481485699c237b2-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148608ab5c14a-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148746878cd77-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"selection\":\"ace of hearts\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 2176,
+            "input_tokens": 5493,
+            "output_tokens": 90,
+            "reasoning_output_tokens": 46
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "D"
+      },
+      "prompt": "The two cards you tapped are discarded. ace of hearts, ace of diamonds remain. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of hearts",
+              "ace of diamonds"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.events.jsonl",
+          "sha256": "33335ed2ad37794a8b0f9992cca70f56c6dc08d0324fec1fca868ee7e3fce34d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.schema.json",
+          "sha256": "21acfbabc700b72819dd2ccf248f4f27c896b489ef87cc66a944661e941a1057"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.stderr.txt",
+          "sha256": "ff1f768d8643fbec692da6cae048c40d7298360320cc07ce08d62e8267cb3b5b"
+        }
+      ],
+      "received_at": "2026-10-09T23:49:41.010181+00:00",
+      "requested_at": "2026-10-09T23:49:29.347805+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of hearts",
+              "ace of diamonds"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "stderr": "2026-10-09T23:49:30.545862Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:31.415246Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:32.072481Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:32.940027Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:33.940635Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:35.527021Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:38.716987Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"selection\":\"ace of hearts\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 2,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 2176,
+        "input_tokens": 5493,
+        "output_tokens": 90,
+        "reasoning_output_tokens": 46
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-03.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+        "-"
+      ],
+      "duration_seconds": 13.69939888600129,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148954ed8c672-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481489bcaa68134-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148a20b9e37b2-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148abddf17a63-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148c17e270c02-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 4352,
+            "input_tokens": 8454,
+            "output_tokens": 183,
+            "reasoning_output_tokens": 111
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The card you tapped remains; the other card is discarded. Your chosen card is ace of hearts.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.events.jsonl",
+          "sha256": "33335ed2ad37794a8b0f9992cca70f56c6dc08d0324fec1fca868ee7e3fce34d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.schema.json",
+          "sha256": "21acfbabc700b72819dd2ccf248f4f27c896b489ef87cc66a944661e941a1057"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.stderr.txt",
+          "sha256": "ff1f768d8643fbec692da6cae048c40d7298360320cc07ce08d62e8267cb3b5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.events.jsonl",
+          "sha256": "97426a8927c45f7138123743d0b8fbe414ce59dcdca2b91640145c47e344b21f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.stderr.txt",
+          "sha256": "50707f318acf7ebbe139d8ec00d2d5deeb55cc3dd39a36b695ef773c839093e3"
+        }
+      ],
+      "received_at": "2026-10-09T23:49:54.712240+00:00",
+      "requested_at": "2026-10-09T23:49:41.011979+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "stderr": "2026-10-09T23:49:42.184046Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:43.344583Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:44.155651Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:45.002495Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:46.006514Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:47.602496Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:51.037772Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 3,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 4352,
+        "input_tokens": 8454,
+        "output_tokens": 183,
+        "reasoning_output_tokens": 111
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-04.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+        "-"
+      ],
+      "duration_seconds": 11.644275556000139,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148e76d9f2625-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148eb2cc6339d-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148f0fb803fcd-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48148fba9dc339d-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814911a805cc7b-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"selection\":[\"ace of diamonds\",\"ace of hearts\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 6912,
+            "input_tokens": 11563,
+            "output_tokens": 217,
+            "reasoning_output_tokens": 121
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "C",
+          "D"
+        ]
+      },
+      "prompt": "Round 2.\n\nFour cards are in front of you, in this order: ace of spades, ace of clubs, ace of diamonds, ace of hearts. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.events.jsonl",
+          "sha256": "33335ed2ad37794a8b0f9992cca70f56c6dc08d0324fec1fca868ee7e3fce34d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.schema.json",
+          "sha256": "21acfbabc700b72819dd2ccf248f4f27c896b489ef87cc66a944661e941a1057"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.stderr.txt",
+          "sha256": "ff1f768d8643fbec692da6cae048c40d7298360320cc07ce08d62e8267cb3b5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.events.jsonl",
+          "sha256": "97426a8927c45f7138123743d0b8fbe414ce59dcdca2b91640145c47e344b21f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.stderr.txt",
+          "sha256": "50707f318acf7ebbe139d8ec00d2d5deeb55cc3dd39a36b695ef773c839093e3"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.events.jsonl",
+          "sha256": "fa3840403a0312bc384d6356ac68c2fa5f03b33996c955b2d163da7b6bc200f9"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.stderr.txt",
+          "sha256": "1efc45e66b9e924bde3f168ea99166eef39a7eef0d89c191bc258f864b58eb65"
+        }
+      ],
+      "received_at": "2026-10-09T23:50:06.359566+00:00",
+      "requested_at": "2026-10-09T23:49:54.714308+00:00",
+      "round": 2,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "stderr": "2026-10-09T23:49:55.819040Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:56.610498Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:57.111829Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:57.735648Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:49:58.650523Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:00.381227Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:03.863642Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"selection\":[\"ace of diamonds\",\"ace of hearts\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 4,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 6912,
+        "input_tokens": 11563,
+        "output_tokens": 217,
+        "reasoning_output_tokens": 121
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-05.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+        "-"
+      ],
+      "duration_seconds": 11.900292431000707,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48149301ab30766-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814933ddb3684f-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a481493a39e1cc7b-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814945cb32c14a-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":\"ace of diamonds\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 9088,
+            "input_tokens": 14723,
+            "output_tokens": 244,
+            "reasoning_output_tokens": 129
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "C"
+      },
+      "prompt": "The two cards you tapped remain: ace of diamonds, ace of hearts. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of diamonds",
+              "ace of hearts"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.events.jsonl",
+          "sha256": "33335ed2ad37794a8b0f9992cca70f56c6dc08d0324fec1fca868ee7e3fce34d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.schema.json",
+          "sha256": "21acfbabc700b72819dd2ccf248f4f27c896b489ef87cc66a944661e941a1057"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.stderr.txt",
+          "sha256": "ff1f768d8643fbec692da6cae048c40d7298360320cc07ce08d62e8267cb3b5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.events.jsonl",
+          "sha256": "97426a8927c45f7138123743d0b8fbe414ce59dcdca2b91640145c47e344b21f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.stderr.txt",
+          "sha256": "50707f318acf7ebbe139d8ec00d2d5deeb55cc3dd39a36b695ef773c839093e3"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.events.jsonl",
+          "sha256": "fa3840403a0312bc384d6356ac68c2fa5f03b33996c955b2d163da7b6bc200f9"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.stderr.txt",
+          "sha256": "1efc45e66b9e924bde3f168ea99166eef39a7eef0d89c191bc258f864b58eb65"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.events.jsonl",
+          "sha256": "d28ab6fee3a65e3936a6b64c570e7795b9e46c53019bbd7123df6138c05bb56f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.stderr.txt",
+          "sha256": "00b8cbeca4cea4050401650f6b2dd73dd906153e05e8604589a9d3c65d98711a"
+        }
+      ],
+      "received_at": "2026-10-09T23:50:18.264257+00:00",
+      "requested_at": "2026-10-09T23:50:06.362475+00:00",
+      "round": 2,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of diamonds",
+              "ace of hearts"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "stderr": "2026-10-09T23:50:06.762507Z ERROR codex_models_manager::manager: failed to refresh available models: exceeded retry limit, last status: 429 Too Many Requests, request id: req_2bfaba165463473c9d8eaf6826cec187\n2026-10-09T23:50:07.186476Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:08.179935Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:08.735465Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:09.339070Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:10.357025Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:12.204670Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"selection\":\"ace of diamonds\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 5,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 9088,
+        "input_tokens": 14723,
+        "output_tokens": 244,
+        "reasoning_output_tokens": 129
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-06.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+        "-"
+      ],
+      "duration_seconds": 6.988120281001102,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 11904,
+            "input_tokens": 18049,
+            "output_tokens": 319,
+            "reasoning_output_tokens": 176
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The card you tapped is discarded. Your chosen card is ace of hearts.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.events.jsonl",
+          "sha256": "33335ed2ad37794a8b0f9992cca70f56c6dc08d0324fec1fca868ee7e3fce34d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.schema.json",
+          "sha256": "21acfbabc700b72819dd2ccf248f4f27c896b489ef87cc66a944661e941a1057"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.stderr.txt",
+          "sha256": "ff1f768d8643fbec692da6cae048c40d7298360320cc07ce08d62e8267cb3b5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.events.jsonl",
+          "sha256": "97426a8927c45f7138123743d0b8fbe414ce59dcdca2b91640145c47e344b21f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.stderr.txt",
+          "sha256": "50707f318acf7ebbe139d8ec00d2d5deeb55cc3dd39a36b695ef773c839093e3"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.events.jsonl",
+          "sha256": "fa3840403a0312bc384d6356ac68c2fa5f03b33996c955b2d163da7b6bc200f9"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.stderr.txt",
+          "sha256": "1efc45e66b9e924bde3f168ea99166eef39a7eef0d89c191bc258f864b58eb65"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.events.jsonl",
+          "sha256": "d28ab6fee3a65e3936a6b64c570e7795b9e46c53019bbd7123df6138c05bb56f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.stderr.txt",
+          "sha256": "00b8cbeca4cea4050401650f6b2dd73dd906153e05e8604589a9d3c65d98711a"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.events.jsonl",
+          "sha256": "d78b01f85d2a940fc91dbe35165b87d3f3710d18b0ccc2760410b96ceb94e35e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.stderr.txt",
+          "sha256": "1d3141df9491d70c38ec3214059aba4eb30cffb65e02a7da0999465bf0c3efc5"
+        }
+      ],
+      "received_at": "2026-10-09T23:50:25.257306+00:00",
+      "requested_at": "2026-10-09T23:50:18.267546+00:00",
+      "round": 2,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "stderr": "2026-10-09T23:50:18.629007Z ERROR codex_models_manager::manager: failed to refresh available models: exceeded retry limit, last status: 429 Too Many Requests, request id: req_e20ef30ef3bd4f5f868770d53fe5ffd1\n",
+      "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 6,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 11904,
+        "input_tokens": 18049,
+        "output_tokens": 319,
+        "reasoning_output_tokens": 176
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-07.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+        "-"
+      ],
+      "duration_seconds": 4.73269433600035,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":[\"ace of clubs\",\"ace of spades\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 14848,
+            "input_tokens": 21505,
+            "output_tokens": 353,
+            "reasoning_output_tokens": 185
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "B",
+          "A"
+        ]
+      },
+      "prompt": "Round 3.\n\nFour cards are in front of you, in this order: ace of clubs, ace of diamonds, ace of hearts, ace of spades. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.events.jsonl",
+          "sha256": "33335ed2ad37794a8b0f9992cca70f56c6dc08d0324fec1fca868ee7e3fce34d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.schema.json",
+          "sha256": "21acfbabc700b72819dd2ccf248f4f27c896b489ef87cc66a944661e941a1057"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.stderr.txt",
+          "sha256": "ff1f768d8643fbec692da6cae048c40d7298360320cc07ce08d62e8267cb3b5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.events.jsonl",
+          "sha256": "97426a8927c45f7138123743d0b8fbe414ce59dcdca2b91640145c47e344b21f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.stderr.txt",
+          "sha256": "50707f318acf7ebbe139d8ec00d2d5deeb55cc3dd39a36b695ef773c839093e3"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.events.jsonl",
+          "sha256": "fa3840403a0312bc384d6356ac68c2fa5f03b33996c955b2d163da7b6bc200f9"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.stderr.txt",
+          "sha256": "1efc45e66b9e924bde3f168ea99166eef39a7eef0d89c191bc258f864b58eb65"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.events.jsonl",
+          "sha256": "d28ab6fee3a65e3936a6b64c570e7795b9e46c53019bbd7123df6138c05bb56f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.stderr.txt",
+          "sha256": "00b8cbeca4cea4050401650f6b2dd73dd906153e05e8604589a9d3c65d98711a"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.events.jsonl",
+          "sha256": "d78b01f85d2a940fc91dbe35165b87d3f3710d18b0ccc2760410b96ceb94e35e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.stderr.txt",
+          "sha256": "1d3141df9491d70c38ec3214059aba4eb30cffb65e02a7da0999465bf0c3efc5"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.events.jsonl",
+          "sha256": "336ac4f7a11e543f4c7305fda2761f9dcda00c14e11b6758fb5f7ef136cbc982"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-09T23:50:29.995519+00:00",
+      "requested_at": "2026-10-09T23:50:25.260730+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "stderr": "",
+      "text": "{\"selection\":[\"ace of clubs\",\"ace of spades\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 7,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 14848,
+        "input_tokens": 21505,
+        "output_tokens": 353,
+        "reasoning_output_tokens": 185
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-08.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+        "-"
+      ],
+      "duration_seconds": 11.698999058000481,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48149c299070766-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48149c5cc815d4f-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48149cbbc383d32-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48149d658b6df62-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a48149e96a2ddc10-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"selection\":\"ace of diamonds\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 17792,
+            "input_tokens": 25014,
+            "output_tokens": 379,
+            "reasoning_output_tokens": 192
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "C"
+      },
+      "prompt": "The two cards you tapped are discarded. ace of diamonds, ace of hearts remain. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of diamonds",
+              "ace of hearts"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.events.jsonl",
+          "sha256": "33335ed2ad37794a8b0f9992cca70f56c6dc08d0324fec1fca868ee7e3fce34d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.schema.json",
+          "sha256": "21acfbabc700b72819dd2ccf248f4f27c896b489ef87cc66a944661e941a1057"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.stderr.txt",
+          "sha256": "ff1f768d8643fbec692da6cae048c40d7298360320cc07ce08d62e8267cb3b5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.events.jsonl",
+          "sha256": "97426a8927c45f7138123743d0b8fbe414ce59dcdca2b91640145c47e344b21f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.stderr.txt",
+          "sha256": "50707f318acf7ebbe139d8ec00d2d5deeb55cc3dd39a36b695ef773c839093e3"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.events.jsonl",
+          "sha256": "fa3840403a0312bc384d6356ac68c2fa5f03b33996c955b2d163da7b6bc200f9"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.stderr.txt",
+          "sha256": "1efc45e66b9e924bde3f168ea99166eef39a7eef0d89c191bc258f864b58eb65"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.events.jsonl",
+          "sha256": "d28ab6fee3a65e3936a6b64c570e7795b9e46c53019bbd7123df6138c05bb56f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.stderr.txt",
+          "sha256": "00b8cbeca4cea4050401650f6b2dd73dd906153e05e8604589a9d3c65d98711a"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.events.jsonl",
+          "sha256": "d78b01f85d2a940fc91dbe35165b87d3f3710d18b0ccc2760410b96ceb94e35e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.stderr.txt",
+          "sha256": "1d3141df9491d70c38ec3214059aba4eb30cffb65e02a7da0999465bf0c3efc5"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.events.jsonl",
+          "sha256": "336ac4f7a11e543f4c7305fda2761f9dcda00c14e11b6758fb5f7ef136cbc982"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-08.events.jsonl",
+          "sha256": "24a91253031401ec00afdec843fc327f4f4c60284352158d1dc0f1f286b0ca12"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-08.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-08.stderr.txt",
+          "sha256": "8d61aac726f7c8c03fe6fcbbb525b6ddfc4742290747f9a47c975af05252108c"
+        }
+      ],
+      "received_at": "2026-10-09T23:50:41.703087+00:00",
+      "requested_at": "2026-10-09T23:50:29.999835+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of diamonds",
+              "ace of hearts"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "stderr": "2026-10-09T23:50:30.851101Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:31.733323Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:32.180702Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:32.679975Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:33.628894Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:35.363644Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:38.383025Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"selection\":\"ace of diamonds\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 8,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 17792,
+        "input_tokens": 25014,
+        "output_tokens": 379,
+        "reasoning_output_tokens": 192
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-09.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+        "-"
+      ],
+      "duration_seconds": 13.604334756999378,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a0f4b9e34af-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a1348ca8134-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a190afdc14a-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a249958df62-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a375c33164e-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 20992,
+            "input_tokens": 28688,
+            "output_tokens": 455,
+            "reasoning_output_tokens": 240
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The card you tapped is discarded. Your chosen card is ace of hearts.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.events.jsonl",
+          "sha256": "33335ed2ad37794a8b0f9992cca70f56c6dc08d0324fec1fca868ee7e3fce34d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.schema.json",
+          "sha256": "21acfbabc700b72819dd2ccf248f4f27c896b489ef87cc66a944661e941a1057"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.stderr.txt",
+          "sha256": "ff1f768d8643fbec692da6cae048c40d7298360320cc07ce08d62e8267cb3b5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.events.jsonl",
+          "sha256": "97426a8927c45f7138123743d0b8fbe414ce59dcdca2b91640145c47e344b21f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.stderr.txt",
+          "sha256": "50707f318acf7ebbe139d8ec00d2d5deeb55cc3dd39a36b695ef773c839093e3"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.events.jsonl",
+          "sha256": "fa3840403a0312bc384d6356ac68c2fa5f03b33996c955b2d163da7b6bc200f9"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.stderr.txt",
+          "sha256": "1efc45e66b9e924bde3f168ea99166eef39a7eef0d89c191bc258f864b58eb65"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.events.jsonl",
+          "sha256": "d28ab6fee3a65e3936a6b64c570e7795b9e46c53019bbd7123df6138c05bb56f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.stderr.txt",
+          "sha256": "00b8cbeca4cea4050401650f6b2dd73dd906153e05e8604589a9d3c65d98711a"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.events.jsonl",
+          "sha256": "d78b01f85d2a940fc91dbe35165b87d3f3710d18b0ccc2760410b96ceb94e35e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.stderr.txt",
+          "sha256": "1d3141df9491d70c38ec3214059aba4eb30cffb65e02a7da0999465bf0c3efc5"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.events.jsonl",
+          "sha256": "336ac4f7a11e543f4c7305fda2761f9dcda00c14e11b6758fb5f7ef136cbc982"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-08.events.jsonl",
+          "sha256": "24a91253031401ec00afdec843fc327f4f4c60284352158d1dc0f1f286b0ca12"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-08.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-08.stderr.txt",
+          "sha256": "8d61aac726f7c8c03fe6fcbbb525b6ddfc4742290747f9a47c975af05252108c"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-09.events.jsonl",
+          "sha256": "81d289013ebf52a6a76ff7b92bb79468dc8ed0d2ab1666c1493884dc87d452ce"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-09.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-09.stderr.txt",
+          "sha256": "9c3cb82be1fe9d2dac8695cfecd2cef58cb4de41be2fed79f339d549cc391466"
+        }
+      ],
+      "received_at": "2026-10-09T23:50:55.314858+00:00",
+      "requested_at": "2026-10-09T23:50:41.708856+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "stderr": "2026-10-09T23:50:42.928486Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:43.862382Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:44.459078Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:45.078909Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:46.027675Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:47.849576Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:50.904547Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"freedom\":100,\"impact\":100,\"counterfactual\":\"yes\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 9,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 20992,
+        "input_tokens": 28688,
+        "output_tokens": 455,
+        "reasoning_output_tokens": 240
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-sol",
+        "--output-schema",
+        "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/turn-10.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-09-exp2-v1/o/work/subject-sessions/equivoque-2026-10-09-exp2-v1/o/19f4b5c4-3eab-4bd7-8935-2887697572ab/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+        "-"
+      ],
+      "duration_seconds": 12.498925550000422,
+      "events": [
+        {
+          "thread_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a602aa834af-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a639bef339d-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a69ac1adf62-SYD)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a753d79c14a-SYD)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a4814a8a48d86c96-SYD",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"freedom\":100,\"impact\":1,\"counterfactual\":\"no\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 24448,
+            "input_tokens": 33617,
+            "output_tokens": 560,
+            "reasoning_output_tokens": 317
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 4,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "no",
+        "freedom": 100,
+        "impact": 1
+      },
+      "prompt": "Before your first tap in Round 1, ace of hearts was fixed as the final card for all three rounds. At each step in every round, the group containing that card was kept. Each table shows all 12 valid choice paths for that round's starting arrangement.\n\nRound 1\n\n| First tap | Cards remaining | Second tap | Final card |\n| --- | --- | --- | --- |\n| ace of spades, ace of hearts | ace of spades, ace of hearts | ace of spades | ace of hearts |\n| ace of spades, ace of hearts | ace of spades, ace of hearts | ace of hearts | ace of hearts |\n| ace of spades, ace of clubs | ace of hearts, ace of diamonds | ace of hearts | ace of hearts |\n| ace of spades, ace of clubs | ace of hearts, ace of diamonds | ace of diamonds | ace of hearts |\n| ace of spades, ace of diamonds | ace of hearts, ace of clubs | ace of hearts | ace of hearts |\n| ace of spades, ace of diamonds | ace of hearts, ace of clubs | ace of clubs | ace of hearts |\n| ace of hearts, ace of clubs | ace of hearts, ace of clubs | ace of hearts | ace of hearts |\n| ace of hearts, ace of clubs | ace of hearts, ace of clubs | ace of clubs | ace of hearts |\n| ace of hearts, ace of diamonds | ace of hearts, ace of diamonds | ace of hearts | ace of hearts |\n| ace of hearts, ace of diamonds | ace of hearts, ace of diamonds | ace of diamonds | ace of hearts |\n| ace of clubs, ace of diamonds | ace of spades, ace of hearts | ace of spades | ace of hearts |\n| ace of clubs, ace of diamonds | ace of spades, ace of hearts | ace of hearts | ace of hearts |\n\nRound 2\n\n| First tap | Cards remaining | Second tap | Final card |\n| --- | --- | --- | --- |\n| ace of spades, ace of clubs | ace of diamonds, ace of hearts | ace of diamonds | ace of hearts |\n| ace of spades, ace of clubs | ace of diamonds, ace of hearts | ace of hearts | ace of hearts |\n| ace of spades, ace of diamonds | ace of clubs, ace of hearts | ace of clubs | ace of hearts |\n| ace of spades, ace of diamonds | ace of clubs, ace of hearts | ace of hearts | ace of hearts |\n| ace of spades, ace of hearts | ace of spades, ace of hearts | ace of spades | ace of hearts |\n| ace of spades, ace of hearts | ace of spades, ace of hearts | ace of hearts | ace of hearts |\n| ace of clubs, ace of diamonds | ace of spades, ace of hearts | ace of spades | ace of hearts |\n| ace of clubs, ace of diamonds | ace of spades, ace of hearts | ace of hearts | ace of hearts |\n| ace of clubs, ace of hearts | ace of clubs, ace of hearts | ace of clubs | ace of hearts |\n| ace of clubs, ace of hearts | ace of clubs, ace of hearts | ace of hearts | ace of hearts |\n| ace of diamonds, ace of hearts | ace of diamonds, ace of hearts | ace of diamonds | ace of hearts |\n| ace of diamonds, ace of hearts | ace of diamonds, ace of hearts | ace of hearts | ace of hearts |\n\nRound 3\n\n| First tap | Cards remaining | Second tap | Final card |\n| --- | --- | --- | --- |\n| ace of clubs, ace of diamonds | ace of hearts, ace of spades | ace of hearts | ace of hearts |\n| ace of clubs, ace of diamonds | ace of hearts, ace of spades | ace of spades | ace of hearts |\n| ace of clubs, ace of hearts | ace of clubs, ace of hearts | ace of clubs | ace of hearts |\n| ace of clubs, ace of hearts | ace of clubs, ace of hearts | ace of hearts | ace of hearts |\n| ace of clubs, ace of spades | ace of diamonds, ace of hearts | ace of diamonds | ace of hearts |\n| ace of clubs, ace of spades | ace of diamonds, ace of hearts | ace of hearts | ace of hearts |\n| ace of diamonds, ace of hearts | ace of diamonds, ace of hearts | ace of diamonds | ace of hearts |\n| ace of diamonds, ace of hearts | ace of diamonds, ace of hearts | ace of hearts | ace of hearts |\n| ace of diamonds, ace of spades | ace of clubs, ace of hearts | ace of clubs | ace of hearts |\n| ace of diamonds, ace of spades | ace of clubs, ace of hearts | ace of hearts | ace of hearts |\n| ace of hearts, ace of spades | ace of hearts, ace of spades | ace of hearts | ace of hearts |\n| ace of hearts, ace of spades | ace of hearts, ace of spades | ace of spades | ace of hearts |\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.events.jsonl",
+          "sha256": "e9bca287882f2851b25002698766ae154017af807a41bd1a3630135d7dc33a16"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.events.jsonl",
+          "sha256": "33335ed2ad37794a8b0f9992cca70f56c6dc08d0324fec1fca868ee7e3fce34d"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.schema.json",
+          "sha256": "21acfbabc700b72819dd2ccf248f4f27c896b489ef87cc66a944661e941a1057"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-02.stderr.txt",
+          "sha256": "ff1f768d8643fbec692da6cae048c40d7298360320cc07ce08d62e8267cb3b5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.events.jsonl",
+          "sha256": "97426a8927c45f7138123743d0b8fbe414ce59dcdca2b91640145c47e344b21f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-03.stderr.txt",
+          "sha256": "50707f318acf7ebbe139d8ec00d2d5deeb55cc3dd39a36b695ef773c839093e3"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.events.jsonl",
+          "sha256": "fa3840403a0312bc384d6356ac68c2fa5f03b33996c955b2d163da7b6bc200f9"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-04.stderr.txt",
+          "sha256": "1efc45e66b9e924bde3f168ea99166eef39a7eef0d89c191bc258f864b58eb65"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.events.jsonl",
+          "sha256": "d28ab6fee3a65e3936a6b64c570e7795b9e46c53019bbd7123df6138c05bb56f"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-05.stderr.txt",
+          "sha256": "00b8cbeca4cea4050401650f6b2dd73dd906153e05e8604589a9d3c65d98711a"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.events.jsonl",
+          "sha256": "d78b01f85d2a940fc91dbe35165b87d3f3710d18b0ccc2760410b96ceb94e35e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-06.stderr.txt",
+          "sha256": "1d3141df9491d70c38ec3214059aba4eb30cffb65e02a7da0999465bf0c3efc5"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.events.jsonl",
+          "sha256": "336ac4f7a11e543f4c7305fda2761f9dcda00c14e11b6758fb5f7ef136cbc982"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.schema.json",
+          "sha256": "4fe2e08452cce895ae21c8792904f664a4ada640ab78d17efb957e5e5eb592fd"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-07.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-08.events.jsonl",
+          "sha256": "24a91253031401ec00afdec843fc327f4f4c60284352158d1dc0f1f286b0ca12"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-08.schema.json",
+          "sha256": "ebfe0a5094f4ab006cded03a12521e73f2b5a65262e58482d18ffd9c7f446d5b"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-08.stderr.txt",
+          "sha256": "8d61aac726f7c8c03fe6fcbbb525b6ddfc4742290747f9a47c975af05252108c"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-09.events.jsonl",
+          "sha256": "81d289013ebf52a6a76ff7b92bb79468dc8ed0d2ab1666c1493884dc87d452ce"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-09.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-09.stderr.txt",
+          "sha256": "9c3cb82be1fe9d2dac8695cfecd2cef58cb4de41be2fed79f339d549cc391466"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-10.events.jsonl",
+          "sha256": "d8cbaae830999d9b3f42e06c075ede588121fddf1932d4a2ac59cd0678812346"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-10.schema.json",
+          "sha256": "bb2aeab3a88e50f3a7d7d287faa6d6b3475a9bf9c3d7b78fe2898d55f898b2bb"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-09-exp2-v1__gpt-5.6-sol-high__cards__case-006/turn-10.stderr.txt",
+          "sha256": "e80e547daf5617fae499a43a8a8a35e91c3909f1c8d25d67a2afd1e3d8ef4383"
+        }
+      ],
+      "received_at": "2026-10-09T23:51:07.821693+00:00",
+      "requested_at": "2026-10-09T23:50:55.320477+00:00",
+      "round": 3,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "session_id_before": "01a12312-4b0e-72f3-a1ea-e91aa870d9d3",
+      "stderr": "2026-10-09T23:50:56.170966Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:56.975497Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:57.399172Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:57.966794Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:50:58.916148Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:51:00.749505Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-09T23:51:04.133250Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"freedom\":100,\"impact\":1,\"counterfactual\":\"no\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 10,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 24448,
+        "input_tokens": 33617,
+        "output_tokens": 560,
+        "reasoning_output_tokens": 317
+      }
+    }
+  ]
+}

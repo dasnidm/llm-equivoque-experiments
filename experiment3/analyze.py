@@ -129,6 +129,7 @@ def main():
     fig,ax=plt.subplots(figsize=(7,4));ax.hist(durations,bins=30);ax.set(xlabel='Observed native request seconds',ylabel='Tasks',title='Operational latency; not a randomized speed comparison');save(fig,'05_latency')
     calls=sum((r.get('subject_invocations',0)) for p in (ROOT/'experiment3/runtime').glob('shared-preflight-*/readiness.json') for r in [read_json(p)])
     calls+=sum(read_json(p)['subject_invocations'] for p in (ROOT/'results'/config['run_id']).glob('worker-*/preflight-*/readiness.json'))
+    calls+=sum(1 for p in (ROOT/'experiment3/runtime').glob('access-probes-*/**/trials/*.json'))
     write_json(out/'invocation-ledger.json',{'evaluation_native_invocations':len(states),'calibration_native_invocations':calls,
                'calibration_excluded':True,'http_attempt_count':'unknown; native CLI may retry internally','usage_note':'Native usage is retained, not converted to billable cost.'})
     valid=[r for r in rows if r['valid']]

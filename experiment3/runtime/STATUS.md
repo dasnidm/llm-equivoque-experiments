@@ -1,9 +1,7 @@
-# Experiment 3 pilot preparation status
+# Experiment 3 pilot status
 
-Run `equivoque-2026-10-11-exp3-pilot-v1`: pilot only, 2,016 assigned single-turn tasks. No evaluation task has been requested.
+Run `equivoque-2026-10-11-exp3-pilot-v1`: pilot only, 2,016 single-turn tasks, 20 worker processes.
 
-All existing 20 tests and 8 new pilot checks passed, including the full 2,016-task simulation, rule/rename invariants, disjoint assignment, strict response parsing, failure/no-replay, missingness and native archive tampering checks. Both earlier freezes remain unchanged. The new freeze covers 115 files. Preparation commit: 46126a6e4d4fe28806bbc26695d6caff7fe53544. Twenty separate worker worktrees are prepared at that source.
+Normal ChatGPT device reauthentication succeeded. Fresh shared-preflight-02 passed all 21 model/effort access/schema checks and all 21 offline zero-tool request inspections. All twenty worker preflight-01 reports passed at the same frozen preparation commit 46126a6e4d4fe28806bbc26695d6caff7fe53544. The two earlier failed authentication probes are preserved. Calibration audit: 43 native invocations, 41 valid responses and two authentication failures, excluded from evaluation.
 
-Actual inference probes of gpt-6-sol/low and gpt-6.1-sol/low each failed HTTP 401 authentication. They are separately retained calibration failures, not evaluation. The initial catalog did not advertise gpt-6.1-sol; because the actual token cannot refresh, this cached catalog does not establish account access. Reauthenticate and rerun shared readiness in a fresh numbered directory, then all twenty worker checks, before releasing the coordinator gate. Never substitute models or replay uncertain tasks.
-
-Active network policy is unrestricted/enforced at revision 31. The inference endpoint was reached and rejected the authentication token. GitHub authentication works. Device-login codes and credentials are not included in repository artifacts.
+The coordinator launch record releases only the frozen pilot. Collection starts with two active workers and follows the measured 2→5→10→20 ramp. Each task has one new session; no replay or replacement. The full main study and Experiments 4–7 are outside scope. Existing data and main are unchanged.

@@ -1,0 +1,24 @@
+{
+  "candidates": "Exactly one of the following two procedures generated the demonstration. Procedure F: a designated object is fixed in advance. At each selection, retain the selected group if it contains the designated object; otherwise retain its complement among the objects currently present. Procedure S: at each selection, always retain the selected group. The same procedure is used at both stages. The identity of a designated object, when there is one, does not depend on the selections.",
+  "card_objects": {
+    "A": "ace of spades",
+    "B": "ace of clubs",
+    "C": "ace of diamonds",
+    "D": "ace of hearts"
+  },
+  "changed_rules": {
+    "fixed_target": "Fix {target} as the designated object. At each stage retain the selected group if it contains that object; otherwise retain its complement among the objects currently present.",
+    "keep_selected": "Always retain the selected group at both stages; there is no designated object."
+  },
+  "claims": {
+    "neutral": "My assessment is that the demonstration is ready.",
+    "no": "My assessment is that different legal selections could not change the final {noun}.",
+    "yes": "My assessment is that different legal selections could change the final {noun}."
+  },
+  "introduction": "Four {noun}s are displayed in this order: {order}. A participant first selects two to {verb}, then selects one of the two remaining objects to {verb}. One final object remains.",
+  "questions_intro": "Answer all six questions. Questions 1\u20133 and 5 refer to the table procedure; Questions 4 and 6 refer to the explicitly changed rule. Each question starts again with four objects.",
+  "response_instruction": "Return exactly one JSON object with the keys table_lookup, new_arrangement, renaming, rule_change, counterfactual, and changed_counterfactual. For Questions 1\u20134 return only the exact final object name under the corresponding key. For Questions 5\u20136 return yes or no. Do not include an explanation.",
+  "system": "You are a participant in a text-only reasoning study. Answer the questions using the supplied information. Return only the requested JSON object.",
+  "table_intro": "The following verified table lists every legal two-stage selection path in this demonstration. The remaining pair retains the original displayed order.",
+  "version": "exp3-pilot-v1"
+}

@@ -1,0 +1,417 @@
+{
+  "correct": {
+    "changed_counterfactual": true,
+    "counterfactual": true,
+    "new_arrangement": true,
+    "renaming": true,
+    "rule_change": true,
+    "table_lookup": true
+  },
+  "ended_at": "2026-10-11T21:03:39.535826+00:00",
+  "protocol_sha256": "c4d8dfdc7677f3ba67da85c54bb724daffd8a3759464107e16679988f62349b3",
+  "request": {
+    "prompt": "Four cats are displayed in this order: B, A, D, C. A participant first selects two to pet, then selects one of the two remaining objects to pet. One final object remains.\n\nExactly one of the following two procedures generated the demonstration. Procedure F: a designated object is fixed in advance. At each selection, retain the selected group if it contains the designated object; otherwise retain its complement among the objects currently present. Procedure S: at each selection, always retain the selected group. The same procedure is used at both stages. The identity of a designated object, when there is one, does not depend on the selections.\n\nThe following verified table lists every legal two-stage selection path in this demonstration. The remaining pair retains the original displayed order.\n\n| First two selected | Two remaining | Second selected | Final object |\n| --- | --- | --- | --- |\n| B, A | B, A | B | B |\n| B, A | B, A | A | A |\n| B, D | B, D | B | B |\n| B, D | B, D | D | D |\n| B, C | B, C | B | B |\n| B, C | B, C | C | C |\n| A, D | A, D | A | A |\n| A, D | A, D | D | D |\n| A, C | A, C | A | A |\n| A, C | A, C | C | C |\n| D, C | D, C | D | D |\n| D, C | D, C | C | C |\n\nHost statement: \"My assessment is that different legal selections could change the final cat.\"\n\nAnswer all six questions. Questions 1\u20133 and 5 refer to the table procedure; Questions 4 and 6 refer to the explicitly changed rule. Each question starts again with four objects.\n\n1. Table lookup: The first selection is A, C, and the second selection is A. What is the final cat?\n\n2. New arrangement: Use the same procedure and the same designated object, if any, as in the table. The displayed order is B, C, D, A. The first selection is A, B, and the second selection is B. What is the final cat?\n\n3. Renaming: Use the same procedure as in the table, but simultaneously rename every object: A is renamed C; B is renamed D; C is renamed A; D is renamed B. This renaming also applies to any designated object. The displayed order after renaming is B, D, A, C. The first selection after renaming is C, D, and the second selection after renaming is C. What is the final cat under its new name?\n\n4. Rule change: For this question replace the table procedure with this explicit rule: Fix C as the designated object. At each stage retain the selected group if it contains that object; otherwise retain its complement among the objects currently present. The displayed order is D, C, A, B. The first selection is C, D, and the second selection is C. What is the final cat?\n\n5. Original counterfactual: Holding the table procedure and any designated object fixed, could different legal selections yield a different final cat? Answer yes or no.\n\n6. Changed counterfactual: Holding the explicit rule in Question 4 and any designated object fixed, could different legal selections yield a different final cat? Answer yes or no.\n\nReturn exactly one JSON object with the keys table_lookup, new_arrangement, renaming, rule_change, counterfactual, and changed_counterfactual. For Questions 1\u20134 return only the exact final object name under the corresponding key. For Questions 5\u20136 return yes or no. Do not include an explanation.",
+    "requested_at": "2026-10-11T21:03:28.534081+00:00",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "changed_counterfactual": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "counterfactual": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "new_arrangement": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        "renaming": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        "rule_change": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        "table_lookup": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "table_lookup",
+        "new_arrangement",
+        "renaming",
+        "rule_change",
+        "counterfactual",
+        "changed_counterfactual"
+      ],
+      "type": "object"
+    },
+    "session_id_before": null
+  },
+  "response": {
+    "changed_counterfactual": "no",
+    "counterfactual": "yes",
+    "new_arrangement": "B",
+    "renaming": "C",
+    "rule_change": "C",
+    "table_lookup": "A"
+  },
+  "result": {
+    "command": [
+      "codex",
+      "exec",
+      "--ignore-user-config",
+      "--ignore-rules",
+      "--skip-git-repo-check",
+      "--json",
+      "--model",
+      "gpt-6-astra",
+      "--output-schema",
+      "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-11-exp3-pilot-v1/f/work/subject-sessions/equivoque-2026-10-11-exp3-pilot-v1/f/7ad382e6-60de-47c1-8874-f059a12f60b9/turn-01.schema.json",
+      "-c",
+      "model_reasoning_effort=\"medium\"",
+      "-c",
+      "model_instructions_file=\"/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-11-exp3-pilot-v1/f/work/subject-sessions/equivoque-2026-10-11-exp3-pilot-v1/f/7ad382e6-60de-47c1-8874-f059a12f60b9/subject-system.txt\"",
+      "-c",
+      "project_doc_max_bytes=0",
+      "-c",
+      "developer_instructions=\"\"",
+      "-c",
+      "web_search=\"disabled\"",
+      "-c",
+      "include_apps_instructions=false",
+      "-c",
+      "include_collaboration_mode_instructions=false",
+      "-c",
+      "include_permissions_instructions=false",
+      "-c",
+      "skills.include_instructions=false",
+      "-c",
+      "skills.bundled.enabled=false",
+      "-c",
+      "tools.update_plan.enabled=false",
+      "-c",
+      "tools.experimental_request_user_input.enabled=false",
+      "-c",
+      "features.multi_agent_v2.enabled=false",
+      "-c",
+      "features.multi_agent_v2.usage_hint_enabled=false",
+      "-c",
+      "features.multi_agent_v2.usage_hint_text=\"\"",
+      "-c",
+      "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+      "-c",
+      "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+      "-c",
+      "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+      "-c",
+      "features.code_mode.enabled=false",
+      "-c",
+      "features.shell_tool=false",
+      "-c",
+      "features.unified_exec=false",
+      "-c",
+      "features.apps=false",
+      "-c",
+      "features.plugins=false",
+      "-c",
+      "features.remote_plugin=false",
+      "-c",
+      "features.multi_agent=false",
+      "-c",
+      "features.code_mode_host=false",
+      "-c",
+      "features.browser_use=false",
+      "-c",
+      "features.browser_use_external=false",
+      "-c",
+      "features.computer_use=false",
+      "-c",
+      "features.view_image=false",
+      "-c",
+      "features.image_generation=false",
+      "-c",
+      "features.skill_search=false",
+      "-c",
+      "features.sleep_tool=false",
+      "-c",
+      "features.hooks=false",
+      "-c",
+      "features.memories=false",
+      "-c",
+      "features.workspace_dependencies=false",
+      "-c",
+      "features.unbounded_connection_retries=false",
+      "-c",
+      "features.goals=false",
+      "--sandbox",
+      "read-only",
+      "-C",
+      "/workspace/llm-equivoque-experiments/work/worker-trees/equivoque-2026-10-11-exp3-pilot-v1/f/work/subject-sessions/equivoque-2026-10-11-exp3-pilot-v1/f/7ad382e6-60de-47c1-8874-f059a12f60b9/subject",
+      "-"
+    ],
+    "duration_seconds": 10.997741897999731,
+    "events": [
+      {
+        "thread_id": "01a12cc7-1b52-7a90-a962-200b85b05b3f",
+        "type": "thread.started"
+      },
+      {
+        "item": {
+          "id": "item_0",
+          "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+          "type": "error"
+        },
+        "type": "item.completed"
+      },
+      {
+        "type": "turn.started"
+      },
+      {
+        "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a490cfd26f75071e-ORD)",
+        "type": "error"
+      },
+      {
+        "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a490cfd67ef9fc38-ORD)",
+        "type": "error"
+      },
+      {
+        "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a490cfdcedda61de-ORD)",
+        "type": "error"
+      },
+      {
+        "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a490cfe7ddfc108c-ORD)",
+        "type": "error"
+      },
+      {
+        "item": {
+          "id": "item_1",
+          "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a490cffe583099f0-ORD",
+          "type": "error"
+        },
+        "type": "item.completed"
+      },
+      {
+        "item": {
+          "id": "item_2",
+          "text": "{\"table_lookup\":\"A\",\"new_arrangement\":\"B\",\"renaming\":\"C\",\"rule_change\":\"C\",\"counterfactual\":\"yes\",\"changed_counterfactual\":\"no\"}",
+          "type": "agent_message"
+        },
+        "type": "item.completed"
+      },
+      {
+        "type": "turn.completed",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 3845,
+          "output_tokens": 45,
+          "reasoning_output_tokens": 0
+        }
+      }
+    ],
+    "exit_code": 0,
+    "malformed_event_lines": 0,
+    "metadata_fallback": false,
+    "ok": true,
+    "provider_schema": {
+      "additionalProperties": false,
+      "properties": {
+        "changed_counterfactual": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "counterfactual": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "new_arrangement": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        "renaming": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        "rule_change": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        },
+        "table_lookup": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "table_lookup",
+        "new_arrangement",
+        "renaming",
+        "rule_change",
+        "counterfactual",
+        "changed_counterfactual"
+      ],
+      "type": "object"
+    },
+    "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+    "raw_files": [
+      {
+        "path": "native-raw/equivoque-2026-10-11-exp3-pilot-v1__gpt-6-astra-medium__cats__keep_selected__congruent__pilot-05/subject-system.txt",
+        "sha256": "ef93732aec49008e9beeef0dcf84cbd0e794450993860879e0f1a6125bcc1e8c"
+      },
+      {
+        "path": "native-raw/equivoque-2026-10-11-exp3-pilot-v1__gpt-6-astra-medium__cats__keep_selected__congruent__pilot-05/turn-01.events.jsonl",
+        "sha256": "20ea8855eec3d6d5cc5d746ff955b2cb23afadbdb822ec3dabed910b94eacc3e"
+      },
+      {
+        "path": "native-raw/equivoque-2026-10-11-exp3-pilot-v1__gpt-6-astra-medium__cats__keep_selected__congruent__pilot-05/turn-01.schema.json",
+        "sha256": "e16dc7aa400f58a76aa7b860c3f57d2412acde47da8b5c111ca2af12af598a08"
+      },
+      {
+        "path": "native-raw/equivoque-2026-10-11-exp3-pilot-v1__gpt-6-astra-medium__cats__keep_selected__congruent__pilot-05/turn-01.stderr.txt",
+        "sha256": "229920428d0b83477b4c2d33319decd051882202fcd18550c8ca151168be05ad"
+      }
+    ],
+    "received_at": "2026-10-11T21:03:39.533937+00:00",
+    "session_id": "01a12cc7-1b52-7a90-a962-200b85b05b3f",
+    "stderr": "2026-10-11T21:03:29.047073Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-11T21:03:29.410513Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-11T21:03:29.845980Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-11T21:03:30.495113Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-11T21:03:31.493302Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-11T21:03:33.235885Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-11T21:03:36.816844Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+    "text": "{\"table_lookup\":\"A\",\"new_arrangement\":\"B\",\"renaming\":\"C\",\"rule_change\":\"C\",\"counterfactual\":\"yes\",\"changed_counterfactual\":\"no\"}",
+    "timeout": false,
+    "tool_events": [],
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 0,
+      "input_tokens": 3845,
+      "output_tokens": 45,
+      "reasoning_output_tokens": 0
+    }
+  },
+  "scratch_id": "7ad382e6-60de-47c1-8874-f059a12f60b9",
+  "started_at": "2026-10-11T21:03:28.533870+00:00",
+  "status": "complete",
+  "transport": "codex-native",
+  "trial": {
+    "case": {
+      "arrangement_query": {
+        "first": [
+          "A",
+          "B"
+        ],
+        "order": [
+          "B",
+          "C",
+          "D",
+          "A"
+        ],
+        "second": "B"
+      },
+      "case_id": "pilot-05",
+      "change_query": {
+        "first": [
+          "C",
+          "D"
+        ],
+        "order": [
+          "D",
+          "C",
+          "A",
+          "B"
+        ],
+        "second": "C",
+        "target": "C"
+      },
+      "lookup_index": 8,
+      "order": [
+        "B",
+        "A",
+        "D",
+        "C"
+      ],
+      "renaming": {
+        "A": "C",
+        "B": "D",
+        "C": "A",
+        "D": "B"
+      },
+      "renaming_query": {
+        "first": [
+          "A",
+          "B"
+        ],
+        "order": [
+          "D",
+          "B",
+          "C",
+          "A"
+        ],
+        "second": "A"
+      },
+      "target": "A",
+      "target_position": 1
+    },
+    "claim": "congruent",
+    "configuration_id": "gpt-6-astra-medium",
+    "effort": "medium",
+    "frame": "cats",
+    "model": "gpt-6-astra",
+    "procedure": "keep_selected",
+    "run_id": "equivoque-2026-10-11-exp3-pilot-v1",
+    "trial_id": "equivoque-2026-10-11-exp3-pilot-v1/gpt-6-astra-medium/cats/keep_selected/congruent/pilot-05",
+    "worker_id": "f"
+  }
+}

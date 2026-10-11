@@ -97,6 +97,11 @@ class PilotTests(unittest.TestCase):
         rows,cells,pairs,contrasts=estimate(states)
         self.assertTrue(all(r['transfer_accuracy']==1 for r in rows))
         self.assertEqual(contrasts[0]['difference'],0)
+        selected=next(s for s in states if s['trial']['claim']=='neutral');selected['status']='failed'
+        rows,cells,pairs,contrasts=estimate(states)
+        self.assertEqual(contrasts[0]['paired_valid'],31)
+        self.assertEqual(contrasts[0]['paired_assigned'],32)
+        self.assertEqual(contrasts[0]['difference'],0)
 
     def test_full_simulation_audit_and_native_tampering(self):
         protocol=self.p
@@ -131,11 +136,6 @@ class PilotTests(unittest.TestCase):
             target.write_text('tampered')
             manifest=read_json(ROOT/'manifests'/self.c['run_id']/'worker-a.json')
             with self.assertRaises(ValueError):audit_worker(manifest,base/'a')
-        selected=next(s for s in states if s['trial']['claim']=='neutral');selected['status']='failed'
-        rows,cells,pairs,contrasts=estimate(states)
-        self.assertEqual(contrasts[0]['paired_valid'],31)
-        self.assertEqual(contrasts[0]['paired_assigned'],32)
-        self.assertEqual(contrasts[0]['difference'],0)
 
 
 if __name__=='__main__':unittest.main()

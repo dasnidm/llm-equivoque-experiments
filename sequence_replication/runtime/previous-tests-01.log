@@ -1,0 +1,61 @@
+python3 -m unittest discover -s tests -v
+test_native_body_has_no_tools_or_role_hints (test_isolation.IsolationTests.test_native_body_has_no_tools_or_role_hints) ... ok
+test_unsupported_uniqueness_keyword_preserves_canonical_validation (test_isolation.IsolationTests.test_unsupported_uniqueness_keyword_preserves_canonical_validation) ... ok
+test_all_orders_targets_and_prompts (test_protocol.ProtocolTests.test_all_orders_targets_and_prompts) ... ok
+test_audit_detects_tampered_raw_record (test_protocol.ProtocolTests.test_audit_detects_tampered_raw_record) ... ok
+test_card_names_are_used_and_normalized_for_the_engine (test_protocol.ProtocolTests.test_card_names_are_used_and_normalized_for_the_engine) ... ok
+test_exact_balanced_disjoint_assignment (test_protocol.ProtocolTests.test_exact_balanced_disjoint_assignment) ... ok
+test_failures_and_uncertain_resume_not_replayed (test_protocol.ProtocolTests.test_failures_and_uncertain_resume_not_replayed) ... ok
+test_full_2100_trial_simulation_and_audits (test_protocol.ProtocolTests.test_full_2100_trial_simulation_and_audits) ... ok
+test_invalid_answers_rejected (test_protocol.ProtocolTests.test_invalid_answers_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 7.134s
+
+OK
+python3 -m unittest analysis.test_analysis experiment2.test_experiment2 experiment2.test_analysis experiment3.test_pilot experiment7.test_sequence -v
+test_analysis (unittest.loader._FailedTest.test_analysis) ... ERROR
+test_all_branches_remain_fixed_and_cards_hide_internal_codes (experiment2.test_experiment2.Experiment2Tests.test_all_branches_remain_fixed_and_cards_hide_internal_codes) ... ok
+test_balanced_420_trial_twenty_worker_assignment (experiment2.test_experiment2.Experiment2Tests.test_balanced_420_trial_twenty_worker_assignment) ... ok
+test_concurrency_limit_and_halt_preserve_active_trials (experiment2.test_experiment2.Experiment2Tests.test_concurrency_limit_and_halt_preserve_active_trials) ... ok
+test_exact_original_base_and_measurement_block (experiment2.test_experiment2.Experiment2Tests.test_exact_original_base_and_measurement_block) ... ok
+test_failed_and_uncertain_turns_never_replayed (experiment2.test_experiment2.Experiment2Tests.test_failed_and_uncertain_turns_never_replayed) ... ok
+test_full_simulation_4200_turns_and_unique_sessions (experiment2.test_experiment2.Experiment2Tests.test_full_simulation_4200_turns_and_unique_sessions) ... ok
+test_native_archive_and_journal_tampering_detected (experiment2.test_experiment2.Experiment2Tests.test_native_archive_and_journal_tampering_detected) ... ok
+test_safe_partial_resume_uses_only_next_unrequested_turn (experiment2.test_experiment2.Experiment2Tests.test_safe_partial_resume_uses_only_next_unrequested_turn) ... ok
+test_case_rows_and_missingness_are_preserved (experiment2.test_analysis.AnalysisTests.test_case_rows_and_missingness_are_preserved) ... ok
+test_overall_equally_weights_configurations_with_missing_endpoints (experiment2.test_analysis.AnalysisTests.test_overall_equally_weights_configurations_with_missing_endpoints) ... ok
+test_shared_bootstrap_preserves_cross_configuration_case_dependence (experiment2.test_analysis.AnalysisTests.test_shared_bootstrap_preserves_cross_configuration_case_dependence) ... ok
+test_claim_changes_only_host_statement (experiment3.test_pilot.PilotTests.test_claim_changes_only_host_statement) ... ok
+test_exact_disjoint_schedule_and_balanced_cases (experiment3.test_pilot.PilotTests.test_exact_disjoint_schedule_and_balanced_cases) ... ok
+test_exhaustive_rules_and_renaming_covariance (experiment3.test_pilot.PilotTests.test_exhaustive_rules_and_renaming_covariance) ... ok
+test_frames_schema_and_all_feasible_queries (experiment3.test_pilot.PilotTests.test_frames_schema_and_all_feasible_queries) ... ok
+test_full_simulation_audit_and_native_tampering (experiment3.test_pilot.PilotTests.test_full_simulation_audit_and_native_tampering) ... ok
+test_no_replay_and_failure_preservation (experiment3.test_pilot.PilotTests.test_no_replay_and_failure_preservation) ... ok
+test_primary_excludes_lookup_and_pairs_missingness (experiment3.test_pilot.PilotTests.test_primary_excludes_lookup_and_pairs_missingness) ... ok
+test_strict_response_validation (experiment3.test_pilot.PilotTests.test_strict_response_validation) ... ok
+test_all_targets_all_legal_paths_and_probe_legality (experiment7.test_sequence.SequenceTests.test_all_targets_all_legal_paths_and_probe_legality) ... ok
+test_analysis_preserves_rounds_excludes_disclosure_and_exports_graphs (experiment7.test_sequence.SequenceTests.test_analysis_preserves_rounds_excludes_disclosure_and_exports_graphs) ... ok
+test_base_wording_and_no_early_disclosure (experiment7.test_sequence.SequenceTests.test_base_wording_and_no_early_disclosure) ... ok
+test_failures_and_uncertain_pending_never_replayed (experiment7.test_sequence.SequenceTests.test_failures_and_uncertain_pending_never_replayed) ... ok
+test_full_simulation_2604_invocations (experiment7.test_sequence.SequenceTests.test_full_simulation_2604_invocations) ... ok
+test_native_archive_tampering_detected (experiment7.test_sequence.SequenceTests.test_native_archive_tampering_detected) ... ok
+test_shared_positions_and_four_labels (experiment7.test_sequence.SequenceTests.test_shared_positions_and_four_labels) ... ok
+
+======================================================================
+ERROR: test_analysis (unittest.loader._FailedTest.test_analysis)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_analysis
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/equivoque-recovery/analysis/test_analysis.py", line 6, in <module>
+    from analyze import CaseBootstrap, endpoints, estimates
+ModuleNotFoundError: No module named 'analyze'
+
+
+----------------------------------------------------------------------
+Ran 27 tests in 61.951s
+
+FAILED (errors=1)

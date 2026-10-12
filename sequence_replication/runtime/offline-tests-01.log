@@ -1,0 +1,34 @@
+test_all_legal_paths_no_early_disclosure_and_card_code_leakage (sequence_replication.test_replication.ReplicationTests.test_all_legal_paths_no_early_disclosure_and_card_code_leakage) ... ok
+test_analysis_audits_partial_roster_and_excludes_disclosure (sequence_replication.test_replication.ReplicationTests.test_analysis_audits_partial_roster_and_excludes_disclosure) ... ERROR
+test_every_setting_frame_schedule_session_simulation (sequence_replication.test_replication.ReplicationTests.test_every_setting_frame_schedule_session_simulation) ... ok
+test_exact_roster_balanced_shards_and_matched_cases (sequence_replication.test_replication.ReplicationTests.test_exact_roster_balanced_shards_and_matched_cases) ... ok
+test_failed_and_uncertain_turns_are_not_replayed (sequence_replication.test_replication.ReplicationTests.test_failed_and_uncertain_turns_are_not_replayed) ... ok
+test_native_file_hash_tampering_is_detected (sequence_replication.test_replication.ReplicationTests.test_native_file_hash_tampering_is_detected) ... ok
+test_pairing_missingness_and_sparse_bootstrap_denominators (sequence_replication.test_replication.ReplicationTests.test_pairing_missingness_and_sparse_bootstrap_denominators) ... ok
+test_target_margins_layout_uniqueness_and_balanced_sequences (sequence_replication.test_replication.ReplicationTests.test_target_margins_layout_uniqueness_and_balanced_sequences) ... ok
+
+======================================================================
+ERROR: test_analysis_audits_partial_roster_and_excludes_disclosure (sequence_replication.test_replication.ReplicationTests.test_analysis_audits_partial_roster_and_excludes_disclosure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/work/equivoque-recovery/sequence_replication/test_replication.py", line 155, in test_analysis_audits_partial_roster_and_excludes_disclosure
+    result = export(root, root / 'analysis')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/equivoque-recovery/sequence_replication/analyze.py", line 204, in export
+    write_json(out / 'provenance.json', {'run_id': run, 'freeze_sha256': digest(FREEZE),
+                                                                         ^^^^^^^^^^^^^^
+  File "/workspace/work/equivoque-recovery/equivoque/core.py", line 25, in digest
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/work/equivoque-recovery/sequence_replication/protocol/freeze.json'
+
+----------------------------------------------------------------------
+Ran 8 tests in 14.254s
+
+FAILED (errors=1)

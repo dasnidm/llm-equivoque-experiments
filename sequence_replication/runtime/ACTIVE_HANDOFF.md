@@ -1,3 +1,5 @@
+CURRENT OVERRIDE: User requested direct 40-worker execution, retaining only 163 complete trials and restarting all 40 incomplete trials from fresh sessions. The former supervisor is not running. See direct-restart-01.json and direct-progress.json for current status. Prior partial attempts are archived separately and excluded from final evaluation. No extra completed trial is replaced. Original prompts, case assignments and sample size remain unchanged. This is a user-authorized change to the previous no-replacement policy for interrupted attempts.
+
 # Active expanded sequence replication
 
 Run equivoque-2026-10-12-sequence-replication-v1:84 cells,30 sessions each,10 rounds plus three terminal calls. Study freeze 2d841199cf51372ba06b7926274345358531e6f3d5b0738994c6ddabc8263edb remains unchanged.

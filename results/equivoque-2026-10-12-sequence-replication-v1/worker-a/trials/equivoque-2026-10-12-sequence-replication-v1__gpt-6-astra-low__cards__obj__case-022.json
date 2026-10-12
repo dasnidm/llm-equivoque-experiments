@@ -1,0 +1,761 @@
+{
+  "checkpoint_at": "2026-10-12T19:27:25.562894+00:00",
+  "pending_raw_files": [
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/subject-system.txt",
+      "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+    },
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-01.events.jsonl",
+      "sha256": "a507235e1456b18d09a9fc747f9eb62a4c7c555182b6337a70192c7975e1d4b1"
+    },
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-01.schema.json",
+      "sha256": "123875b15eabe2a8d807fcb3e25d9e1af46cd96c647da0fc32bdaf80b06ad69e"
+    },
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-01.stderr.txt",
+      "sha256": "64bfaeda7b8177caf830a0e4f1c33bcfb6a5285898c0c57978871118a164c90a"
+    },
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-02.events.jsonl",
+      "sha256": "5c9b5ed3815d24b09e664c9be396f0249cbf65ed701893ad24674a8f93754736"
+    },
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-02.schema.json",
+      "sha256": "b32b13df81f728f5b991cb8ec0d31d5e44bdd40043d3ef2de9366263944cfb75"
+    },
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-02.stderr.txt",
+      "sha256": "5c31f7eece3909b4f29a5ef6b33f1ed5bb0fd0fdcf0b0e13dfe02f8a687dd4cd"
+    },
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-03.events.jsonl",
+      "sha256": "23af5628f3e149713ecac25e5c757d7b7eaa80e31cc3aca8210c87df0238271c"
+    },
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-03.schema.json",
+      "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+    },
+    {
+      "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-03.stderr.txt",
+      "sha256": "bfd162c41f6bb6dbf0ba082e342f590983a1287a210f73bb0d5575b0c515dee4"
+    }
+  ],
+  "pending_turn": {
+    "local_turn": 3,
+    "prompt": "The card you tapped is discarded. Your chosen card is ace of diamonds.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+    "requested_at": "2026-10-12T19:27:21.869515+00:00",
+    "round": 1,
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "counterfactual": {
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "type": "string"
+        },
+        "freedom": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "impact": {
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "freedom",
+        "impact",
+        "counterfactual"
+      ],
+      "type": "object"
+    },
+    "session_id_before": "01a13195-3693-7973-95af-2d61c39680ab",
+    "turn": 3
+  },
+  "protocol_sha256": "3b54dd766e3c4a40dcaa4e9849c552f329ce713a5c044ca1cc129c874e6f0832",
+  "rounds": [
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "C"
+      ],
+      "round": 1,
+      "route": "KD",
+      "target": "C"
+    },
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "round": 2,
+      "route": "",
+      "target": "C"
+    },
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "round": 3,
+      "route": "",
+      "target": "C"
+    },
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "round": 4,
+      "route": "",
+      "target": "C"
+    },
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "round": 5,
+      "route": "",
+      "target": "C"
+    },
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "round": 6,
+      "route": "",
+      "target": "C"
+    },
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "round": 7,
+      "route": "",
+      "target": "C"
+    },
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "round": 8,
+      "route": "",
+      "target": "C"
+    },
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "round": 9,
+      "route": "",
+      "target": "C"
+    },
+    {
+      "order": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "remaining": [
+        "A",
+        "C",
+        "B",
+        "D"
+      ],
+      "round": 10,
+      "route": "",
+      "target": "C"
+    }
+  ],
+  "scratch_id": "67bf834b-8ec4-4454-b9c2-aa1cc97ee766",
+  "session_id": "01a13195-3693-7973-95af-2d61c39680ab",
+  "started_at": "2026-10-12T19:27:04.657238+00:00",
+  "status": "active",
+  "transport": "codex-native",
+  "trial": {
+    "case_id": "case-022",
+    "configuration_id": "gpt-6-astra-low",
+    "effort": "low",
+    "frame": "cards",
+    "kind": "obj",
+    "model": "gpt-6-astra",
+    "n_rounds": 10,
+    "order": [
+      "A",
+      "C",
+      "B",
+      "D"
+    ],
+    "pilot_label": "card-obj",
+    "positions": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "run_id": "equivoque-2026-10-12-sequence-replication-v1",
+    "targets": [
+      "C",
+      "C",
+      "C",
+      "C",
+      "C",
+      "C",
+      "C",
+      "C",
+      "C",
+      "C"
+    ],
+    "trial_id": "equivoque-2026-10-12-sequence-replication-v1/gpt-6-astra-low/cards/obj/case-022",
+    "worker_id": "a"
+  },
+  "turns": [
+    {
+      "command": [
+        "codex",
+        "exec",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-6-astra",
+        "--output-schema",
+        "/workspace/work/native-study/67bf834b-8ec4-4454-b9c2-aa1cc97ee766/turn-01.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/67bf834b-8ec4-4454-b9c2-aa1cc97ee766/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "--sandbox",
+        "read-only",
+        "-C",
+        "/workspace/work/native-study/67bf834b-8ec4-4454-b9c2-aa1cc97ee766/subject",
+        "-"
+      ],
+      "duration_seconds": 6.798562351999863,
+      "events": [
+        {
+          "thread_id": "01a13195-3693-7973-95af-2d61c39680ab",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":[\"ace of spades\",\"ace of diamonds\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 2922,
+            "output_tokens": 23,
+            "reasoning_output_tokens": 0
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "operational_admission": {
+        "admitted_at": "2026-10-12T19:27:04.658797+00:00",
+        "executor": "x07",
+        "pid": 421116,
+        "queued_at": "2026-10-12T19:27:04.657874+00:00",
+        "trial_id": "equivoque-2026-10-12-sequence-replication-v1/gpt-6-astra-low/cards/obj/case-022",
+        "turn": 1
+      },
+      "parsed": {
+        "selection": [
+          "A",
+          "C"
+        ]
+      },
+      "prompt": "Four cards are in front of you, in this order: ace of spades, ace of diamonds, ace of clubs, ace of hearts. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-01.events.jsonl",
+          "sha256": "a507235e1456b18d09a9fc747f9eb62a4c7c555182b6337a70192c7975e1d4b1"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-01.schema.json",
+          "sha256": "123875b15eabe2a8d807fcb3e25d9e1af46cd96c647da0fc32bdaf80b06ad69e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-01.stderr.txt",
+          "sha256": "64bfaeda7b8177caf830a0e4f1c33bcfb6a5285898c0c57978871118a164c90a"
+        }
+      ],
+      "received_at": "2026-10-12T19:27:11.467660+00:00",
+      "requested_at": "2026-10-12T19:27:04.659508+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13195-3693-7973-95af-2d61c39680ab",
+      "session_id_before": null,
+      "stderr": "2026-10-12T19:27:05.606609Z ERROR codex_models_manager::manager: failed to refresh available models: exceeded retry limit, last status: 429 Too Many Requests, request id: req_f5bcef60243e4c0fa85945b9e4c5c2a9\n",
+      "text": "{\"selection\":[\"ace of spades\",\"ace of diamonds\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 1,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 2922,
+        "output_tokens": 23,
+        "reasoning_output_tokens": 0
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-6-astra",
+        "--output-schema",
+        "/workspace/work/native-study/67bf834b-8ec4-4454-b9c2-aa1cc97ee766/turn-02.schema.json",
+        "-c",
+        "model_reasoning_effort=\"low\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/67bf834b-8ec4-4454-b9c2-aa1cc97ee766/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13195-3693-7973-95af-2d61c39680ab",
+        "-"
+      ],
+      "duration_seconds": 10.254473009999856,
+      "events": [
+        {
+          "thread_id": "01a13195-3693-7973-95af-2d61c39680ab",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":\"ace of spades\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 5886,
+            "output_tokens": 41,
+            "reasoning_output_tokens": 0
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "operational_admission": {
+        "admitted_at": "2026-10-12T19:27:11.553618+00:00",
+        "executor": "x07",
+        "pid": 421116,
+        "queued_at": "2026-10-12T19:27:11.546249+00:00",
+        "trial_id": "equivoque-2026-10-12-sequence-replication-v1/gpt-6-astra-low/cards/obj/case-022",
+        "turn": 2
+      },
+      "parsed": {
+        "selection": "A"
+      },
+      "prompt": "The two cards you tapped remain: ace of spades, ace of diamonds. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of spades",
+              "ace of diamonds"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-01.events.jsonl",
+          "sha256": "a507235e1456b18d09a9fc747f9eb62a4c7c555182b6337a70192c7975e1d4b1"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-01.schema.json",
+          "sha256": "123875b15eabe2a8d807fcb3e25d9e1af46cd96c647da0fc32bdaf80b06ad69e"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-01.stderr.txt",
+          "sha256": "64bfaeda7b8177caf830a0e4f1c33bcfb6a5285898c0c57978871118a164c90a"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-02.events.jsonl",
+          "sha256": "5c9b5ed3815d24b09e664c9be396f0249cbf65ed701893ad24674a8f93754736"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-02.schema.json",
+          "sha256": "b32b13df81f728f5b991cb8ec0d31d5e44bdd40043d3ef2de9366263944cfb75"
+        },
+        {
+          "path": "native-raw/equivoque-2026-10-12-sequence-replication-v1__gpt-6-astra-low__cards__obj__case-022/turn-02.stderr.txt",
+          "sha256": "5c31f7eece3909b4f29a5ef6b33f1ed5bb0fd0fdcf0b0e13dfe02f8a687dd4cd"
+        }
+      ],
+      "received_at": "2026-10-12T19:27:21.859559+00:00",
+      "requested_at": "2026-10-12T19:27:11.557246+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of spades",
+              "ace of diamonds"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13195-3693-7973-95af-2d61c39680ab",
+      "session_id_before": "01a13195-3693-7973-95af-2d61c39680ab",
+      "stderr": "2026-10-12T19:27:16.398785Z ERROR codex_models_manager::manager: failed to refresh available models: exceeded retry limit, last status: 429 Too Many Requests, request id: req_f83c721f30304127be2347c17f80066c\n",
+      "text": "{\"selection\":\"ace of spades\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 2,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 5886,
+        "output_tokens": 41,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ]
+}

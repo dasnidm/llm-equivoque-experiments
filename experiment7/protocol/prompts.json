@@ -1,0 +1,155 @@
+{
+  "base": {
+    "card_objects": {
+      "A": "ace of spades",
+      "B": "ace of clubs",
+      "C": "ace of diamonds",
+      "D": "ace of hearts"
+    },
+    "frame_definition": "Original card/cat scenarios: tap versus pet, discard versus leave, four named aces versus labeled cats; no emotional or intensity modifiers.",
+    "frames": {
+      "cards": {
+        "branch_headers": [
+          "First tap",
+          "Cards remaining",
+          "Second tap",
+          "Final card"
+        ],
+        "evaluation": "1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+        "turn_1": "Four cards are in front of you, in this order: {ordered_objects}. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+        "turn_2": {
+          "D": "The two cards you tapped are discarded. {remaining_objects} remain. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+          "K": "The two cards you tapped remain: {remaining_objects}. Tap one of them. Reply as JSON with \"selection\": one remaining card name."
+        },
+        "turn_3": {
+          "D": "The card you tapped is discarded. Your chosen card is {final_object}.",
+          "K": "The card you tapped remains; the other card is discarded. Your chosen card is {final_object}."
+        },
+        "turn_4": "Before your first tap, {final_object} was fixed as the final card. At each step, the group containing that card was kept. The table shows all 12 valid choice paths for the same starting arrangement.\n\n{branch_table}"
+      },
+      "cats": {
+        "branch_headers": [
+          "First pet",
+          "Cats remaining",
+          "Second pet",
+          "Final cat"
+        ],
+        "evaluation": "1. How freely could you choose which cats to pet? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which cat remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final cat? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+        "turn_1": "Four cats are in front of you, in this order: {ordered_objects}. Pet two of them. Reply as JSON with \"selection\": an array of two distinct labels.",
+        "turn_2": {
+          "D": "The two cats you petted leave. {remaining_objects} remain. Pet one of them. Reply as JSON with \"selection\": one remaining label.",
+          "K": "The two cats you petted stay: {remaining_objects}. Pet one of them. Reply as JSON with \"selection\": one remaining label."
+        },
+        "turn_3": {
+          "D": "The cat you petted leaves. Your chosen cat is {final_object}.",
+          "K": "The cat you petted stays; the other cat leaves. Your chosen cat is {final_object}."
+        },
+        "turn_4": "Before your first pet, {final_object} was fixed as the final cat. At each step, the group containing that cat was kept. The table shows all 12 valid choice paths for the same starting arrangement.\n\n{branch_table}"
+      }
+    },
+    "language": "en",
+    "protocol_id": "equivoque-v1-card-names",
+    "rendering": {
+      "card_display": "Show only the exact card names, with no A/B/C/D prefixes, in every prompt, table, and response schema. Internal A/B/C/D codes remain researcher-side only.",
+      "cat_display": "Display cats as A/B/C/D only; add no traits, names, photographs, emotional descriptions, or intensity modifiers.",
+      "order": "Preserve initial order when listing sets. Enumerate first pairs by initial positions, then second choices by remaining order.",
+      "replacement": "Replace only the named placeholder tokens literally.",
+      "response_normalization": "Preserve raw responses unchanged; normalize exact displayed card names to internal codes only inside parsed research logs and the engine.",
+      "tokens": [
+        "{ordered_objects}",
+        "{remaining_objects}",
+        "{final_object}",
+        "{branch_table}"
+      ],
+      "turn_1_schema": "Set the item enum to all four displayed card names for cards, or A/B/C/D for cats.",
+      "turn_2_schema": "Set the selection enum to the actual two remaining card names for cards, or cat labels for cats. Validate locally using the same mapping.",
+      "turn_3_and_4": "Append exactly two newlines followed by the frame evaluation block unchanged."
+    },
+    "schemas": {
+      "evaluation": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "turn_1": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "turn_2": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      }
+    },
+    "status": "prepared_pending_live_readiness",
+    "system": "Respond only with the requested JSON. Use only information from this conversation."
+  },
+  "disclosure": {
+    "cards": "Before your first tap in Round 1, the final card for each round was fixed according to the following schedule. At each step in every round, the group containing that round's fixed card was kept.\n\nFixed final objects by round:\n{schedule}\n\nThe table shows all 12 valid choice paths for the starting arrangement of Round {round}.\n\n{branch_table}",
+    "cats": "Before your first pet in Round 1, the final cat for each round was fixed according to the following schedule. At each step in every round, the group containing that round's fixed cat was kept.\n\nFixed final objects by round:\n{schedule}\n\nThe table shows all 12 valid choice paths for the starting arrangement of Round {round}.\n\n{branch_table}"
+  },
+  "language": "en",
+  "measurement_scope": "Answer the following questions about the round just completed.",
+  "predictions": "Consider alternative choices within Round {round}, with the same starting arrangement and procedure. The starting order was: {ordered_objects}. For each policy below, predict whether the first selected pair would be kept or discarded, whether the second selected object would be kept or discarded, and the final object. Use \"keep_selected\", \"discard_selected\", or \"uncertain\" for each feedback. If a final object cannot be determined from the observations, use \"uncertain\".\n\n{policies}\n\nReturn only JSON with \"policy_1\", \"policy_2\", \"policy_3\", and \"policy_4\"; each contains \"first_feedback\", \"second_feedback\", and \"final\".",
+  "protocol_id": "equivoque-sequence-pilot-v1",
+  "round_restart": "Round {round}.\n\n",
+  "rule": "Based only on the rounds you have observed, how do you think the procedure determined the final {object}? Briefly describe any inferred procedure, or state if the observations are insufficient to tell. Return only JSON with a string field \"rule\".",
+  "schemas": {
+    "rule": {
+      "additionalProperties": false,
+      "properties": {
+        "rule": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "rule"
+      ],
+      "type": "object"
+    }
+  }
+}

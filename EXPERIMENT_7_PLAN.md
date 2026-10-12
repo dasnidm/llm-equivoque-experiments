@@ -6,7 +6,9 @@ agency changes without an articulated account of the host's procedure, and
 whether repeated identical outcomes change that relationship. Agency is
 operationalized as two separate reported dimensions: selection freedom and
 perceived causal influence on the outcome. Retain the canonical counterfactual
-judgment. This design draft does not release collection. Completed experiments
+judgment. The owner authorized the initial four-condition, 28-session pilot and its analysis
+on October 12, 2026. Additional stopping groups are not included. Collection
+requires the matching new freeze, readiness reports and coordinator gate. Completed experiments
 and their frozen English materials remain unchanged.
 
 ## Evidence and hypotheses
@@ -213,3 +215,15 @@ integrate on a new branch, audit raw files and session identities, and produce
 the English report, tables, graphs and trajectory explorer. Genuine-selection
 and measurement-frequency controls may be prospectively added later; they are
 not included in this initial two-sequence comparison.
+
+## Authorized collection specification
+
+The initial four labels and all 28 thirty-round sessions are authorized. The
+three- and ten-round stopping groups remain prospective and are not collected.
+Native subjects run in a neutral empty directory under /workspace/work/native-study
+so repository and condition names are absent from the visible path. All seven
+low configurations and all twenty workers must pass, including four excluded
+full-length development sessions. Staged intake requires thirty seconds and
+eight completed native calls, median latency at most sixty seconds and pending
+age below 120 seconds; pending ages over 150 or 240 seconds reduce new intake.
+The English report is descriptive and preserves partial outcomes and uncertainty.

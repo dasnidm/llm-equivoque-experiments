@@ -60,6 +60,14 @@ def snapshot_worker(w, snapshot):
             original = live / 'trials' / path.name
             if path.read_bytes() != original.read_bytes():
                 changed = True; break
+            if not state['turns'] and state.get('pending_turn') is None:
+                # A request-limited executor can initialize a case while still
+                # waiting for its first slot. Preserve that ownership record
+                # separately; no native bytes or model invocation exist yet.
+                claims = dest / 'unrequested-claims'
+                claims.mkdir(exist_ok=True)
+                shutil.move(str(path), str(claims / path.name))
+                continue
             native = Path(config['subject_scratch_root']) / state['scratch_id']
             archive = dest / 'native-raw' / state['trial']['trial_id'].replace('/', '__')
             if not native.exists():

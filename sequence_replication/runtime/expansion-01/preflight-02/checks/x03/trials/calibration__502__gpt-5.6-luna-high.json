@@ -1,0 +1,1863 @@
+{
+  "ended_at": "2026-10-12T18:05:49.098443+00:00",
+  "pending_turn": null,
+  "protocol_sha256": "3b54dd766e3c4a40dcaa4e9849c552f329ce713a5c044ca1cc129c874e6f0832",
+  "rounds": [
+    {
+      "order": [
+        "C",
+        "A",
+        "D",
+        "B"
+      ],
+      "remaining": [
+        "C"
+      ],
+      "round": 1,
+      "route": "KK",
+      "target": "C"
+    }
+  ],
+  "scratch_id": "842304f9-9e98-4af0-b91a-f4abc514fcb6",
+  "session_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+  "started_at": "2026-10-12T18:04:51.829048+00:00",
+  "status": "complete",
+  "transport": "codex-native",
+  "trial": {
+    "case_id": "development-502",
+    "configuration_id": "gpt-5.6-luna-high",
+    "effort": "high",
+    "frame": "cats",
+    "kind": "seq",
+    "model": "gpt-5.6-luna",
+    "n_rounds": 1,
+    "order": [
+      "C",
+      "A",
+      "D",
+      "B"
+    ],
+    "pilot_label": "cat-seq",
+    "positions": [
+      1
+    ],
+    "run_id": "equivoque-2026-10-12-sequence-replication-v1",
+    "targets": [
+      "C"
+    ],
+    "trial_id": "calibration/502/gpt-5.6-luna-high"
+  },
+  "turns": [
+    {
+      "command": [
+        "codex",
+        "exec",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/turn-01.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "--sandbox",
+        "read-only",
+        "-C",
+        "/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/subject",
+        "-"
+      ],
+      "duration_seconds": 4.705042711000715,
+      "events": [
+        {
+          "thread_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":[\"C\",\"A\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 1664,
+            "output_tokens": 18,
+            "reasoning_output_tokens": 0
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "C",
+          "A"
+        ]
+      },
+      "prompt": "Four cats are in front of you, in this order: C, A, D, B. Pet two of them. Reply as JSON with \"selection\": an array of two distinct labels.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.events.jsonl",
+          "sha256": "9e136c96d9f711e256bcf0c915409a4db4273b54d590d38441e338a330df7470"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.schema.json",
+          "sha256": "df1b6b069d4510d30860b40b98b7e826e701883cfc8809e0101a1659b920ee71"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-12T18:04:56.580866+00:00",
+      "requested_at": "2026-10-12T18:04:51.837950+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "session_id_before": null,
+      "stderr": "",
+      "text": "{\"selection\":[\"C\",\"A\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 1,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 1664,
+        "output_tokens": 18,
+        "reasoning_output_tokens": 0
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/turn-02.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13149-f2f9-72f0-b337-a7e23168d228",
+        "-"
+      ],
+      "duration_seconds": 11.259851841000454,
+      "events": [
+        {
+          "thread_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":\"C\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 3364,
+            "output_tokens": 136,
+            "reasoning_output_tokens": 101
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "C"
+      },
+      "prompt": "The two cats you petted stay: C, A. Pet one of them. Reply as JSON with \"selection\": one remaining label.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "C",
+              "A"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.events.jsonl",
+          "sha256": "9e136c96d9f711e256bcf0c915409a4db4273b54d590d38441e338a330df7470"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.schema.json",
+          "sha256": "df1b6b069d4510d30860b40b98b7e826e701883cfc8809e0101a1659b920ee71"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.events.jsonl",
+          "sha256": "05f9f8db646c4f851628b633c76319d878319323cd96c91fb4da7fa2b9a3f820"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.schema.json",
+          "sha256": "f7f0991430e251ad5f44e3b8a265433041bb7588691eb97c1c5b778a55f39301"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-12T18:05:07.846333+00:00",
+      "requested_at": "2026-10-12T18:04:56.584400+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "C",
+              "A"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "session_id_before": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "stderr": "",
+      "text": "{\"selection\":\"C\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 2,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 3364,
+        "output_tokens": 136,
+        "reasoning_output_tokens": 101
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/turn-03.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13149-f2f9-72f0-b337-a7e23168d228",
+        "-"
+      ],
+      "duration_seconds": 7.403602295000383,
+      "events": [
+        {
+          "thread_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"counterfactual\":\"yes\",\"freedom\":100,\"impact\":100}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 5328,
+            "output_tokens": 310,
+            "reasoning_output_tokens": 247
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The cat you petted stays; the other cat leaves. Your chosen cat is C.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cats to pet? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which cat remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final cat? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.events.jsonl",
+          "sha256": "9e136c96d9f711e256bcf0c915409a4db4273b54d590d38441e338a330df7470"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.schema.json",
+          "sha256": "df1b6b069d4510d30860b40b98b7e826e701883cfc8809e0101a1659b920ee71"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.events.jsonl",
+          "sha256": "05f9f8db646c4f851628b633c76319d878319323cd96c91fb4da7fa2b9a3f820"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.schema.json",
+          "sha256": "f7f0991430e251ad5f44e3b8a265433041bb7588691eb97c1c5b778a55f39301"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.events.jsonl",
+          "sha256": "739121a0f2ddc06613cce952c8f3597f2a3dae6be98542f32a70788d34ae7772"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-12T18:05:15.257542+00:00",
+      "requested_at": "2026-10-12T18:05:07.851112+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "session_id_before": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "stderr": "",
+      "text": "{\"counterfactual\":\"yes\",\"freedom\":100,\"impact\":100}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 3,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 5328,
+        "output_tokens": 310,
+        "reasoning_output_tokens": 247
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/turn-04.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13149-f2f9-72f0-b337-a7e23168d228",
+        "-"
+      ],
+      "duration_seconds": 5.331871923000108,
+      "events": [
+        {
+          "thread_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"rule\":\"The first step selects two cats as candidates; the final cat is the one of those two selected in the second step, while the other leaves.\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 7489,
+            "output_tokens": 449,
+            "reasoning_output_tokens": 341
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 4,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "rule": "The first step selects two cats as candidates; the final cat is the one of those two selected in the second step, while the other leaves."
+      },
+      "prompt": "Based only on the rounds you have observed, how do you think the procedure determined the final cat? Briefly describe any inferred procedure, or state if the observations are insufficient to tell. Return only JSON with a string field \"rule\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "rule": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rule"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.events.jsonl",
+          "sha256": "9e136c96d9f711e256bcf0c915409a4db4273b54d590d38441e338a330df7470"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.schema.json",
+          "sha256": "df1b6b069d4510d30860b40b98b7e826e701883cfc8809e0101a1659b920ee71"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.events.jsonl",
+          "sha256": "05f9f8db646c4f851628b633c76319d878319323cd96c91fb4da7fa2b9a3f820"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.schema.json",
+          "sha256": "f7f0991430e251ad5f44e3b8a265433041bb7588691eb97c1c5b778a55f39301"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.events.jsonl",
+          "sha256": "739121a0f2ddc06613cce952c8f3597f2a3dae6be98542f32a70788d34ae7772"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-04.events.jsonl",
+          "sha256": "c6d3c15c9803e9fac37189a4394ee2f74dcbaad69ada4768834a98d1a620e1d3"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-04.schema.json",
+          "sha256": "20fb0062fee7223e897c77799ec0a18b042d5523d61f701b6faa435e21f20cd9"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-12T18:05:20.598469+00:00",
+      "requested_at": "2026-10-12T18:05:15.263943+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "rule": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rule"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "session_id_before": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "stderr": "",
+      "text": "{\"rule\":\"The first step selects two cats as candidates; the final cat is the one of those two selected in the second step, while the other leaves.\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 4,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 7489,
+        "output_tokens": 449,
+        "reasoning_output_tokens": 341
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/turn-05.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13149-f2f9-72f0-b337-a7e23168d228",
+        "-"
+      ],
+      "duration_seconds": 16.14684853000017,
+      "events": [
+        {
+          "thread_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"policy_1\":{\"first_feedback\":\"keep_selected\",\"second_feedback\":\"keep_selected\",\"final\":\"C\"},\"policy_2\":{\"first_feedback\":\"keep_selected\",\"second_feedback\":\"keep_selected\",\"final\":\"A\"},\"policy_3\":{\"first_feedback\":\"keep_selected\",\"second_feedback\":\"keep_selected\",\"final\":\"D\"},\"policy_4\":{\"first_feedback\":\"keep_selected\",\"second_feedback\":\"keep_selected\",\"final\":\"B\"}}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 10290,
+            "output_tokens": 1061,
+            "reasoning_output_tokens": 857
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 5,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "policy_1": {
+          "final": "C",
+          "first_feedback": "keep_selected",
+          "second_feedback": "keep_selected"
+        },
+        "policy_2": {
+          "final": "A",
+          "first_feedback": "keep_selected",
+          "second_feedback": "keep_selected"
+        },
+        "policy_3": {
+          "final": "D",
+          "first_feedback": "keep_selected",
+          "second_feedback": "keep_selected"
+        },
+        "policy_4": {
+          "final": "B",
+          "first_feedback": "keep_selected",
+          "second_feedback": "keep_selected"
+        }
+      },
+      "prompt": "Consider alternative choices within Round 1, with the same starting arrangement and procedure. The starting order was: C, A, D, B. For each policy below, predict whether the first selected pair would be kept or discarded, whether the second selected object would be kept or discarded, and the final object. Use \"keep_selected\", \"discard_selected\", or \"uncertain\" for each feedback. If a final object cannot be determined from the observations, use \"uncertain\".\n\nPolicy 1: first select C, A; then select the first object in the order of the two remaining objects.\nPolicy 2: first select C, A; then select the last object in the order of the two remaining objects.\nPolicy 3: first select D, B; then select the first object in the order of the two remaining objects.\nPolicy 4: first select D, B; then select the last object in the order of the two remaining objects.\n\nReturn only JSON with \"policy_1\", \"policy_2\", \"policy_3\", and \"policy_4\"; each contains \"first_feedback\", \"second_feedback\", and \"final\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "policy_1": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_2": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_3": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_4": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "policy_1",
+          "policy_2",
+          "policy_3",
+          "policy_4"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.events.jsonl",
+          "sha256": "9e136c96d9f711e256bcf0c915409a4db4273b54d590d38441e338a330df7470"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.schema.json",
+          "sha256": "df1b6b069d4510d30860b40b98b7e826e701883cfc8809e0101a1659b920ee71"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.events.jsonl",
+          "sha256": "05f9f8db646c4f851628b633c76319d878319323cd96c91fb4da7fa2b9a3f820"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.schema.json",
+          "sha256": "f7f0991430e251ad5f44e3b8a265433041bb7588691eb97c1c5b778a55f39301"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.events.jsonl",
+          "sha256": "739121a0f2ddc06613cce952c8f3597f2a3dae6be98542f32a70788d34ae7772"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-04.events.jsonl",
+          "sha256": "c6d3c15c9803e9fac37189a4394ee2f74dcbaad69ada4768834a98d1a620e1d3"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-04.schema.json",
+          "sha256": "20fb0062fee7223e897c77799ec0a18b042d5523d61f701b6faa435e21f20cd9"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-05.events.jsonl",
+          "sha256": "217e82dc3245c594132c6ee049324a2b9954e9db0941c241c3a8f3f5d2dce8e3"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-05.schema.json",
+          "sha256": "229e586596b34951375dd6f93a8fd716ed4bb37932a3972e56dbed65eb2d19f7"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-12T18:05:36.755608+00:00",
+      "requested_at": "2026-10-12T18:05:20.604877+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "policy_1": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_2": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_3": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_4": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "A",
+                  "B",
+                  "C",
+                  "D",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "policy_1",
+          "policy_2",
+          "policy_3",
+          "policy_4"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "session_id_before": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "stderr": "",
+      "text": "{\"policy_1\":{\"first_feedback\":\"keep_selected\",\"second_feedback\":\"keep_selected\",\"final\":\"C\"},\"policy_2\":{\"first_feedback\":\"keep_selected\",\"second_feedback\":\"keep_selected\",\"final\":\"A\"},\"policy_3\":{\"first_feedback\":\"keep_selected\",\"second_feedback\":\"keep_selected\",\"final\":\"D\"},\"policy_4\":{\"first_feedback\":\"keep_selected\",\"second_feedback\":\"keep_selected\",\"final\":\"B\"}}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 5,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 10290,
+        "output_tokens": 1061,
+        "reasoning_output_tokens": 857
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-luna",
+        "--output-schema",
+        "/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/turn-06.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/842304f9-9e98-4af0-b91a-f4abc514fcb6/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13149-f2f9-72f0-b337-a7e23168d228",
+        "-"
+      ],
+      "duration_seconds": 12.3218148750002,
+      "events": [
+        {
+          "thread_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "message": "Reconnecting... 2/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a49808ac0b2f9972-LAX)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 3/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a49808afaac313a6-LAX)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 4/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a49808bc7a019972-LAX)",
+          "type": "error"
+        },
+        {
+          "message": "Reconnecting... 5/5 (unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a49808c78c38c89e-LAX)",
+          "type": "error"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "message": "Falling back from WebSockets to HTTPS transport. unexpected status 403 Forbidden: Unknown error, url: wss://chatgpt.com/backend-api/codex/responses, cf-ray: a49808db8c03a682-LAX",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "item": {
+            "id": "item_2",
+            "text": "{\"counterfactual\":\"no\",\"freedom\":100,\"impact\":1}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 13815,
+            "output_tokens": 1163,
+            "reasoning_output_tokens": 931
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 6,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "no",
+        "freedom": 100,
+        "impact": 1
+      },
+      "prompt": "Before your first pet in Round 1, the final cat for each round was fixed according to the following schedule. At each step in every round, the group containing that round's fixed cat was kept.\n\nFixed final objects by round:\n1. C\n\nThe table shows all 12 valid choice paths for the starting arrangement of Round 1.\n\n| First pet | Cats remaining | Second pet | Final cat |\n| --- | --- | --- | --- |\n| C, A | C, A | C | C |\n| C, A | C, A | A | C |\n| C, D | C, D | C | C |\n| C, D | C, D | D | C |\n| C, B | C, B | C | C |\n| C, B | C, B | B | C |\n| A, D | C, B | C | C |\n| A, D | C, B | B | C |\n| A, B | C, D | C | C |\n| A, B | C, D | D | C |\n| D, B | C, A | C | C |\n| D, B | C, A | A | C |\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cats to pet? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which cat remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final cat? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.events.jsonl",
+          "sha256": "9e136c96d9f711e256bcf0c915409a4db4273b54d590d38441e338a330df7470"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.schema.json",
+          "sha256": "df1b6b069d4510d30860b40b98b7e826e701883cfc8809e0101a1659b920ee71"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.events.jsonl",
+          "sha256": "05f9f8db646c4f851628b633c76319d878319323cd96c91fb4da7fa2b9a3f820"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.schema.json",
+          "sha256": "f7f0991430e251ad5f44e3b8a265433041bb7588691eb97c1c5b778a55f39301"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.events.jsonl",
+          "sha256": "739121a0f2ddc06613cce952c8f3597f2a3dae6be98542f32a70788d34ae7772"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-04.events.jsonl",
+          "sha256": "c6d3c15c9803e9fac37189a4394ee2f74dcbaad69ada4768834a98d1a620e1d3"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-04.schema.json",
+          "sha256": "20fb0062fee7223e897c77799ec0a18b042d5523d61f701b6faa435e21f20cd9"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-05.events.jsonl",
+          "sha256": "217e82dc3245c594132c6ee049324a2b9954e9db0941c241c3a8f3f5d2dce8e3"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-05.schema.json",
+          "sha256": "229e586596b34951375dd6f93a8fd716ed4bb37932a3972e56dbed65eb2d19f7"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-06.events.jsonl",
+          "sha256": "0ca0188e6399e2c311b509493a0ec6568216a85a794d4e2f96fb1ef9c106d93c"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-06.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__502__gpt-5.6-luna-high/turn-06.stderr.txt",
+          "sha256": "7ec897299d7b47154d91ca9c64f6b32530981c6a974cb174f125076b1c5ad754"
+        }
+      ],
+      "received_at": "2026-10-12T18:05:49.092147+00:00",
+      "requested_at": "2026-10-12T18:05:36.767824+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "session_id_before": "01a13149-f2f9-72f0-b337-a7e23168d228",
+      "stderr": "2026-10-12T18:05:37.710875Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-12T18:05:38.222729Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-12T18:05:38.694466Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-12T18:05:40.304790Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-12T18:05:41.314151Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-12T18:05:43.148080Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n2026-10-12T18:05:46.291633Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 403 Forbidden, url: wss://chatgpt.com/backend-api/codex/responses\n",
+      "text": "{\"counterfactual\":\"no\",\"freedom\":100,\"impact\":1}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 6,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 13815,
+        "output_tokens": 1163,
+        "reasoning_output_tokens": 931
+      }
+    }
+  ]
+}

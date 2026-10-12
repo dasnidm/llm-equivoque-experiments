@@ -1,0 +1,15 @@
+# User-authorized worker expansion
+
+Scientific run remains equivoque-2026-10-12-sequence-replication-v1. User requested more workers and direct real-time monitoring. All185 study-frozen files remain unchanged. No models, efforts, prompts, targets, layouts, scores, case IDs, sample size or deadline changed.
+
+The original ten workers finished their active full sessions before intake ended. They intentionally returned process status2 at the intake gate; all59 evaluation sessions completed without failed/interrupted trials. Their completed data are preserved. Only the2461 never-started IDs were randomized into a central, exclusive ownership queue. The original A-J result shards and frozen manifests remain canonical. New execution processes are x01-x40 and can write only a uniquely claimed original trial. New request admission occurs before the durable request checkpoint, so queue waits are not counted as issued native requests or against their300-second deadlines.
+
+Forty executor-route native one-round checks all passed, adding240 excluded calibration invocations. The common21 zero-tool request inspections and four full-length continuity checks are inherited by exact unchanged study-source hashes. Three additional offline control tests passed, including every prompt/schema byte match, bounded concurrent leases, and safe pause-before-checkpoint/resume without replay. The first catalog-parser development attempt issued zero model calls and is preserved separately.
+
+Evaluation intake started with20 processes and20 request slots, increased to30 after190 completed native calls over121seconds (median8.48seconds, oldest pending14.04seconds), then40 after260 over121seconds (median14.99seconds, oldest pending15.79seconds). These are operational observations, not randomized scaling estimates. The controller monitors real request ages and lowers new admission to20 above120seconds,10 above150seconds, or5 above240seconds. In-flight requests continue. No failed or uncertain turn is replayed.
+
+Initial59 sessions account for1947 evaluation calls. Successive expanded calls append to their same original result directories and preserve native session continuity within each fresh trial. Original ten process exits are stored separately from expanded executor exits; finished_workers in the compatibility progress file denotes the drained original processes, while finished_executors records actual new-process completion.
+
+Active expanded supervisor: work/expansion-supervisor/run_sequence_replication.py. Acquisition controller/worker code: work/expansion/expanded.py. Scientific code is unchanged; operational code, assignment, readiness and gate hashes are in operational-freeze.json. Source copies are retained under code/ for recovery; restore them to the listed work/ locations before executing. Do not start another supervisor while the current one is alive.
+
+Updated 2026-10-12T18:30:50.922381+00:00. Live progress remains in collection-progress.json and expansion-01/progress.json.

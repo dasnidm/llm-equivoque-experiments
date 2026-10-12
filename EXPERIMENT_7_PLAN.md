@@ -46,35 +46,57 @@ Sources:
 - [Audited Experiment 2 report](https://github.com/dasnidm/llm-equivoque-experiments/blob/7fc5cee84d574d598567c49924382647173e1a4f/analysis/results/equivoque-2026-10-09-exp2-v1/attempt-01/REPORT.md)
 - Experiment 2 tables/impact_distribution.csv and tables/counterfactual_trajectories.csv under that report directory.
 
-## Two sequence conditions and model matrix
+## Four pilot labels and model matrix
 
 Use seven low-effort configurations: gpt-5.6-luna, gpt-5.6-terra,
 gpt-5.6-sol, gpt-6-luna, gpt-6-sol, gpt-6-astra and gpt-6.1-sol.
-Each has separate card and cat conversations in each condition.
+The four owner-specified pilot labels form a frame by sequence comparison:
 
-| Condition | Positions throughout a conversation | Hidden targets | Measurement |
-| --- | --- | --- | --- |
-| Constant | Same arrangement | Same target for all 30 rounds | Freedom, impact and counterfactual after every round |
-| Varying | Same arrangement | Thirty targets committed before collection | The same three questions after every round |
+| Pilot label | Frame | Hidden target schedule | Sessions |
+| --- | --- | --- | ---: |
+| exp3-pilot-card-obj | Cards | Same card in all 30 rounds | 7 |
+| exp3-pilot-card-seq | Cards | Precommitted varying thirty-round sequence | 7 |
+| exp3-pilot-cat-seq | Cats | The matched precommitted varying sequence | 7 |
+| exp3-pilot-cat-obj | Cats | Same cat in all 30 rounds | 7 |
+
+All four ask the canonical freedom, impact and counterfactual questions after
+every round. The cat-obj label is the cat frame. These are condition labels for
+a new collection run, not a reuse or renaming of the completed Experiment 3
+objective-rule-transfer pilot. Use a distinct run ID and results location.
+
+Fix displayed positions throughout all initial pilot conversations:
+
+- Cards: ace of spades, ace of clubs, ace of hearts, ace of diamonds.
+- Cats: A, B, C, D.
+
+The shared forcing sequence is specified by position numbers 1-4, not by
+reassigning the existing internal card codes. Position 3 therefore denotes
+ace of hearts for cards and C for cats. Existing internal card identities remain
+A=spades, B=clubs, C=diamonds, D=hearts; the displayed card order is internally
+A,B,D,C. These internal codes are never shown to card subjects.
 
 At each stage, keep the group containing that round's hidden target. Generate
 all targets before any subject call. Balance the varying sequence's four
-identities to 7 or 8 occurrences, select which receive 8 using the frozen seed,
-and shuffle without selecting an interesting-looking sequence. Consecutive
-repeats are allowed. Use its first target as the constant condition's target,
-matching initial arrangement and target in round 1.
+positions to 7 or 8 occurrences, select which receive 8 using the frozen seed,
+and shuffle without choosing an interesting-looking sequence. Consecutive
+repeats are allowed. Use the varying sequence's first target position as the
+constant condition's target position, matching round 1 in both conditions.
 
-Freeze one initial pilot sequence and arrangement and share them across models
-and paired card/cat identities. Conceal the sequence, precommitment, balancing
-scheme, condition name and engine until primary measurements end. Cards use
-full ace names without internal A-D prefixes; cats use the canonical A-D labels.
+Freeze one initial position sequence and share it across all seven models and
+both frames. Conceal the sequence, precommitment, balancing scheme, condition
+label and engine until primary measurements end. Cards use full ace names
+without internal A-D prefixes; cats retain the canonical A-D labels.
 
-With fixed positions, identity and position covary, so the pilot cannot
-distinguish identity-based from position-based hypotheses. Sequence changes can
-also change realized keep/discard routes through adaptive subject choices.
-The condition comparison estimates the total sequence-policy effect, not
-outcome repetition with all intermediate feedback held constant. Record routes
-without treating them as randomized factors or baseline covariates.
+Keeping arrangements fixed is appropriate for this initial comparison: it
+aligns the presented layouts while testing the sequence policies. Identity and
+position covary, however, so the pilot cannot distinguish identity-based from
+position-based hypotheses. A later replication can counterbalance different
+fixed arrangements and constant targets across fresh conversations.
+
+Sequence changes can also change realized keep/discard routes through adaptive
+subject choices. The condition comparison estimates the total sequence-policy
+effect, not outcome repetition with all intermediate feedback held constant.
+Record routes without treating them as randomized factors or baseline covariates.
 
 ## Scope and optional timing assessments
 

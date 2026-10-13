@@ -1,0 +1,13 @@
+{
+  "purpose": "Operator-managed per-worker capacity failures; all other errors retain global halt",
+  "participant_stimuli_changed": false,
+  "scientific_sources_changed": false,
+  "program_sha256": "6e902d1b9948c0bbce65cae893cc3d4ef78f9de596054fa7fec7b881dcb3229c",
+  "program": "import sys,pathlib,json,inspect\nroot=pathlib.Path('/workspace/work/equivoque-recovery')\nsys.path.insert(0,str(root/'work/expansion'))\nimport expanded as e\nold_write=e.write_json\ndef isolate_capacity(path,data):\n    path=pathlib.Path(path)\n    state=inspect.currentframe().f_back.f_locals.get('state')\n    turns=state.get('turns',[]) if state else []\n    if path.name=='HALT.json' and state and turns and any(\n        ev.get('type')=='turn.failed' and 'selected model is at capacity' in json.dumps(ev.get('error',{})).lower()\n        for ev in turns[-1].get('events',[])):\n        target=e.CONTROLS/'capacity-errors'/(state['scratch_id']+'.json')\n        target.parent.mkdir(parents=True,exist_ok=True)\n        old_write(target,{**data,'capacity_only':True,'trial_id':state['trial']['trial_id'],\n                         'configuration_id':state['trial']['configuration_id'],\n                         'scratch_id':state['scratch_id'],'events':state['turns'][-1].get('events',[])[-2:]})\n        return\n    old_write(path,data)\ne.write_json=isolate_capacity\nif __name__=='__main__':sys.exit(e.worker(sys.argv[1]))\n",
+  "offline_checks": {
+    "capacity_isolated": true,
+    "auth_error_still_halts": true,
+    "empty_interruption_still_halts": true,
+    "native_model_calls": 0
+  }
+}

@@ -1,0 +1,1839 @@
+{
+  "ended_at": "2026-10-13T02:04:41.017872+00:00",
+  "pending_turn": null,
+  "protocol_sha256": "3b54dd766e3c4a40dcaa4e9849c552f329ce713a5c044ca1cc129c874e6f0832",
+  "rounds": [
+    {
+      "order": [
+        "A",
+        "B",
+        "D",
+        "C"
+      ],
+      "remaining": [
+        "C"
+      ],
+      "round": 1,
+      "route": "DD",
+      "target": "C"
+    }
+  ],
+  "scratch_id": "d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4",
+  "session_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+  "started_at": "2026-10-13T02:04:03.243252+00:00",
+  "status": "complete",
+  "transport": "codex-native",
+  "trial": {
+    "case_id": "development-9003",
+    "configuration_id": "gpt-5.6-terra-high",
+    "effort": "high",
+    "frame": "cards",
+    "kind": "obj",
+    "model": "gpt-5.6-terra",
+    "n_rounds": 1,
+    "order": [
+      "A",
+      "B",
+      "D",
+      "C"
+    ],
+    "pilot_label": "card-obj",
+    "positions": [
+      4
+    ],
+    "run_id": "equivoque-2026-10-12-sequence-replication-v1",
+    "targets": [
+      "C"
+    ],
+    "trial_id": "calibration/9003/gpt-5.6-terra-high"
+  },
+  "turns": [
+    {
+      "command": [
+        "codex",
+        "exec",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/turn-01.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "--sandbox",
+        "read-only",
+        "-C",
+        "/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/subject",
+        "-"
+      ],
+      "duration_seconds": 5.333202497000457,
+      "events": [
+        {
+          "thread_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":[\"ace of spades\",\"ace of clubs\"]}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 2610,
+            "output_tokens": 42,
+            "reasoning_output_tokens": 17
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 1,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": [
+          "A",
+          "B"
+        ]
+      },
+      "prompt": "Four cards are in front of you, in this order: ace of spades, ace of clubs, ace of hearts, ace of diamonds. Tap two of them. Reply as JSON with \"selection\": an array of two distinct card names.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.events.jsonl",
+          "sha256": "b477031dad167aaf7d470365c9cc5e18410b56d7608c7ed52b001aca39a0f7f6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.schema.json",
+          "sha256": "123875b15eabe2a8d807fcb3e25d9e1af46cd96c647da0fc32bdaf80b06ad69e"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-13T02:04:08.578995+00:00",
+      "requested_at": "2026-10-13T02:04:03.243566+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "items": {
+              "enum": [
+                "ace of spades",
+                "ace of clubs",
+                "ace of diamonds",
+                "ace of hearts"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "session_id_before": null,
+      "stderr": "",
+      "text": "{\"selection\":[\"ace of spades\",\"ace of clubs\"]}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 1,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 2610,
+        "output_tokens": 42,
+        "reasoning_output_tokens": 17
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/turn-02.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13300-a773-7040-a2cb-0c40ebe37688",
+        "-"
+      ],
+      "duration_seconds": 4.417409178000526,
+      "events": [
+        {
+          "thread_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"selection\":\"ace of hearts\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 5281,
+            "output_tokens": 86,
+            "reasoning_output_tokens": 42
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 2,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "selection": "D"
+      },
+      "prompt": "The two cards you tapped are discarded. ace of hearts, ace of diamonds remain. Tap one of them. Reply as JSON with \"selection\": one remaining card name.",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of hearts",
+              "ace of diamonds"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.events.jsonl",
+          "sha256": "b477031dad167aaf7d470365c9cc5e18410b56d7608c7ed52b001aca39a0f7f6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.schema.json",
+          "sha256": "123875b15eabe2a8d807fcb3e25d9e1af46cd96c647da0fc32bdaf80b06ad69e"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.events.jsonl",
+          "sha256": "96248d9434477eebbc3858b05c6f42314bfbf22b0f9dd9ce4e44bae1f81cdb74"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.schema.json",
+          "sha256": "74f4b92441f9e52eca58cba2b71674cbd26af621852411315403696b1f19207b"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-13T02:04:13.003496+00:00",
+      "requested_at": "2026-10-13T02:04:08.584663+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "selection": {
+            "enum": [
+              "ace of hearts",
+              "ace of diamonds"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "selection"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "session_id_before": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "stderr": "",
+      "text": "{\"selection\":\"ace of hearts\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 2,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 5281,
+        "output_tokens": 86,
+        "reasoning_output_tokens": 42
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/turn-03.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13300-a773-7040-a2cb-0c40ebe37688",
+        "-"
+      ],
+      "duration_seconds": 6.037110263998329,
+      "events": [
+        {
+          "thread_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"counterfactual\":\"yes\",\"freedom\":100,\"impact\":100}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 8135,
+            "output_tokens": 182,
+            "reasoning_output_tokens": 110
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 3,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "yes",
+        "freedom": 100,
+        "impact": 100
+      },
+      "prompt": "The card you tapped is discarded. Your chosen card is ace of diamonds.\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.events.jsonl",
+          "sha256": "b477031dad167aaf7d470365c9cc5e18410b56d7608c7ed52b001aca39a0f7f6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.schema.json",
+          "sha256": "123875b15eabe2a8d807fcb3e25d9e1af46cd96c647da0fc32bdaf80b06ad69e"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.events.jsonl",
+          "sha256": "96248d9434477eebbc3858b05c6f42314bfbf22b0f9dd9ce4e44bae1f81cdb74"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.schema.json",
+          "sha256": "74f4b92441f9e52eca58cba2b71674cbd26af621852411315403696b1f19207b"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.events.jsonl",
+          "sha256": "097b79a418b49c612843c3fbe419133409ad2b2e9592e3e6ba28a9974740e749"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-13T02:04:19.047383+00:00",
+      "requested_at": "2026-10-13T02:04:13.008402+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "session_id_before": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "stderr": "",
+      "text": "{\"counterfactual\":\"yes\",\"freedom\":100,\"impact\":100}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 3,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 8135,
+        "output_tokens": 182,
+        "reasoning_output_tokens": 110
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/turn-04.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13300-a773-7040-a2cb-0c40ebe37688",
+        "-"
+      ],
+      "duration_seconds": 6.742829443006485,
+      "events": [
+        {
+          "thread_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"rule\":\"The final card was the only card left untapped after the two rounds of selections and discards.\"}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 11108,
+            "output_tokens": 261,
+            "reasoning_output_tokens": 153
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 4,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "rule": "The final card was the only card left untapped after the two rounds of selections and discards."
+      },
+      "prompt": "Based only on the rounds you have observed, how do you think the procedure determined the final card? Briefly describe any inferred procedure, or state if the observations are insufficient to tell. Return only JSON with a string field \"rule\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "rule": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rule"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.events.jsonl",
+          "sha256": "b477031dad167aaf7d470365c9cc5e18410b56d7608c7ed52b001aca39a0f7f6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.schema.json",
+          "sha256": "123875b15eabe2a8d807fcb3e25d9e1af46cd96c647da0fc32bdaf80b06ad69e"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.events.jsonl",
+          "sha256": "96248d9434477eebbc3858b05c6f42314bfbf22b0f9dd9ce4e44bae1f81cdb74"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.schema.json",
+          "sha256": "74f4b92441f9e52eca58cba2b71674cbd26af621852411315403696b1f19207b"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.events.jsonl",
+          "sha256": "097b79a418b49c612843c3fbe419133409ad2b2e9592e3e6ba28a9974740e749"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-04.events.jsonl",
+          "sha256": "e9817d413e3f558b2340849f24741ffe0f6e74dface796d5977aac1c130d4aa9"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-04.schema.json",
+          "sha256": "20fb0062fee7223e897c77799ec0a18b042d5523d61f701b6faa435e21f20cd9"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-13T02:04:25.798876+00:00",
+      "requested_at": "2026-10-13T02:04:19.053709+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "rule": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rule"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "session_id_before": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "stderr": "",
+      "text": "{\"rule\":\"The final card was the only card left untapped after the two rounds of selections and discards.\"}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 4,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 11108,
+        "output_tokens": 261,
+        "reasoning_output_tokens": 153
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/turn-05.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13300-a773-7040-a2cb-0c40ebe37688",
+        "-"
+      ],
+      "duration_seconds": 9.102684204997786,
+      "events": [
+        {
+          "thread_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"policy_1\":{\"first_feedback\":\"discard_selected\",\"second_feedback\":\"discard_selected\",\"final\":\"ace of hearts\"},\"policy_2\":{\"first_feedback\":\"discard_selected\",\"second_feedback\":\"discard_selected\",\"final\":\"ace of clubs\"},\"policy_3\":{\"first_feedback\":\"discard_selected\",\"second_feedback\":\"discard_selected\",\"final\":\"ace of diamonds\"},\"policy_4\":{\"first_feedback\":\"discard_selected\",\"second_feedback\":\"discard_selected\",\"final\":\"ace of spades\"}}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 0,
+            "input_tokens": 14724,
+            "output_tokens": 489,
+            "reasoning_output_tokens": 276
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 5,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "policy_1": {
+          "final": "D",
+          "first_feedback": "discard_selected",
+          "second_feedback": "discard_selected"
+        },
+        "policy_2": {
+          "final": "B",
+          "first_feedback": "discard_selected",
+          "second_feedback": "discard_selected"
+        },
+        "policy_3": {
+          "final": "C",
+          "first_feedback": "discard_selected",
+          "second_feedback": "discard_selected"
+        },
+        "policy_4": {
+          "final": "A",
+          "first_feedback": "discard_selected",
+          "second_feedback": "discard_selected"
+        }
+      },
+      "prompt": "Consider alternative choices within Round 1, with the same starting arrangement and procedure. The starting order was: ace of spades, ace of clubs, ace of hearts, ace of diamonds. For each policy below, predict whether the first selected pair would be kept or discarded, whether the second selected object would be kept or discarded, and the final object. Use \"keep_selected\", \"discard_selected\", or \"uncertain\" for each feedback. If a final object cannot be determined from the observations, use \"uncertain\".\n\nPolicy 1: first select ace of spades, ace of diamonds; then select the first object in the order of the two remaining objects.\nPolicy 2: first select ace of spades, ace of diamonds; then select the last object in the order of the two remaining objects.\nPolicy 3: first select ace of clubs, ace of hearts; then select the first object in the order of the two remaining objects.\nPolicy 4: first select ace of clubs, ace of hearts; then select the last object in the order of the two remaining objects.\n\nReturn only JSON with \"policy_1\", \"policy_2\", \"policy_3\", and \"policy_4\"; each contains \"first_feedback\", \"second_feedback\", and \"final\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "policy_1": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "ace of spades",
+                  "ace of clubs",
+                  "ace of diamonds",
+                  "ace of hearts",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_2": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "ace of spades",
+                  "ace of clubs",
+                  "ace of diamonds",
+                  "ace of hearts",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_3": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "ace of spades",
+                  "ace of clubs",
+                  "ace of diamonds",
+                  "ace of hearts",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_4": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "ace of spades",
+                  "ace of clubs",
+                  "ace of diamonds",
+                  "ace of hearts",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "policy_1",
+          "policy_2",
+          "policy_3",
+          "policy_4"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.events.jsonl",
+          "sha256": "b477031dad167aaf7d470365c9cc5e18410b56d7608c7ed52b001aca39a0f7f6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.schema.json",
+          "sha256": "123875b15eabe2a8d807fcb3e25d9e1af46cd96c647da0fc32bdaf80b06ad69e"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.events.jsonl",
+          "sha256": "96248d9434477eebbc3858b05c6f42314bfbf22b0f9dd9ce4e44bae1f81cdb74"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.schema.json",
+          "sha256": "74f4b92441f9e52eca58cba2b71674cbd26af621852411315403696b1f19207b"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.events.jsonl",
+          "sha256": "097b79a418b49c612843c3fbe419133409ad2b2e9592e3e6ba28a9974740e749"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-04.events.jsonl",
+          "sha256": "e9817d413e3f558b2340849f24741ffe0f6e74dface796d5977aac1c130d4aa9"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-04.schema.json",
+          "sha256": "20fb0062fee7223e897c77799ec0a18b042d5523d61f701b6faa435e21f20cd9"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-05.events.jsonl",
+          "sha256": "970fb3a76dac4ce148fe614f464937e263295b8745ba041430d5ae63a6b6692e"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-05.schema.json",
+          "sha256": "e4d88e8423b6cd1daddec7aaa87cba6db87ae16c0b13985e1febcc1c1b108fc4"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-13T02:04:34.985089+00:00",
+      "requested_at": "2026-10-13T02:04:25.877808+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "policy_1": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "ace of spades",
+                  "ace of clubs",
+                  "ace of diamonds",
+                  "ace of hearts",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_2": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "ace of spades",
+                  "ace of clubs",
+                  "ace of diamonds",
+                  "ace of hearts",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_3": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "ace of spades",
+                  "ace of clubs",
+                  "ace of diamonds",
+                  "ace of hearts",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          },
+          "policy_4": {
+            "additionalProperties": false,
+            "properties": {
+              "final": {
+                "enum": [
+                  "ace of spades",
+                  "ace of clubs",
+                  "ace of diamonds",
+                  "ace of hearts",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "first_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              },
+              "second_feedback": {
+                "enum": [
+                  "keep_selected",
+                  "discard_selected",
+                  "uncertain"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_feedback",
+              "second_feedback",
+              "final"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "policy_1",
+          "policy_2",
+          "policy_3",
+          "policy_4"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "session_id_before": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "stderr": "",
+      "text": "{\"policy_1\":{\"first_feedback\":\"discard_selected\",\"second_feedback\":\"discard_selected\",\"final\":\"ace of hearts\"},\"policy_2\":{\"first_feedback\":\"discard_selected\",\"second_feedback\":\"discard_selected\",\"final\":\"ace of clubs\"},\"policy_3\":{\"first_feedback\":\"discard_selected\",\"second_feedback\":\"discard_selected\",\"final\":\"ace of diamonds\"},\"policy_4\":{\"first_feedback\":\"discard_selected\",\"second_feedback\":\"discard_selected\",\"final\":\"ace of spades\"}}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 5,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 14724,
+        "output_tokens": 489,
+        "reasoning_output_tokens": 276
+      }
+    },
+    {
+      "command": [
+        "codex",
+        "exec",
+        "resume",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--skip-git-repo-check",
+        "--json",
+        "--model",
+        "gpt-5.6-terra",
+        "--output-schema",
+        "/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/turn-06.schema.json",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "-c",
+        "model_instructions_file=\"/workspace/work/native-study/d7912cfd-3bbb-4489-afd6-c01fe5e4e2f4/subject-system.txt\"",
+        "-c",
+        "project_doc_max_bytes=0",
+        "-c",
+        "developer_instructions=\"\"",
+        "-c",
+        "web_search=\"disabled\"",
+        "-c",
+        "include_apps_instructions=false",
+        "-c",
+        "include_collaboration_mode_instructions=false",
+        "-c",
+        "include_permissions_instructions=false",
+        "-c",
+        "skills.include_instructions=false",
+        "-c",
+        "skills.bundled.enabled=false",
+        "-c",
+        "tools.update_plan.enabled=false",
+        "-c",
+        "tools.experimental_request_user_input.enabled=false",
+        "-c",
+        "features.multi_agent_v2.enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_enabled=false",
+        "-c",
+        "features.multi_agent_v2.usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.root_agent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.subagent_usage_hint_text=\"\"",
+        "-c",
+        "features.multi_agent_v2.multi_agent_mode_hint_text=\"\"",
+        "-c",
+        "features.code_mode.enabled=false",
+        "-c",
+        "features.shell_tool=false",
+        "-c",
+        "features.unified_exec=false",
+        "-c",
+        "features.apps=false",
+        "-c",
+        "features.plugins=false",
+        "-c",
+        "features.remote_plugin=false",
+        "-c",
+        "features.multi_agent=false",
+        "-c",
+        "features.code_mode_host=false",
+        "-c",
+        "features.browser_use=false",
+        "-c",
+        "features.browser_use_external=false",
+        "-c",
+        "features.computer_use=false",
+        "-c",
+        "features.view_image=false",
+        "-c",
+        "features.image_generation=false",
+        "-c",
+        "features.skill_search=false",
+        "-c",
+        "features.sleep_tool=false",
+        "-c",
+        "features.hooks=false",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "features.workspace_dependencies=false",
+        "-c",
+        "features.unbounded_connection_retries=false",
+        "-c",
+        "features.goals=false",
+        "01a13300-a773-7040-a2cb-0c40ebe37688",
+        "-"
+      ],
+      "duration_seconds": 5.996800058004737,
+      "events": [
+        {
+          "thread_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+          "type": "thread.started"
+        },
+        {
+          "item": {
+            "id": "item_0",
+            "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`.",
+            "type": "error"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "item": {
+            "id": "item_1",
+            "text": "{\"counterfactual\":\"no\",\"freedom\":100,\"impact\":1}",
+            "type": "agent_message"
+          },
+          "type": "item.completed"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 1792,
+            "input_tokens": 18802,
+            "output_tokens": 569,
+            "reasoning_output_tokens": 328
+          }
+        }
+      ],
+      "exit_code": 0,
+      "local_turn": 6,
+      "malformed_event_lines": 0,
+      "metadata_fallback": false,
+      "ok": true,
+      "parsed": {
+        "counterfactual": "no",
+        "freedom": 100,
+        "impact": 1
+      },
+      "prompt": "Before your first tap in Round 1, the final card for each round was fixed according to the following schedule. At each step in every round, the group containing that round's fixed card was kept.\n\nFixed final objects by round:\n1. ace of diamonds\n\nThe table shows all 12 valid choice paths for the starting arrangement of Round 1.\n\n| First tap | Cards remaining | Second tap | Final card |\n| --- | --- | --- | --- |\n| ace of spades, ace of clubs | ace of hearts, ace of diamonds | ace of hearts | ace of diamonds |\n| ace of spades, ace of clubs | ace of hearts, ace of diamonds | ace of diamonds | ace of diamonds |\n| ace of spades, ace of hearts | ace of clubs, ace of diamonds | ace of clubs | ace of diamonds |\n| ace of spades, ace of hearts | ace of clubs, ace of diamonds | ace of diamonds | ace of diamonds |\n| ace of spades, ace of diamonds | ace of spades, ace of diamonds | ace of spades | ace of diamonds |\n| ace of spades, ace of diamonds | ace of spades, ace of diamonds | ace of diamonds | ace of diamonds |\n| ace of clubs, ace of hearts | ace of spades, ace of diamonds | ace of spades | ace of diamonds |\n| ace of clubs, ace of hearts | ace of spades, ace of diamonds | ace of diamonds | ace of diamonds |\n| ace of clubs, ace of diamonds | ace of clubs, ace of diamonds | ace of clubs | ace of diamonds |\n| ace of clubs, ace of diamonds | ace of clubs, ace of diamonds | ace of diamonds | ace of diamonds |\n| ace of hearts, ace of diamonds | ace of hearts, ace of diamonds | ace of hearts | ace of diamonds |\n| ace of hearts, ace of diamonds | ace of hearts, ace of diamonds | ace of diamonds | ace of diamonds |\n\nAnswer the following questions about the round just completed.\n\n1. How freely could you choose which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much did your choices affect which card remained at the end? (1 = no effect; 100 = complete control.)\n3. With the same starting arrangement and procedure, could different choices have changed the final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+      "provider_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "provider_schema_note": "uniqueItems is unsupported by strict native output schemas; canonical duplicate-choice validation remains mandatory.",
+      "raw_files": [
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/subject-system.txt",
+          "sha256": "0c41d0628237d4c0e4bd5445a627d69ed9624885b33b536daef93e3adabd67b6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.events.jsonl",
+          "sha256": "b477031dad167aaf7d470365c9cc5e18410b56d7608c7ed52b001aca39a0f7f6"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.schema.json",
+          "sha256": "123875b15eabe2a8d807fcb3e25d9e1af46cd96c647da0fc32bdaf80b06ad69e"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-01.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.events.jsonl",
+          "sha256": "96248d9434477eebbc3858b05c6f42314bfbf22b0f9dd9ce4e44bae1f81cdb74"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.schema.json",
+          "sha256": "74f4b92441f9e52eca58cba2b71674cbd26af621852411315403696b1f19207b"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-02.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.events.jsonl",
+          "sha256": "097b79a418b49c612843c3fbe419133409ad2b2e9592e3e6ba28a9974740e749"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-03.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-04.events.jsonl",
+          "sha256": "e9817d413e3f558b2340849f24741ffe0f6e74dface796d5977aac1c130d4aa9"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-04.schema.json",
+          "sha256": "20fb0062fee7223e897c77799ec0a18b042d5523d61f701b6faa435e21f20cd9"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-04.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-05.events.jsonl",
+          "sha256": "970fb3a76dac4ce148fe614f464937e263295b8745ba041430d5ae63a6b6692e"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-05.schema.json",
+          "sha256": "e4d88e8423b6cd1daddec7aaa87cba6db87ae16c0b13985e1febcc1c1b108fc4"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-05.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-06.events.jsonl",
+          "sha256": "9456c57dafa9e72bddf07630bc8d4ec16b70a4b2eb3fbed95d446fa78faf4268"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-06.schema.json",
+          "sha256": "2b43e82a403cbd89bcf78606b21c35ced8d3c8c453c164b368d826c3af444056"
+        },
+        {
+          "path": "native-raw/calibration__9003__gpt-5.6-terra-high/turn-06.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "received_at": "2026-10-13T02:04:41.000579+00:00",
+      "requested_at": "2026-10-13T02:04:35.000840+00:00",
+      "round": 1,
+      "schema": {
+        "additionalProperties": false,
+        "properties": {
+          "counterfactual": {
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "type": "string"
+          },
+          "freedom": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "impact": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "freedom",
+          "impact",
+          "counterfactual"
+        ],
+        "type": "object"
+      },
+      "session_id": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "session_id_before": "01a13300-a773-7040-a2cb-0c40ebe37688",
+      "stderr": "",
+      "text": "{\"counterfactual\":\"no\",\"freedom\":100,\"impact\":1}",
+      "timeout": false,
+      "tool_events": [],
+      "turn": 6,
+      "usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 1792,
+        "input_tokens": 18802,
+        "output_tokens": 569,
+        "reasoning_output_tokens": 328
+      }
+    }
+  ]
+}

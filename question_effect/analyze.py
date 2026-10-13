@@ -85,6 +85,25 @@ def export(root):
     save_csv(out/'tables/intervention_summary.csv',summaries);save_csv(out/'tables/intervention_effects.csv',effects)
     audit={'run_id':run,'integrity_ok':True,'complete':180,'cells':6,'per_cell':30,'unique_sessions':180,'game_rounds':1800,'evaluation_calls':5940,
            'compaction_events':[e for a in audits for e in a['compaction_events']],'worker_audits':audits,'first_requested_at':min(r['requested_at'] for r in ledger),'last_received_at':max(r['received_at'] for r in ledger),'errors':[]}
+    recoveries_path=root/'question_effect/runtime/recoveries.json'
+    recoveries=read_json(recoveries_path) if recoveries_path.exists() else []
+    physical=[{'scope':'evaluation',**r} for r in ledger]
+    excluded_audits=[]
+    for path in (root/'results'/run/'excluded').glob('*/worker-*/trials/*.json'):
+        s=read_json(path);t=s['trial'];assert t==expected[t['trial_id']]
+        manifest=work/(s['scratch_id']+'.json');write_json(manifest,{'run_id':run,'worker_id':t['worker_id'],'trials':[t]})
+        ea=audit_module.audit_worker(manifest,path.parent.parent);assert ea['integrity_ok'],ea['errors'];excluded_audits.append(ea)
+        for turn in s['turns']:
+            physical.append({'scope':'excluded_capacity',**{k:t[k] for k in ['trial_id','case_id','model','effort','arm','worker_id']},'scratch_id':s['scratch_id'],'session_id':s['session_id'],'turn':turn['turn'],'requested_at':turn['requested_at'],'received_at':turn['received_at'],'duration_seconds':turn['duration_seconds'],'ok':turn['ok']})
+    for path in (root/'work/preflight').glob('*/trials/calibration.json'):
+        s=read_json(path);t=s['trial'];assert s['status']=='complete' and len(s['turns'])==6
+        for turn in s['turns']:
+            physical.append({'scope':'calibration',**{k:t[k] for k in ['trial_id','case_id','model','effort','arm','worker_id']},'scratch_id':s['scratch_id'],'session_id':s['session_id'],'turn':turn['turn'],'requested_at':turn['requested_at'],'received_at':turn['received_at'],'duration_seconds':turn['duration_seconds'],'ok':turn['ok']})
+    assert len({(r['scratch_id'],r['turn']) for r in physical})==len(physical)
+    scopes=dict(collections.Counter(r['scope'] for r in physical));assert scopes.get('calibration')==12
+    assert len(excluded_audits)==len(recoveries)
+    audit.update(excluded_attempts=len(recoveries),excluded_audits=excluded_audits,physical_invocation_scopes=scopes,physical_invocation_rows=len(physical))
+    save_csv(out/'tables/physical_invocation_ledger.csv',physical)
     write_json(out/'audit.json',audit);write_json(out/'results.json',{'design':design,'summary':summaries,'effects':effects})
     plt.rcParams.update({'font.size':10,'figure.dpi':150})
     f,axes=plt.subplots(1,2,figsize=(10,4.5),sharey=True)

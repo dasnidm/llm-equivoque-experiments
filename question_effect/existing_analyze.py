@@ -30,7 +30,9 @@ def main():
     for m in models:
         group=[r for r in ts if r['model']==m];pred=[r for r in ps if r['model']==m]
         counts=collections.Counter('uncertain' if r['uncertain']=='1' else 'match' if r['matches_generator']=='1' else 'mismatch' for r in pred)
-        summary.append({'model':m,'sessions':len(group),'perfect_12':sum(r['prediction_matches']=='12' for r in group),'mean_matches':statistics.mean(float(r['prediction_matches']) for r in group),'all_12_uncertain':sum(r['prediction_uncertain']=='12' for r in group),'any_uncertain':sum(float(r['prediction_uncertain'])>0 for r in group),'component_total':len(pred),**{k:counts[k] for k in ['match','mismatch','uncertain']}})
+        answered=counts['match']+counts['mismatch']
+        summary.append({'model':m,'sessions':len(group),'perfect_12':sum(r['prediction_matches']=='12' for r in group),'mean_matches':statistics.mean(float(r['prediction_matches']) for r in group),'all_12_uncertain':sum(r['prediction_uncertain']=='12' for r in group),'any_uncertain':sum(float(r['prediction_uncertain'])>0 for r in group),'component_total':len(pred),**{k:counts[k] for k in ['match','mismatch','uncertain']},
+                        'answer_coverage_percent':100*answered/len(pred),'match_among_answered_percent':100*counts['match']/answered if answered else ''})
     save_csv(out/'tables/existing_prediction_by_model.csv',summary)
     component=[]
     for m in models:

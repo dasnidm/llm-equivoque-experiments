@@ -42,4 +42,6 @@ class QuestionProtocol(SequenceProtocol):
             jsonschema.validate(value, self.schema(turn,remaining,frame,trial))
             if not value['description'].strip(): raise ValueError('Empty neutral response')
             return value
-        return super().parse_response(text, n + (1 if trial['arm'] == 'explanation' else 2), remaining, frame, trial)
+        # Canonical parsing validates its original turn schema. Use the base
+        # instance so its internal self.schema call does not remap turn 32.
+        return SequenceProtocol().parse_response(text, n + (1 if trial['arm'] == 'explanation' else 2), remaining, frame, trial)

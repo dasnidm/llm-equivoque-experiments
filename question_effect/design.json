@@ -1,0 +1,42 @@
+{
+  "analysis": "30-case paired cluster bootstrap, 2000 replicates, seed2026101302; nominal pointwise95% intervals; exploratory",
+  "arms": [
+    "control",
+    "explanation",
+    "prediction"
+  ],
+  "assignment": "Complete matched blocks: each of 30 original case families appears once per model per arm in independent fresh sessions; randomized launch order, no content-based replacement",
+  "calls_per_session": 33,
+  "cases_per_cell": 30,
+  "condition": "seq",
+  "effort": "high",
+  "failure_policy": "No uncertain replay. Preserve failed attempts; coordinator reviews infrastructure-only restart with new UUID and archived exclusions. Complete cases never rerun.",
+  "frame": "cards",
+  "limitations": [
+    "One frame and high effort only",
+    "Question lengths and cognitive workload not matched",
+    "Prediction explicitly provides four choice paths",
+    "No inference of private mental states",
+    "Exploratory follow-up selected from previous results"
+  ],
+  "models": [
+    "gpt-5.6-sol",
+    "gpt-6.1-sol"
+  ],
+  "planned_evaluation_calls": 5940,
+  "primary": "Change in joint impact=1 and counterfactual=no from turn30 to turn32; paired case contrasts of change vs control by model",
+  "rounds": 10,
+  "run_id": "equivoque-2026-10-13-question-effect-v1",
+  "scratch_root": "/workspace/work/native-study",
+  "secondary": [
+    "impact change",
+    "counterfactual no change",
+    "prediction-arm 12-component accuracy vs immediate post-question rating",
+    "explanation-arm preserved uncoded raw account",
+    "post-disclosure rating"
+  ],
+  "seed_launch_order": 2026101301,
+  "sessions": 180,
+  "source_commit": "17ca859e3db8f4a7f7a0efc45555365bd0d4c666",
+  "workers": 40
+}

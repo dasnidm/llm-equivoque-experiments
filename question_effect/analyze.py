@@ -2,6 +2,7 @@
 import csv,json,collections,statistics,hashlib,html
 from pathlib import Path
 import numpy as np
+import math
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -14,6 +15,12 @@ def paired_interval(values,draws):
     values=np.asarray(values,dtype=float)
     boot=values[draws].mean(axis=1)
     return float(values.mean()),float(np.quantile(boot,.025)),float(np.quantile(boot,.975))
+
+def wilson_interval(successes,n):
+    z=1.959963984540054;p=successes/n;den=1+z*z/n
+    center=(p+z*z/(2*n))/den
+    radius=z*math.sqrt(p*(1-p)/n+z*z/(4*n*n))/den
+    return max(0.,center-radius),min(1.,center+radius)
 
 def export(root):
     root=Path(root);design=read_json(root/'question_effect/design.json');run=design['run_id']
@@ -34,7 +41,7 @@ def export(root):
     assert not errors,errors[:10]
     assert counts=={'complete':180} and len(sessions)==len(set(sessions))==180
     assert sum(a['subject_invocations'] for a in audits)==5940
-    states=[read_json(p) for p in (root/'results'/run).glob('worker-*/trials/*.json')]
+    states=sorted([read_json(p) for p in (root/'results'/run).glob('worker-*/trials/*.json')],key=lambda s:s['trial']['trial_id'])
     trial_rows=[];measurements=[];predictions=[];accounts=[];ledger=[]
     for s in states:
         t=s['trial'];assert t==expected[t['trial_id']]
@@ -70,7 +77,8 @@ def export(root):
     for m in design['models']:
         for arm in design['arms']:
             group=[by[m,arm,c] for c in case_ids];assert len(group)==30
-            summaries.append({'model':m,'arm':arm,'n':30,'pre_joint':sum(r['pre_joint'] for r in group),'post_joint':sum(r['post_joint'] for r in group),
+            post_count=sum(r['post_joint'] for r in group);wl,wh=wilson_interval(post_count,30)
+            summaries.append({'model':m,'arm':arm,'n':30,'pre_joint':sum(r['pre_joint'] for r in group),'post_joint':post_count,'post_joint_wilson95_low':wl,'post_joint_wilson95_high':wh,
                               'new_joint':sum(r['post_joint']==1 and r['pre_joint']==0 for r in group),'lost_joint':sum(r['post_joint']==0 and r['pre_joint']==1 for r in group),
                               'pre_impact_mean':statistics.mean(r['pre_impact'] for r in group),'post_impact_mean':statistics.mean(r['post_impact'] for r in group),
                               'pre_cf_no':sum(r['pre_cf_no'] for r in group),'post_cf_no':sum(r['post_cf_no'] for r in group),
@@ -89,13 +97,13 @@ def export(root):
     recoveries=read_json(recoveries_path) if recoveries_path.exists() else []
     physical=[{'scope':'evaluation',**r} for r in ledger]
     excluded_audits=[]
-    for path in (root/'results'/run/'excluded').glob('*/worker-*/trials/*.json'):
+    for path in sorted((root/'results'/run/'excluded').glob('*/worker-*/trials/*.json')):
         s=read_json(path);t=s['trial'];assert t==expected[t['trial_id']]
         manifest=work/(s['scratch_id']+'.json');write_json(manifest,{'run_id':run,'worker_id':t['worker_id'],'trials':[t]})
         ea=audit_module.audit_worker(manifest,path.parent.parent);assert ea['integrity_ok'],ea['errors'];excluded_audits.append(ea)
         for turn in s['turns']:
             physical.append({'scope':'excluded_capacity',**{k:t[k] for k in ['trial_id','case_id','model','effort','arm','worker_id']},'scratch_id':s['scratch_id'],'session_id':s['session_id'],'turn':turn['turn'],'requested_at':turn['requested_at'],'received_at':turn['received_at'],'duration_seconds':turn['duration_seconds'],'ok':turn['ok']})
-    for path in (root/'work/preflight').glob('*/trials/calibration.json'):
+    for path in sorted((root/'work/preflight').glob('*/trials/calibration.json')):
         s=read_json(path);t=s['trial'];assert s['status']=='complete' and len(s['turns'])==6
         for turn in s['turns']:
             physical.append({'scope':'calibration',**{k:t[k] for k in ['trial_id','case_id','model','effort','arm','worker_id']},'scratch_id':s['scratch_id'],'session_id':s['session_id'],'turn':turn['turn'],'requested_at':turn['requested_at'],'received_at':turn['received_at'],'duration_seconds':turn['duration_seconds'],'ok':turn['ok']})
@@ -128,6 +136,16 @@ def export(root):
         for (matches,joint),n in count.items():ax.scatter(matches,joint,s=45*n,alpha=.65,color='#298c79' if joint else '#df785a');ax.text(matches,joint,str(n),ha='center',va='center',fontsize=9)
         ax.set_xlim(-.7,12.7);ax.set_ylim(-.4,1.4);ax.set_xticks(range(0,13,2));ax.set_yticks([0,1],['Other report','Impact1 + No']);ax.set_xlabel('Prediction components matching generator /12');ax.set_title(m+' / high')
     f.suptitle('Prediction-only arm: forecast matches vs immediate rerating (counts)');f.tight_layout();f.savefig(fig/'05_predictions_and_rerating.png');plt.close(f)
+    f,axes=plt.subplots(1,2,figsize=(10,4.5),sharey=True)
+    for ax,m in zip(axes,design['models']):
+        group=[r for r in summaries if r['model']==m];x=np.arange(3)
+        ax.bar(x-.18,[r['pre_impact_mean'] for r in group],width=.36,color='#b8c4cf',label='Before question')
+        ax.bar(x+.18,[r['post_impact_mean'] for r in group],width=.36,color='#298c79',label='After question')
+        for i,r in enumerate(group):
+            ax.text(i-.18,r['pre_impact_mean']+1.5,f"{r['pre_impact_mean']:.1f}",ha='center',fontsize=9)
+            ax.text(i+.18,r['post_impact_mean']+1.5,f"{r['post_impact_mean']:.1f}",ha='center',fontsize=9)
+        ax.set_xticks(x,design['arms']);ax.set_ylim(0,114);ax.set_ylabel('Mean reported impact (1=no effect;100=control)');ax.set_title(m+' / high')
+    axes[1].legend(fontsize=8,loc='upper center',bbox_to_anchor=(.5,-.13),ncol=2);f.suptitle('Impact ratings: changes hidden by the strict joint endpoint');f.tight_layout();f.savefig(fig/'06_intervention_impact_ratings.png');plt.close(f)
     print(json.dumps({'complete':180,'audit_ok':True,'summary':summaries,'primary_effects':[r for r in effects if r['endpoint']=='joint_report_change']}))
     return audit
 

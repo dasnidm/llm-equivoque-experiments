@@ -1,29 +1,29 @@
-# 현재 연구 상태
+# Research status
 
-정리 기준일: **2026-10-14, Europe/Berlin**.
+Last repository organization: **2026-10-14, Europe/Berlin**.
 
-검증된 완료 기록은 [6개 실험·파일럿](EXPERIMENTS.md)입니다. 마지막 평가 수집은 2026-10-13의 질문 효과180시행이며, 해당 기록은180완료·0미완료·5,940평가 호출입니다. 이 문서 정리는 새 모델 호출을 수행하지 않습니다.
+There are [six completed studies and pilots](EXPERIMENTS.md). The latest collection, the question-intervention study on 2026-10-13, contains 180 complete conversations and 5,940 evaluation invocations. Documentation maintenance introduces no new model calls.
 
-## 현재 안내와 역사 기록
+## Current guide versus historical records
 
-| 위치 | 의미 |
+| Location | Purpose |
 | --- | --- |
-| 루트 `README.md`, `docs/` | 현재 연구 요약·독서 순서·재현 및 브랜치 정책 |
-| `analysis/results/<run_id>/` | 실험별 배포 보고서·표·그림·분석 검증 |
-| `results/<run_id>/` | 실제 수집 기록·감사 자료·압축 원본 |
-| 루트 `*_PLAN.md`, `PROMPTS.md`, `WORKER_BRIEF.md` | 당시의 계획·문항·실행 지침; 일부는 동결 해시에 포함 |
-| `NEXT_SESSION_PROMPT.md`, `PREPARATION_STATUS.md`, `RUN_STATUS.md` | 초기 실험 시점의 인수인계·접속·완료 기록 |
-| 각 실험의 `runtime/`, `preparation/` | 당시 시작·복구·중단·배포 이력 |
+| Root `README.md` and `docs/` | Current interpretation, navigation, reproduction, and branch policy |
+| `analysis/results/<run_id>/` | Published reports, tables, figures, and verification |
+| `results/<run_id>/` | Native records, audits, and compressed archives |
+| Root `*_PLAN.md`, `PROMPTS.md`, `WORKER_BRIEF.md` | Historical plans, stimuli, and execution instructions; some are frozen inputs |
+| `NEXT_SESSION_PROMPT.md`, `PREPARATION_STATUS.md`, `RUN_STATUS.md` | Early-study handoffs, access checks, and completion records |
+| Study `runtime/` and `preparation/` folders | Historical launch, interruption, recovery, and publication records |
 
-오래된 문서의 “아직 실행하지 않음”, “인증 필요”, “다음 실행”은 그 시점의 내용입니다. 현재 상태는 이 문서와 각 실행의 완료 감사 결과를 기준으로 판단합니다. 새 실험을 진행할 때는 새 run ID와 별도 프로토콜을 사용합니다.
+Historical statements such as “not started,” “authentication needed,” or “next execution” describe their original dates. Use this status page and each run's completion audit for the current interpretation. A new study needs a new run ID and separately documented protocol.
 
-## 완료와 제외
+## Completion and exclusions
 
-- 실험1: 2,100배정, 2,093완료. 유효 공개 전 응답은2,096개이며, 부분 관측을 모두 버린 분석이 아닙니다.
-- 실험2: 420/420완료.
-- 객관적 적용 파일럿: 2,016/2,016과제 완료.
-- 30라운드 파일럿: 28/28대화 완료.
-- 대규모 반복: 2,520/2,520대화 완료. 사용자의 미완료 폐기·새 대화 지시를 적용한 제외 기록을 보존합니다. 원래의 무교체 계획과 이 운영 변경을 구별합니다.
-- 질문 효과: 180/180대화 완료. 용량 부족 시도2개·34호출을 별도 보존하고 동일 설정의 새 대화로 대체했습니다. 준비용12호출도 평가에서 제외합니다.
+- **Single round:** 2,100 assigned, 2,093 complete. The 2,096 valid pre-disclosure responses include valid partial observations from incomplete conversations.
+- **Three rounds:** 420/420 complete.
+- **Supplied-rule transfer pilot:** 2,016/2,016 tasks complete.
+- **Thirty-round pilot:** 28/28 conversations complete.
+- **Ten-round replication:** 2,520/2,520 complete. User-directed fresh restarts of incomplete attempts were documented; this amendment differs from the original no-replacement plan. Excluded attempts remain archived.
+- **Question intervention:** 180/180 complete. Two model-capacity failures, containing 34 invocations, were preserved separately and replaced with fresh conversations under the same settings. Twelve calibration invocations are also excluded from evaluation.
 
-시행·대화·라운드·네이티브 호출·내부 HTTP 재연결·요금은 같은 단위가 아닙니다. 확인되지 않은 내부 요청 수나 청구량을 추정하지 않습니다.
+Conversations, rounds, native invocations, internal HTTP retries, and billing are different quantities. Unknown wire-request counts and costs are not inferred from invocation ledgers.

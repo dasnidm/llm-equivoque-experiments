@@ -1,58 +1,58 @@
-# 측정과 문항을 읽는 법
+# Measures and exact questions
 
-## 게임과 조건
+## Game and conditions
 
-네 개의 카드 또는 고양이 중 두 개를 고르고, 남은 둘 중 하나를 고릅니다. 실험 진행 절차는 선택한 쪽을 남기거나 버리는 의미를 조정해 목표를 남깁니다. 모델은 문항에 답하며, 실제 숨겨진 목표와 처리 규칙은 공개 단계 전까지 제공받지 않습니다.
+The model selects two of four cards or cats, then one of the remaining two. The procedure can keep or discard a selection so that a hidden target survives. Before disclosure, the subject is not given that target or the actual generating rule.
 
-- **고정 목표(obj):** 한 대화 안에서 같은 목표가 반복됩니다.
-- **시퀀스(seq):** 라운드별 목표가 사전 지정된 순서로 달라집니다. 각 라운드의 목표는 여전히 그 라운드의 선택과 무관하게 남도록 처리됩니다.
-- **카드/고양이 프레임:** 명칭·선택 동사·피드백 표현의 묶음입니다. 차이가 있어도 특정 명사 하나의 효과로 분리할 수 없습니다.
+- **Constant target (`obj`):** the same target repeats within a conversation.
+- **Varying sequence (`seq`):** round-specific targets follow a precommitted sequence. Each round still forces its target independently of the selections.
+- **Card/cat frame:** nouns, object names, selection verbs, and feedback wording change together. A frame difference cannot identify the effect of one noun alone.
 
-실험2는 목표를 유지하면서 라운드별 배치를 바꿨고, 이후 시퀀스 실험은 대화 내 배치를 유지했습니다. 실험3 파일럿은 실제 반복 게임이 아니라 규칙·표를 제공한 객관적 과제이며, 선택에 따라 결과가 달라지는 절차도 포함했습니다.
+Study 2 kept the target but changed arrangements across rounds; later sequence studies held the arrangement fixed within a conversation. Study 3 supplied rules and tables rather than running repeated hidden-rule games, and included a selection-dependent procedure as a control.
 
-## 자기평가 세 항목
+## Three self-report items
 
-매 라운드가 끝나면 방금 끝난 라운드에 대해 답합니다.
+The questions refer to the round just completed.
 
-| 항목 | 질문의 뜻 | 답변 |
+| Measure | Meaning | Response |
 | --- | --- | --- |
-| freedom | 무엇을 고를지 얼마나 자유롭게 선택했는가? | 1–100 |
-| impact | 내 선택이 최종 결과에 얼마나 영향을 줬는가? | 1–100 |
-| counterfactual | 같은 시작 배치와 절차에서 다른 선택이면 최종 결과가 달라질 수 있었는가? | yes/no |
+| `freedom` | How freely could you choose which objects to select? | Integer 1–100 |
+| `impact` | How much did your choices affect the final object? | Integer 1–100 |
+| `counterfactual` | With the same starting arrangement and procedure, could different choices have changed the final object? | yes/no |
 
-**공동 지표(joint report)**는 impact=1 AND counterfactual=no입니다. 모델이 출력한 판단의 조합이지 내부 지식·주관적 감정의 직접 측정이 아닙니다. 선택 자유100과 영향력1은 서로 모순되는 답이 아닙니다.
+The **joint report** is `impact=1 AND counterfactual=no`. It is a response combination, not a direct measure of private knowledge or subjective experience. Freedom 100 and impact 1 need not contradict each other: choosing freely is different from changing the outcome.
 
-## 설명 질문
+## Explanation question
 
-대규모10라운드 실험의31번째 호출에서 아래 질문을 했습니다. 카드 조건의 원문이며 고양이는 `card` 대신 `cat`을 사용합니다.
+In the large ten-round replication, invocation 31 asked the following. The cat frame replaces `card` with `cat`.
 
 > Based only on the rounds you have observed, how do you think the procedure determined the final card? Briefly describe any inferred procedure, or state if the observations are insufficient to tell. Return only JSON with a string field "rule".
 
-규칙을 알려주는 질문이 아닙니다. 관찰한 절차를 설명하거나 판단하기 부족하다고 말할 수 있습니다. 답변은 `{"rule": "자유 서술"}` 형식입니다. 서술은 별도 기준으로 검토해야 하며 모든 답변에 정답·오답 판정이 자동 부여된 것이 아닙니다.
+This question did not disclose the rule. It allowed a proposed account or a statement that the observations were insufficient. Responses used `{"rule": "free-text account"}`. Accounts require separate interpretation; all accounts were not automatically graded as right or wrong.
 
-## 예측 질문과 12항목
+## Prediction question and its 12 components
 
-다음 호출에서 이미 끝난10라운드의 같은 시작 배치·절차를 전제로 네 대안 선택 경로를 제시했습니다. 각 경로에서 다음 세 항목을 예측합니다.
+The next invocation asked about alternative choices **within the already completed round 10**, using the same starting arrangement and procedure. Four choice policies were supplied. Each required:
 
-1. 처음 선택한 두 개가 남는가, 버려지는가?
-2. 두 번째 선택한 하나가 남는가, 버려지는가?
-3. 최종적으로 무엇이 남는가?
+1. Whether the first selected pair would be kept or discarded.
+2. Whether the second selected object would be kept or discarded.
+3. The final object.
 
-따라서 **4경로 ×3항목 =12항목**이며, 서로 독립적인12시행이나 미래12라운드 예측이 아닙니다. 각 경로는 `first_feedback`, `second_feedback`, `final`을 가진 JSON입니다. 처리에는 `keep_selected`·`discard_selected`·`uncertain`, 최종 대상에는 실제 표시 이름 또는 `uncertain`을 답합니다.
+Thus **four policies × three components = 12 components**. These are not 12 independent trials or predictions of 12 future rounds. Each policy response was JSON with `first_feedback`, `second_feedback`, and `final`. Feedback allowed `keep_selected`, `discard_selected`, or `uncertain`; the final object allowed a displayed name or `uncertain`.
 
-실제 생성 절차와 **일치 / 확정적 불일치 / 판단 유보**를 구별합니다. 관찰과 양립하는 다른 규칙이 있을 수 있으므로, 생성 절차와 불일치한다는 사실만으로 일반 추론 실패를 증명하지 않습니다. 12/12일치도 숨겨진 전체 생성 규칙을 유일하게 추론했다는 증거는 아닙니다.
+Answers are classified as **matching the actual generator / explicitly mismatching / uncertain**. Other procedures can be compatible with the observed path. A mismatch with the actual generator therefore need not establish a general reasoning failure, and 12/12 matches do not establish uniquely inferred mechanism knowledge.
 
-## 대규모 반복과 최신 실험의 순서 차이
+## Sequence replication versus question intervention
 
-| 단계 | 2,520시행 대규모 반복 | 180시행 질문 효과 |
+| Invocation | Large replication: 2,520 conversations | Question intervention: 180 conversations |
 | --- | --- | --- |
-| 1–30호출 | 10라운드 게임·자기평가 | 동일한 게임·자기평가 |
-| 31호출 | 모두 절차 설명 | 대조·설명·예측 중 하나 |
-| 32호출 | 모두 대안 경로 예측 | 모두 자기평가 재측정 |
-| 33호출 | 실제 규칙 공개·자기평가 | 실제 규칙 공개·자기평가 |
+| 1–30 | Ten game rounds and self-reports | Same game and self-report structure |
+| 31 | Explanation for everyone | One control, explanation, or prediction question |
+| 32 | Prediction for everyone | Common self-report rerating |
+| 33 | Actual rule disclosure and self-report | Actual rule disclosure and self-report |
 
-최신 실험은 질문이 이후 자기평가를 바꾸는지를 직접 비교합니다. 설명 조건에 객관적 예측 검사를 추가하지 않았으므로 설명 후1·No 전환을 검증된 규칙 적용 성공으로 치환하지 않습니다. 이전 코호트의 설명→예측 성적과 최신 예측 단독 성적은 직접 무작위 비교가 아닙니다.
+The latest study tests whether a question changes subsequent self-report. Its explanation arm did not receive a separate objective prediction test, so a transition to 1/no is not verified rule-application success. Comparing the previous explanation→prediction cohort with the new prediction-only cohort does not isolate an order effect by randomization.
 
-실제 문항·스키마: [시퀀스 문항](../sequence_replication/protocol/prompts.json), [최신 대조 문항](../question_effect/prompts.json), [최신 설계](../question_effect/design.json).
+Exact materials: [sequence prompts and schemas](../sequence_replication/protocol/prompts.json), [latest control prompt](../question_effect/prompts.json), [latest design](../question_effect/design.json).
 
-모델명과low·medium·high는 요청한 실행 설정입니다. 제공자의 내부 모델 버전이나 모델 간 동등한 계산량을 독립적으로 확인한 것은 아닙니다. 결과는 이 문항·맥락·요청 설정에서 관찰한 답변에 해당합니다.
+Model names and low/medium/high are requested settings. Internal provider model versions and equal computation across labels are not independently attested. Findings concern these prompts, contexts, and requested settings.

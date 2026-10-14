@@ -1,42 +1,43 @@
-# 누적 결과와 해석
+# Results and interpretation
 
-이 문서는 기존 보고서를 연결하는 현재 해석입니다. 배포 당시 보고서·표·원본은 그대로 보존합니다. 출처와 설계 차이는 [실험 목록](EXPERIMENTS.md), 문항은 [측정 안내](METHODS.md)에 있습니다.
+This is the current reading guide to the preserved studies. Published reports, tables, and native data retain their original bytes. See the [study index](EXPERIMENTS.md) for design differences and the [methods](METHODS.md) for exact measures.
 
-## 반복·조건·유지
+## Repetition, schedules, and persistence
 
-한 번의 게임에서는 대부분 영향력100이었습니다. 세 번 반복하면 평균 영향력이100→96.2→82.8로 낮아졌고, 이후 고정/시퀀스를 비교한 실험에서는 조건 차이가 분명했습니다.
+Most single-round initial impact ratings were 100. Three repetitions reduced mean impact from 100 to 96.2 to 82.8. Later constant-versus-sequence studies showed a substantial condition difference.
 
-| 대규모 반복:10라운드 종료 | 1·No /대화 | 비율 |
+| Large replication: round 10 | Joint report / conversations | Rate |
 | --- | ---: | ---: |
-| 고정 목표 | 319/1,260 | 25.3% |
-| 변화 시퀀스 | 1/1,260 | 0.08% |
-| 카드·고정 목표 | 217/630 | 34.4% |
-| 고양이·고정 목표 | 102/630 | 16.2% |
+| Constant target | 319/1,260 | 25.3% |
+| Varying sequence | 1/1,260 | 0.08% |
+| Cards, constant target | 217/630 | 34.4% |
+| Cats, constant target | 102/630 | 16.2% |
 
-고정 조건에서10라운드 이전에 처음1·No를 보인300개 중284개(94.7%)는 이후 모든 라운드에서도 유지했습니다.16개는 한 번 이상 되돌아갔습니다. 시퀀스에서 중간에1·No를 보인9개는 모두 한 번 이상 되돌아갔습니다. 이른 전환의 유지와 마지막 라운드의 응답은 다른 통계입니다.
+Of 300 constant conversations whose first joint report occurred before round 10, 284 (94.7%) maintained it at every subsequent round. Sixteen reversed at least once. All nine sequence conversations with an intermediate joint report reversed at least once. Persistence after an early transition and the final endpoint are different summaries.
 
-![모델·조건별10라운드 공동 지표](../analysis/results/equivoque-2026-10-12-sequence-replication-v1/attempt-01/figures/02_round10_joint.png)
+![Round-ten joint reports by model, effort, frame, and schedule](../analysis/results/equivoque-2026-10-12-sequence-replication-v1/attempt-01/figures/02_round10_joint.png)
 
-프레임 차이는 일정하지 않았습니다. 고정 조건의gpt-5.6-sol-high는 카드23/30·고양이22/30, gpt-6-astra-high는 카드26/30·고양이3/30이었습니다. 높은 추론도 일괄적으로 공동 응답을 늘리지는 않았습니다. 두 프레임을 합쳐gpt-5.6-sol은low25→medium38→high45개/60개, gpt-6.1-sol은29→26→10개/60개였습니다. 이를 일반 지능 순위로 읽지 않습니다.
+Frame effects varied by model. Constant-condition gpt-5.6-sol-high yielded 23/30 cards versus 22/30 cats; gpt-6-astra-high yielded 26/30 versus 3/30. More reasoning effort did not consistently increase joint reports: pooling frames, gpt-5.6-sol had 25 → 38 → 45 reports out of 60 from low to high, while gpt-6.1-sol had 29 → 26 → 10. These are not general intelligence rankings.
 
-## 예측 완전 일치와 판단 유보
+<a id="prediction-uncertainty"></a>
+## Complete predictions versus uncertainty
 
-대규모 실험의 예측은 **절차 설명 질문을 받은 뒤, 실제 규칙 공개 전**에 답했습니다. 시퀀스의12/12일치는97/1,260개(7.7%)였습니다. **나머지92.3%를 모두 틀렸다고 부르면 부정확합니다.**
+Replication predictions followed an **explanation question and preceded actual rule disclosure**. Sequence conversations matched all 12 components in 97/1,260 cases (7.7%). **Calling the other 92.3% wrong is inaccurate.**
 
-| 완전 일치하지 않은1,163개의 형태 | 시행 수 | 이 집단 내 비율 |
+| Form among the 1,163 incomplete predictions | Conversations | Share of this subgroup |
 | --- | ---: | ---: |
-| 12항목 모두 유보 | 541 | 46.5% |
-| 부분 일치+유보, 확정적 불일치 없음 | 343 | 29.5% |
-| 불일치 포함, 유보 없음 | 230 | 19.8% |
-| 불일치와 유보 모두 포함 | 49 | 4.2% |
+| All 12 uncertain | 541 | 46.5% |
+| Partial matches plus uncertainty, no explicit mismatch | 343 | 29.5% |
+| Explicit mismatch, no uncertainty | 230 | 19.8% |
+| Explicit mismatch and uncertainty both present | 49 | 4.2% |
 
-이 집단의884/1,163개(76.0%)는 확정적으로 불일치한 예측이 없습니다. 0항목 일치542개 중541개는 전부 유보했고, 나머지1개도8항목 유보·4항목 불일치였습니다. 12항목 전부 확정적으로 불일치한 시행은 없었습니다.
+In this subgroup, 884/1,163 conversations (76.0%) contained no explicit mismatch. Of 542 conversations with zero matches, 541 abstained on every component; the remaining one had eight uncertain and four mismatching components. No conversation gave 12 explicitly mismatching answers.
 
-### 모델별 답변 형태
+### Response forms by model
 
-각 모델180대화 기준이며 네 형태는 서로 겹치지 않습니다. “불일치 포함”에는 유보가 있는 경우와 없는 경우가 모두 들어갑니다.
+Each model contributed 180 conversations. The four categories below are mutually exclusive. “Any mismatch” includes responses with and without uncertainty.
 
-| 모델 | 12/12일치 | 전부 유보 | 부분 일치+유보, 불일치 없음 | 불일치 포함 |
+| Model | All 12 match | All uncertain | Partial match + uncertainty, no mismatch | Any mismatch |
 | --- | ---: | ---: | ---: | ---: |
 | gpt-5.6-luna | 7 | 69 | 36 | 68 |
 | gpt-5.6-terra | 3 | 83 | 43 | 51 |
@@ -46,13 +47,15 @@
 | gpt-6-astra | 0 | 100 | 78 | 2 |
 | gpt-6.1-sol | 0 | 99 | 81 | 0 |
 
-[기계 판독 CSV](data/sequence-response-forms.csv). gpt-6.1-sol의 전체2,160항목은324일치·1,836유보·0불일치였습니다. 완전 일치0건이 규칙을 전혀 이해하지 못했다는 뜻은 아닙니다.
+[Machine-readable CSV](data/sequence-response-forms.csv). Of gpt-6.1-sol's 2,160 components, 324 matched, 1,836 were uncertain, and zero explicitly mismatched. No completely matching conversation does not mean no understanding.
 
-### 추론 수준별 유보
+![Prediction components: matching, mismatching, or uncertain](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/figures/01_existing_prediction_components.png)
 
-전체 예측 항목 중`uncertain`의 비율입니다. 모델·추론별60대화 ×12항목 =720항목 기준입니다.
+### Uncertainty by reasoning effort
 
-| 모델 | Low | Medium | High |
+This is the percentage of prediction components answered `uncertain`. Each model/effort cell contains 60 conversations × 12 components = 720 components.
+
+| Model | Low | Medium | High |
 | --- | ---: | ---: | ---: |
 | gpt-5.6-luna | 65.8% | 49.7% | 54.2% |
 | gpt-5.6-terra | 61.9% | 64.2% | 62.6% |
@@ -62,40 +65,42 @@
 | gpt-6-astra | 85.0% | 82.5% | 86.7% |
 | gpt-6.1-sol | 85.6% | 86.7% | 82.8% |
 
-[21조합 CSV](data/sequence-uncertainty-by-effort.csv). gpt-6-sol·astra·6.1-sol은 대체로 유보가 많았지만, 최신 세대 전체나 높은 추론에 대한 단조 관계는 아닙니다. gpt-6-luna는 높은 추론에서 유보가 줄고 불일치가 늘었으며, gpt-5.6-sol은 유보가 늘고 불일치가 줄었습니다. 관측된 응답 정책의 차이를 일반 능력의 인과 순위로 치환하지 않습니다.
+[All 21 configurations](data/sequence-uncertainty-by-effort.csv). gpt-6-sol, astra, and 6.1-sol generally abstained often, but neither model generation nor reasoning effort formed a uniform monotonic trend. Higher effort reduced abstention and increased mismatches in gpt-6-luna, whereas gpt-5.6-sol abstained more and mismatched less. These are observed response patterns, not causal rankings of general ability.
 
-## 기존 서술 답변 검토
+## Review of existing rule accounts
 
-완전 일치97개의 설명을 단일 코디네이터가 식별자를 가린 무작위 순서로 읽었습니다. 목표를 보존하도록 남기기·버리기를 바꾼다는 연결을 명시한 답변은40개(모두gpt-5.6-sol), 그 연결을 명시하지 않은 답변은57개였습니다. 97개 모두 직전10라운드 자기평가는100·Yes였습니다.
+A single coordinator read the 97 fully matching conversations' accounts in randomized order with identifying labels removed. Forty accounts explicitly linked conditional keep/discard decisions to preserving a target; all were gpt-5.6-sol. The remaining 57 did not explicitly make that link. All 97 had immediately preceding round-10 self-reports of impact 100/yes.
 
-가능성으로 제안한 설명도 포함하며 확정적인 규칙 지식 점수가 아닙니다. 전체1,260개 설명은 단어 특징을 분석했고, 검색 후보133개도 수동 검토했습니다. 후보에서 같은 연결을 확인한 답변은56개였지만 검색에서 놓친 설명이 있을 수 있어 전체 지식 비율로 읽지 않습니다. 전체 답변에 독립적인 맹검 정답 판정을 완료한 분석은 아닙니다.
+Qualified possibilities count as proposed mappings, not certain knowledge. All 1,260 accounts received transparent lexical-feature analysis; 133 search candidates were also manually reviewed, with 56 meeting the mapping criterion. The screen can miss accounts and does not estimate the prevalence of internal knowledge. The coordinator knew aggregate results; this was not independent blinded validation or comprehensive right/wrong coding of all accounts.
 
-[판정 방법·한계](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/existing-analysis-method.json) · [97개 원문·판정](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/tables/existing_97_account_coding.csv)
+[Coding method and limitations](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/existing-analysis-method.json) · [97 original accounts and codes](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/tables/existing_97_account_coding.csv)
 
 <a id="question-effects"></a>
-## 질문 효과180시행
+## Question intervention: 180 conversations
 
-모두high·카드·시퀀스이며,30케이스의 배치·목표 순서를 공유한 새 대화입니다. 10라운드 뒤 대조/설명/예측 중 한 질문을 받은 다음, 규칙 공개 전 동일 자기평가를 반복했습니다.
+Both models used high effort, cards, and sequence targets. Thirty case families shared arrangements and schedules across independent conversations. After round 10, a control, explanation, or prediction question preceded a common pre-disclosure rerating.
 
-| 모델 | 대조 후1·No | 설명 후1·No | 예측 후1·No |
+| Model | Control: subsequent 1/no | Explanation: subsequent 1/no | Prediction: subsequent 1/no |
 | --- | ---: | ---: | ---: |
 | gpt-5.6-sol | 0/30 | 20/30 | 3/30 |
 | gpt-6.1-sol | 0/30 | 0/30 | 0/30 |
 
-질문 전180개 모두100·Yes였습니다. gpt-5.6-sol 설명의 대조 대비 전후 변화 차이는+66.7%p, 명목상 점별95% 케이스 대응 부트스트랩 구간은[+46.7,+83.3]%p였습니다. 예측은+10.0%p, 구간[0,+23.3]%p였습니다.
+All 180 pre-question reports were impact 100/yes. For gpt-5.6-sol, the explanation-minus-control difference in pre/post change was +66.7 percentage points, with nominal pointwise paired-case 95% bootstrap interval [+46.7, +83.3]. The prediction contrast was +10.0 points, interval [0, +23.3].
 
-gpt-6.1-sol은 예측 조건30개 모두 영향력100→50·반사실Yes였고, 설명 조건은5개가50·25개가100이었습니다. **공동 지표0건은 변화 없음이 아닙니다.** 점수50을 불확실성으로 해석할 가능성은 있지만 이유를 별도로 묻지 않아 확정할 수 없습니다.
+![Question effects on the joint report](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/figures/03_intervention_joint_reports.png)
 
-![영향력 점수 변화](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/figures/06_intervention_impact_ratings.png)
+gpt-6.1-sol's prediction arm changed impact 100 → 50 in all 30 conversations while retaining yes. Its explanation arm had five impact-50 and 25 impact-100 responses. **Zero joint transitions are not zero response change.** Whether 50 expressed uncertainty was not independently elicited.
 
-최신 예측 단독 조건에서gpt-5.6-sol은12/12일치3/30개였고, 세 개 모두 직후1·No로 전환했습니다. 기존 설명→예측 코호트의 같은 모델·추론·카드·시퀀스는19/30개였으나 다른 시점의 비교이므로, 설명이 예측 정확도를 높인 인과 효과를 직접 추정한 것은 아닙니다. 이번에 직접 분리한 것은 질문 후 자기평가 변화입니다.
+![Impact ratings before and after the questions](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/figures/06_intervention_impact_ratings.png)
 
-## 현재 결론의 범위
+In the latest prediction-only arm, three gpt-5.6-sol conversations matched all 12 components; all three immediately rerated to 1/no. The earlier explanation→prediction cohort's same model/effort/card/sequence cell had 19/30 complete matches. These were collected at different times and do not provide a randomized estimate of explanation's effect on prediction accuracy. The latest study directly isolates differences in subsequent self-report.
 
-- 반복 고정 결과와 절차 설명 질문은 일부 모델의 영향력 판단 전환을 돕는다는 결과와 일치합니다.
-- 규칙 공개 뒤 영향력 부정과 높은 선택 자유 보고는 여러 게임 실험에서 반복됐습니다. 이는 공개된 규칙에 맞는 응답이지 일반적인 이해의 완전한 검증은 아닙니다.
-- 규칙을 제공한 객관적 전이 과제는98.45% 정확했지만, 숨겨진 규칙 발견과 같은 과제가 아닙니다.
-- 시퀀스의 영향력 부정이 드물다는 사실, 규칙 가설 제안, 정확한 예측, 판단 유보는 서로 구별해야 합니다.
-- 질문 전부터 알고 있었는지, 질문으로 새로 추론했는지, 응답 방식이 달라졌는지는 현재 자료만으로 분리되지 않습니다.
+## Scope of the conclusions
 
-추정 구간은 탐색적·명목상 점별 구간입니다. 상·하단에 같은 응답이 몰리면 부트스트랩 구간이 한 점으로 퇴화할 수 있습니다.0/30의 관측은 모집단 발생 가능성이0이라는 증명이 아닙니다. 사람의 주관적 경험이나 모델의 일반 지능·사적 신념에 대한 직접 결론을 내리지 않습니다.
+- Repeated constant outcomes and a request to explain the procedure can support transitions in reported influence for some models.
+- Post-disclosure reports of low influence alongside high selection freedom recur across game studies. They are judgments consistent with disclosed evidence, not a complete test of general understanding.
+- Supplied-rule transfer accuracy of 98.45% concerns a different task from hidden-rule discovery.
+- Rare sequence joint reports, proposed rule accounts, matching predictions, and abstention must remain distinct.
+- The current evidence cannot separate already-held knowledge, newly elicited deductions, and a change in response policy.
+
+Intervals are exploratory and nominal pointwise intervals. Boundary ratings can produce degenerate bootstrap intervals; observing 0/30 does not establish zero population probability. The studies do not directly establish human subjective experience, general intelligence rankings, or private model beliefs.

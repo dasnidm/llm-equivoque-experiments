@@ -1,24 +1,24 @@
-# 원본 검증과 분석 재현
+# Source verification and analysis reproduction
 
-## 현재 문서와 동결 소스
+## Current documentation and frozen source
 
-실험별`freeze.json`은 당시 소스·문항·할당의 해시를 기록합니다. 일부는 루트README와 실행 계획까지 포함합니다. 현재README는 완료 결과 안내로 갱신됐으므로 **현재 체크아웃에서 과거 동결 검사가 그대로 통과해야 하는 구조가 아닙니다.** 동결 해시를 새 문서에 맞춰 바꾸지 않았습니다.
+Each study's `freeze.json` records hashes of its original source, questions, and allocations. Some freezes also include the root README and execution plans. The living README now guides readers through completed results, so **historical source-freeze checks need their historical source snapshot**. Freeze hashes have not been changed to accommodate documentation updates.
 
-재현에는 [결과 태그](BRANCHES.md), 해당 결과커밋, 또는 분석 패키지의동결 소스를 사용합니다. 모든 이전 경로와 배포 보고서는 보존돼 있습니다. README의이전 바이트는 [보관본](archive/README-before-2026-10-14.md)에도 있습니다.
+Use a [result tag](BRANCHES.md), the corresponding result commit, or the frozen source in an analysis package. Previous paths and published reports are preserved. The exact previous README is also [archived](archive/README-before-2026-10-14.md).
 
-## 산출물과 분모
+## Artifacts and denominators
 
-- `analysis/results/<run_id>/`: 보고서, CSV, 그림, 감사 및 재현 기록.
-- `results/<run_id>/`: 원본JSON·저널·네이티브 이벤트 또는 `raw-archives/`.
-- `*.manifest.json`, `index.json`: 압축 원본의파일 목록·SHA-256 검증 정보.
-- `frozen-source.zip`, `frozen-source-and-analysis.zip`: 배포 당시 소스와 필요한 입력.
-- 보정·연결 점검·개발·실패·제외 시도는 평가와 분리합니다. 후반 실험은 사용자가 허용한 미완료 새 대화 정책을 기록하며, 초기에 동결한 무교체 계획과 구별합니다.
+- `analysis/results/<run_id>/`: reports, CSV tables, figures, audits, and reproduction records.
+- `results/<run_id>/`: original JSON, journals, native events, or `raw-archives/`.
+- `*.manifest.json`, `index.json`: archive file inventories and SHA-256 verification information.
+- `frozen-source.zip`, `frozen-source-and-analysis.zip`: source and required inputs as published.
+- Calibration, connectivity checks, development, failed attempts, and excluded attempts are recorded separately from evaluation. Later studies document the user-authorized policy of restarting unfinished conversations; this differs from the initially frozen no-replacement plan.
 
-모델에 다시 질문하는 것과 저장 자료로 분석을 재현하는 것은 별개입니다. 기존 결과 재현에 CLI 로그인이 필요한 것은 아닙니다.
+Reanalyzing saved records and asking models new questions are separate operations. Reproducing existing results does not require a CLI login.
 
-## 최신180시행: 모델 호출 없이 재현
+## Latest 180 conversations: reproduce without model calls
 
-필요한Python 패키지는 `numpy`, `matplotlib`, `jsonschema`입니다. 아래는 현재 저장소의Git 객체에서 스냅샷을 추출해 `work/reproduce-question/source/`에서 실행합니다. 기존 결과를 덮어쓰지 않으며 모델 요청 함수는 오류를 내도록 차단합니다.
+Required Python packages: `numpy`, `matplotlib`, and `jsonschema`. The commands below extract the preserved snapshot from Git objects and run under `work/reproduce-question/source/`. They leave published outputs intact and block the model-request function by making it raise an error.
 
 ```bash
 mkdir -p work/reproduce-question
@@ -55,26 +55,26 @@ build_report()
 PY
 ```
 
-출력은 `work/reproduce-question/source/analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/`에 생깁니다. 주요 검증 기록은 `audit.json`, `tables/physical_invocation_ledger.csv`입니다.
+Outputs appear in `work/reproduce-question/source/analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/`. Important audit records include `audit.json` and `tables/physical_invocation_ledger.csv`.
 
-동일 실행 환경에서 **CSV14개·PNG6개·HTML 보고서가 바이트 단위로 일치**함을 [검증](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/reproduction.json)했습니다. 다른 라이브러리·폰트 환경에서는 그림 바이트가 달라질 수 있어 수치·축·분모도 함께 확인합니다. 네이티브 호출5,940개, 준비12개, 용량 부족 제외34개가 원장에서 구별됩니다.
+In the same execution environment, **all 14 CSV files, six PNG figures, and the HTML report reproduced byte for byte**, as recorded in the [verification](../analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/reproduction.json). Other library or font environments may change image bytes; also compare values, axes, and denominators. The ledger separates 5,940 evaluation calls, 12 calibration calls, and 34 excluded capacity-failure calls.
 
-## 다른 실행
+## Other studies
 
-| 실행 | 시작점 |
+| Study | Starting point |
 | --- | --- |
-| 최초 실험 | `results/exp1-v1`의 [최종 보고서](../analysis/results/equivoque-2026-10-09-v1/attempt-02/REPORT.md)·분석 ZIP |
-| 3라운드 반복 | `results/exp2-v1`의 [보고서](../analysis/results/equivoque-2026-10-09-exp2-v1/attempt-01/REPORT.md)·분석 ZIP |
-| 객관적 적용 파일럿 | `results/exp3-pilot-v1`의 [보고서](../analysis/results/equivoque-2026-10-11-exp3-pilot-v1/attempt-01/REPORT.md) |
-| 30라운드 파일럿 | [동결 소스](../analysis/results/equivoque-2026-10-12-sequence-pilot-v1/attempt-01/frozen-source.zip), [원본 인덱스](../results/equivoque-2026-10-12-sequence-pilot-v1/raw-archives/index.json), [재현 기록](../analysis/results/equivoque-2026-10-12-sequence-pilot-v1/archive-reproduction.json) |
-| 대규모 반복 | [동결 소스](../analysis/results/equivoque-2026-10-12-sequence-replication-v1/attempt-01/frozen-source.zip), [원본 인덱스](../results/equivoque-2026-10-12-sequence-replication-v1/raw-archives/index.json), [완료 기록](../sequence_replication/runtime/analysis-completion.json) |
+| Single round | [Final report](../analysis/results/equivoque-2026-10-09-v1/attempt-02/REPORT.md) and analysis ZIP at `results/exp1-v1` |
+| Three repeated rounds | [Report](../analysis/results/equivoque-2026-10-09-exp2-v1/attempt-01/REPORT.md) and analysis ZIP at `results/exp2-v1` |
+| Supplied-rule transfer pilot | [Report](../analysis/results/equivoque-2026-10-11-exp3-pilot-v1/attempt-01/REPORT.md) at `results/exp3-pilot-v1` |
+| Thirty-round sequence pilot | [Frozen source](../analysis/results/equivoque-2026-10-12-sequence-pilot-v1/attempt-01/frozen-source.zip), [native index](../results/equivoque-2026-10-12-sequence-pilot-v1/raw-archives/index.json), [reproduction record](../analysis/results/equivoque-2026-10-12-sequence-pilot-v1/archive-reproduction.json) |
+| Ten-round replication | [Frozen source](../analysis/results/equivoque-2026-10-12-sequence-replication-v1/attempt-01/frozen-source.zip), [native index](../results/equivoque-2026-10-12-sequence-replication-v1/raw-archives/index.json), [completion record](../sequence_replication/runtime/analysis-completion.json) |
 
-과거 루트`analysis/README.md`의명령은 최초 실험용입니다. 모든 실험을 그 명령 하나로 재현하려 하지 말고 실행별 문서와 스냅샷을 사용합니다.
+Commands in the historical root `analysis/README.md` apply to the first study. Use each study's documentation and snapshot to reproduce that study.
 
-## 문서 유지보수 검증
+## Documentation maintenance checks
 
 ```bash
 python scripts/validate_repository_docs.py
 ```
 
-새 안내의 로컬 링크·실험 카탈로그·파생 표·공개 전후 주요 분모와 기록 보존을 확인합니다. 모델을 호출하지 않습니다. `docs/data/`는 기존CSV에서 만든 설명용 요약이며 원본 배포 표를 대체하지 않습니다.
+This checks local links, the study catalog, derived tables, key pre/post-disclosure denominators, and record preservation without making model calls. Tables in `docs/data/` are explanatory summaries derived from existing CSV files; they do not replace published tables.

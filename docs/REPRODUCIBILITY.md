@@ -29,6 +29,15 @@ python scripts/validate_repository_docs.py
 
 Use `python scripts/statistical_audit.py` to regenerate the supplement. `--check` regenerates into a temporary directory and compares every output and both generated guides byte for byte. Exact bytes require the recorded Python, library and font environment; use the CSV effect values and denominators for comparisons across environments. Neither command imports experiment runners or makes model calls. See [statistical methods](STATISTICAL_METHODS.md) for matching, case-block tests, boundary intervals and multiplicity assumptions.
 
+The [README statistical figures](STATISTICAL_FIGURES.md) read the preserved supplement tables without running additional tests. Their outputs and provenance occupy a separate [figure directory](data/statistical-figures-2026-10-23). Rebuild or verify them with:
+
+```bash
+python scripts/visualize_statistics.py
+python scripts/visualize_statistics.py --check
+```
+
+This verifies statistical input hashes against the published audit, and reproduces three PNG/SVG figures, their plotted-value CSV and the figure guide byte for byte in the recorded environment. The audit's existing tables, guides, figures and reproduction hashes remain unchanged.
+
 ## Latest 180 conversations: reproduce without model calls
 
 Required Python packages: `numpy`, `matplotlib`, and `jsonschema`. The commands below extract the preserved snapshot from Git objects and run under `work/reproduce-question/source/`. They leave published outputs intact and block the model-request function by making it raise an error.

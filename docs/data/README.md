@@ -25,3 +25,9 @@ Components are not independent trials. These are descriptive summaries: uncertai
 [statistics-2026-10-23/](statistics-2026-10-23) contains the new six-study statistical audit. The original outcomes were already known; these tests are exploratory. [Results and interpretation](../STATISTICS.md) · [한국어 요약](../STATISTICS.ko.md) · [Methods](../STATISTICAL_METHODS.md).
 
 The directory includes all attempted contrasts, raw and adjusted p-values, matched case-block effects and intervals, descriptive summaries, separate McNemar sensitivities, three figures, an offline searchable HTML table, source hashes and byte-reproduction records. Rounds and prediction components are aggregated within conversations before comparison. Study 4's single-case pilot is labeled separately from the principal case-level analyses. Reproduce with `python scripts/statistical_audit.py --check`; no model requests are made.
+
+## Statistical figures for the main README
+
+[statistical-figures-2026-10-23/](statistical-figures-2026-10-23) contains the six-study overview, replication contrasts by model and question-effect contrasts. These figures display existing statistical estimates and introduce no new tests. [Figure guide](../STATISTICAL_FIGURES.md) · [Plotted values](statistical-figures-2026-10-23/plotted_contrasts.csv) · [Source/output hashes](statistical-figures-2026-10-23/manifest.json).
+
+Each figure is available as PNG and SVG. Effects, pointwise 95% intervals, global Holm p-values and case-family counts are explicit. The original audit and its multiplicity families remain unchanged. Reproduce with `python scripts/visualize_statistics.py --check`.

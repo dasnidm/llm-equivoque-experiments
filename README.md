@@ -16,6 +16,8 @@ The **joint report** means `impact = 1` AND `counterfactual = no`. It is a recor
 
 The [2026-10-23 statistical supplement](docs/STATISTICS.md) adds matched case-block tests, effect sizes, pointwise 95% intervals, global and study-wise Holm adjustments, and separately labeled conversation-level sensitivity tests across all six completed studies. This is a **retrospective exploratory analysis**, with the original outcomes already known. All original records remain unchanged. [Full CSV](docs/data/statistics-2026-10-23/contrasts.csv) · [Assumptions](docs/STATISTICAL_METHODS.md).
 
+[Visual guide to the statistical results](docs/STATISTICAL_FIGURES.md): six-study overview, schedule/framing contrasts by model, and question effects on both endpoints. Each inferential plot shows effects, pointwise 95% intervals and global Holm p-values from the existing audit.
+
 ## Completed studies
 
 | Study | Completed units | Main observation | Details |
@@ -28,6 +30,12 @@ The [2026-10-23 statistical supplement](docs/STATISTICS.md) adds matched case-bl
 | Question intervention | 2 models × 3 arms × 30 = 180 conversations | Explanation, prediction, and control questions followed by pre-disclosure rerating | [Question effects](docs/EXPERIMENTS.md#question-effect) |
 
 Conversations, rounds, tasks, and prediction components are different units. Rates from different studies are not scores on the same task. Reports retain endpoint denominators, missingness, exclusions, and interval definitions.
+
+## Statistical overview
+
+![Six completed studies with effects, pointwise confidence intervals, raw p-values and global Holm p-values](docs/data/statistical-figures-2026-10-23/study_overview.png)
+
+**One representative contrast per study.** Global Holm p-values account for all **2,889 estimable principal tests** in the retrospective audit. Filled markers indicate adjusted p < .05; open markers indicate p ≥ .05. The 30-round pilot has one shared case and is shown descriptively. Intervals are pointwise, so they need not agree with the global multiplicity-adjusted test. The supplement uses its own recorded 20,000 case-bootstrap resamples; historical reports retain their original intervals. [Figure guide and vector downloads](docs/STATISTICAL_FIGURES.md) · [All plotted values](docs/data/statistical-figures-2026-10-23/plotted_contrasts.csv).
 
 ## Key figures
 
@@ -61,6 +69,10 @@ Conversations, rounds, tasks, and prediction components are different units. Rat
 
 **2,520 conversations:** each cell shows the number of joint reports out of 30. Constant targets produced 319/1,260 reports (25.3%) versus 1/1,260 (0.08%) for sequences. Frame differences varied by model. Of 300 constant conversations with a first joint report before round 10, 284 (94.7%) maintained it at every subsequent round. [Report](analysis/results/equivoque-2026-10-12-sequence-replication-v1/attempt-01/REPORT.md)
 
+![Schedule and card/cat contrasts by model, with case-block confidence intervals and global Holm p-values](docs/data/statistical-figures-2026-10-23/replication_by_model.png)
+
+**Retrospective statistical comparison:** the all-model constant-minus-sequence contrast is **+25.24 percentage points**, 95% CI [+22.38, +28.02], global Holm **p = 5.22 × 10⁻⁶**. Within constant targets, cards-minus-cats is **+18.25 percentage points**, CI [+14.76, +21.59], **p = 2.94 × 10⁻⁵**. Both use **30 shared case families**. The model rows average three effort settings; the all-model row shares their data. Frames bundle nouns, labels, verbs and feedback, so this does not isolate a noun-only effect. [Statistical methods](docs/STATISTICAL_METHODS.md).
+
 ### 6. Prediction uncertainty should not be scored as an explicit error
 
 ![Existing sequence prediction components: matches, explicit mismatches, and uncertainty](analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/figures/01_existing_prediction_components.png)
@@ -87,12 +99,17 @@ For gpt-5.6-sol, the explanation-minus-control difference in pre/post change was
 
 In gpt-6.1-sol's prediction arm, **all 30 impact ratings changed from 100 to 50**, while counterfactual answers remained yes. Zero joint transitions therefore did not mean unchanged responses. The meaning of 50 was not separately elicited. All 180 post-disclosure reports were 1/no.
 
+![Question effects on joint reports and continuous impact ratings, with pointwise intervals and global Holm p-values](docs/data/statistical-figures-2026-10-23/question_contrasts.png)
+
+**Matched question contrasts:** each row compares pre/post change against control using **30 case families**, before actual rule disclosure. For gpt-5.6-sol, explanation-minus-control changes the joint-report rate by +66.67 percentage points, global Holm **p = 0.00475**; prediction-minus-control has adjusted p = 1.00. For gpt-6.1-sol, the prediction contrast changes impact by −50 points, **p = 5.22 × 10⁻⁶**, while the joint endpoint stays zero. Constant observations can yield zero-width bootstrap intervals; that does not establish zero population uncertainty. These are self-report endpoints, not direct mechanism-knowledge scores. [All raw p-values, effects and intervals](docs/data/statistical-figures-2026-10-23/plotted_contrasts.csv).
+
 [Latest report, 14 tables, and 6 figures (ZIP)](analysis/results/equivoque-2026-10-13-question-effect-v1/question-effect-analysis.zip) · [Native archives](results/equivoque-2026-10-13-question-effect-v1/raw-archives/) · [Reproduction check](analysis/results/equivoque-2026-10-13-question-effect-v1/attempt-01/reproduction.json)
 
 ## Data, reproduction, and repository structure
 
 - **Interpretation:** [Results](docs/RESULTS.md) and [measurement definitions](docs/METHODS.md).
 - **Statistical tests and intervals:** [Statistical supplement](docs/STATISTICS.md), [한국어 요약](docs/STATISTICS.ko.md), and [complete derived outputs](docs/data/statistics-2026-10-23).
+- **Statistical figures:** [Visual guide](docs/STATISTICAL_FIGURES.md), PNG/SVG exports, and [reproducible plotted values](docs/data/statistical-figures-2026-10-23).
 - **Reports, tables, figures, and downloads:** [Study index](docs/EXPERIMENTS.md) and `analysis/results/<run_id>/`.
 - **Native records and archive hashes:** `results/<run_id>/`.
 - **Archive-only analysis:** [Reproduction instructions](docs/REPRODUCIBILITY.md); no new model calls are required.

@@ -4,7 +4,7 @@ Six completed studies and pilots examine how language models report **freedom of
 
 **Status:** all six collections are complete. The latest study contains 180 independent conversations testing the effect of control, explanation, and prediction questions. Subject prompts and the current repository guide are in English.
 
-[Results and interpretation](docs/RESULTS.md) · [Study index and downloads](docs/EXPERIMENTS.md) · [Methods and exact questions](docs/METHODS.md) · [Reproduction](docs/REPRODUCIBILITY.md) · [Branches](docs/BRANCHES.md)
+[Results and interpretation](docs/RESULTS.md) · [Statistical supplement](docs/STATISTICS.md) ([한국어](docs/STATISTICS.ko.md)) · [Study index and downloads](docs/EXPERIMENTS.md) · [Methods and exact questions](docs/METHODS.md) · [Reproduction](docs/REPRODUCIBILITY.md) · [Branches](docs/BRANCHES.md)
 
 ## Main findings
 
@@ -13,6 +13,8 @@ Six completed studies and pilots examine how language models report **freedom of
 - **An explanation question changed subsequent judgments in one tested model.** Before rule disclosure, 20/30 gpt-5.6-sol-high explanation-arm conversations changed to the joint report. gpt-6.1-sol-high instead lowered impact from 100 to 50 in all 30 prediction-arm conversations while retaining counterfactual yes.
 
 The **joint report** means `impact = 1` AND `counterfactual = no`. It is a recorded judgment, not a direct test of privately inferred mechanism knowledge. Constant targets repeat within a conversation; sequence targets vary according to a precommitted schedule. Both procedures force each round's target independently of the choices.
+
+The [2026-10-23 statistical supplement](docs/STATISTICS.md) adds matched case-block tests, effect sizes, pointwise 95% intervals, global and study-wise Holm adjustments, and separately labeled conversation-level sensitivity tests across all six completed studies. This is a **retrospective exploratory analysis**, with the original outcomes already known. All original records remain unchanged. [Full CSV](docs/data/statistics-2026-10-23/contrasts.csv) · [Assumptions](docs/STATISTICAL_METHODS.md).
 
 ## Completed studies
 
@@ -90,6 +92,7 @@ In gpt-6.1-sol's prediction arm, **all 30 impact ratings changed from 100 to 50*
 ## Data, reproduction, and repository structure
 
 - **Interpretation:** [Results](docs/RESULTS.md) and [measurement definitions](docs/METHODS.md).
+- **Statistical tests and intervals:** [Statistical supplement](docs/STATISTICS.md), [한국어 요약](docs/STATISTICS.ko.md), and [complete derived outputs](docs/data/statistics-2026-10-23).
 - **Reports, tables, figures, and downloads:** [Study index](docs/EXPERIMENTS.md) and `analysis/results/<run_id>/`.
 - **Native records and archive hashes:** `results/<run_id>/`.
 - **Archive-only analysis:** [Reproduction instructions](docs/REPRODUCIBILITY.md); no new model calls are required.

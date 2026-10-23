@@ -2,6 +2,8 @@
 
 This is the current reading guide to the preserved studies. Published reports, tables, and native data retain their original bytes. See the [study index](EXPERIMENTS.md) for design differences and the [methods](METHODS.md) for exact measures.
 
+The [2026-10-23 statistical supplement](STATISTICS.md) ([한국어 요약](STATISTICS.ko.md)) provides the retrospective paired case-block tests, global/study Holm p-values, effect sizes and pointwise intervals. Its [methods](STATISTICAL_METHODS.md) distinguish case families from conversations, rounds and prediction components. The full set of non-significant, constant and non-estimable comparisons is retained alongside significant results; this does not revise the historical reports.
+
 ## Repetition, schedules, and persistence
 
 Most single-round initial impact ratings were 100. Three repetitions reduced mean impact from 100 to 96.2 to 82.8. Later constant-versus-sequence studies showed a substantial condition difference.

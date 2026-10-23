@@ -2,6 +2,8 @@
 
 Last repository organization: **2026-10-14, Europe/Berlin**.
 
+Statistical supplement: **2026-10-23**. [Retrospective tests and intervals](STATISTICS.md) ([한국어](STATISTICS.ko.md)) cover the six preserved studies, with matched case-family analyses and explicit multiple-comparison adjustments. No additional collection was run.
+
 There are [six completed studies and pilots](EXPERIMENTS.md). The latest collection, the question-intervention study on 2026-10-13, contains 180 complete conversations and 5,940 evaluation invocations. Documentation maintenance introduces no new model calls.
 
 ## Current guide versus historical records

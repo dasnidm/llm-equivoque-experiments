@@ -16,6 +16,19 @@ Use a [result tag](BRANCHES.md), the corresponding result commit, or the frozen 
 
 Reanalyzing saved records and asking models new questions are separate operations. Reproducing existing results does not require a CLI login.
 
+## Retrospective statistical supplement: 2026-10-23
+
+The [statistical supplement](STATISTICS.md) is derived from preserved CSV exports for all six completed studies. It adds exploratory p-values and confidence intervals in a new directory under `docs/data/`; it leaves the original analyses unchanged. Input and code SHA-256 hashes, package versions, seeds and resampling counts are recorded in its [source manifest](data/statistics-2026-10-23/source_manifest.json).
+
+```bash
+python -m pip install -r analysis/requirements-statistics.txt
+python -m unittest discover -s tests -p 'test_statistics.py' -v
+python scripts/statistical_audit.py --check
+python scripts/validate_repository_docs.py
+```
+
+Use `python scripts/statistical_audit.py` to regenerate the supplement. `--check` regenerates into a temporary directory and compares every output and both generated guides byte for byte. Exact bytes require the recorded Python, library and font environment; use the CSV effect values and denominators for comparisons across environments. Neither command imports experiment runners or makes model calls. See [statistical methods](STATISTICAL_METHODS.md) for matching, case-block tests, boundary intervals and multiplicity assumptions.
+
 ## Latest 180 conversations: reproduce without model calls
 
 Required Python packages: `numpy`, `matplotlib`, and `jsonschema`. The commands below extract the preserved snapshot from Git objects and run under `work/reproduce-question/source/`. They leave published outputs intact and block the model-request function by making it raise an error.

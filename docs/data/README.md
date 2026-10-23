@@ -19,3 +19,9 @@ The four conversation categories are mutually exclusive:
 4. `has_mismatch`: at least one explicit mismatch, possibly alongside uncertainty.
 
 Components are not independent trials. These are descriptive summaries: uncertainty is not combined with explicit errors, and the tables do not establish a general model-capability ranking. Readable versions appear in [Results](../RESULTS.md).
+
+## Retrospective statistical supplement: 2026-10-23
+
+[statistics-2026-10-23/](statistics-2026-10-23) contains the new six-study statistical audit. The original outcomes were already known; these tests are exploratory. [Results and interpretation](../STATISTICS.md) · [한국어 요약](../STATISTICS.ko.md) · [Methods](../STATISTICAL_METHODS.md).
+
+The directory includes all attempted contrasts, raw and adjusted p-values, matched case-block effects and intervals, descriptive summaries, separate McNemar sensitivities, three figures, an offline searchable HTML table, source hashes and byte-reproduction records. Rounds and prediction components are aggregated within conversations before comparison. Study 4's single-case pilot is labeled separately from the principal case-level analyses. Reproduce with `python scripts/statistical_audit.py --check`; no model requests are made.

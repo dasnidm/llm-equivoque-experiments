@@ -99,14 +99,15 @@ class CalibrationSnapshotTests(unittest.TestCase):
         self.assertTrue(link.is_symlink());link.unlink()
         self.assertEqual(self.source_bytes(),self.before)
 
-    def exact_incident(self):
-        work=self.work/'exact-incident';work.mkdir()
+    def exact_incident(self,attempt='c10-01'):
+        work=self.work/('exact-incident-'+attempt);work.mkdir()
         (work/'identity.private.json').write_bytes((self.work/'identity.private.json').read_bytes())
         (work/'worker.lock').write_bytes(b'')
-        directory=work/'calibration'/'attempt-c10-01';(directory/'states').mkdir(parents=True)
-        op=work/'ops-v1'/'c10-01';op.mkdir(parents=True)
+        directory=work/'calibration'/('attempt-'+attempt);(directory/'states').mkdir(parents=True)
+        op=work/'ops-v1'/attempt;op.mkdir(parents=True)
         for name in self.receipts:(op/name).write_bytes((self.op/name).read_bytes())
-        for i,tid in enumerate(self.ids[:10]):
+        ids=[tid.replace('c10-01',attempt) for tid in self.ids]
+        for i,tid in enumerate(ids[:10]):
             scratch=f'{i+100:032x}';records=[]
             for t in range(1,11):
                 event=directory/'native'/scratch/f'turn-{t:02d}'/'events.jsonl'
@@ -121,8 +122,8 @@ class CalibrationSnapshotTests(unittest.TestCase):
         (directory/'budget.json').write_text(json.dumps({'run_id':'incident','used':110,'limit':612}))
         (directory/'budget.json.lock').write_bytes(b'')
         (directory/'progress.json').write_text('{"finished":10,"assigned":18}')
-        result=calibration.snapshot_stopped_calibration(work,'c10-01',op,op/'technical-stop-snapshot',
-            expected_trial_ids=self.ids,stopped_pids=[99901,99902],confirmed_board=self.board,operator_receipts=self.receipts)
+        result=calibration.snapshot_stopped_calibration(work,attempt,op,op/'technical-stop-snapshot',
+            expected_trial_ids=ids,stopped_pids=[99901,99902],confirmed_board=self.board,operator_receipts=self.receipts)
         return work,directory,result
 
     def test_exact_incident_receipt_excludes_only_ten_unchanged_states(self):
@@ -140,6 +141,52 @@ class CalibrationSnapshotTests(unittest.TestCase):
 
     def test_generic_technical_snapshot_cannot_exclude_arbitrary_interruptions(self):
         result=self.make()
+        with self.assertRaises(calibration.StorageError):
+            calibration.verify_stopped_calibration_receipt(self.work,result['manifest'])
+
+    def test_fallback_proof_preserves_calibration_strictness_and_original_guard(self):
+        for attempt in ('c10-01','c10-02'):
+            work,directory,result=self.exact_incident(attempt)
+            kwargs={'expected_attempt':attempt,'expected_freeze_sha256':self.board['freeze_sha256']}
+            paths=calibration.verify_terminal_calibration_snapshot(work,result['manifest'],**kwargs)
+            self.assertEqual(len(paths),10)
+            with self.assertRaises(calibration.StorageError):
+                calibration.verify_terminal_calibration_snapshot(work,result['manifest'],**{**kwargs,'expected_freeze_sha256':'0'*64})
+            operator_log=work/'ops-v1'/attempt/self.receipts[1]
+            operator_log.write_bytes(operator_log.read_bytes()+b'Later audited capacity change.\n')
+            self.assertEqual(calibration.verify_terminal_calibration_snapshot(work,result['manifest'],**kwargs),paths)
+            with self.assertRaises(calibration.StorageError):
+                calibration.verify_stopped_calibration_receipt(work,result['manifest'])
+            state=next(iter(paths));state.write_bytes(state.read_bytes()+b' ')
+            with self.assertRaises(calibration.StorageError):
+                calibration.verify_terminal_calibration_snapshot(work,result['manifest'],**kwargs)
+
+    def test_second_stopped_attempt_has_separate_scope_without_weakening_first_guard(self):
+        old_directory=self.directory
+        self.attempt='c10-02';self.directory=old_directory.with_name('attempt-c10-02')
+        old_directory.rename(self.directory)
+        old_ids=self.ids;self.ids=[tid.replace('c10-01','c10-02') for tid in old_ids]
+        for old,tid in zip(old_ids[:2],self.ids[:2]):
+            path=self.directory/'states'/(old+'.json');state=json.loads(path.read_text())
+            state['trial']['trial_id']=tid
+            refs=[raw for record in state['turns'] for raw in record['raw_files']]+state.get('pending_raw_files',[])
+            for raw in refs:raw['path']=raw['path'].replace(str(old_directory),str(self.directory))
+            path.write_text(json.dumps(state))
+            for suffix in ('.json','.json.lock','.journal.jsonl'):
+                (self.directory/'states'/(old+suffix)).rename(self.directory/'states'/(tid+suffix))
+        self.op=self.work/'ops-v1'/'c10-02';self.op.mkdir()
+        self.receipts=['status.private.json','launch.private.json','supervisor.log',
+                       'resume.private.json','resume-intent.private.json',
+                       'independent-wrapper-audit.private.json','readonly-metrics-first-terminal.json',
+                       'catalog-invocations.private.jsonl']
+        for name in self.receipts:(self.op/name).write_bytes(b'{"synthetic_operator_evidence":true}\n')
+        self.output=self.op/'stop-snapshot';before=self.source_bytes()
+        result=self.make();index=calibration.verify_calibration_snapshot(result['archive'],result['manifest'])
+        self.assertEqual(index['attempt'],'c10-02')
+        self.assertEqual(index['attempt_relative'],'calibration/attempt-c10-02')
+        self.assertTrue(all(not tid.startswith('cal-c10-01-') for tid in index['expected_trial_ids']))
+        for name in self.receipts:self.assertIn('ops-v1/c10-02/'+name,index['files'])
+        self.assertEqual(self.source_bytes(),before)
         with self.assertRaises(calibration.StorageError):
             calibration.verify_stopped_calibration_receipt(self.work,result['manifest'])
 

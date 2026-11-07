@@ -23,6 +23,10 @@ OP_NAMES={
     'bounded-probe-status.private.json','bounded-probe-launch.private.json','bounded-probe.log',
     'shared-resume.private.json','shared-resume-intent.private.json','capacity.private.json',
     'access-diagnostic-20261107/intent.json','access-diagnostic-20261107/result.private.json',
+    'status.private.json','launch.private.json','supervisor.log','resume.private.json',
+    'resume-intent.private.json','independent-wrapper-audit.private.json',
+    'readonly-metrics-first-terminal.json',
+    'catalog-invocations.private.jsonl',
 }
 
 
@@ -53,20 +57,18 @@ def verify_calibration_snapshot(archive,manifest):
                             path_validator=lambda p:_relative(p,index))
 
 
-def verify_stopped_calibration_receipt(work_dir,receipt_path):
-    """Return only the ten immutable c10-01 terminal pending-state exclusions.
-
-    This grants no execution permission. The caller retains its strict default
-    quiescence rule for every other state and must explicitly opt into this
-    precise historical exclusion. No source/receipt bytes are written.
-    """
+def _verify_exact_incident(work_dir,receipt_path,*,expected_attempt,expected_freeze_sha256=None,current_operator_receipts=True):
     work,receipt=map(_no_symlinks,(work_dir,receipt_path))
-    if not receipt.is_relative_to(work) or receipt.name!='calibration-c10-01.stopped.manifest.json':
-        raise StorageError('An owned exact c10-01 snapshot receipt is required')
-    archive=receipt.with_name('calibration-c10-01.stopped.tar.gz')
+    if expected_attempt not in ('c10-01','c10-02'):
+        raise StorageError('Only the two explicit historical ten-way incidents are recognized')
+    if not receipt.is_relative_to(work) or receipt.name!=f'calibration-{expected_attempt}.stopped.manifest.json':
+        raise StorageError('An owned exact attempt snapshot receipt is required')
+    archive=receipt.with_name(f'calibration-{expected_attempt}.stopped.tar.gz')
     index=verify_calibration_snapshot(archive,receipt)
-    if index.get('attempt')!='c10-01' or index.get('global_stop_confirmed') is not True:
-        raise StorageError('Receipt is not the stopped c10-01 attempt')
+    if index.get('attempt')!=expected_attempt or index.get('global_stop_confirmed') is not True:
+        raise StorageError('Receipt is not the requested stopped attempt')
+    if expected_freeze_sha256 is not None and index.get('board_identity',{}).get('freeze_sha256')!=expected_freeze_sha256:
+        raise StorageError('Historical calibration freeze differs from the current authorized experiment')
     expected_counts={'complete':0,'failed':0,'interrupted':10,'budget_exhausted':0,'unstarted':8}
     if (index.get('state_counts')!=expected_counts or index.get('assigned')!=18
             or index.get('recorded_calls')!=100 or index.get('successful_calls')!=100
@@ -77,12 +79,13 @@ def verify_stopped_calibration_receipt(work_dir,receipt_path):
         raise StorageError('Stopped technical receipt belongs to another worker')
     directory=work/index['attempt_relative'];op=work/index['operation_relative']
     ids=index['expected_trial_ids']
-    expected={f'cal-c10-01-{bound["model"]}-{effort}-{i:02d}' for effort in ('low','medium','high') for i in range(1,7)}
+    expected={f'cal-{expected_attempt}-{bound["model"]}-{effort}-{i:02d}' for effort in ('low','medium','high') for i in range(1,7)}
     if len(ids)!=18 or set(ids)!=expected:raise StorageError('Stopped technical panel changed')
     op_prefix=index['operation_relative']+'/'
-    operator_receipts=[p[len(op_prefix):] for p in index['files'] if p.startswith(op_prefix)]
+    operator_receipts=[p[len(op_prefix):] for p in index['files'] if p.startswith(op_prefix)] if current_operator_receipts else []
     entries,metrics=_collect(work,directory,op,ids,bound,index['board_identity']['freeze_sha256'],operator_receipts)
-    if entries!=index['files'] or any(index.get(k)!=v for k,v in metrics.items()):
+    expected_files=index['files'] if current_operator_receipts else {p:v for p,v in index['files'].items() if p.startswith(index['attempt_relative']+'/')}
+    if entries!=expected_files or any(index.get(k)!=v for k,v in metrics.items()):
         raise StorageError('Stopped technical source differs from the archived receipt')
     pending_ids=index['pending_checkpoint_trials']
     if len(pending_ids)!=10 or len(set(pending_ids))!=10:
@@ -107,6 +110,30 @@ def verify_stopped_calibration_receipt(work_dir,receipt_path):
     if sorted(recorded_tickets)!=list(range(1,101)) or sorted(pending_tickets)!=list(range(101,111)):
         raise StorageError('Technical incident request tickets do not reconcile to 100 responses and 10 terminal pending reservations')
     return paths
+
+
+def verify_stopped_calibration_receipt(work_dir,receipt_path):
+    """Original strict c10-01 exclusion: live operator receipts must also match.
+
+    This grants no execution permission and never changes state. All other
+    quiescence checks remain the caller's responsibility.
+    """
+    return _verify_exact_incident(work_dir,receipt_path,expected_attempt='c10-01')
+
+
+def verify_terminal_calibration_snapshot(work_dir,receipt_path,*,expected_attempt,expected_freeze_sha256):
+    """Explicit fallback evidence for c10-01 or c10-02, never a retry permit.
+
+    Archived operator evidence is fully verified. Live operator audit files may
+    legitimately record a later capacity downgrade; only the technical attempt's
+    live evidence must remain byte-identical. A named attempt and current frozen
+    experiment digest are mandatory, and exact 100/110 incident accounting is
+    enforced. The original stricter c10-01 verifier above is unchanged in scope.
+    """
+    if not isinstance(expected_freeze_sha256,str) or not re.fullmatch(r'[0-9a-f]{64}',expected_freeze_sha256):
+        raise StorageError('Explicit current frozen experiment SHA is required')
+    return _verify_exact_incident(work_dir,receipt_path,expected_attempt=expected_attempt,
+                                 expected_freeze_sha256=expected_freeze_sha256,current_operator_receipts=False)
 
 
 def _collect(work,directory,op,ids,bound,freeze_digest,operator_receipts):

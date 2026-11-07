@@ -1,0 +1,4369 @@
+{
+  "all_models": {
+    "private_file_allocated_bytes": {
+      "mean": 64360299054.545456,
+      "sample_max_scenario": 65334732986.181816,
+      "sample_min_scenario": 63657738240.0
+    },
+    "private_file_bytes": {
+      "mean": 37181305006.69091,
+      "sample_max_scenario": 37599733352.72727,
+      "sample_min_scenario": 36776163826.03636
+    },
+    "private_tar_gzip_bytes": {
+      "mean": 2282360802.327273,
+      "sample_max_scenario": 2373247334.4,
+      "sample_min_scenario": 2180835840.0
+    },
+    "public_gzip_bytes": {
+      "mean": 659880624.4363637,
+      "sample_max_scenario": 690115987.2,
+      "sample_min_scenario": 624290548.3636364
+    },
+    "public_jsonl_bytes": {
+      "mean": 5874178537.745455,
+      "sample_max_scenario": 5922943008.0,
+      "sample_min_scenario": 5805172326.981818
+    }
+  },
+  "limitations": [
+    "These are storage scenarios, not confidence intervals or capacity guarantees.",
+    "An early partial session is retained; request-count scaling also scales its fixed metadata overhead.",
+    "Main Korean natural output has no exact pre analogue and uses English natural F as a proxy.",
+    "Only four pre model-effort profiles were measured; new models, efforts and cats can be longer.",
+    "Main R_A differs from pre R in the system instruction; R is a storage proxy only.",
+    "Private compression is measured per conversation; batch compression can differ.",
+    "Directory allocation, opaque cwd, CLI rollouts/databases, git copies, calibration and backups are not in these byte estimates.",
+    "Archives are an additional copy until a separately verified, authorized retention policy removes loose files."
+  ],
+  "method": "Each of four sampled pre profiles contributes one observation per arm/kind; normalize observed bytes to 34 requests, average equally, then multiply exact main allocation counts.",
+  "per_model_mean": {
+    "private_file_allocated_bytes": 8045037381.818182,
+    "private_file_bytes": 4647663125.836364,
+    "private_tar_gzip_bytes": 285295100.2909091,
+    "public_gzip_bytes": 82485078.05454546,
+    "public_jsonl_bytes": 734272317.2181818
+  },
+  "strata": [
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "obj",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "seq",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "unforced",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 192,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 176947200.0,
+          "sample_max_scenario": 187170816.0,
+          "sample_min_scenario": 173015040.0
+        },
+        "private_file_bytes": {
+          "mean": 94149427.19999999,
+          "sample_max_scenario": 94881600.0,
+          "sample_min_scenario": 92600332.80000001
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 6150451.199999999,
+          "sample_max_scenario": 6874636.800000001,
+          "sample_min_scenario": 5683200.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1706217.5999999999,
+          "sample_max_scenario": 1992998.4000000001,
+          "sample_min_scenario": 1549824.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 14656070.399999999,
+          "sample_max_scenario": 14923776.0,
+          "sample_min_scenario": 14059353.600000001
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 180,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 162754560.0,
+          "sample_max_scenario": 164413440.0,
+          "sample_min_scenario": 160727040.0
+        },
+        "private_file_bytes": {
+          "mean": 88860735.0,
+          "sample_max_scenario": 89828640.0,
+          "sample_min_scenario": 87680880.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 5821020.0,
+          "sample_max_scenario": 6096960.0,
+          "sample_min_scenario": 5499360.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1632735.0,
+          "sample_max_scenario": 1708380.0,
+          "sample_min_scenario": 1512000.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 13934385.0,
+          "sample_max_scenario": 14008500.0,
+          "sample_min_scenario": 13885020.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 657653760.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 648806400.0
+        },
+        "private_file_bytes": {
+          "mean": 358211160.0,
+          "sample_max_scenario": 366139440.0,
+          "sample_min_scenario": 353517120.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22059720.0,
+          "sample_max_scenario": 23492160.0,
+          "sample_min_scenario": 21101760.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6104880.0,
+          "sample_max_scenario": 6574320.0,
+          "sample_min_scenario": 5811840.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 55600560.0,
+          "sample_max_scenario": 55812240.0,
+          "sample_min_scenario": 55456560.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 673136640.0,
+          "sample_max_scenario": 681246720.0,
+          "sample_min_scenario": 666501120.0
+        },
+        "private_file_bytes": {
+          "mean": 378927720.0,
+          "sample_max_scenario": 382633920.0,
+          "sample_min_scenario": 375879600.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22242600.0,
+          "sample_max_scenario": 23443920.0,
+          "sample_min_scenario": 20514240.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6263460.0,
+          "sample_max_scenario": 6565680.0,
+          "sample_min_scenario": 5729040.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61483860.0,
+          "sample_max_scenario": 61590240.0,
+          "sample_min_scenario": 61364880.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 663552000.0
+        },
+        "private_file_bytes": {
+          "mean": 376565400.0,
+          "sample_max_scenario": 377823600.0,
+          "sample_min_scenario": 375037200.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22849920.0,
+          "sample_max_scenario": 23333040.0,
+          "sample_min_scenario": 22209840.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6589260.0,
+          "sample_max_scenario": 6809760.0,
+          "sample_min_scenario": 6189120.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61737120.0,
+          "sample_max_scenario": 61976880.0,
+          "sample_min_scenario": 61457040.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 675348480.0,
+          "sample_min_scenario": 660602880.0
+        },
+        "private_file_bytes": {
+          "mean": 376562880.0,
+          "sample_max_scenario": 380361600.0,
+          "sample_min_scenario": 372048480.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22724100.0,
+          "sample_max_scenario": 23505120.0,
+          "sample_min_scenario": 21903120.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6469020.0,
+          "sample_max_scenario": 6719760.0,
+          "sample_min_scenario": 6157440.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61585560.0,
+          "sample_max_scenario": 61709040.0,
+          "sample_min_scenario": 61511760.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "obj",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "seq",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "unforced",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 680509440.0,
+          "sample_max_scenario": 693043200.0,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 391628340.0,
+          "sample_max_scenario": 395899920.0,
+          "sample_min_scenario": 389402640.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22954140.0,
+          "sample_max_scenario": 24253200.0,
+          "sample_min_scenario": 22090320.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6525180.0,
+          "sample_max_scenario": 6848640.0,
+          "sample_min_scenario": 6205680.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65418660.0,
+          "sample_max_scenario": 65668320.0,
+          "sample_min_scenario": 65083680.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "obj",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 678297600.0,
+          "sample_max_scenario": 684195840.0,
+          "sample_min_scenario": 672399360.0
+        },
+        "private_file_bytes": {
+          "mean": 391808880.0,
+          "sample_max_scenario": 395590320.0,
+          "sample_min_scenario": 389016000.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23767740.0,
+          "sample_max_scenario": 24361200.0,
+          "sample_min_scenario": 22554720.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6865380.0,
+          "sample_max_scenario": 7110000.0,
+          "sample_min_scenario": 6468480.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65526840.0,
+          "sample_max_scenario": 65633760.0,
+          "sample_min_scenario": 65429280.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "seq",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 683391534.5454545,
+          "sample_max_scenario": 692775098.1818181,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 388785616.3636364,
+          "sample_max_scenario": 393846480.0,
+          "sample_min_scenario": 378609905.4545455
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23949900.0,
+          "sample_max_scenario": 24138720.0,
+          "sample_min_scenario": 23655600.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6842781.818181818,
+          "sample_max_scenario": 6963120.0,
+          "sample_min_scenario": 6760080.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 64023741.81818181,
+          "sample_max_scenario": 65691360.0,
+          "sample_min_scenario": 59864727.27272727
+        }
+      },
+      "format": "ko_schema",
+      "kind": "unforced",
+      "model": "gpt-5.6-luna",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "obj",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "seq",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "unforced",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 192,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 176947200.0,
+          "sample_max_scenario": 187170816.0,
+          "sample_min_scenario": 173015040.0
+        },
+        "private_file_bytes": {
+          "mean": 94149427.19999999,
+          "sample_max_scenario": 94881600.0,
+          "sample_min_scenario": 92600332.80000001
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 6150451.199999999,
+          "sample_max_scenario": 6874636.800000001,
+          "sample_min_scenario": 5683200.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1706217.5999999999,
+          "sample_max_scenario": 1992998.4000000001,
+          "sample_min_scenario": 1549824.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 14656070.399999999,
+          "sample_max_scenario": 14923776.0,
+          "sample_min_scenario": 14059353.600000001
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 180,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 162754560.0,
+          "sample_max_scenario": 164413440.0,
+          "sample_min_scenario": 160727040.0
+        },
+        "private_file_bytes": {
+          "mean": 88860735.0,
+          "sample_max_scenario": 89828640.0,
+          "sample_min_scenario": 87680880.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 5821020.0,
+          "sample_max_scenario": 6096960.0,
+          "sample_min_scenario": 5499360.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1632735.0,
+          "sample_max_scenario": 1708380.0,
+          "sample_min_scenario": 1512000.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 13934385.0,
+          "sample_max_scenario": 14008500.0,
+          "sample_min_scenario": 13885020.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 657653760.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 648806400.0
+        },
+        "private_file_bytes": {
+          "mean": 358211160.0,
+          "sample_max_scenario": 366139440.0,
+          "sample_min_scenario": 353517120.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22059720.0,
+          "sample_max_scenario": 23492160.0,
+          "sample_min_scenario": 21101760.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6104880.0,
+          "sample_max_scenario": 6574320.0,
+          "sample_min_scenario": 5811840.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 55600560.0,
+          "sample_max_scenario": 55812240.0,
+          "sample_min_scenario": 55456560.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 673136640.0,
+          "sample_max_scenario": 681246720.0,
+          "sample_min_scenario": 666501120.0
+        },
+        "private_file_bytes": {
+          "mean": 378927720.0,
+          "sample_max_scenario": 382633920.0,
+          "sample_min_scenario": 375879600.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22242600.0,
+          "sample_max_scenario": 23443920.0,
+          "sample_min_scenario": 20514240.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6263460.0,
+          "sample_max_scenario": 6565680.0,
+          "sample_min_scenario": 5729040.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61483860.0,
+          "sample_max_scenario": 61590240.0,
+          "sample_min_scenario": 61364880.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 663552000.0
+        },
+        "private_file_bytes": {
+          "mean": 376565400.0,
+          "sample_max_scenario": 377823600.0,
+          "sample_min_scenario": 375037200.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22849920.0,
+          "sample_max_scenario": 23333040.0,
+          "sample_min_scenario": 22209840.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6589260.0,
+          "sample_max_scenario": 6809760.0,
+          "sample_min_scenario": 6189120.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61737120.0,
+          "sample_max_scenario": 61976880.0,
+          "sample_min_scenario": 61457040.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 675348480.0,
+          "sample_min_scenario": 660602880.0
+        },
+        "private_file_bytes": {
+          "mean": 376562880.0,
+          "sample_max_scenario": 380361600.0,
+          "sample_min_scenario": 372048480.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22724100.0,
+          "sample_max_scenario": 23505120.0,
+          "sample_min_scenario": 21903120.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6469020.0,
+          "sample_max_scenario": 6719760.0,
+          "sample_min_scenario": 6157440.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61585560.0,
+          "sample_max_scenario": 61709040.0,
+          "sample_min_scenario": 61511760.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "obj",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "seq",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "unforced",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 680509440.0,
+          "sample_max_scenario": 693043200.0,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 391628340.0,
+          "sample_max_scenario": 395899920.0,
+          "sample_min_scenario": 389402640.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22954140.0,
+          "sample_max_scenario": 24253200.0,
+          "sample_min_scenario": 22090320.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6525180.0,
+          "sample_max_scenario": 6848640.0,
+          "sample_min_scenario": 6205680.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65418660.0,
+          "sample_max_scenario": 65668320.0,
+          "sample_min_scenario": 65083680.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "obj",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 678297600.0,
+          "sample_max_scenario": 684195840.0,
+          "sample_min_scenario": 672399360.0
+        },
+        "private_file_bytes": {
+          "mean": 391808880.0,
+          "sample_max_scenario": 395590320.0,
+          "sample_min_scenario": 389016000.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23767740.0,
+          "sample_max_scenario": 24361200.0,
+          "sample_min_scenario": 22554720.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6865380.0,
+          "sample_max_scenario": 7110000.0,
+          "sample_min_scenario": 6468480.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65526840.0,
+          "sample_max_scenario": 65633760.0,
+          "sample_min_scenario": 65429280.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "seq",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 683391534.5454545,
+          "sample_max_scenario": 692775098.1818181,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 388785616.3636364,
+          "sample_max_scenario": 393846480.0,
+          "sample_min_scenario": 378609905.4545455
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23949900.0,
+          "sample_max_scenario": 24138720.0,
+          "sample_min_scenario": 23655600.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6842781.818181818,
+          "sample_max_scenario": 6963120.0,
+          "sample_min_scenario": 6760080.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 64023741.81818181,
+          "sample_max_scenario": 65691360.0,
+          "sample_min_scenario": 59864727.27272727
+        }
+      },
+      "format": "ko_schema",
+      "kind": "unforced",
+      "model": "gpt-5.6-sol",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "obj",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "seq",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "unforced",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 192,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 176947200.0,
+          "sample_max_scenario": 187170816.0,
+          "sample_min_scenario": 173015040.0
+        },
+        "private_file_bytes": {
+          "mean": 94149427.19999999,
+          "sample_max_scenario": 94881600.0,
+          "sample_min_scenario": 92600332.80000001
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 6150451.199999999,
+          "sample_max_scenario": 6874636.800000001,
+          "sample_min_scenario": 5683200.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1706217.5999999999,
+          "sample_max_scenario": 1992998.4000000001,
+          "sample_min_scenario": 1549824.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 14656070.399999999,
+          "sample_max_scenario": 14923776.0,
+          "sample_min_scenario": 14059353.600000001
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 180,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 162754560.0,
+          "sample_max_scenario": 164413440.0,
+          "sample_min_scenario": 160727040.0
+        },
+        "private_file_bytes": {
+          "mean": 88860735.0,
+          "sample_max_scenario": 89828640.0,
+          "sample_min_scenario": 87680880.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 5821020.0,
+          "sample_max_scenario": 6096960.0,
+          "sample_min_scenario": 5499360.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1632735.0,
+          "sample_max_scenario": 1708380.0,
+          "sample_min_scenario": 1512000.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 13934385.0,
+          "sample_max_scenario": 14008500.0,
+          "sample_min_scenario": 13885020.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 657653760.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 648806400.0
+        },
+        "private_file_bytes": {
+          "mean": 358211160.0,
+          "sample_max_scenario": 366139440.0,
+          "sample_min_scenario": 353517120.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22059720.0,
+          "sample_max_scenario": 23492160.0,
+          "sample_min_scenario": 21101760.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6104880.0,
+          "sample_max_scenario": 6574320.0,
+          "sample_min_scenario": 5811840.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 55600560.0,
+          "sample_max_scenario": 55812240.0,
+          "sample_min_scenario": 55456560.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 673136640.0,
+          "sample_max_scenario": 681246720.0,
+          "sample_min_scenario": 666501120.0
+        },
+        "private_file_bytes": {
+          "mean": 378927720.0,
+          "sample_max_scenario": 382633920.0,
+          "sample_min_scenario": 375879600.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22242600.0,
+          "sample_max_scenario": 23443920.0,
+          "sample_min_scenario": 20514240.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6263460.0,
+          "sample_max_scenario": 6565680.0,
+          "sample_min_scenario": 5729040.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61483860.0,
+          "sample_max_scenario": 61590240.0,
+          "sample_min_scenario": 61364880.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 663552000.0
+        },
+        "private_file_bytes": {
+          "mean": 376565400.0,
+          "sample_max_scenario": 377823600.0,
+          "sample_min_scenario": 375037200.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22849920.0,
+          "sample_max_scenario": 23333040.0,
+          "sample_min_scenario": 22209840.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6589260.0,
+          "sample_max_scenario": 6809760.0,
+          "sample_min_scenario": 6189120.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61737120.0,
+          "sample_max_scenario": 61976880.0,
+          "sample_min_scenario": 61457040.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 675348480.0,
+          "sample_min_scenario": 660602880.0
+        },
+        "private_file_bytes": {
+          "mean": 376562880.0,
+          "sample_max_scenario": 380361600.0,
+          "sample_min_scenario": 372048480.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22724100.0,
+          "sample_max_scenario": 23505120.0,
+          "sample_min_scenario": 21903120.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6469020.0,
+          "sample_max_scenario": 6719760.0,
+          "sample_min_scenario": 6157440.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61585560.0,
+          "sample_max_scenario": 61709040.0,
+          "sample_min_scenario": 61511760.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "obj",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "seq",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "unforced",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 680509440.0,
+          "sample_max_scenario": 693043200.0,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 391628340.0,
+          "sample_max_scenario": 395899920.0,
+          "sample_min_scenario": 389402640.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22954140.0,
+          "sample_max_scenario": 24253200.0,
+          "sample_min_scenario": 22090320.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6525180.0,
+          "sample_max_scenario": 6848640.0,
+          "sample_min_scenario": 6205680.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65418660.0,
+          "sample_max_scenario": 65668320.0,
+          "sample_min_scenario": 65083680.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "obj",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 678297600.0,
+          "sample_max_scenario": 684195840.0,
+          "sample_min_scenario": 672399360.0
+        },
+        "private_file_bytes": {
+          "mean": 391808880.0,
+          "sample_max_scenario": 395590320.0,
+          "sample_min_scenario": 389016000.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23767740.0,
+          "sample_max_scenario": 24361200.0,
+          "sample_min_scenario": 22554720.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6865380.0,
+          "sample_max_scenario": 7110000.0,
+          "sample_min_scenario": 6468480.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65526840.0,
+          "sample_max_scenario": 65633760.0,
+          "sample_min_scenario": 65429280.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "seq",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 683391534.5454545,
+          "sample_max_scenario": 692775098.1818181,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 388785616.3636364,
+          "sample_max_scenario": 393846480.0,
+          "sample_min_scenario": 378609905.4545455
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23949900.0,
+          "sample_max_scenario": 24138720.0,
+          "sample_min_scenario": 23655600.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6842781.818181818,
+          "sample_max_scenario": 6963120.0,
+          "sample_min_scenario": 6760080.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 64023741.81818181,
+          "sample_max_scenario": 65691360.0,
+          "sample_min_scenario": 59864727.27272727
+        }
+      },
+      "format": "ko_schema",
+      "kind": "unforced",
+      "model": "gpt-5.6-terra",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "obj",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "seq",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "unforced",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 192,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 176947200.0,
+          "sample_max_scenario": 187170816.0,
+          "sample_min_scenario": 173015040.0
+        },
+        "private_file_bytes": {
+          "mean": 94149427.19999999,
+          "sample_max_scenario": 94881600.0,
+          "sample_min_scenario": 92600332.80000001
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 6150451.199999999,
+          "sample_max_scenario": 6874636.800000001,
+          "sample_min_scenario": 5683200.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1706217.5999999999,
+          "sample_max_scenario": 1992998.4000000001,
+          "sample_min_scenario": 1549824.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 14656070.399999999,
+          "sample_max_scenario": 14923776.0,
+          "sample_min_scenario": 14059353.600000001
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 180,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 162754560.0,
+          "sample_max_scenario": 164413440.0,
+          "sample_min_scenario": 160727040.0
+        },
+        "private_file_bytes": {
+          "mean": 88860735.0,
+          "sample_max_scenario": 89828640.0,
+          "sample_min_scenario": 87680880.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 5821020.0,
+          "sample_max_scenario": 6096960.0,
+          "sample_min_scenario": 5499360.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1632735.0,
+          "sample_max_scenario": 1708380.0,
+          "sample_min_scenario": 1512000.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 13934385.0,
+          "sample_max_scenario": 14008500.0,
+          "sample_min_scenario": 13885020.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 657653760.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 648806400.0
+        },
+        "private_file_bytes": {
+          "mean": 358211160.0,
+          "sample_max_scenario": 366139440.0,
+          "sample_min_scenario": 353517120.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22059720.0,
+          "sample_max_scenario": 23492160.0,
+          "sample_min_scenario": 21101760.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6104880.0,
+          "sample_max_scenario": 6574320.0,
+          "sample_min_scenario": 5811840.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 55600560.0,
+          "sample_max_scenario": 55812240.0,
+          "sample_min_scenario": 55456560.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 673136640.0,
+          "sample_max_scenario": 681246720.0,
+          "sample_min_scenario": 666501120.0
+        },
+        "private_file_bytes": {
+          "mean": 378927720.0,
+          "sample_max_scenario": 382633920.0,
+          "sample_min_scenario": 375879600.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22242600.0,
+          "sample_max_scenario": 23443920.0,
+          "sample_min_scenario": 20514240.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6263460.0,
+          "sample_max_scenario": 6565680.0,
+          "sample_min_scenario": 5729040.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61483860.0,
+          "sample_max_scenario": 61590240.0,
+          "sample_min_scenario": 61364880.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 663552000.0
+        },
+        "private_file_bytes": {
+          "mean": 376565400.0,
+          "sample_max_scenario": 377823600.0,
+          "sample_min_scenario": 375037200.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22849920.0,
+          "sample_max_scenario": 23333040.0,
+          "sample_min_scenario": 22209840.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6589260.0,
+          "sample_max_scenario": 6809760.0,
+          "sample_min_scenario": 6189120.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61737120.0,
+          "sample_max_scenario": 61976880.0,
+          "sample_min_scenario": 61457040.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 675348480.0,
+          "sample_min_scenario": 660602880.0
+        },
+        "private_file_bytes": {
+          "mean": 376562880.0,
+          "sample_max_scenario": 380361600.0,
+          "sample_min_scenario": 372048480.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22724100.0,
+          "sample_max_scenario": 23505120.0,
+          "sample_min_scenario": 21903120.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6469020.0,
+          "sample_max_scenario": 6719760.0,
+          "sample_min_scenario": 6157440.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61585560.0,
+          "sample_max_scenario": 61709040.0,
+          "sample_min_scenario": 61511760.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "obj",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "seq",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "unforced",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 680509440.0,
+          "sample_max_scenario": 693043200.0,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 391628340.0,
+          "sample_max_scenario": 395899920.0,
+          "sample_min_scenario": 389402640.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22954140.0,
+          "sample_max_scenario": 24253200.0,
+          "sample_min_scenario": 22090320.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6525180.0,
+          "sample_max_scenario": 6848640.0,
+          "sample_min_scenario": 6205680.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65418660.0,
+          "sample_max_scenario": 65668320.0,
+          "sample_min_scenario": 65083680.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "obj",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 678297600.0,
+          "sample_max_scenario": 684195840.0,
+          "sample_min_scenario": 672399360.0
+        },
+        "private_file_bytes": {
+          "mean": 391808880.0,
+          "sample_max_scenario": 395590320.0,
+          "sample_min_scenario": 389016000.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23767740.0,
+          "sample_max_scenario": 24361200.0,
+          "sample_min_scenario": 22554720.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6865380.0,
+          "sample_max_scenario": 7110000.0,
+          "sample_min_scenario": 6468480.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65526840.0,
+          "sample_max_scenario": 65633760.0,
+          "sample_min_scenario": 65429280.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "seq",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 683391534.5454545,
+          "sample_max_scenario": 692775098.1818181,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 388785616.3636364,
+          "sample_max_scenario": 393846480.0,
+          "sample_min_scenario": 378609905.4545455
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23949900.0,
+          "sample_max_scenario": 24138720.0,
+          "sample_min_scenario": 23655600.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6842781.818181818,
+          "sample_max_scenario": 6963120.0,
+          "sample_min_scenario": 6760080.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 64023741.81818181,
+          "sample_max_scenario": 65691360.0,
+          "sample_min_scenario": 59864727.27272727
+        }
+      },
+      "format": "ko_schema",
+      "kind": "unforced",
+      "model": "gpt-6-astra",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "obj",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "seq",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "unforced",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 192,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 176947200.0,
+          "sample_max_scenario": 187170816.0,
+          "sample_min_scenario": 173015040.0
+        },
+        "private_file_bytes": {
+          "mean": 94149427.19999999,
+          "sample_max_scenario": 94881600.0,
+          "sample_min_scenario": 92600332.80000001
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 6150451.199999999,
+          "sample_max_scenario": 6874636.800000001,
+          "sample_min_scenario": 5683200.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1706217.5999999999,
+          "sample_max_scenario": 1992998.4000000001,
+          "sample_min_scenario": 1549824.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 14656070.399999999,
+          "sample_max_scenario": 14923776.0,
+          "sample_min_scenario": 14059353.600000001
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 180,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 162754560.0,
+          "sample_max_scenario": 164413440.0,
+          "sample_min_scenario": 160727040.0
+        },
+        "private_file_bytes": {
+          "mean": 88860735.0,
+          "sample_max_scenario": 89828640.0,
+          "sample_min_scenario": 87680880.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 5821020.0,
+          "sample_max_scenario": 6096960.0,
+          "sample_min_scenario": 5499360.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1632735.0,
+          "sample_max_scenario": 1708380.0,
+          "sample_min_scenario": 1512000.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 13934385.0,
+          "sample_max_scenario": 14008500.0,
+          "sample_min_scenario": 13885020.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 657653760.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 648806400.0
+        },
+        "private_file_bytes": {
+          "mean": 358211160.0,
+          "sample_max_scenario": 366139440.0,
+          "sample_min_scenario": 353517120.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22059720.0,
+          "sample_max_scenario": 23492160.0,
+          "sample_min_scenario": 21101760.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6104880.0,
+          "sample_max_scenario": 6574320.0,
+          "sample_min_scenario": 5811840.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 55600560.0,
+          "sample_max_scenario": 55812240.0,
+          "sample_min_scenario": 55456560.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 673136640.0,
+          "sample_max_scenario": 681246720.0,
+          "sample_min_scenario": 666501120.0
+        },
+        "private_file_bytes": {
+          "mean": 378927720.0,
+          "sample_max_scenario": 382633920.0,
+          "sample_min_scenario": 375879600.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22242600.0,
+          "sample_max_scenario": 23443920.0,
+          "sample_min_scenario": 20514240.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6263460.0,
+          "sample_max_scenario": 6565680.0,
+          "sample_min_scenario": 5729040.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61483860.0,
+          "sample_max_scenario": 61590240.0,
+          "sample_min_scenario": 61364880.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 663552000.0
+        },
+        "private_file_bytes": {
+          "mean": 376565400.0,
+          "sample_max_scenario": 377823600.0,
+          "sample_min_scenario": 375037200.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22849920.0,
+          "sample_max_scenario": 23333040.0,
+          "sample_min_scenario": 22209840.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6589260.0,
+          "sample_max_scenario": 6809760.0,
+          "sample_min_scenario": 6189120.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61737120.0,
+          "sample_max_scenario": 61976880.0,
+          "sample_min_scenario": 61457040.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 675348480.0,
+          "sample_min_scenario": 660602880.0
+        },
+        "private_file_bytes": {
+          "mean": 376562880.0,
+          "sample_max_scenario": 380361600.0,
+          "sample_min_scenario": 372048480.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22724100.0,
+          "sample_max_scenario": 23505120.0,
+          "sample_min_scenario": 21903120.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6469020.0,
+          "sample_max_scenario": 6719760.0,
+          "sample_min_scenario": 6157440.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61585560.0,
+          "sample_max_scenario": 61709040.0,
+          "sample_min_scenario": 61511760.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "obj",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "seq",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "unforced",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 680509440.0,
+          "sample_max_scenario": 693043200.0,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 391628340.0,
+          "sample_max_scenario": 395899920.0,
+          "sample_min_scenario": 389402640.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22954140.0,
+          "sample_max_scenario": 24253200.0,
+          "sample_min_scenario": 22090320.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6525180.0,
+          "sample_max_scenario": 6848640.0,
+          "sample_min_scenario": 6205680.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65418660.0,
+          "sample_max_scenario": 65668320.0,
+          "sample_min_scenario": 65083680.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "obj",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 678297600.0,
+          "sample_max_scenario": 684195840.0,
+          "sample_min_scenario": 672399360.0
+        },
+        "private_file_bytes": {
+          "mean": 391808880.0,
+          "sample_max_scenario": 395590320.0,
+          "sample_min_scenario": 389016000.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23767740.0,
+          "sample_max_scenario": 24361200.0,
+          "sample_min_scenario": 22554720.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6865380.0,
+          "sample_max_scenario": 7110000.0,
+          "sample_min_scenario": 6468480.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65526840.0,
+          "sample_max_scenario": 65633760.0,
+          "sample_min_scenario": 65429280.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "seq",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 683391534.5454545,
+          "sample_max_scenario": 692775098.1818181,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 388785616.3636364,
+          "sample_max_scenario": 393846480.0,
+          "sample_min_scenario": 378609905.4545455
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23949900.0,
+          "sample_max_scenario": 24138720.0,
+          "sample_min_scenario": 23655600.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6842781.818181818,
+          "sample_max_scenario": 6963120.0,
+          "sample_min_scenario": 6760080.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 64023741.81818181,
+          "sample_max_scenario": 65691360.0,
+          "sample_min_scenario": 59864727.27272727
+        }
+      },
+      "format": "ko_schema",
+      "kind": "unforced",
+      "model": "gpt-6-luna",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "obj",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "seq",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "unforced",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 192,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 176947200.0,
+          "sample_max_scenario": 187170816.0,
+          "sample_min_scenario": 173015040.0
+        },
+        "private_file_bytes": {
+          "mean": 94149427.19999999,
+          "sample_max_scenario": 94881600.0,
+          "sample_min_scenario": 92600332.80000001
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 6150451.199999999,
+          "sample_max_scenario": 6874636.800000001,
+          "sample_min_scenario": 5683200.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1706217.5999999999,
+          "sample_max_scenario": 1992998.4000000001,
+          "sample_min_scenario": 1549824.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 14656070.399999999,
+          "sample_max_scenario": 14923776.0,
+          "sample_min_scenario": 14059353.600000001
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 180,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 162754560.0,
+          "sample_max_scenario": 164413440.0,
+          "sample_min_scenario": 160727040.0
+        },
+        "private_file_bytes": {
+          "mean": 88860735.0,
+          "sample_max_scenario": 89828640.0,
+          "sample_min_scenario": 87680880.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 5821020.0,
+          "sample_max_scenario": 6096960.0,
+          "sample_min_scenario": 5499360.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1632735.0,
+          "sample_max_scenario": 1708380.0,
+          "sample_min_scenario": 1512000.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 13934385.0,
+          "sample_max_scenario": 14008500.0,
+          "sample_min_scenario": 13885020.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 657653760.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 648806400.0
+        },
+        "private_file_bytes": {
+          "mean": 358211160.0,
+          "sample_max_scenario": 366139440.0,
+          "sample_min_scenario": 353517120.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22059720.0,
+          "sample_max_scenario": 23492160.0,
+          "sample_min_scenario": 21101760.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6104880.0,
+          "sample_max_scenario": 6574320.0,
+          "sample_min_scenario": 5811840.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 55600560.0,
+          "sample_max_scenario": 55812240.0,
+          "sample_min_scenario": 55456560.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 673136640.0,
+          "sample_max_scenario": 681246720.0,
+          "sample_min_scenario": 666501120.0
+        },
+        "private_file_bytes": {
+          "mean": 378927720.0,
+          "sample_max_scenario": 382633920.0,
+          "sample_min_scenario": 375879600.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22242600.0,
+          "sample_max_scenario": 23443920.0,
+          "sample_min_scenario": 20514240.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6263460.0,
+          "sample_max_scenario": 6565680.0,
+          "sample_min_scenario": 5729040.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61483860.0,
+          "sample_max_scenario": 61590240.0,
+          "sample_min_scenario": 61364880.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 663552000.0
+        },
+        "private_file_bytes": {
+          "mean": 376565400.0,
+          "sample_max_scenario": 377823600.0,
+          "sample_min_scenario": 375037200.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22849920.0,
+          "sample_max_scenario": 23333040.0,
+          "sample_min_scenario": 22209840.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6589260.0,
+          "sample_max_scenario": 6809760.0,
+          "sample_min_scenario": 6189120.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61737120.0,
+          "sample_max_scenario": 61976880.0,
+          "sample_min_scenario": 61457040.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 675348480.0,
+          "sample_min_scenario": 660602880.0
+        },
+        "private_file_bytes": {
+          "mean": 376562880.0,
+          "sample_max_scenario": 380361600.0,
+          "sample_min_scenario": 372048480.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22724100.0,
+          "sample_max_scenario": 23505120.0,
+          "sample_min_scenario": 21903120.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6469020.0,
+          "sample_max_scenario": 6719760.0,
+          "sample_min_scenario": 6157440.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61585560.0,
+          "sample_max_scenario": 61709040.0,
+          "sample_min_scenario": 61511760.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "obj",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "seq",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "unforced",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 680509440.0,
+          "sample_max_scenario": 693043200.0,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 391628340.0,
+          "sample_max_scenario": 395899920.0,
+          "sample_min_scenario": 389402640.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22954140.0,
+          "sample_max_scenario": 24253200.0,
+          "sample_min_scenario": 22090320.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6525180.0,
+          "sample_max_scenario": 6848640.0,
+          "sample_min_scenario": 6205680.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65418660.0,
+          "sample_max_scenario": 65668320.0,
+          "sample_min_scenario": 65083680.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "obj",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 678297600.0,
+          "sample_max_scenario": 684195840.0,
+          "sample_min_scenario": 672399360.0
+        },
+        "private_file_bytes": {
+          "mean": 391808880.0,
+          "sample_max_scenario": 395590320.0,
+          "sample_min_scenario": 389016000.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23767740.0,
+          "sample_max_scenario": 24361200.0,
+          "sample_min_scenario": 22554720.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6865380.0,
+          "sample_max_scenario": 7110000.0,
+          "sample_min_scenario": 6468480.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65526840.0,
+          "sample_max_scenario": 65633760.0,
+          "sample_min_scenario": 65429280.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "seq",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 683391534.5454545,
+          "sample_max_scenario": 692775098.1818181,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 388785616.3636364,
+          "sample_max_scenario": 393846480.0,
+          "sample_min_scenario": 378609905.4545455
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23949900.0,
+          "sample_max_scenario": 24138720.0,
+          "sample_min_scenario": 23655600.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6842781.818181818,
+          "sample_max_scenario": 6963120.0,
+          "sample_min_scenario": 6760080.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 64023741.81818181,
+          "sample_max_scenario": 65691360.0,
+          "sample_min_scenario": 59864727.27272727
+        }
+      },
+      "format": "ko_schema",
+      "kind": "unforced",
+      "model": "gpt-6-sol",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "obj",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "seq",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "unforced",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 192,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 176947200.0,
+          "sample_max_scenario": 187170816.0,
+          "sample_min_scenario": 173015040.0
+        },
+        "private_file_bytes": {
+          "mean": 94149427.19999999,
+          "sample_max_scenario": 94881600.0,
+          "sample_min_scenario": 92600332.80000001
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 6150451.199999999,
+          "sample_max_scenario": 6874636.800000001,
+          "sample_min_scenario": 5683200.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1706217.5999999999,
+          "sample_max_scenario": 1992998.4000000001,
+          "sample_min_scenario": 1549824.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 14656070.399999999,
+          "sample_max_scenario": 14923776.0,
+          "sample_min_scenario": 14059353.600000001
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 180,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 162754560.0,
+          "sample_max_scenario": 164413440.0,
+          "sample_min_scenario": 160727040.0
+        },
+        "private_file_bytes": {
+          "mean": 88860735.0,
+          "sample_max_scenario": 89828640.0,
+          "sample_min_scenario": 87680880.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 5821020.0,
+          "sample_max_scenario": 6096960.0,
+          "sample_min_scenario": 5499360.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1632735.0,
+          "sample_max_scenario": 1708380.0,
+          "sample_min_scenario": 1512000.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 13934385.0,
+          "sample_max_scenario": 14008500.0,
+          "sample_min_scenario": 13885020.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 657653760.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 648806400.0
+        },
+        "private_file_bytes": {
+          "mean": 358211160.0,
+          "sample_max_scenario": 366139440.0,
+          "sample_min_scenario": 353517120.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22059720.0,
+          "sample_max_scenario": 23492160.0,
+          "sample_min_scenario": 21101760.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6104880.0,
+          "sample_max_scenario": 6574320.0,
+          "sample_min_scenario": 5811840.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 55600560.0,
+          "sample_max_scenario": 55812240.0,
+          "sample_min_scenario": 55456560.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 673136640.0,
+          "sample_max_scenario": 681246720.0,
+          "sample_min_scenario": 666501120.0
+        },
+        "private_file_bytes": {
+          "mean": 378927720.0,
+          "sample_max_scenario": 382633920.0,
+          "sample_min_scenario": 375879600.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22242600.0,
+          "sample_max_scenario": 23443920.0,
+          "sample_min_scenario": 20514240.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6263460.0,
+          "sample_max_scenario": 6565680.0,
+          "sample_min_scenario": 5729040.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61483860.0,
+          "sample_max_scenario": 61590240.0,
+          "sample_min_scenario": 61364880.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 663552000.0
+        },
+        "private_file_bytes": {
+          "mean": 376565400.0,
+          "sample_max_scenario": 377823600.0,
+          "sample_min_scenario": 375037200.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22849920.0,
+          "sample_max_scenario": 23333040.0,
+          "sample_min_scenario": 22209840.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6589260.0,
+          "sample_max_scenario": 6809760.0,
+          "sample_min_scenario": 6189120.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61737120.0,
+          "sample_max_scenario": 61976880.0,
+          "sample_min_scenario": 61457040.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 675348480.0,
+          "sample_min_scenario": 660602880.0
+        },
+        "private_file_bytes": {
+          "mean": 376562880.0,
+          "sample_max_scenario": 380361600.0,
+          "sample_min_scenario": 372048480.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22724100.0,
+          "sample_max_scenario": 23505120.0,
+          "sample_min_scenario": 21903120.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6469020.0,
+          "sample_max_scenario": 6719760.0,
+          "sample_min_scenario": 6157440.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61585560.0,
+          "sample_max_scenario": 61709040.0,
+          "sample_min_scenario": 61511760.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "obj",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "seq",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "unforced",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 680509440.0,
+          "sample_max_scenario": 693043200.0,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 391628340.0,
+          "sample_max_scenario": 395899920.0,
+          "sample_min_scenario": 389402640.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22954140.0,
+          "sample_max_scenario": 24253200.0,
+          "sample_min_scenario": 22090320.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6525180.0,
+          "sample_max_scenario": 6848640.0,
+          "sample_min_scenario": 6205680.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65418660.0,
+          "sample_max_scenario": 65668320.0,
+          "sample_min_scenario": 65083680.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "obj",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 678297600.0,
+          "sample_max_scenario": 684195840.0,
+          "sample_min_scenario": 672399360.0
+        },
+        "private_file_bytes": {
+          "mean": 391808880.0,
+          "sample_max_scenario": 395590320.0,
+          "sample_min_scenario": 389016000.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23767740.0,
+          "sample_max_scenario": 24361200.0,
+          "sample_min_scenario": 22554720.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6865380.0,
+          "sample_max_scenario": 7110000.0,
+          "sample_min_scenario": 6468480.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65526840.0,
+          "sample_max_scenario": 65633760.0,
+          "sample_min_scenario": 65429280.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "seq",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 683391534.5454545,
+          "sample_max_scenario": 692775098.1818181,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 388785616.3636364,
+          "sample_max_scenario": 393846480.0,
+          "sample_min_scenario": 378609905.4545455
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23949900.0,
+          "sample_max_scenario": 24138720.0,
+          "sample_min_scenario": 23655600.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6842781.818181818,
+          "sample_max_scenario": 6963120.0,
+          "sample_min_scenario": 6760080.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 64023741.81818181,
+          "sample_max_scenario": 65691360.0,
+          "sample_min_scenario": 59864727.27272727
+        }
+      },
+      "format": "ko_schema",
+      "kind": "unforced",
+      "model": "gpt-6.1-sol",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "obj",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "seq",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "en_natural",
+      "kind": "unforced",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 192,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 176947200.0,
+          "sample_max_scenario": 187170816.0,
+          "sample_min_scenario": 173015040.0
+        },
+        "private_file_bytes": {
+          "mean": 94149427.19999999,
+          "sample_max_scenario": 94881600.0,
+          "sample_min_scenario": 92600332.80000001
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 6150451.199999999,
+          "sample_max_scenario": 6874636.800000001,
+          "sample_min_scenario": 5683200.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1706217.5999999999,
+          "sample_max_scenario": 1992998.4000000001,
+          "sample_min_scenario": 1549824.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 14656070.399999999,
+          "sample_max_scenario": 14923776.0,
+          "sample_min_scenario": 14059353.600000001
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 180,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 162754560.0,
+          "sample_max_scenario": 164413440.0,
+          "sample_min_scenario": 160727040.0
+        },
+        "private_file_bytes": {
+          "mean": 88860735.0,
+          "sample_max_scenario": 89828640.0,
+          "sample_min_scenario": 87680880.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 5821020.0,
+          "sample_max_scenario": 6096960.0,
+          "sample_min_scenario": 5499360.0
+        },
+        "public_gzip_bytes": {
+          "mean": 1632735.0,
+          "sample_max_scenario": 1708380.0,
+          "sample_min_scenario": 1512000.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 13934385.0,
+          "sample_max_scenario": 14008500.0,
+          "sample_min_scenario": 13885020.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "R_A",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 657653760.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 648806400.0
+        },
+        "private_file_bytes": {
+          "mean": 358211160.0,
+          "sample_max_scenario": 366139440.0,
+          "sample_min_scenario": 353517120.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22059720.0,
+          "sample_max_scenario": 23492160.0,
+          "sample_min_scenario": 21101760.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6104880.0,
+          "sample_max_scenario": 6574320.0,
+          "sample_min_scenario": 5811840.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 55600560.0,
+          "sample_max_scenario": 55812240.0,
+          "sample_min_scenario": 55456560.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "R",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 673136640.0,
+          "sample_max_scenario": 681246720.0,
+          "sample_min_scenario": 666501120.0
+        },
+        "private_file_bytes": {
+          "mean": 378927720.0,
+          "sample_max_scenario": 382633920.0,
+          "sample_min_scenario": 375879600.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22242600.0,
+          "sample_max_scenario": 23443920.0,
+          "sample_min_scenario": 20514240.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6263460.0,
+          "sample_max_scenario": 6565680.0,
+          "sample_min_scenario": 5729040.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61483860.0,
+          "sample_max_scenario": 61590240.0,
+          "sample_min_scenario": 61364880.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "obj",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 672399360.0,
+          "sample_min_scenario": 663552000.0
+        },
+        "private_file_bytes": {
+          "mean": 376565400.0,
+          "sample_max_scenario": 377823600.0,
+          "sample_min_scenario": 375037200.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22849920.0,
+          "sample_max_scenario": 23333040.0,
+          "sample_min_scenario": 22209840.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6589260.0,
+          "sample_max_scenario": 6809760.0,
+          "sample_min_scenario": 6189120.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61737120.0,
+          "sample_max_scenario": 61976880.0,
+          "sample_min_scenario": 61457040.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "seq",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "en_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 668712960.0,
+          "sample_max_scenario": 675348480.0,
+          "sample_min_scenario": 660602880.0
+        },
+        "private_file_bytes": {
+          "mean": 376562880.0,
+          "sample_max_scenario": 380361600.0,
+          "sample_min_scenario": 372048480.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22724100.0,
+          "sample_max_scenario": 23505120.0,
+          "sample_min_scenario": 21903120.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6469020.0,
+          "sample_max_scenario": 6719760.0,
+          "sample_min_scenario": 6157440.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 61585560.0,
+          "sample_max_scenario": 61709040.0,
+          "sample_min_scenario": 61511760.0
+        }
+      },
+      "format": "en_schema",
+      "kind": "unforced",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "A",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 499920523.6363636,
+          "sample_max_scenario": 507427374.54545456,
+          "sample_min_scenario": 495452160.0
+        },
+        "private_file_bytes": {
+          "mean": 300858163.6363636,
+          "sample_max_scenario": 303484494.54545456,
+          "sample_min_scenario": 298236960.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18539874.545454547,
+          "sample_max_scenario": 19296720.0,
+          "sample_min_scenario": 17526960.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5432601.818181818,
+          "sample_max_scenario": 5754960.0,
+          "sample_min_scenario": 5119287.2727272725
+        },
+        "public_jsonl_bytes": {
+          "mean": 44893200.0,
+          "sample_max_scenario": 45675360.0,
+          "sample_min_scenario": 43884480.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "obj",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 496926720.0,
+          "sample_max_scenario": 504299520.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 300225420.0,
+          "sample_max_scenario": 303963840.0,
+          "sample_min_scenario": 296819280.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 19017000.0,
+          "sample_max_scenario": 19805040.0,
+          "sample_min_scenario": 18133920.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5714100.0,
+          "sample_max_scenario": 5993280.0,
+          "sample_min_scenario": 5391360.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45229140.0,
+          "sample_max_scenario": 45570960.0,
+          "sample_min_scenario": 45023040.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "seq",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_natural",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 500613120.0,
+          "sample_max_scenario": 510197760.0,
+          "sample_min_scenario": 492503040.0
+        },
+        "private_file_bytes": {
+          "mean": 299997900.0,
+          "sample_max_scenario": 304032240.0,
+          "sample_min_scenario": 296557920.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 18830880.0,
+          "sample_max_scenario": 19476720.0,
+          "sample_min_scenario": 18035280.0
+        },
+        "public_gzip_bytes": {
+          "mean": 5596380.0,
+          "sample_max_scenario": 5737680.0,
+          "sample_min_scenario": 5315760.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 45030420.0,
+          "sample_max_scenario": 45430560.0,
+          "sample_min_scenario": 44859600.0
+        }
+      },
+      "format": "ko_natural",
+      "kind": "unforced",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "F",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 680509440.0,
+          "sample_max_scenario": 693043200.0,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 391628340.0,
+          "sample_max_scenario": 395899920.0,
+          "sample_min_scenario": 389402640.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 22954140.0,
+          "sample_max_scenario": 24253200.0,
+          "sample_min_scenario": 22090320.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6525180.0,
+          "sample_max_scenario": 6848640.0,
+          "sample_min_scenario": 6205680.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65418660.0,
+          "sample_max_scenario": 65668320.0,
+          "sample_min_scenario": 65083680.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "obj",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 678297600.0,
+          "sample_max_scenario": 684195840.0,
+          "sample_min_scenario": 672399360.0
+        },
+        "private_file_bytes": {
+          "mean": 391808880.0,
+          "sample_max_scenario": 395590320.0,
+          "sample_min_scenario": 389016000.0
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23767740.0,
+          "sample_max_scenario": 24361200.0,
+          "sample_min_scenario": 22554720.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6865380.0,
+          "sample_max_scenario": 7110000.0,
+          "sample_min_scenario": 6468480.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 65526840.0,
+          "sample_max_scenario": 65633760.0,
+          "sample_min_scenario": 65429280.0
+        }
+      },
+      "format": "ko_schema",
+      "kind": "seq",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    },
+    {
+      "arm": "ko_schema",
+      "conversations": 720,
+      "estimates": {
+        "private_file_allocated_bytes": {
+          "mean": 683391534.5454545,
+          "sample_max_scenario": 692775098.1818181,
+          "sample_min_scenario": 675348480.0
+        },
+        "private_file_bytes": {
+          "mean": 388785616.3636364,
+          "sample_max_scenario": 393846480.0,
+          "sample_min_scenario": 378609905.4545455
+        },
+        "private_tar_gzip_bytes": {
+          "mean": 23949900.0,
+          "sample_max_scenario": 24138720.0,
+          "sample_min_scenario": 23655600.0
+        },
+        "public_gzip_bytes": {
+          "mean": 6842781.818181818,
+          "sample_max_scenario": 6963120.0,
+          "sample_min_scenario": 6760080.0
+        },
+        "public_jsonl_bytes": {
+          "mean": 64023741.81818181,
+          "sample_max_scenario": 65691360.0,
+          "sample_min_scenario": 59864727.27272727
+        }
+      },
+      "format": "ko_schema",
+      "kind": "unforced",
+      "model": "gpt-6.1-terra",
+      "pre_storage_proxy_arm": "K",
+      "reference_conversations": 4
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 **ENABLED — 작업 선점·실행 허용**
 
 - 실행: `equivoque-2026-11-07-exp7-main-v2`
-- 갱신 시각: 2026-11-07T21:26:41+00:00 (UTC)
+- 갱신 시각: 2026-11-07T21:26:44+00:00 (UTC)
 - 상태 사유: Reviewed CLI catalog429 after cooldown; user-authorized Astra2 continuation, preserve interruptions
 - 예약 병렬 수 / 전역 상한: **18 / 30**
 - 배정: **77,856대화 · 2,600작업**

@@ -5,20 +5,18 @@
 ## 실행 자료
 
 - 실행 소스: `experiment/exp7-main-v2-2026-11-07` 브랜치
-- 동결 실행 묶음: GitHub release `exp7-main-v2-2026-11-07`
+- 동결 실행 묶음: `exp7/main-v2-distribution` 브랜치
 - 공통 현황판: `exp7/main-v2-coordination` 브랜치
 - 결과: `exp7/main-v2-results/<model>` 브랜치
 - 실행 배정: `manifests/equivoque-2026-11-07-exp7-main-v2`
 
-전체 레포의 과거 기록을 새 환경마다 복제할 필요가 없다. release의 작은 동결 소스 묶음에는 실행에 필요한 파일과 정확한 배정·해시만 포함된다. GitHub의 자동 생성 `Source code.zip` 대신 **`exp7-main-v2-source.tar.gz`**를 받는다.
+전체 레포의 과거 기록을 새 환경마다 복제할 필요가 없다. 배포 브랜치의 작은 동결 소스 묶음에는 실행에 필요한 파일과 정확한 배정·해시만 포함된다. **`exp7-main-v2-source.tar.gz`와 `SHA256SUMS`** 두 파일만 받는다. 릴리스 첨부 업로드는 인증 오류로 사용하지 않는다.
 
 ```bash
 mkdir -p /workspace/work/exp7-v2-download
-gh release download exp7-main-v2-2026-11-07 \
-  --repo dasnidm/llm-equivoque-experiments \
-  --pattern exp7-main-v2-source.tar.gz --pattern SHA256SUMS \
-  --dir /workspace/work/exp7-v2-download
 cd /workspace/work/exp7-v2-download
+curl --fail --location https://raw.githubusercontent.com/dasnidm/llm-equivoque-experiments/refs/heads/exp7/main-v2-distribution/exp7-main-v2-source.tar.gz --output exp7-main-v2-source.tar.gz
+curl --fail --location https://raw.githubusercontent.com/dasnidm/llm-equivoque-experiments/refs/heads/exp7/main-v2-distribution/SHA256SUMS --output SHA256SUMS
 sha256sum -c SHA256SUMS
 tar -xzf exp7-main-v2-source.tar.gz
 cd exp7-main-v2
@@ -35,7 +33,7 @@ python -m exp7_main_v2.worker verify \
 실험 7 v2 worker 하나를 이 환경에서 실행해줘.
 저장소는 https://github.com/dasnidm/llm-equivoque-experiments 이야.
 experiment/exp7-main-v2-2026-11-07 브랜치의 exp7_main_v2/README.md를 읽어.
-전체 과거 레포를 추가 복제하지 말고 release exp7-main-v2-2026-11-07의
+전체 과거 레포를 추가 복제하지 말고 exp7/main-v2-distribution 브랜치의
 exp7-main-v2-source.tar.gz와 SHA256SUMS를 받아 검증해.
 Codex와 GitHub 인증을 확인하고 필요하면 device login을 열어줘.
 --model auto --concurrency 1로 빈 모델 하나를 선점해.

@@ -242,6 +242,8 @@ def release_hold(coordinator, work_dir, operation_dir, old_worker_pid, old_super
     with operation_lock(operation_dir) as (directory,hold), quiescent_worker(work_dir,old_worker_pid,old_supervisor_pid):
         audit=read(directory/"capacity.private.json")
         bound=read(work_dir/"identity.private.json")
+        if any(bound.get(key) != hold.get(key) for key in ("run_id","model","owner","model_token")):
+            raise OwnershipError("Local model ownership or run identity differs from administrative hold")
         frozen,freeze_digest=verify_freeze(freeze_path)
         plan=load_bundle(ROOT/frozen["bundle"])
         if audit["status"] not in ("local_resized","released") or bound["concurrency"] != audit["target_concurrency"]:

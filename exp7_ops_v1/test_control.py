@@ -8,7 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from exp7_main_v2.coordination import GitCoordinator, new_board, Conflict, NoCapacity
+from exp7_main_v2.coordination import GitCoordinator, new_board, Conflict, NoCapacity, OwnershipError
 from exp7_ops_v1.control import (
     _validate_hold, atomic_json, read, reserve_target, resize_local, release_hold,
     verify_capacity_evidence,
@@ -167,6 +167,26 @@ class ControlTests(unittest.TestCase):
         with self.assertRaises(Conflict):
             self.release()
         self.assertEqual(self.coord.status()["jobs"]["j3"],self.hold["held_job"])
+
+    def test_release_rejects_substituted_local_identity_before_validating_readiness(self):
+        self.resized()
+        identity_path=self.work/"identity.private.json"
+        original=read(identity_path)
+        for field in ("run_id","model","owner","model_token"):
+            with self.subTest(field=field):
+                atomic_json(identity_path,{**original,field:"different-"+field})
+                with patch("exp7_ops_v1.control.process_alive",return_value=False), \
+                     patch("exp7_main_v2.worker.verify_freeze") as freeze, \
+                     patch("exp7_main_v2.worker.verify_readiness") as readiness:
+                    with self.assertRaises(OwnershipError):
+                        release_hold(self.coord,self.work,self.op,100001,100002,
+                                     "c10-01",self.root/"freeze.json")
+                    freeze.assert_not_called()
+                    readiness.assert_not_called()
+                self.assertEqual(self.coord.status()["jobs"]["j3"],self.hold["held_job"])
+                self.assertFalse(any(e.get("action")=="release_queue_hold"
+                                     for e in self.coord.status()["operational_events"]))
+        atomic_json(identity_path,original)
 
     def test_capacity_evidence_rejects_prior_attempt_and_insufficient_overlap(self):
         audit=self.resized()

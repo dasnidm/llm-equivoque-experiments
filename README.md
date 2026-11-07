@@ -1,10 +1,10 @@
 # 실험 7 작업 현황
 
-**STOP — 새 호출 중단**
+**ENABLED — 작업 선점·실행 허용**
 
 - 실행: `equivoque-2026-11-07-exp7-main-v2`
-- 갱신 시각: 2026-11-07T15:01:09+00:00 (UTC)
-- 상태 사유: Astra c10-02 also halted on CLI catalog429 (8diagnostics,100generationOK); staticcatalog full-runtime mitigation ineffective; preparing originalCLI3 fallback; preserve STOP
+- 갱신 시각: 2026-11-07T15:01:34+00:00 (UTC)
+- 상태 사유: User explicitly requested continue3; Astra originalCLI3 reservation restored, previous readiness01 verified; failed10attempts preserved
 - 예약 병렬 수 / 전역 상한: **13 / 30**
 - 배정: **77,856대화 · 2,600작업**
 - 보고된 대화: 완료 **83**, 실패 **0**, 중단 **3**, 미시작·미보고 **77,770**

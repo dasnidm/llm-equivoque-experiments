@@ -20,7 +20,7 @@ import sys
 import tempfile
 
 
-VERSION = "1"
+VERSION = "2"
 EXPECTED_VERSION = "codex-cli 0.159.0-alpha.3"
 SOURCE_ROOT = "https://github.com/openai/codex/blob/rust-v0.159.0-alpha.3/codex-rs/"
 
@@ -110,7 +110,10 @@ def prepare_install(cache_path, install_dir, real_binary, allowed_models):
                 "source_evidence": [SOURCE_ROOT+"core/src/config/mod.rs#L4056",
                                     SOURCE_ROOT+"model-provider/src/provider.rs#L544",
                                     SOURCE_ROOT+"models-manager/src/manager.rs#L647",
-                                    SOURCE_ROOT+"models-manager/src/lib.rs#L18"],
+                                    SOURCE_ROOT+"models-manager/src/lib.rs#L18",
+                                    SOURCE_ROOT+"protocol/src/openai_models.rs#L864",
+                                    SOURCE_ROOT+"cli/src/main.rs#L1134",
+                                    SOURCE_ROOT+"exec/src/lib.rs#L334"],
                 "binary_verification": "Full SHA256 at install/launch; every invocation checks device/inode/size/mtime/ctime"}
     manifest_path = install / "manifest.private.json"
     write_new(manifest_path, encoded(manifest) + b"\n")
@@ -210,6 +213,34 @@ def shim_main(manifest_path, manifest_sha, argv):
         return 78
 
 
+def validate_rendered_catalog(expected, actual):
+    """Allow only the documented duplicate legacy field, verifying its value.
+
+    In this exact CLI version ModelsResponse serializes base_instructions as
+    a literal copy of model_messages.instructions_template. The file cache
+    serializes ModelInfo directly and therefore omits that duplicate field.
+    No original field or instruction is dropped, normalized, or replaced.
+    """
+    if actual == expected:
+        return 0
+    if not isinstance(actual, dict) or set(actual) != {"models"} or not isinstance(actual["models"], list):
+        raise CatalogError("Rendered catalog structure differs")
+    if len(actual["models"]) != len(expected["models"]):
+        raise CatalogError("Rendered catalog model count differs")
+    rendered = json.loads(json.dumps(actual))
+    mirrored = 0
+    for original, model in zip(expected["models"], rendered["models"]):
+        if "base_instructions" not in original and "base_instructions" in model:
+            template = (original.get("model_messages") or {}).get("instructions_template")
+            if not isinstance(template, str) or model["base_instructions"] != template:
+                raise CatalogError("Derived legacy instruction field differs from the original template")
+            del model["base_instructions"]
+            mirrored += 1
+    if rendered != expected:
+        raise CatalogError("Original model catalog metadata differs")
+    return mirrored
+
+
 def validate_debug(manifest_path, manifest_sha):
     """Non-inference validation against the installed CLI with an empty CLI home."""
     manifest = verify_install(manifest_path, manifest_sha, rehash_binary=True)
@@ -221,11 +252,14 @@ def validate_debug(manifest_path, manifest_sha):
         result = subprocess.run([manifest["real_binary"], "-c", override, "debug", "models"],
                                 stdin=subprocess.DEVNULL, capture_output=True, text=True,
                                 env={**os.environ, "CODEX_HOME": home}, timeout=30)
-    if result.returncode or json.loads(result.stdout) != expected:
+    if result.returncode:
         raise CatalogError("Installed CLI did not render the exact captured live catalog")
+    mirrors = validate_rendered_catalog(expected, json.loads(result.stdout))
     if any(text in result.stderr.lower() for text in ("failed to refresh", "429", "fallback metadata")):
         raise CatalogError("Unexpected catalog refresh/fallback diagnostic during static validation")
-    return {"exact_model_catalog_equal": True, "model_count": len(expected["models"]),
+    return {"exact_original_model_fields_equal": True, "model_count": len(expected["models"]),
+            "verified_derived_legacy_field_count": mirrors,
+            "derived_field_rule": "Each added base_instructions must exactly equal the existing instructions_template",
             "cli_version": manifest["cli_version"], "binary_full_hash_verified": True,
             "new_model_calls": 0, "path_activated": False,
             "network_assertion": "Static manager source path; debug output alone is not a packet trace"}

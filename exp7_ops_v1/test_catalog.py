@@ -128,13 +128,28 @@ class CatalogTests(unittest.TestCase):
 
     def test_debug_validation_is_noninference_and_requires_exact_catalog(self):
         result = catalog.validate_debug(self.manifest_path, self.receipt["manifest_sha256"])
-        self.assertTrue(result["exact_model_catalog_equal"])
+        self.assertTrue(result["exact_original_model_fields_equal"])
         self.assertEqual(result["new_model_calls"], 0)
         self.assertFalse(Path(self.manifest["invocation_audit"]).exists())
         changed = subprocess.CompletedProcess([], 0, '{"models": []}', '')
         with patch.object(catalog.subprocess, "run", return_value=changed):
             with self.assertRaises(catalog.CatalogError):
                 catalog.validate_debug(self.manifest_path, self.receipt["manifest_sha256"])
+
+    def test_only_exact_documented_legacy_instruction_mirror_is_accepted(self):
+        expected = {"models": [{"slug": "test", "model_messages": {"instructions_template": "original"},
+                                "context_window": 100}]}
+        actual = json.loads(json.dumps(expected))
+        actual["models"][0]["base_instructions"] = "original"
+        self.assertEqual(catalog.validate_rendered_catalog(expected, actual), 1)
+        self.assertNotIn("base_instructions", expected["models"][0])
+        for field, value in (("base_instructions", "changed"), ("context_window", 101),
+                             ("unexpected_field", "ignored"), ("slug", "different")):
+            with self.subTest(field=field):
+                changed = json.loads(json.dumps(actual))
+                changed["models"][0][field] = value
+                with self.assertRaises(catalog.CatalogError):
+                    catalog.validate_rendered_catalog(expected, changed)
 
 
 if __name__ == "__main__":

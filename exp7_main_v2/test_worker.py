@@ -16,7 +16,9 @@ from exp7_main.test_protocol import example
 from exp7_main.test_runner import FakeTransport
 from .worker import (PermissionGate, ResultPublisher, bind_model, calibration_trials,
                      calibration_valid, execute_job, export_job, job_identity, public_state,
-                     sha, verify_freeze, StorageMonitor, heartbeat_due, finalize_job, archive_backlog)
+                     sha, verify_freeze, StorageMonitor, heartbeat_due, finalize_job, archive_backlog,
+                     transport_profile, verify_transport_profile, verify_readiness, source_paths,
+                     GatedTransport)
 from exp7_pre.runner import atomic_json
 
 
@@ -156,6 +158,112 @@ class WorkerTests(unittest.TestCase):
         gate.observe({"text":"429 401 Unauthorized", "events":[{"type":"item.completed","item":{"type":"agent_message","text":"429"}}]})
         self.assertFalse(gate.stopped.is_set())
 
+    def test_successful_catalog_429_preserves_response_and_cools_worker(self):
+        c = FakeCoordinator()
+        gate = PermissionGate(c, "fake", "vm", "token", allow_catalog_recovery=True)
+        response = {"ok": True, "text": "preserved answer", "events": [],
+                    "stderr": "ERROR codex_models_manager::manager: failed to refresh available models: 429 Too Many Requests",
+                    "retry_after_seconds": 120}
+        with patch("exp7_main_v2.worker.time.monotonic", return_value=10):
+            gate.observe(response)
+        self.assertFalse(gate.stopped.is_set())
+        self.assertFalse(c.board["global_stop"])
+        self.assertEqual(response["text"], "preserved answer")
+        self.assertEqual(response["catalog_rate_limit"]["seconds"], 120)
+        self.assertEqual(gate._cooldown_until, 130)
+        # A remote stop must still be noticed before a delayed next request.
+        c.board["global_stop"] = True
+        with self.assertRaisesRegex(RuntimeError, "Permission stopped"):
+            gate.check()
+
+    def test_catalog_recovery_is_narrow_and_never_hides_response_or_auth_errors(self):
+        catalog = "ERROR codex_models_manager::manager: failed to refresh available models: 429 Too Many Requests"
+        variants = [
+            {"ok": False, "stderr": catalog},
+            {"ok": True, "stderr": catalog + "\n401 Unauthorized"},
+            {"ok": True, "stderr": catalog + "\nresponses: 429 Too Many Requests"},
+            {"ok": True, "stderr": catalog, "events": [{"type": "error", "message": "429 Too Many Requests"}]},
+            {"ok": True, "stderr": "unclassified 429 Too Many Requests"},
+        ]
+        for response in variants:
+            c = FakeCoordinator()
+            gate = PermissionGate(c, "fake", "vm", "token", allow_catalog_recovery=True)
+            gate.observe(response)
+            self.assertTrue(gate.stopped.is_set(), response)
+            self.assertTrue(c.board["global_stop"], response)
+        c = FakeCoordinator()
+        legacy = PermissionGate(c, "fake", "vm", "token")
+        legacy.observe({"ok": True, "stderr": catalog})
+        self.assertTrue(legacy.stopped.is_set())
+
+    def test_catalog_cooldown_delays_even_forced_permission_checks(self):
+        gate = PermissionGate(FakeCoordinator(), "fake", "vm", "token", allow_catalog_recovery=True)
+        gate._cooldown_until = 130
+        with patch.object(gate, "_check_permission") as permission:
+            with patch.object(gate.stopped, "wait", return_value=False) as wait_for_stop:
+                with patch("exp7_main_v2.worker.time.monotonic", side_effect=[10, 129, 130]):
+                    gate.check(force=True)
+        self.assertIsNone(gate._cooldown_until)
+        self.assertEqual(wait_for_stop.call_count, 2)
+        self.assertEqual(permission.call_count, 3)
+
+    def test_transport_profile_binds_catalog_contents_and_blocks_old_freeze_switch(self):
+        native = transport_profile()
+        verify_transport_profile({}, native)
+        catalog = self.root / "catalog.json"
+        catalog.write_text('{"models": []}')
+        selected = transport_profile("persistent", 0.5, catalog)
+        with self.assertRaisesRegex(ValueError, "differ from freeze"):
+            verify_transport_profile({}, selected)
+        verify_transport_profile({"transport_profile": selected}, selected)
+        copied = self.root / "catalog-copy.json"
+        copied.write_bytes(catalog.read_bytes())
+        verify_transport_profile({"transport_profile": selected}, transport_profile("persistent", 0.5, copied))
+        catalog.write_text('{"models": ["changed"]}')
+        with self.assertRaisesRegex(ValueError, "differ from freeze"):
+            verify_transport_profile({"transport_profile": selected}, transport_profile("persistent", 0.5, catalog))
+        for interval in (-1, float("inf"), float("nan")):
+            with self.assertRaises(ValueError):
+                transport_profile("persistent", interval)
+
+    def test_persistent_sources_are_frozen_and_native_readiness_cannot_authorize_them(self):
+        package = self.root / "exp7_persistent"
+        package.mkdir()
+        source = package / "transport.py"
+        source.write_text("# source fixture\n")
+        self.assertIn(source, source_paths(self.root))
+        readiness = self.root / "readiness.json"
+        atomic_json(readiness, {"passed": True, "model": "fake", "freeze_sha256": "a"*64})
+        with self.assertRaisesRegex(ValueError, "different transport"):
+            verify_readiness(readiness, "fake", "a"*64, available_trials(), transport="persistent")
+        atomic_json(readiness, {"passed": True, "model": "fake", "freeze_sha256": "a"*64,
+                               "transport": "codex-app-server-persistent-v1",
+                               "transport_profile": transport_profile("persistent", 0.5)})
+        with self.assertRaisesRegex(ValueError, "different transport settings"):
+            verify_readiness(readiness, "fake", "a"*64, available_trials(), transport="persistent",
+                             profile=transport_profile("persistent", 1.0))
+
+    def test_persistent_readiness_requires_rpc_audit_after_hash_validation(self):
+        state = self.complete_state()
+        state["transport"] = "codex-app-server-persistent-v1"
+        raw = self.root/"raw-fixture.jsonl"
+        raw.write_text("{}\n")
+        for turn in state["turns"]:
+            turn["raw_files"] = [{"path":str(raw), "sha256":sha(raw)}]
+        path = self.root/"persistent-state.json"
+        atomic_json(path, state)
+        evidence = {"passed":True, "model":"fake", "freeze_sha256":"a"*64,
+                    "transport":state["transport"], "states":[{
+                        "trial_id":state["trial"]["trial_id"], "path":path.name, "sha256":sha(path)}]}
+        ready = self.root/"readiness.json"
+        atomic_json(ready, evidence)
+        with patch("exp7_main_v2.worker.calibration_trials", return_value=[state["trial"]]):
+            with patch("exp7_persistent.audit.audit_trial", return_value={"integrity_ok":False,"errors":["PID changed"]}) as audit:
+                with self.assertRaisesRegex(ValueError, "RPC/scientific audit failed.*PID changed"):
+                    verify_readiness(ready,"fake","a"*64,[],transport="persistent")
+                self.assertEqual(audit.call_args.args[0],state["trial"])
+                self.assertEqual(audit.call_args.args[2],path)
+
     def test_export_excludes_session_command_paths_and_is_deterministic(self):
         state = self.complete_state()
         state["session_id"] = "private-session-secret"
@@ -226,6 +334,63 @@ class WorkerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             bind_model(c,self.root,"m1",["m1","m2"],1)
 
+    def test_saved_concurrency_must_match_flag_and_reservation(self):
+        c = FakeCoordinator()
+        c.board["models"]["fake"]["concurrency"] = 5
+        saved = {"model": "fake", "owner": "vm", "model_token": "token", "concurrency": 3}
+        atomic_json(self.root / "identity.private.json", saved)
+        with self.assertRaisesRegex(ValueError, "Saved worker concurrency"):
+            bind_model(c, self.root, "fake", ["fake"], 5)
+        self.assertEqual(json.loads((self.root / "identity.private.json").read_text()), saved)
+
+    def test_trial_scope_closes_after_followups_and_after_failure(self):
+        class ScopedFake(FakeTransport):
+            def __init__(self, protocol, fail_at=None):
+                super().__init__(protocol, fail_at=fail_at)
+                self.closed = []
+            def close_trial(self, trial_id):
+                self.closed.append(trial_id)
+        for fail_at in (None, 2):
+            trial = example(trial_id="scope-" + str(fail_at))
+            protocol = MainProtocol()
+            transport = ScopedFake(protocol, fail_at)
+            state = run_trial(trial, protocol, transport, self.root/(trial["trial_id"]+".json"),
+                              self.root/"native", CallBudget(self.root/(trial["trial_id"]+"-budget.json"),"test",34),"a"*64)
+            self.assertEqual(len(state["turns"]), 34 if fail_at is None else 2)
+            self.assertEqual(transport.closed, [trial["trial_id"]])
+
+    def test_final_process_logs_are_bound_after_close_for_completed_and_pending_trials(self):
+        class FinalizingFake(FakeTransport):
+            def __init__(self, protocol, interrupted):
+                super().__init__(protocol)
+                self.interrupted = interrupted
+            def request(self, trial, prompt, schema, system, session_id, directory, turn):
+                self.directory = Path(directory)
+                self.directory.mkdir(parents=True, exist_ok=True)
+                (self.directory/"process.stderr.log").write_text("running\n")
+                if self.interrupted and turn == 2:
+                    raise RuntimeError("Connection lost after send")
+                return super().request(trial,prompt,schema,system,session_id,directory,turn)
+            def close_trial(self, trial_id):
+                paths = [self.directory/"process.stderr.log", self.directory/"close-diagnostics.json"]
+                paths[0].write_text("running\nclosed\n")
+                paths[1].write_text('{"closed":true}\n')
+                return [{"path":str(p.resolve()),"sha256":sha(p)} for p in paths]
+        for interrupted in (False, True):
+            trial = example(trial_id="closed-"+str(interrupted))
+            protocol = MainProtocol()
+            path = self.root/(trial["trial_id"]+".json")
+            transport = FinalizingFake(protocol, interrupted)
+            state = run_trial(trial,protocol,transport,path,self.root/"native",
+                              CallBudget(self.root/(trial["trial_id"]+"-budget.json"),"test",34),"a"*64)
+            refs = state["pending_raw_files"] if interrupted else state["turns"][-1]["raw_files"]
+            final = {Path(entry["path"]).name:entry for entry in refs}
+            for name in ("process.stderr.log", "close-diagnostics.json"):
+                self.assertEqual(final[name]["sha256"],sha(final[name]["path"]))
+            self.assertEqual(json.loads(path.read_text()),state)
+            journal = [json.loads(line) for line in path.with_suffix(".journal.jsonl").read_text().splitlines()]
+            self.assertEqual(journal[-1]["type"],"transport_closed")
+
     def job_setup(self):
         trials=[example(trial_id="t1"),example("ko_natural","KD",trial_id="t2")]
         remote=self.root/"remote.git"
@@ -253,6 +418,120 @@ class WorkerTests(unittest.TestCase):
         rows=[json.loads(line) for line in gzip.decompress(Path(result["path"]).read_bytes()).splitlines()]
         self.assertEqual([r["trial"]["trial_id"] for r in rows],["t1","t2"])
         self.assertEqual([len(r["turns"]) for r in rows],[34,34])
+
+    def test_persistent_job_uses_trial_scopes_and_closes_shared_transport(self):
+        trials,c,bound,job=self.job_setup()
+        class PersistentFake:
+            name="codex-app-server-persistent-v1"
+            def __init__(self):
+                self.sessions = {}
+                self.closed_trials = []
+                self.closed = False
+            def request(self, trial, *args):
+                return self.sessions.setdefault(trial["trial_id"], FakeTransport(MainProtocol())).request(trial, *args)
+            def close_trial(self, trial_id):
+                self.closed_trials.append(trial_id)
+            def close(self):
+                self.closed = True
+        native = PersistentFake()
+        with patch("exp7_main_v2.worker.make_transport", return_value=native) as factory:
+            result=execute_job(job,bound,c,{t["trial_id"]:t for t in trials},self.root,"c"*64,300,
+                               transport_kind="persistent", request_interval=0.5)
+        factory.assert_called_once_with("persistent", 300, request_interval=0.5, model_catalog=None)
+        self.assertEqual(result["calls"], 68)
+        self.assertEqual(native.closed_trials, ["t1", "t2"])
+        self.assertTrue(native.closed)
+        rows=[json.loads(line) for line in gzip.decompress(Path(result["path"]).read_bytes()).splitlines()]
+        self.assertTrue(all(r["transport"] == native.name for r in rows))
+
+    def test_persistent_rechecks_stop_at_send_boundary_after_pacing(self):
+        c = FakeCoordinator()
+        gate = PermissionGate(c, "fake", "vm", "token", ttl=0)
+        class Delayed:
+            name = "codex-app-server-persistent-v1"
+            before_send = None
+            sent = False
+            def request(self):
+                c.board["global_stop"] = True
+                self.before_send()
+                self.sent = True
+        native = Delayed()
+        with self.assertRaisesRegex(RuntimeError, "Permission stopped"):
+            GatedTransport(native, gate).request()
+        self.assertFalse(native.sent)
+        self.assertTrue(gate.stopped.is_set())
+
+    def test_transport_exception_keeps_pending_and_halts_new_intake(self):
+        trials,c,bound,job=self.job_setup()
+        class Uncertain:
+            name = "codex-app-server-persistent-v1"
+            closed = False
+            closed_trials = []
+            def request(self, *args):
+                raise RuntimeError("Connection lost after request write")
+            def close_trial(self, trial_id):
+                self.closed_trials.append(trial_id)
+            def close(self):
+                self.closed = True
+        native = Uncertain()
+        with patch("exp7_main_v2.worker.make_transport", return_value=native):
+            result = execute_job(job,bound,c,{t["trial_id"]:t for t in trials},self.root,"c"*64,300,
+                                 transport_kind="persistent")
+        self.assertTrue(result["stopped"])
+        self.assertFalse(c.status()["global_stop"])
+        self.assertEqual(result["calls"], 1)
+        self.assertEqual(result["counts"], {"complete":0,"failed":0,"interrupted":1,"unstarted":1})
+        state = json.loads((self.root/"jobs/job-1/states/t1.json").read_text())
+        self.assertIsNotNone(state["pending_turn"])
+        self.assertTrue(native.closed)
+        self.assertEqual(native.closed_trials, ["t1"])
+
+    def test_auth_exception_publishes_stop_before_rethrow(self):
+        c = FakeCoordinator()
+        gate = PermissionGate(c, "fake", "vm", "token")
+        class AuthFailure:
+            name = "codex-app-server-persistent-v1"
+            def request(self):
+                raise RuntimeError("401 Unauthorized")
+        with self.assertRaisesRegex(RuntimeError, "401"):
+            GatedTransport(AuthFailure(), gate).request()
+        self.assertTrue(c.board["global_stop"])
+        self.assertTrue(gate.stopped.is_set())
+
+    def test_exception_stderr_and_post_close_tail_are_classified(self):
+        for source in ("exception", "close"):
+            c = FakeCoordinator()
+            gate = PermissionGate(c,"fake","vm","token",allow_catalog_recovery=True)
+            class Failure:
+                name="codex-app-server-persistent-v1"
+                def request(self):
+                    error = RuntimeError("App-server exited")
+                    error.transport_diagnostics = "401 Unauthorized"
+                    raise error
+                def close_trial(self, trial_id):
+                    self.after_close({"ok":True,"stderr":"401 Unauthorized","events":[]})
+                    return []
+            wrapped = GatedTransport(Failure(),gate)
+            if source == "exception":
+                with self.assertRaisesRegex(RuntimeError,"App-server exited"):
+                    wrapped.request()
+            else:
+                self.assertEqual(wrapped.close_trial("trial"),[])
+            self.assertTrue(c.board["global_stop"])
+            self.assertTrue(gate.stopped.is_set())
+
+    def test_cleanup_failure_halts_and_retains_original_exception_context(self):
+        c = FakeCoordinator()
+        gate = PermissionGate(c,"fake","vm","token")
+        class BrokenClose:
+            name="codex-app-server-persistent-v1"
+            def close(self):
+                raise RuntimeError("Cleanup failed")
+        with self.assertRaisesRegex(RuntimeError,"Cleanup failed") as caught:
+            with GatedTransport(BrokenClose(),gate):
+                raise ValueError("Original failure")
+        self.assertIsInstance(caught.exception.__cause__,ValueError)
+        self.assertTrue(gate.stopped.is_set())
 
     def test_rate_limit_stops_unstarted_assignment_and_preserves_partial(self):
         trials,c,bound,job=self.job_setup()

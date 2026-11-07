@@ -137,7 +137,11 @@ class SidecarTests(unittest.TestCase):
 
     def test_unexpected_state_or_native_auth_member_rejected(self):
         original_index=self.manifest.read_bytes();original_marker=self.marker.read_bytes()
-        for path in ("states/auth.json","native/"+"1"*32+"/turn-01/auth.json"):
+        scratch = "native/" + "1"*32 + "/"
+        for path in ("states/auth.json", scratch+"auth.json", scratch+"turn-01/auth.json",
+                     scratch+"state_5.sqlite", scratch+"turn-01/logs_2.sqlite",
+                     scratch+"rpc-sent.jsonl", scratch+"turn-01/process.stderr.log",
+                     scratch+"turn-35/rpc-received.jsonl", scratch+"extra/close-diagnostics.json"):
             index=json.loads(original_index)
             index["files"][path]={"sha256":"b"*64,"size":1,"mode":0o600}
             atomic_json(self.manifest,index)
@@ -145,6 +149,38 @@ class SidecarTests(unittest.TestCase):
             with patch.object(self.publisher,"publish") as publish:
                 with self.assertRaises(BackupError):self.upload()
                 publish.assert_not_called()
+
+    def test_persistent_trial_artifacts_back_up_with_exact_path_allowlist(self):
+        fixture=storage_fixtures.StorageTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        work=fixture.root
+        atomic_json(work/"identity.private.json",self.identity)
+        atomic_json(work/"calibration/attempt-01/readiness.json",{
+            "passed":True,"model":self.identity["model"],"worker_owner":self.identity["owner"],
+            "freeze_sha256":"a"*64,"transport":"codex-app-server-persistent-v1"})
+        new_names={"model-catalog.json":"{\"models\": []}\n", "process.stderr.log":"closed process log\n",
+                   "close-diagnostics.json":"{\"closed\": true}\n", "turn-01/rpc-sent.jsonl":"{}\n",
+                   "turn-01/rpc-received.jsonl":"{}\n", "turn-01/adapter.json":"{}\n"}
+        for path in (fixture.job/"states").glob("*.json"):
+            state=json.loads(path.read_text())
+            state["trial"].update(run_id=self.identity["run_id"],model=self.identity["model"])
+            state["freeze_sha256"]="a"*64
+            state["transport"]="codex-app-server-persistent-v1"
+            for name, text in new_names.items():
+                raw=fixture.job/"native"/state["scratch_id"]/name
+                raw.write_text(text)
+                state["turns"][-1]["raw_files"].append({"path":str(raw),"sha256":sha(raw)})
+            atomic_json(path,state)
+        result=fixture.archive()
+        state_dir=work/"backup-v1"
+        state_dir.mkdir()
+        result=backup_job(work,self.identity,"job-001",self.repo,self.publisher,state_dir,
+                          lambda:deepcopy(self.repo))
+        self.assertEqual(result["status"],"verified")
+        receipt=json.loads((state_dir/"receipts/job-001.json").read_text())
+        self.assertEqual(receipt["freeze_sha256"],"a"*64)
+        self.assertEqual(len(receipt["files"]),3)
 
     def test_large_archive_and_symlink_are_blocked(self):
         with patch("exp7_backup_v1.sidecar.MAX_GIT_BLOB",1),patch.object(self.publisher,"publish") as publish:

@@ -27,11 +27,14 @@ from exp7_pre.runner import atomic_json
 from exp7_main_v2.storage import verify_archive, StorageError
 from exp7_main_v2.worker import ResultPublisher
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 SAFE_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,160}")
 SHA256 = re.compile(r"[0-9a-f]{64}")
 MAX_GIT_BLOB = 90 * 1024**2
-NATIVE_NAMES = {"subject-system.txt", "prompt.txt", "events.jsonl", "stderr.txt", "schema.json"}
+NATIVE_ROOT_NAMES = {"subject-system.txt", "model-catalog.json", "process.stderr.log", "close-diagnostics.json"}
+NATIVE_TURN_NAMES = {"prompt.txt", "events.jsonl", "stderr.txt", "schema.json",
+                     "rpc-sent.jsonl", "rpc-received.jsonl", "adapter.json"}
+NATIVE_NAMES = NATIVE_ROOT_NAMES | NATIVE_TURN_NAMES
 
 
 class BackupError(RuntimeError):
@@ -194,10 +197,10 @@ def _local_binding(work, identity, job_id):
         if parts[0] == "states" and relative not in state_members:
             raise BackupError("unexpected_state_file", "Archive contains a state file outside its assigned trial IDs")
         if parts[0] == "native":
-            system = len(parts) == 3 and parts[2] == "subject-system.txt"
+            session = len(parts) == 3 and parts[2] in NATIVE_ROOT_NAMES
             turn = (len(parts) == 4 and re.fullmatch(r"turn-(?:0[1-9]|[12][0-9]|3[0-4])", parts[2])
-                    and parts[3] in NATIVE_NAMES - {"subject-system.txt"})
-            if len(parts) < 3 or not re.fullmatch(r"[0-9a-f]{32}", parts[1]) or not (system or turn):
+                    and parts[3] in NATIVE_TURN_NAMES)
+            if len(parts) < 3 or not re.fullmatch(r"[0-9a-f]{32}", parts[1]) or not (session or turn):
                 raise BackupError("unexpected_native_file", "Archive includes an unsupported native path; shared authentication/database files are excluded")
     return {"archive": archive, "manifest": manifest, "marker": marker_path, "index": index,
             "claim": claim, "job_dir": job_dir, "trial_ids": ids,

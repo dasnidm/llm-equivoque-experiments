@@ -17,6 +17,7 @@ import gzip
 import hashlib
 import importlib.metadata
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -34,6 +35,8 @@ FORMATS = ("en_schema", "en_natural", "ko_schema", "ko_natural", "R_A", "en_sche
 GAMES = ("obj", "seq", "KK", "KD", "DK", "DD")
 EFFORTS = ("low", "medium", "high")
 HEARTBEAT_SECONDS = 60.0
+TRANSPORT_NAMES = {"native": "codex-native-optional-schema",
+                   "persistent": "codex-app-server-persistent-v1"}
 
 
 def sha(path):
@@ -52,10 +55,42 @@ def cli_version():
     return subprocess.check_output(["codex", "--version"], text=True).strip()
 
 
+def transport_profile(kind="native", request_interval=0.0, model_catalog=None):
+    """Portable immutable settings; catalog paths may differ between VMs."""
+    if kind not in TRANSPORT_NAMES:
+        raise ValueError("Unknown transport")
+    if isinstance(request_interval, bool) or not math.isfinite(request_interval) or request_interval < 0:
+        raise ValueError("Request interval must be finite and nonnegative")
+    if kind == "native" and (request_interval or model_catalog is not None):
+        raise ValueError("Request interval and model catalog require persistent transport")
+    return {"kind": kind, "name": TRANSPORT_NAMES[kind],
+            "request_interval_seconds": float(request_interval),
+            "catalog_sha256": sha(model_catalog) if model_catalog is not None else None}
+
+
+def verify_transport_profile(frozen, profile):
+    # Old freezes never silently authorize a new transport.
+    expected = frozen.get("transport_profile", transport_profile())
+    if expected != profile:
+        raise ValueError("Transport settings differ from freeze; create a new reviewed freeze")
+
+
+def make_transport(kind, timeout, *, request_interval=0.0, model_catalog=None):
+    transport_profile(kind, request_interval, model_catalog)
+    if kind == "native":
+        from .runner import NativeTransport
+        return NativeTransport(timeout=timeout)
+    if kind == "persistent":
+        from exp7_persistent.transport import PersistentTransport
+        return PersistentTransport(timeout=timeout, min_start_interval=request_interval,
+                                   catalog_path=model_catalog)
+    raise ValueError("Unknown transport")
+
+
 def source_paths(root=ROOT):
     """Exact local dependencies; no preparation, native, or runtime files."""
     paths = set()
-    for name in ("exp7_main_v2", "exp7_main", "exp7_pre", "equivoque", "sequence_replication"):
+    for name in ("exp7_main_v2", "exp7_persistent", "exp7_main", "exp7_pre", "equivoque", "sequence_replication"):
         folder = Path(root) / name
         paths.update(folder.glob("*.py"))
         paths.update(folder.glob("*.json"))
@@ -65,7 +100,8 @@ def source_paths(root=ROOT):
     return sorted(p for p in paths if p.is_file())
 
 
-def freeze_bundle(bundle_dir, output, root=ROOT):
+def freeze_bundle(bundle_dir, output, root=ROOT, *, transport="native", request_interval=0.0,
+                  model_catalog=None):
     """Offline immutable hash record. Run only after all source tests pass."""
     from .schedule import load_bundle
     root, bundle_dir, output = map(lambda p: Path(p).resolve(), (root, bundle_dir, output))
@@ -76,6 +112,7 @@ def freeze_bundle(bundle_dir, output, root=ROOT):
     if not all(p.is_relative_to(root) for p in files):
         raise ValueError("Freeze inputs must be repository-relative")
     frozen = {"schema_version": 1, "run_id": plan["run_id"], "created_at": now(),
+              "transport_profile": transport_profile(transport, request_interval, model_catalog),
               "bundle": str(bundle_dir.relative_to(root)), "cli_version": cli_version(),
               "dependencies": {"jsonschema": importlib.metadata.version("jsonschema")},
               "manifest_sha256": sha(bundle_dir / "summary.json"),
@@ -190,8 +227,14 @@ def calibration_valid(state):
     return True
 
 
-def verify_readiness(path, model, freeze_digest, trials, owner=None):
+def verify_readiness(path, model, freeze_digest, trials, owner=None, *, transport="native",
+                     profile=None):
     evidence = read_json(path)
+    selected_name = TRANSPORT_NAMES[transport]
+    if evidence.get("transport", TRANSPORT_NAMES["native"]) != selected_name:
+        raise ValueError("Technical readiness belongs to a different transport")
+    if profile is not None and evidence.get("transport_profile", transport_profile()) != profile:
+        raise ValueError("Technical readiness uses different transport settings")
     expected = calibration_trials(trials, model, evidence.get("attempt", "01"))
     if not evidence.get("passed") or evidence.get("model") != model or evidence.get("freeze_sha256") != freeze_digest:
         raise ValueError("Successful exact-model, exact-freeze technical readiness required")
@@ -205,6 +248,8 @@ def verify_readiness(path, model, freeze_digest, trials, owner=None):
         if sha(state_path) != entry["sha256"]:
             raise ValueError("Calibration state changed")
         state = read_json(state_path)
+        if state.get("transport") != selected_name:
+            raise ValueError("Calibration state transport differs from readiness")
         if state.get("trial") != trial or state.get("freeze_sha256") != freeze_digest or not calibration_valid(state):
             raise ValueError("Calibration integrity or required response parse failed")
         for record in state["turns"]:
@@ -213,6 +258,13 @@ def verify_readiness(path, model, freeze_digest, trials, owner=None):
             for raw in record["raw_files"]:
                 if sha(raw["path"]) != raw["sha256"]:
                     raise ValueError("Calibration native evidence changed")
+        if transport == "persistent":
+            from exp7_persistent.audit import audit_trial
+            from .protocol import MainProtocol
+            audit = audit_trial(trial, MainProtocol(), state_path, freeze_digest)
+            if audit.get("integrity_ok") is not True:
+                raise ValueError("Persistent calibration RPC/scientific audit failed: " +
+                                 "; ".join(audit.get("errors", [])))
     return evidence
 
 
@@ -223,7 +275,8 @@ class PermissionGate:
     ownership uncertainty fails closed. STOP has bounded polling latency, not
     instantaneous cross-VM semantics.
     """
-    def __init__(self, coordinator, model, owner, model_token, job=None, ttl=10.0):
+    def __init__(self, coordinator, model, owner, model_token, job=None, ttl=10.0,
+                 allow_catalog_recovery=False):
         if not 0 <= ttl <= 10:
             raise ValueError("Permission cache TTL must be between 0 and 10 seconds")
         self.coordinator, self.model, self.owner, self.model_token = coordinator, model, owner, model_token
@@ -232,8 +285,26 @@ class PermissionGate:
         self._checked = None
         self._lock = threading.Lock()
         self.stopped = threading.Event()
+        self.allow_catalog_recovery = allow_catalog_recovery
+        self._cooldown_until = None
 
     def check(self, force=False):
+        self._check_permission(force)
+        # This is worker-local backpressure, not an account-wide limiter.
+        # Poll permission while waiting so a remote STOP remains effective.
+        while self._cooldown_until is not None:
+            with self._lock:
+                if self._cooldown_until is None:
+                    return
+                remaining = self._cooldown_until - time.monotonic()
+                if remaining <= 0:
+                    self._cooldown_until = None
+                    return
+            if self.stopped.wait(min(1.0, remaining)):
+                raise RuntimeError("Worker stopped during catalog cooldown")
+            self._check_permission()
+
+    def _check_permission(self, force=False):
         with self._lock:
             if self.stopped.is_set():
                 raise RuntimeError("Worker stopped before request")
@@ -262,18 +333,36 @@ class PermissionGate:
 
     def observe(self, result):
         # Check diagnostics, never the participant's answer text, for rate limits.
-        diagnostics = str(result.get("stderr", ""))
+        stderr = str(result.get("stderr", ""))
+        event_diagnostics = []
         for event in result.get("events", []):
             if event.get("type") in ("error", "turn.failed", "thread.failed"):
-                diagnostics += "\n" + json.dumps(event, ensure_ascii=False)
+                event_diagnostics.append(json.dumps(event, ensure_ascii=False))
             elif event.get("item", {}).get("type") == "error":
-                diagnostics += "\n" + json.dumps(event["item"], ensure_ascii=False)
-        capacity = re.search(r"\b429\b|rate[ _-]?limit|too many requests", diagnostics, flags=re.I)
+                event_diagnostics.append(json.dumps(event["item"], ensure_ascii=False))
+        diagnostics = stderr + "\n" + "\n".join(event_diagnostics)
+        rate_pattern = r"\b429\b|rate[ _-]?limit|too many requests"
+        capacity = re.search(rate_pattern, diagnostics, flags=re.I)
         authentication = re.search(r"\b401\b|unauthorized|invalid[ _-]?(?:auth|token)|token[ _-]?refresh|refresh[ _-]?token|authentication failed|access token could not be refreshed|please sign in again|token[_ -]?expired", diagnostics, flags=re.I)
+        if capacity and not authentication and self.allow_catalog_recovery and result.get("ok") is True:
+            limited_lines = [line for line in stderr.splitlines() if re.search(rate_pattern, line, re.I)]
+            catalog_only = bool(limited_lines) and all(re.search(
+                r"codex_models_manager::manager:.*failed to refresh available models:.*\b429\b", line)
+                for line in limited_lines)
+            if catalog_only and not any(re.search(rate_pattern, line, re.I) for line in event_diagnostics):
+                delay = result.get("retry_after_seconds", 60.0)
+                if isinstance(delay, bool) or not isinstance(delay, (int, float)) or not math.isfinite(delay):
+                    delay = 60.0
+                delay = max(60.0, delay)
+                with self._lock:
+                    self._cooldown_until = max(self._cooldown_until or 0, time.monotonic() + delay)
+                result["catalog_rate_limit"] = {"action": "worker_cooldown", "seconds": delay}
+                return
         if capacity or authentication:
             self.stopped.set()
             try:
-                self.coordinator.set_stop(True, "Capacity/authentication diagnostic observed; preserve requests and inspect before resuming")
+                reason = "Authentication" if authentication else "Response or unclassified rate-limit"
+                self.coordinator.set_stop(True, reason + " diagnostic observed; preserve requests and inspect before resuming")
             except Exception:
                 # Local halt is guaranteed; a failed remote update is reported
                 # by the local job state and must not authorize another request.
@@ -283,12 +372,58 @@ class PermissionGate:
 class GatedTransport:
     def __init__(self, transport, gate):
         self.transport, self.gate, self.name = transport, gate, transport.name
+        if self.name == TRANSPORT_NAMES["persistent"]:
+            # Recheck after pacing/initialization, immediately before a send.
+            self.transport.before_send = self.gate.check
+            self.transport.after_close = self.gate.observe
+
+    def _observe_exception(self, exc):
+        diagnostics = getattr(exc, "transport_diagnostics", str(exc))
+        try:
+            self.gate.observe({"ok": False, "stderr": str(diagnostics), "events": []})
+        finally:
+            self.gate.stopped.set()
 
     def request(self, *args, **kwargs):
         self.gate.check()
-        response = self.transport.request(*args, **kwargs)
+        try:
+            response = self.transport.request(*args, **kwargs)
+        except Exception as exc:
+            # The durable runner keeps its pending request checkpoint. Never
+            # infer that a raised exception means nothing reached the server.
+            self._observe_exception(exc)
+            raise
         self.gate.observe(response)
         return response
+
+    def close_trial(self, trial_id):
+        close = getattr(self.transport, "close_trial", None)
+        if close is not None:
+            try:
+                return close(trial_id)
+            except Exception as exc:
+                self._observe_exception(exc)
+                raise
+
+    def close(self):
+        close = getattr(self.transport, "close", None)
+        if close is not None:
+            try:
+                close()
+            except Exception as exc:
+                self._observe_exception(exc)
+                raise
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        try:
+            self.close()
+        except Exception as cleanup_error:
+            if exc[1] is not None:
+                raise cleanup_error from exc[1]
+            raise
 
 
 class StorageMonitor:
@@ -352,12 +487,14 @@ TRIAL_FIELDS = {"trial_id", "run_id", "model", "effort", "configuration_id", "fr
                 "probe_policies", "split", "fold", "cohort", "cell_id", "replicate", "evaluation_source_trial_id"}
 TURN_FIELDS = {"turn", "round", "local_turn", "prompt", "schema", "text", "parsed", "ok", "requested_at", "received_at",
                "duration_seconds", "usage", "provider_schema", "tool_events", "compaction_events", "startup_notices",
-               "https_fallback", "recovered_transport_events", "metadata_fallback", "malformed_event_lines", "timeout", "exit_code"}
+               "https_fallback", "recovered_transport_events", "metadata_fallback", "malformed_event_lines", "timeout", "exit_code",
+               "usage_last", "protocol_violations", "request_sent_at", "response_completed_at"}
 
 
 def public_state(state):
     out = {"schema_version": 1, "trial": {k: v for k, v in state["trial"].items() if k in TRIAL_FIELDS},
            "status": state["status"], "freeze_sha256": state["freeze_sha256"],
+           "transport": state.get("transport"),
            "system_sha256": state.get("system_sha256"), "started_at": state.get("started_at"),
            "ended_at": state.get("ended_at"), "rounds": state.get("rounds", []), "turns": [],
            "pending_request": state.get("pending_turn") is not None}
@@ -497,6 +634,8 @@ def bind_model(coordinator, work_dir, requested_model, models, concurrency, owne
             raise RuntimeError("Saved model ownership is no longer authoritative")
         if entry["concurrency"] != concurrency:
             raise ValueError("Concurrency differs from model's reserved capacity")
+        if bound.get("concurrency") != concurrency:
+            raise ValueError("Saved worker concurrency differs from reservation; reconcile while stopped before restarting")
         return bound
     owner = owner or ("vm-" + uuid.uuid4().hex[:12])
     board = coordinator.status()
@@ -531,18 +670,23 @@ def bind_model(coordinator, work_dir, requested_model, models, concurrency, owne
     raise RuntimeError("No unowned model is available; do not take another VM's model")
 
 
-def prepare_model(trials, bound, coordinator, directory, freeze_digest, timeout, attempt="01"):
+def prepare_model(trials, bound, coordinator, directory, freeze_digest, timeout, attempt="01", *,
+                  transport_kind="native", request_interval=0.0, model_catalog=None):
     from .protocol import MainProtocol
-    from .runner import run_trial, NativeTransport
+    from .runner import run_trial
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
     selected = calibration_trials(trials, bound["model"], attempt)
+    profile = transport_profile(transport_kind, request_interval, model_catalog)
     readiness_path = directory / "readiness.json"
     if readiness_path.exists():
-        verify_readiness(readiness_path, bound["model"], freeze_digest, trials, bound["owner"])
+        verify_readiness(readiness_path, bound["model"], freeze_digest, trials, bound["owner"],
+                         transport=transport_kind, profile=profile)
         return read_json(readiness_path)
-    gate = PermissionGate(coordinator, bound["model"], bound["owner"], bound["model_token"])
-    transport = GatedTransport(NativeTransport(timeout=timeout), gate)
+    gate = PermissionGate(coordinator, bound["model"], bound["owner"], bound["model_token"],
+                          allow_catalog_recovery=transport_kind == "persistent")
+    transport = GatedTransport(make_transport(transport_kind, timeout, request_interval=request_interval,
+                                             model_catalog=model_catalog), gate)
     budget = CallBudget(directory / "budget.json", selected[0]["run_id"] + ":" + bound["model"], 612)
     states = {}
 
@@ -554,7 +698,7 @@ def prepare_model(trials, bound, coordinator, directory, freeze_digest, timeout,
 
     iterator = iter(selected)
     failed = False
-    with ThreadPoolExecutor(max_workers=bound["concurrency"]) as pool:
+    with transport, ThreadPoolExecutor(max_workers=bound["concurrency"]) as pool:
         pending = {}
         for _ in range(bound["concurrency"]):
             trial = next(iterator, None)
@@ -585,13 +729,15 @@ def prepare_model(trials, bound, coordinator, directory, freeze_digest, timeout,
     if failed or len(states) != 18:
         raise RuntimeError("Technical calibration failed; preserve attempt and inspect before any evaluation")
     evidence = {"passed": True, "model": bound["model"], "freeze_sha256": freeze_digest,
+                "transport": profile["name"], "transport_profile": profile,
                 "attempt": attempt, "worker_owner": bound["owner"],
                 "states": [states[t["trial_id"]] for t in selected],
                 "created_at": now(), "calibration_call_cap": 612,
                 "scope": "18 technical conversations; all efforts/arms/games and both frames, not full factorial",
                 "semantic_review": "Automated protocol/parse integrity; no independent human semantic review asserted"}
     atomic_json(readiness_path, evidence)
-    verify_readiness(readiness_path, bound["model"], freeze_digest, trials, bound["owner"])
+    verify_readiness(readiness_path, bound["model"], freeze_digest, trials, bound["owner"],
+                     transport=transport_kind, profile=profile)
     return evidence
 
 
@@ -623,9 +769,10 @@ def job_identity(job, bound):
             "owner": bound["owner"], "model_token": bound["model_token"], "trial_ids": job["trial_ids"]}
 
 
-def execute_job(job, bound, coordinator, trials_by_id, work_dir, freeze_digest, timeout):
+def execute_job(job, bound, coordinator, trials_by_id, work_dir, freeze_digest, timeout, *,
+                transport_kind="native", request_interval=0.0, model_catalog=None):
     from .protocol import MainProtocol
-    from .runner import run_trial, NativeTransport
+    from .runner import run_trial
     directory = Path(work_dir) / "jobs" / job["job_id"]
     if ((directory / "archive-receipt.private.json").exists()
             or (Path(work_dir) / "archives" / (job["job_id"] + ".manifest.json")).exists()):
@@ -636,8 +783,10 @@ def execute_job(job, bound, coordinator, trials_by_id, work_dir, freeze_digest, 
     if job["call_cap"] != len(chosen) * 34:
         raise ValueError("Job call cap differs from frozen allocation")
     coordinator.mark_running(bound["model"], bound["owner"], bound["model_token"], job["job_id"], job["claim_token"])
-    gate = PermissionGate(coordinator, bound["model"], bound["owner"], bound["model_token"], job)
-    transport = GatedTransport(NativeTransport(timeout=timeout), gate)
+    gate = PermissionGate(coordinator, bound["model"], bound["owner"], bound["model_token"], job,
+                          allow_catalog_recovery=transport_kind == "persistent")
+    transport = GatedTransport(make_transport(transport_kind, timeout, request_interval=request_interval,
+                                             model_catalog=model_catalog), gate)
     budget = CallBudget(directory / "budget.json", chosen[0]["run_id"] + ":" + job["job_id"], job["call_cap"])
     iterator = iter(chosen)
     states = {}
@@ -653,7 +802,7 @@ def execute_job(job, bound, coordinator, trials_by_id, work_dir, freeze_digest, 
         return pool.submit(run_trial, trial, MainProtocol(), transport, path,
                            directory / "native", budget, freeze_digest), trial["trial_id"]
 
-    with ThreadPoolExecutor(max_workers=bound["concurrency"]) as pool:
+    with transport, ThreadPoolExecutor(max_workers=bound["concurrency"]) as pool:
         pending = {}
         for _ in range(bound["concurrency"]):
             submitted = submit_one(pool)
@@ -748,6 +897,10 @@ def run_worker(args):
     from .coordination import GitCoordinator
     from .schedule import load_bundle
     frozen, freeze_digest = verify_freeze(args.freeze)
+    profile = transport_profile(args.transport, args.request_interval, args.model_catalog)
+    verify_transport_profile(frozen, profile)
+    transport_options = {"transport_kind": args.transport, "request_interval": args.request_interval,
+                         "model_catalog": args.model_catalog}
     plan = load_bundle(ROOT / frozen["bundle"])
     trials = plan["trials"]
     models = list(dict.fromkeys(t["model"] for t in trials))
@@ -773,18 +926,21 @@ def run_worker(args):
             raise ValueError("Invalid calibration attempt ID")
         readiness = work / "calibration" / ("attempt-" + args.calibration_attempt) / "readiness.json"
         if args.command == "prepare":
-            return prepare_model(trials, bound, coordinator, readiness.parent, freeze_digest, args.timeout, args.calibration_attempt)
-        verify_readiness(readiness, bound["model"], freeze_digest, trials, bound["owner"])
+            return prepare_model(trials, bound, coordinator, readiness.parent, freeze_digest, args.timeout,
+                                 args.calibration_attempt, **transport_options)
+        verify_readiness(readiness, bound["model"], freeze_digest, trials, bound["owner"],
+                         transport=args.transport, profile=profile)
         archive_backlog(coordinator, bound, work)
         publisher = ResultPublisher(args.remote, args.results_prefix + "/" + bound["model"], work / "publication.git")
         by_id = {t["trial_id"]: t for t in trials}
         finished = 0
         while args.max_jobs is None or finished < args.max_jobs:
             verify_freeze(args.freeze)
+            verify_transport_profile(frozen, transport_profile(args.transport, args.request_interval, args.model_catalog))
             job = owned_job(coordinator, bound, work)
             if job is None:
                 return {"model": bound["model"], "finished_jobs": finished, "remaining_jobs": 0}
-            result = execute_job(job, bound, coordinator, by_id, work, freeze_digest, args.timeout)
+            result = execute_job(job, bound, coordinator, by_id, work, freeze_digest, args.timeout, **transport_options)
             finalized = finalize_job(job, bound, coordinator, publisher, result, work, frozen["run_id"])
             result_ref = finalized["result_ref"]
             finished += 1
@@ -802,6 +958,12 @@ def main(argv=None):
     freezing = sub.add_parser("freeze", help="Offline: create immutable source and assignment hash record")
     freezing.add_argument("--bundle", required=True)
     freezing.add_argument("--output", required=True)
+    def add_transport_options(command):
+        command.add_argument("--transport", choices=tuple(TRANSPORT_NAMES), default="native")
+        command.add_argument("--request-interval", type=float, default=0.0,
+                             help="Persistent transport: minimum request-start interval across this worker, not all VMs")
+        command.add_argument("--model-catalog", help="Persistent transport: explicit catalog snapshot; its hash is frozen")
+    add_transport_options(freezing)
     checking = sub.add_parser("verify", help="Offline: verify frozen bytes and CLI version")
     checking.add_argument("--freeze", required=True)
     for name in ("prepare", "run"):
@@ -817,9 +979,11 @@ def main(argv=None):
         child.add_argument("--timeout", type=float, default=300)
         child.add_argument("--calibration-attempt", default="01", help="Explicit technical attempt ID; failed attempts are never overwritten or automatically retried")
         child.add_argument("--max-jobs", type=int)
+        add_transport_options(child)
     args = parser.parse_args(argv)
     if args.command == "freeze":
-        result = freeze_bundle(args.bundle, args.output)
+        result = freeze_bundle(args.bundle, args.output, transport=args.transport,
+                               request_interval=args.request_interval, model_catalog=args.model_catalog)
     elif args.command == "verify":
         frozen, digest = verify_freeze(args.freeze)
         result = {"verified": True, "run_id": frozen["run_id"], "freeze_sha256": digest}

@@ -21,6 +21,8 @@ import tomllib
 from equivoque.transport import overrides, provider_schema
 from exp7_pre.transport import digest, subject_directory, HOST_DISABLED_NOTICE
 
+SUPPORTED_CLI_VERSION = 'codex-cli 0.159.0-alpha.3'
+
 
 def _write(path, value):
     with Path(path).open('x', encoding='utf-8') as out:
@@ -285,10 +287,16 @@ class PersistentTransport:
         self._conversations, self._map_lock = {}, threading.Lock()
         self._start_lock, self._next_start = threading.Lock(), 0.0
         self._closed = False
+        self._cli_verified = False
         self.before_send = None
         self.after_close = None
 
     def _command(self, trial, system_path):
+        if not self._cli_verified:
+            version = subprocess.check_output([self.codex_binary, '--version'], text=True, timeout=10).strip()
+            if version != SUPPORTED_CLI_VERSION:
+                raise ValueError(f'Persistent protocol requires {SUPPORTED_CLI_VERSION}; found {version}')
+            self._cli_verified = True
         command = [self.codex_binary, 'app-server', '--stdio']
         command += overrides(system_path, trial['effort'])
         if self.catalog_path:

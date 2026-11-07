@@ -40,8 +40,9 @@ HTTP retries or prove an inference was executed exactly once inside the provider
 
 ## Preflight and activation
 
-1. Pin the supported CLI version, transport source, experiment protocol, and
-   assignment hashes in the new execution profile. Keep previous profiles and
+1. Pin **`codex-cli 0.159.0-alpha.3`**, transport source, experiment protocol, and
+   assignment hashes in the new execution profile. Other CLI versions are rejected
+   before the app-server starts. Keep previous profiles and
    their records intact.
 2. Check the effective user and project configuration before model calls. The
    app-server must use the intended isolated settings, an empty opaque subject

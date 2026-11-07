@@ -195,5 +195,11 @@ class IsolationTests(unittest.TestCase):
         for kwargs in [{'timeout':float('nan')},{'timeout':float('inf')},{'min_start_interval':float('nan')}]:
             with self.assertRaises(ValueError):PersistentTransport(**kwargs)
 
+    def test_unsupported_cli_stops_before_server_start(self):
+        transport=PersistentTransport()
+        with patch('exp7_persistent.transport.subprocess.check_output',return_value='codex-cli other\n'):
+            with self.assertRaisesRegex(ValueError,'requires codex-cli'):
+                transport._command({'effort':'low'},Path('/unused/system.txt'))
+
 
 if __name__=='__main__':unittest.main()

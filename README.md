@@ -3,7 +3,7 @@
 **ENABLED — 작업 선점·실행 허용**
 
 - 실행: `equivoque-2026-11-07-exp7-main-v2`
-- 갱신 시각: 2026-11-07T19:30:54+00:00 (UTC)
+- 갱신 시각: 2026-11-07T19:31:21+00:00 (UTC)
 - 상태 사유: Explicit user continue after successful gpt-6-sol device reauthentication; fresh calibration02 at concurrency1; preserve failed01
 - 예약 병렬 수 / 전역 상한: **19 / 30**
 - 배정: **77,856대화 · 2,600작업**
@@ -19,7 +19,7 @@
 | gpt-5.6-luna | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
 | gpt-5.6-sol | vm-505937635844 | 10 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | 2026-11-07T13:26:04+00:00 |
 | gpt-5.6-terra | vm-f92ddb80580d | 5 | 322/0/1/1/0/1 | 39/0/1/9,692 | 1,357 | 2026-11-07T19:00:48+00:00 |
-| gpt-6-astra | cloud-astra-01 | 3 | 313/0/0/9/2/1 | 345/0/9/9,378 | 11,870 | 2026-11-07T19:08:20+00:00 |
+| gpt-6-astra | cloud-astra-01 | 3 | 313/0/1/9/2/0 | 345/0/9/9,378 | 11,870 | 2026-11-07T19:08:20+00:00 |
 | gpt-6-luna | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
 | gpt-6-sol | vm-097705819101 | 1 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | 2026-11-07T15:49:47+00:00 |
 | gpt-6.1-sol | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
@@ -40,7 +40,7 @@
 
 | 작업 | 모델 | 상태 | 결과 |
 |---|---|---|---|
-| model-04-job-0012 | gpt-6-astra | blocked | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/0239ef9819359624c2e1488410c8a7cae2c04bf1/results/equivoque-2026-11-07-exp7-main-v2/gpt-6-astra/model-04-job-0012.jsonl.gz) |
+| model-04-job-0012 | gpt-6-astra | running | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/0239ef9819359624c2e1488410c8a7cae2c04bf1/results/equivoque-2026-11-07-exp7-main-v2/gpt-6-astra/model-04-job-0012.jsonl.gz) |
 | model-03-job-0002 | gpt-5.6-terra | complete | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/eebd36196be12f5382504017450d7e1ac8c710e7/results/equivoque-2026-11-07-exp7-main-v2/gpt-5.6-terra/model-03-job-0002.jsonl.gz) |
 | model-04-job-0011 | gpt-6-astra | complete | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/3b770a5027ada1b2fe28a1bd14f1a4b732a9e69d/results/equivoque-2026-11-07-exp7-main-v2/gpt-6-astra/model-04-job-0011.jsonl.gz) |
 | model-04-job-0010 | gpt-6-astra | complete | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/0f53e97dee976921c372c55a8d4e1b061e68f3b8/results/equivoque-2026-11-07-exp7-main-v2/gpt-6-astra/model-04-job-0010.jsonl.gz) |

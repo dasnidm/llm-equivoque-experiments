@@ -1,10 +1,10 @@
 # 실험 7 작업 현황
 
-**ENABLED — 작업 선점·실행 허용**
+**STOP — 새 호출 중단**
 
 - 실행: `equivoque-2026-11-07-exp7-main-v2`
-- 갱신 시각: 2026-11-07T21:23:35+00:00 (UTC)
-- 상태 사유: Explicit user continue after successful gpt-6-sol device reauthentication; fresh calibration02 at concurrency1; preserve failed01
+- 갱신 시각: 2026-11-07T21:24:36+00:00 (UTC)
+- 상태 사유: Capacity/authentication diagnostic observed; preserve requests and inspect before resuming
 - 예약 병렬 수 / 전역 상한: **19 / 30**
 - 배정: **77,856대화 · 2,600작업**
 - 보고된 대화: 완료 **627**, 실패 **3**, 중단 **10**, 미시작·미보고 **77,216**

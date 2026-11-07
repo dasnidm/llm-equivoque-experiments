@@ -3,12 +3,12 @@
 **STOP — 새 호출 중단**
 
 - 실행: `equivoque-2026-11-07-exp7-main-v2`
-- 갱신 시각: 2026-11-07T13:26:24+00:00 (UTC)
+- 갱신 시각: 2026-11-07T13:26:26+00:00 (UTC)
 - 상태 사유: Capacity/authentication diagnostic observed; preserve requests and inspect before resuming
 - 예약 병렬 수 / 전역 상한: **20 / 20**
 - 배정: **77,856대화 · 2,600작업**
-- 보고된 대화: 완료 **60**, 실패 **0**, 중단 **0**, 미시작·미보고 **77,796**
-- 보고된 논리 호출: **2,040 / 2,647,104**
+- 보고된 대화: 완료 **83**, 실패 **0**, 중단 **3**, 미시작·미보고 **77,770**
+- 보고된 논리 호출: **2,863 / 2,647,104**
 
 [전체 작업·소유권·결과 참조 JSON](board.json)
 
@@ -19,7 +19,7 @@
 | gpt-5.6-luna | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
 | gpt-5.6-sol | vm-505937635844 | 10 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | 2026-11-07T13:26:04+00:00 |
 | gpt-5.6-terra | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
-| gpt-6-astra | cloud-astra-01 | 10 | 321/0/1/2/0/1 | 60/0/0/9,672 | 2,040 | 2026-11-07T13:25:54+00:00 |
+| gpt-6-astra | cloud-astra-01 | 10 | 321/0/0/2/0/2 | 83/0/3/9,646 | 2,863 | 2026-11-07T13:25:54+00:00 |
 | gpt-6-luna | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
 | gpt-6-sol | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
 | gpt-6.1-sol | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
@@ -40,6 +40,7 @@
 
 | 작업 | 모델 | 상태 | 결과 |
 |---|---|---|---|
+| model-04-job-0003 | gpt-6-astra | blocked | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/84db8338d81e2497005722ffc7a3674e25245686/results/equivoque-2026-11-07-exp7-main-v2/gpt-6-astra/model-04-job-0003.jsonl.gz) |
 | model-04-job-0002 | gpt-6-astra | complete | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/ce6ad2f03be015d1dc80cce82071f348ca297427/results/equivoque-2026-11-07-exp7-main-v2/gpt-6-astra/model-04-job-0002.jsonl.gz) |
 | model-04-job-0001 | gpt-6-astra | complete | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/b904a7f54474174bc7bc786e2d7b978399ae0113/results/equivoque-2026-11-07-exp7-main-v2/gpt-6-astra/model-04-job-0001.jsonl.gz) |
 

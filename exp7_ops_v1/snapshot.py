@@ -42,6 +42,8 @@ def _relative(value):
     if (len(parts) == 2 and parts[0] == 'states'
             and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*\.(?:json|journal\.jsonl)', parts[1])):
         return value
+    if len(parts) == 3 and parts[0] == 'revisions' and SAFE_ID.fullmatch(parts[1]) and parts[2] == 'public.jsonl.gz':
+        return value
     if len(parts) in (3, 4) and parts[0] == 'native' and re.fullmatch(r'[0-9a-f]{32}', parts[1]):
         if len(parts) == 3 and parts[2] == 'subject-system.txt':
             return value
@@ -84,10 +86,13 @@ def _owned_stopped_job(work, job_id, board):
     return deepcopy(remote)
 
 
-def _collect(job_dir, remote):
-    files = set(ROOT_FILES)
+def _collect(job_dir, remote, *, extra_files=(), public_relative='public.jsonl.gz'):
+    files = set(ROOT_FILES) | set(extra_files)
     excluded_locks = {'budget.json.lock'}
     allowed_dirs = {'states', 'native'}
+    for relative in extra_files:
+        _relative(relative)
+        allowed_dirs.update(str(p) for p in PurePosixPath(relative).parents if str(p) != '.')
     raw_hashes = {}
     counts = Counter({'complete': 0, 'failed': 0, 'interrupted': 0, 'budget_exhausted': 0, 'unstarted': 0})
     pending = []
@@ -171,19 +176,19 @@ def _collect(job_dir, remote):
     local_counts['interrupted'] += counts['budget_exhausted']
     if remote.get('counts') != local_counts:
         raise StorageError('Snapshot state counts differ from confirmed blocked result')
-    if entries['public.jsonl.gz']['sha256'] != remote.get('result_sha256') or not remote.get('result_ref'):
+    if public_relative not in entries or entries[public_relative]['sha256'] != remote.get('result_sha256') or not remote.get('result_ref'):
         raise StorageError('Public snapshot summary differs from confirmed blocked result')
     return entries, dict(counts), pending
 
 
-def _verify(archive_path, index):
-    if index.get('schema_version') != 1 or index.get('kind') != 'exp7-quiescent-stop-snapshot' or index.get('non_pruning') is not True:
+def _verify(archive_path, index, *, expected_kind='exp7-quiescent-stop-snapshot', path_validator=_relative):
+    if index.get('schema_version') != 1 or index.get('kind') != expected_kind or index.get('non_pruning') is not True:
         raise StorageError('Unknown STOP snapshot manifest')
     entries = index.get('files', {})
     if not entries or not isinstance(entries, dict):
         raise StorageError('Missing snapshot file index')
     for relative, info in entries.items():
-        _relative(relative)
+        path_validator(relative)
         if (set(info) != {'sha256','size','mode'} or not re.fullmatch(r'[0-9a-f]{64}', str(info['sha256']))
                 or type(info['size']) is not int or info['size'] < 0
                 or type(info['mode']) is not int or not 0 <= info['mode'] <= 0o777):
@@ -197,7 +202,7 @@ def _verify(archive_path, index):
             with gzip.GzipFile(fileobj=raw, mode='rb') as compressed:
                 with tarfile.open(fileobj=compressed, mode='r|') as archive:
                     for member in archive:
-                        relative = _relative(member.name)
+                        relative = path_validator(member.name)
                         expected = entries.get(relative)
                         if (not member.isfile() or relative in seen or expected is None
                                 or member.size != expected['size'] or member.mode != expected['mode']):

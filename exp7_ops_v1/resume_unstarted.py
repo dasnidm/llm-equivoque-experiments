@@ -61,11 +61,11 @@ def main():
     remote='https://github.com/dasnidm/llm-equivoque-experiments.git'
     coordinator=GitCoordinator(remote,'exp7/main-v2-coordination',op/'coordination.git')
     bound=read(work/'identity.private.json')
-    if bound['concurrency']!=3:raise Conflict('Requested pool is three')
+    if bound['concurrency'] not in (1,2,3):raise Conflict('A pool of one to three is required')
     publisher=ResultPublisher(remote,'exp7/main-v2-results/'+bound['model'],op/'results.git')
     started=now()
     def status(stage,**extra):
-        record=dict(stage=stage,started_at=started,updated_at=now(),pid=os.getpid(),concurrency=3,
+        record=dict(stage=stage,started_at=started,updated_at=now(),pid=os.getpid(),concurrency=bound['concurrency'],
                     calibration_calls=0,diagnostic_calls=0,**extra)
         atomic_json(op/'supervisor-status.private.json',record)
         atomic_json(work/'supervisor-status.json',record)
@@ -85,7 +85,7 @@ def main():
         status('stopped_preserved',counts=completed['counts']);return
     status('run',continued_job=args.job_id)
     command=[sys.executable,'-m','exp7_main_v2.worker','run','--freeze',str(freeze),'--work-dir',str(work),
-             '--model',bound['model'],'--owner',bound['owner'],'--concurrency','3','--calibration-attempt','01']
+             '--model',bound['model'],'--owner',bound['owner'],'--concurrency',str(bound['concurrency']),'--calibration-attempt','01']
     child=subprocess.Popen(command,stdin=subprocess.DEVNULL)
     status('run',continued_job=args.job_id,worker_pid=child.pid)
     code=child.wait();status('run_returned',exit_code=code,worker_pid=child.pid)

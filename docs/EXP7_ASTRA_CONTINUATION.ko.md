@@ -36,3 +36,13 @@
 - 원인·집계는 [별도 기계 판독 기록](data/exp7-astra-c10-2026-11-07/attempt-c10-01.json)에 저장했다.
 
 CLI가 매 턴 새 프로세스로 시작하며 공유 모델 캐시가 존재해도 모델 목록 조회를 수행하는 상황이다. `--ignore-user-config` 때문에 일반 사용자 설정 파일 변경만으로는 적용되지 않는다. 실험 프롬프트·모델·추론수준을 유지하면서 모델 목록만 정확히 고정할 수 있는 지원 설정을 조사 중이다. 오류를 무시하거나 중단된 검증을 이어서 완주한 것으로 취급하지 않는다.
+
+## 모델 목록 고정 설정 검증과 새 점검
+
+운영 설정 `catalog-profile-02`를 별도로 준비했다. 설치된 CLI의 지원 옵션 `model_catalog_json`에 현재 캐시의 모델 10개를 그대로 넣는다. 실험 자식 프로세스에만 실행 래퍼를 적용하며, 원래 인자에 catalog 옵션 하나만 추가한다. 기존 프롬프트·스키마·모델·추론수준·CLI 버전·429 중단 감지기는 그대로다. CLI 바이너리, 모델 목록, 래퍼와 운영 코드의 해시를 기록하고 변경 시 실행을 차단한다.
+
+실제 CLI의 점검 출력은 원본의 모든 필드와 일치했다. CLI가 추가 출력하는 `base_instructions` 필드는 기존 `instructions_template`의 정확한 복사본임을 10개 모두 확인했다. 이 직렬화 차이를 처리하기 전의 `catalog-profile-01`도 보존했으며 적용하지 않았다. 별도 검사에서 `--ignore-user-config`에도 명시적 catalog 옵션이 적용됨을 확인했다. 점검 프로세스와 자식의 네트워크 syscall 추적에서는 Internet socket과 connect가 각각 0회였다. 이 과정의 모델 생성 호출은 0회다.
+
+근거: [고정 모델 정보와 바이너리 해시](data/exp7-astra-c10-2026-11-07/catalog-profile-02.json), [정확한 CLI 버전의 catalog 로더](https://github.com/openai/codex/blob/rust-v0.159.0-alpha.3/codex-rs/core/src/config/mod.rs#L4056), [static model manager](https://github.com/openai/codex/blob/rust-v0.159.0-alpha.3/codex-rs/models-manager/src/manager.rs#L647), [추가 출력 필드의 정의](https://github.com/openai/codex/blob/rust-v0.159.0-alpha.3/codex-rs/protocol/src/openai_models.rs#L864).
+
+이 검증 후 원격 현황을 다시 확인해 운영자가 한 번 재개하며, 별도 `c10-02`에서 새 대화 18개·612호출을 검사한다. 중단된 `c10-01`을 재실행하거나 그 100개 응답과 합쳐 통과시키지 않는다. 새 검증 통과 후에만 위 미시작 네 배정의 계속 실행과 본실험 10병렬 재개를 진행한다.

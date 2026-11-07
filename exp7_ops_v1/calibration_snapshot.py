@@ -53,6 +53,62 @@ def verify_calibration_snapshot(archive,manifest):
                             path_validator=lambda p:_relative(p,index))
 
 
+def verify_stopped_calibration_receipt(work_dir,receipt_path):
+    """Return only the ten immutable c10-01 terminal pending-state exclusions.
+
+    This grants no execution permission. The caller retains its strict default
+    quiescence rule for every other state and must explicitly opt into this
+    precise historical exclusion. No source/receipt bytes are written.
+    """
+    work,receipt=map(_no_symlinks,(work_dir,receipt_path))
+    if not receipt.is_relative_to(work) or receipt.name!='calibration-c10-01.stopped.manifest.json':
+        raise StorageError('An owned exact c10-01 snapshot receipt is required')
+    archive=receipt.with_name('calibration-c10-01.stopped.tar.gz')
+    index=verify_calibration_snapshot(archive,receipt)
+    if index.get('attempt')!='c10-01' or index.get('global_stop_confirmed') is not True:
+        raise StorageError('Receipt is not the stopped c10-01 attempt')
+    expected_counts={'complete':0,'failed':0,'interrupted':10,'budget_exhausted':0,'unstarted':8}
+    if (index.get('state_counts')!=expected_counts or index.get('assigned')!=18
+            or index.get('recorded_calls')!=100 or index.get('successful_calls')!=100
+            or index.get('reserved_calls')!=110 or index.get('call_limit')!=612):
+        raise StorageError('Receipt differs from the exact ten interrupted / one hundred successful-call incident')
+    bound=_read_json(work/'identity.private.json')
+    if any(index.get(k)!=bound.get(k) for k in ('run_id','model','owner')):
+        raise StorageError('Stopped technical receipt belongs to another worker')
+    directory=work/index['attempt_relative'];op=work/index['operation_relative']
+    ids=index['expected_trial_ids']
+    expected={f'cal-c10-01-{bound["model"]}-{effort}-{i:02d}' for effort in ('low','medium','high') for i in range(1,7)}
+    if len(ids)!=18 or set(ids)!=expected:raise StorageError('Stopped technical panel changed')
+    op_prefix=index['operation_relative']+'/'
+    operator_receipts=[p[len(op_prefix):] for p in index['files'] if p.startswith(op_prefix)]
+    entries,metrics=_collect(work,directory,op,ids,bound,index['board_identity']['freeze_sha256'],operator_receipts)
+    if entries!=index['files'] or any(index.get(k)!=v for k,v in metrics.items()):
+        raise StorageError('Stopped technical source differs from the archived receipt')
+    pending_ids=index['pending_checkpoint_trials']
+    if len(pending_ids)!=10 or len(set(pending_ids))!=10:
+        raise StorageError('Exactly ten terminal uncertainty exclusions are required')
+    paths=set();recorded_tickets=[];pending_tickets=[]
+    for tid in pending_ids:
+        path=directory/'states'/(tid+'.json');state=_read_json(path)
+        pending=state.get('pending_turn')
+        if state.get('status')!='interrupted' or not isinstance(pending,dict):
+            raise StorageError('Only unchanged terminal interrupted checkpoints may be excluded')
+        records=state.get('turns',[])
+        if not all(r.get('ok') is True and r.get('raw_files') for r in records):
+            raise StorageError('Earlier successful responses require their native evidence references')
+        recorded_tickets.extend(r.get('budget_ticket') for r in records)
+        pending_tickets.append(pending.get('budget_ticket'))
+        pending_directory=directory/'native'/state['scratch_id']/f'turn-{pending["turn"]:02d}'
+        _no_symlinks(pending_directory)
+        if pending_directory.exists():raise StorageError('A terminal pending request now has native attempt evidence')
+        paths.add(path.resolve())
+    if any(type(t) is not int for t in recorded_tickets+pending_tickets):
+        raise StorageError('Missing exact incident budget tickets')
+    if sorted(recorded_tickets)!=list(range(1,101)) or sorted(pending_tickets)!=list(range(101,111)):
+        raise StorageError('Technical incident request tickets do not reconcile to 100 responses and 10 terminal pending reservations')
+    return paths
+
+
 def _collect(work,directory,op,ids,bound,freeze_digest,operator_receipts):
     relative_root=directory.relative_to(work).as_posix()
     allowed={'budget.json','progress.json'}

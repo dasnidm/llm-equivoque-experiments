@@ -1,5 +1,6 @@
 """Technical STOP snapshot tests using temporary evidence only."""
 import json
+import hashlib
 from pathlib import Path
 import tarfile
 import unittest
@@ -97,6 +98,50 @@ class CalibrationSnapshotTests(unittest.TestCase):
         with self.assertRaises(calibration.StorageError):self.make()
         self.assertTrue(link.is_symlink());link.unlink()
         self.assertEqual(self.source_bytes(),self.before)
+
+    def exact_incident(self):
+        work=self.work/'exact-incident';work.mkdir()
+        (work/'identity.private.json').write_bytes((self.work/'identity.private.json').read_bytes())
+        (work/'worker.lock').write_bytes(b'')
+        directory=work/'calibration'/'attempt-c10-01';(directory/'states').mkdir(parents=True)
+        op=work/'ops-v1'/'c10-01';op.mkdir(parents=True)
+        for name in self.receipts:(op/name).write_bytes((self.op/name).read_bytes())
+        for i,tid in enumerate(self.ids[:10]):
+            scratch=f'{i+100:032x}';records=[]
+            for t in range(1,11):
+                event=directory/'native'/scratch/f'turn-{t:02d}'/'events.jsonl'
+                event.parent.mkdir(parents=True,exist_ok=True);event.write_bytes(b'{"synthetic_success":true}\n')
+                records.append({'turn':t,'ok':True,'budget_ticket':i*10+t,
+                                'raw_files':[{'path':str(event),'sha256':hashlib.sha256(event.read_bytes()).hexdigest()}]})
+            state={'trial':{'trial_id':tid,'model':'model-test','cohort':'technical_calibration'},
+                   'freeze_sha256':self.board['freeze_sha256'],'status':'interrupted','scratch_id':scratch,
+                   'turns':records,'pending_turn':{'turn':11,'budget_ticket':101+i}}
+            (directory/'states'/(tid+'.json')).write_text(json.dumps(state))
+            (directory/'states'/(tid+'.json.lock')).write_bytes(b'')
+        (directory/'budget.json').write_text(json.dumps({'run_id':'incident','used':110,'limit':612}))
+        (directory/'budget.json.lock').write_bytes(b'')
+        (directory/'progress.json').write_text('{"finished":10,"assigned":18}')
+        result=calibration.snapshot_stopped_calibration(work,'c10-01',op,op/'technical-stop-snapshot',
+            expected_trial_ids=self.ids,stopped_pids=[99901,99902],confirmed_board=self.board,operator_receipts=self.receipts)
+        return work,directory,result
+
+    def test_exact_incident_receipt_excludes_only_ten_unchanged_states(self):
+        work,directory,result=self.exact_incident()
+        before={p:p.read_bytes() for p in directory.rglob('*') if p.is_file()}
+        paths=calibration.verify_stopped_calibration_receipt(work,result['manifest'])
+        self.assertEqual(paths,{directory/'states'/(tid+'.json') for tid in self.ids[:10]})
+        self.assertEqual(before,{p:p.read_bytes() for p in directory.rglob('*') if p.is_file()})
+        state_path=next(iter(paths));original=state_path.read_bytes();state=json.loads(original)
+        state['pending_turn']['budget_ticket']=999;state_path.write_text(json.dumps(state))
+        with self.assertRaises(calibration.StorageError):calibration.verify_stopped_calibration_receipt(work,result['manifest'])
+        state_path.write_bytes(original)
+        native=directory/'native'/state['scratch_id']/'turn-11';native.mkdir()
+        with self.assertRaises(calibration.StorageError):calibration.verify_stopped_calibration_receipt(work,result['manifest'])
+
+    def test_generic_technical_snapshot_cannot_exclude_arbitrary_interruptions(self):
+        result=self.make()
+        with self.assertRaises(calibration.StorageError):
+            calibration.verify_stopped_calibration_receipt(self.work,result['manifest'])
 
 
 if __name__=='__main__':unittest.main()

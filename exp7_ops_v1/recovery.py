@@ -78,9 +78,9 @@ def verify_publication(publisher,job,local_path):
             raise Conflict("Prior public result is not intact on its result branch")
 
 
-def inspect_unstarted(directory,job,trials,freeze_digest,selected):
-    if len(selected)!=4 or len(set(selected))!=4:
-        raise Conflict("This continuation requires exactly four explicit distinct never-started IDs")
+def inspect_unstarted(directory,job,trials,freeze_digest,selected,expected_count=4):
+    if expected_count < 1 or len(selected)!=expected_count or len(set(selected))!=expected_count:
+        raise Conflict("This continuation requires the explicit number of distinct never-started IDs")
     if not set(selected).issubset(job["trial_ids"]):
         raise Conflict("Selected IDs are outside the original job")
     if job["call_cap"]!=34*len(job["trial_ids"]):
@@ -129,12 +129,12 @@ def inspect_unstarted(directory,job,trials,freeze_digest,selected):
     counts=Counter({"complete":0,"failed":0,"interrupted":0,"unstarted":len(missing)})
     for state in existing:
         counts["interrupted" if state["status"]=="budget_exhausted" else state["status"]]+=1
-    if dict(counts)!=job["counts"] or budget["used"]+136>job["call_cap"]:
+    if dict(counts)!=job["counts"] or budget["used"]+34*len(selected)>job["call_cap"]:
         raise Conflict("Prior job counts or remaining immutable budget disagree")
     return existing,budget
 
 
-def prepare_recovery(coordinator,publisher,work_dir,operation_dir,trials,freeze_digest,job_id,selected):
+def prepare_recovery(coordinator,publisher,work_dir,operation_dir,trials,freeze_digest,job_id,selected,expected_count=4):
     """Write a durable intent only; caller holds recovery/worker locks."""
     work_dir,operation_dir=Path(work_dir).resolve(),Path(operation_dir).resolve()
     if not re.fullmatch(r"[A-Za-z0-9_-]+",operation_dir.name):
@@ -154,13 +154,13 @@ def prepare_recovery(coordinator,publisher,work_dir,operation_dir,trials,freeze_
         raise Conflict("Archived jobs cannot be reopened")
     if read(directory/"claim.private.json")!=job_identity(job,bound):
         raise OwnershipError("Durable original job claim differs")
-    existing,budget=inspect_unstarted(directory,job,trials,freeze_digest,selected)
+    existing,budget=inspect_unstarted(directory,job,trials,freeze_digest,selected,expected_count)
     verify_publication(publisher,job,directory/"public.jsonl.gz")
     files=inventory(directory)
     intent={"schema_version":1,"operation_id":operation_dir.name,"created_at":now(),
             "action":"continue_only_never_started_assignments","bound":bound,"board_identity":identity,
             "original_job":job,"selected_ids":[tid for tid in job["trial_ids"] if tid in selected],
-            "original_budget":budget,"maximum_additional_calls":136,"prior_files":files,
+            "original_budget":budget,"maximum_additional_calls":34*len(selected),"prior_files":files,
             "excluded_interrupted_ids":[s["trial"]["trial_id"] for s in existing if s["status"]=="interrupted"],
             "revision_target":f"results/{bound['run_id']}/{bound['model']}/{job_id}.{operation_dir.name}.jsonl.gz"}
     atomic_json(path,intent);os.chmod(path,0o600)
@@ -214,7 +214,7 @@ def finalize_recovery(coordinator,publisher,work_dir,operation_dir,trials):
         output.append(state)
     budget=read(directory/"budget.json")
     original=intent["original_budget"]
-    if budget["run_id"]!=original["run_id"] or budget["limit"]!=original["limit"] or not original["used"]<=budget["used"]<=original["used"]+136:
+    if budget["run_id"]!=original["run_id"] or budget["limit"]!=original["limit"] or not original["used"]<=budget["used"]<=original["used"]+intent["maximum_additional_calls"]:
         raise Conflict("Original immutable call budget changed or continuation overspent")
     verify_publication(publisher,job,directory/"public.jsonl.gz")
     path=directory/"revisions"/intent["operation_id"]/"public.jsonl.gz"
@@ -260,7 +260,7 @@ def execute_recovery(coordinator,publisher,work_dir,operation_dir,trials,timeout
     if pool_size<1:
         raise Conflict("No local request capacity")
     directory=verify_prior(work_dir,intent)
-    inspect_unstarted(directory,job,trials,intent["board_identity"]["freeze_sha256"],intent["selected_ids"])
+    inspect_unstarted(directory,job,trials,intent["board_identity"]["freeze_sha256"],intent["selected_ids"],len(intent["selected_ids"]))
     board=coordinator.status();check_binding(board,bound,intent["board_identity"],job)
     if board["models"][bound["model"]]["concurrency"]!=local["concurrency"]:
         raise Conflict("Remote request reservation differs from the local pool")
@@ -279,7 +279,7 @@ def execute_recovery(coordinator,publisher,work_dir,operation_dir,trials,timeout
         current["jobs"][job["job_id"]]["status"]="running"
         current["jobs"][job["job_id"]]["ops_continuation"]={"operation_id":intent["operation_id"],
             "intent_sha256":status["intent_sha256"],"selected_ids":intent["selected_ids"],
-            "prior_result_ref":job["result_ref"],"maximum_additional_calls":136,"at":now()}
+            "prior_result_ref":job["result_ref"],"maximum_additional_calls":intent["maximum_additional_calls"],"at":now()}
         validate_board(current)
     coordinator._mutate("Explicit never-started-only continuation",reopen)
     coordinator.worker_expected_identity=intent["board_identity"]

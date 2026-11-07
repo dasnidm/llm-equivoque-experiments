@@ -24,7 +24,9 @@ class RecoveryTests(unittest.TestCase):
         subprocess.run(["git","init","--bare",str(remote)],check=True,capture_output=True)
         self.c=GitCoordinator(str(remote),"coordination",self.root/"coord.git")
         self.p=ResultPublisher(str(remote),"results",self.root/"results.git")
-        self.trials={f"t{i}":example(trial_id=f"t{i}",run_id="run") for i in range(6)}
+        size=getattr(self,"panel_size",4)
+        total=size+2
+        self.trials={f"t{i}":example(trial_id=f"t{i}",run_id="run") for i in range(total)}
         self.c.bootstrap(new_board("run","b"*64,"c"*40,[{"job_id":"job","model":"fake","trial_ids":list(self.trials)}],
             global_stop=False,global_max_concurrency=10,freeze_sha256="a"*64))
         token=self.c.claim_model("fake","owner",concurrency=3)
@@ -34,24 +36,24 @@ class RecoveryTests(unittest.TestCase):
         self.op=self.work/"ops-v1"/"continuation-01";self.op.mkdir(parents=True)
         atomic_json(self.work/"identity.private.json",self.bound)
         atomic_json(self.dir/"claim.private.json",job_identity(self.job,self.bound))
-        budget=CallBudget(self.dir/"budget.json","run:job",204)
+        budget=CallBudget(self.dir/"budget.json","run:job",34*total)
         states=[]
         for i in range(2):
             state=run_trial(self.trials[f"t{i}"],MainProtocol(),FakeTransport(MainProtocol(),raise_at=2 if i else None),
                 self.dir/"states"/f"t{i}.json",self.dir/"native",budget,"a"*64)
             states.append(state)
-        for i in range(2,6):
+        for i in range(2,total):
             states.append({"trial":self.trials[f"t{i}"],"status":"unstarted","freeze_sha256":"a"*64,
                            "turns":[],"rounds":[],"pending_turn":None})
         digest=export_job(states,self.dir/"public.jsonl.gz")
         ref=self.p.publish(self.dir/"public.jsonl.gz","results/original.jsonl.gz")
         self.c.complete_job("fake","owner",token,"job",self.job["claim_token"],
-            counts={"complete":1,"failed":0,"interrupted":1,"unstarted":4},calls=36,result_ref=ref,result_sha256=digest)
-        self.selected=["t2","t3","t4","t5"]
+            counts={"complete":1,"failed":0,"interrupted":1,"unstarted":size},calls=36,result_ref=ref,result_sha256=digest)
+        self.selected=[f"t{i}" for i in range(2,total)]
         self.calls=[]
 
     def plan(self):
-        return prepare_recovery(self.c,self.p,self.work,self.op,self.trials,"a"*64,"job",self.selected)
+        return prepare_recovery(self.c,self.p,self.work,self.op,self.trials,"a"*64,"job",self.selected,expected_count=len(self.selected))
 
     def transport(self):
         outer=self
@@ -150,3 +152,19 @@ class RecoveryTests(unittest.TestCase):
 
 if __name__=="__main__":
     unittest.main()
+
+
+class LargerPanelTests(unittest.TestCase):
+    def test_27_untouched_assignments_keep_original_budget_and_prior_states(self):
+        fixture=RecoveryTests()
+        fixture.panel_size=27
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        intent=fixture.plan()
+        receipt=fixture.execute()
+        self.assertEqual(len(fixture.calls),918)
+        self.assertEqual(set(fixture.calls),set(fixture.selected))
+        self.assertEqual(receipt['completed_job']['counts'],dict(complete=28,failed=0,interrupted=1,unstarted=0))
+        self.assertEqual(receipt['completed_job']['calls'],954)
+        for relative,digest in intent['prior_files'].items():
+            if relative!='budget.json':self.assertEqual(sha(fixture.dir/relative),digest)

@@ -1,0 +1,41 @@
+{
+  "version": "exp7-main-single-sequence-analysis-v1",
+  "status": "collection_contract_not_external_preregistration",
+  "primary_population": "Fresh conversations under the frozen stimuli and requested model/effort settings",
+  "primary_observation": "impact == 1 AND counterfactual == no, with both fields valid",
+  "primary_prediction": "First joint report at round t, after that round's two choices and feedback and before that round's rating, conditional on no prior joint report",
+  "prediction_rounds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  "profile_unit": "model by reasoning effort; 24 requested profiles remain distinguishable",
+  "core_split": {"development_per_cell": 60, "locked_evaluation_per_cell": 60, "development_folds": 5, "unit": "whole conversation", "object_stratification": "15 conversations per target in each split"},
+  "control_use": "Prespecified descriptive and condition contrasts; not predictive model selection",
+  "R_A_use": "Round-10 between-conversation comparison with en_schema, standardized equally over the four obj targets; no round-1-to-9 onset inference",
+  "input_restrictions": [
+    "Only information visible through the current round may enter a prediction",
+    "No future K/D path, future report, hidden target schedule or terminal response",
+    "Initial K/D prior is symmetric for Bayesian consistency candidates",
+    "Stage-1 changes across rounds and stage-2 changes across rounds are separate from interleaved K/D changes"
+  ],
+  "prespecified_candidate_families": [
+    "constant report-hazard baseline",
+    "elapsed-round baseline",
+    "observed outcome repetition",
+    "stage-specific K/D changes",
+    "symmetric-prior Bayesian rule consistency",
+    "outcome-versus-rule consistency"
+  ],
+  "selection": {
+    "data": "development conversations only",
+    "primary_score": "conversation-summed first-event log loss, mean within each core cell then equal-weight mean across cells within each profile",
+    "secondary_scores": ["Brier score", "calibration", "event and usable-conversation counts"],
+    "fixed_before_holdout_open": ["candidate equations", "feature transformations", "coefficient-sharing structure", "hyperparameter grids", "missing-data handling", "tie-breaking rule"],
+    "heldout_evaluation": "Once after the development-only specification and fitted models are versioned; any subsequent revision is exploratory",
+    "insufficient_information": "Report uncertainty or abstain where events or covariate support are insufficient; do not claim zero risk from zero observed events"
+  },
+  "secondary_observations": ["current joint-report prevalence", "cumulative first-report incidence", "persistence", "return from joint report", "re-entry", "raw freedom/impact/counterfactual fields", "terminal prediction match/mismatch/uncertain/unparseable separately"],
+  "missingness": "Do not encode invalid reports as zero. A gap before an observed joint report prevents an exact onset claim; report interval-censored or unknown onset and prespecified complete-prefix sensitivity analyses.",
+  "terminal_policy": "All terminal questions occur after round-10 rating. Explanation versus neutral is preassigned; subsequent predictions and reratings are separate from spontaneous first-ten-round endpoints.",
+  "uncertainty_unit": "Conversation, with condition and execution-batch sensitivity; repeated rounds and prediction components are not independent conversations",
+  "prohibited_interpretations": ["K/D association as randomized causal effect", "joint report as direct private mechanism knowledge or human subjective SoA", "single-sequence success as new-sequence generalization", "predictive success as identification of a unique internal LLM algorithm"],
+  "sampling_rules": {"automatic_request_replays": 0, "replace_failed_conversations": false, "increase_samples_until_events_appear": false, "calibration_in_primary_results": false},
+  "review_scope": "Automated invariants and independent AI semantic/code review; no completed independent human semantic review is claimed"
+}

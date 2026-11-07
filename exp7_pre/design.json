@@ -1,0 +1,89 @@
+{
+  "description": "Research design metadata, not an execution schedule or evidence of completed collection.",
+  "status": "proposed_pending_access_and_execution",
+  "analysis_scope": "Exploratory measurement and robustness pilot; no equivalence or adequate-power claim.",
+  "profiles": [
+    {"model_label": "gpt-5.6-sol", "effort_requested": "high"},
+    {"model_label": "gpt-6-astra", "effort_requested": "low"},
+    {"model_label": "gpt-6-luna", "effort_requested": "low"},
+    {"model_label": "6.1 terra", "effort_requested": "high", "actual_model_id": null, "support": "unverified"}
+  ],
+  "frame": "cards",
+  "conditions": ["fixed_target", "balanced_target_sequence", "stable_selection_mapping"],
+  "stable_selection_mapping": {
+    "routes": ["KK", "KD", "DK", "DD"],
+    "assignment": "Balanced within profile, arm and case set; route and sequence specified before model choices. Keep the same mapping across all rounds.",
+    "interpretation": "Selection-dependent control; the entire feedback process changes compared with forced-target conditions."
+  },
+  "arms": {
+    "A": "Historical system and English wording; JSON instruction and schema for choice and ratings.",
+    "J": "Neutral system; English JSON instruction and schema for choice and ratings.",
+    "P": "J with meaning-preserving English paraphrase of task and ratings.",
+    "K": "J translated to Korean while preserving task information, response scales and output schema.",
+    "JS": "J with rating-turn output schema removed; rating JSON instruction retained.",
+    "N": "JS with natural-language rating output; selection remains J's JSON format.",
+    "R": "J with neutral acknowledgement in rounds 1-9 and rating only in round 10.",
+    "F": "N with natural-language selection output as well as natural-language rating."
+  },
+  "arms_contrasts": [
+    {"comparison": "A vs J", "interpretation": "Historical vs neutral system bundle."},
+    {"comparison": "J vs P", "interpretation": "English paraphrase package."},
+    {"comparison": "J vs K", "interpretation": "English vs Korean language package."},
+    {"comparison": "J vs JS", "interpretation": "Rating schema constraint with JSON instructions retained."},
+    {"comparison": "JS vs N", "interpretation": "Rating JSON instructions/format under no rating schema."},
+    {"comparison": "J vs R", "interpretation": "Repeated judgment and response-history package vs neutral acknowledgement."},
+    {"comparison": "N vs F", "interpretation": "Selection output format and downstream feedback/history package."}
+  ],
+  "allocation": {
+    "fresh_case_families_per_cell": 12,
+    "primary_conversations": 1152,
+    "primary_formula": "4 profiles * 8 arms * 3 conditions * 12 case families",
+    "repeat_conversations": 48,
+    "repeat_formula": "4 profiles * 3 conditions * 2 prespecified A-arm cases * 2 additional independent sessions",
+    "total_conversations": 1200,
+    "repeats_are_new_case_families": false,
+    "explanation_vs_neutral": "Independently assign six of twelve original cases per profile, arm and condition to each terminal pre-prediction prompt. Repeat sessions inherit the case's assignment.",
+    "case_family": "Same case layout/assigned schedule is paired across profiles/arms where feasible, but each conversation is a separate session; record actual stimuli and collisions.",
+    "schedule": "Randomize and record session ordering in model/time blocks. No outcome-dependent allocation, selective rerun or silent substitution."
+  },
+  "calls": {
+    "planned_calls_per_complete_conversation": 34,
+    "breakdown": {"choices": 20, "rating_or_acknowledgement": 10, "explanation_or_neutral": 1, "counterfactual_prediction": 1, "pre_disclosure_rerating": 1, "post_disclosure_rerating": 1},
+    "planned_primary_calls": 39168,
+    "planned_repeat_calls": 1632,
+    "planned_total_calls": 40800,
+    "exclusions": "Transport retries, failed calls, preflight, pilot validation and optional parser/judge calls are not included; hard execution budget must be separately fixed and enforced.",
+    "retries": "Specify common cap, failure accounting and stop conditions before execution; preserve all attempts and report incomplete conversations."
+  },
+  "measurement": {
+    "joint": "impact equals 1 and counterfactual equals no, with both components interpretable; freedom is separate.",
+    "missingness": "Record raw/parsed/ambiguous/unparseable/failed by field; never treat missing as no-event. R rounds 1-9 are structurally unmeasured.",
+    "first_event": "Previous joint must have been observable and negative; do not bridge unparseable rounds. No first-event time estimand in R rounds 1-9.",
+    "persistence": "Report first-onset timing, at-risk denominator, subsequent 1/no state, recovery and reentry; do not equate with knowledge or human SoA.",
+    "counterfactual": "Choose four policy prompts before observing hidden target or model response. Validate policy ordering and target-independent generation; label actual realized paths as observed/unobserved after the session, and do not assume all four are unseen.",
+    "counterfactual_scoring": "For each path, score first feedback, second feedback, final outcome separately as correct/explicit mismatch/uncertain/unparseable against the generator. Components share a conversation and are not independent cases.",
+    "disclosure": "Use truthful fixed/sequence disclosure for forced conditions and the assigned stage rule for selection-dependent controls; check wording and generator exhaustively.",
+    "free_text": "Preserve raw response, frozen parser outputs and ambiguous cases; use blinded human audit. Do not change historical JSON completeness labels."
+  },
+  "estimands": [
+    "Within each arm and profile: final joint rate in fixed versus balanced-sequence conditions and separately selection-dependent control.",
+    "Between arms: final outcome differences J-P, J-K, J-JS, JS-N, J-R, N-F and A-J, reporting condition-specific rates and fixed-minus-sequence differences.",
+    "Among interpretable repeated-rating sessions: onset, recovery and persistence conditional on observed history, stratified by condition.",
+    "Response-state, counterfactual component and rule-explanation agreement, without labeling a single response as trick discovery.",
+    "Descriptive independent-repeat variation for prespecified duplicate cases."
+  ],
+  "analysis": {
+    "unit": "Independent session, repeated rounds within session; shared matched case-family dependence across arms and profiles; repeat sessions nested within case.",
+    "uncertainty": "Case-family-clustered paired contrasts with outcome-specific denominators and explicitly exploratory intervals; nested repeats remain together.",
+    "limits": "12 cases per cell and 6 per terminal branch do not establish equivalence or adequately power rare outcomes. No absence-of-effect claim from non-significance.",
+    "predefined_equivalence_margin": null,
+    "scope": "Four prospectively chosen profiles and single cards frame; no extrapolation to all 24 model-effort profiles or all phrasings/languages.",
+    "evaluation_after_design_development": "No reuse of these pilot outcomes for independent validation of a model or a design selected using them."
+  },
+  "safeguards": [
+    "No live execution is asserted by this file; requested provider identifier and effort support for 6.1 terra must be independently verified.",
+    "Freeze realized prompt, schedule, source and input hashes before calls; record model/provider/version, schema configuration, failures and all retries.",
+    "Quality gates cover generator correctness, alignment and parser audit; insufficient valid data or calibration means inconclusive, not forced equivalence or a positive claim.",
+    "Only actual supported profiles are counted as completed; missing or unsupported cells are transparently reported."
+  ]
+}

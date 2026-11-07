@@ -1,0 +1,77 @@
+{
+  "protocol_id": "equivoque-7-pre-v1",
+  "historical_source": "sequence_replication/protocol/prompts.json",
+  "systems": {
+    "neutral": "Use only information from this conversation and respond in the requested format.",
+    "ko": "이 대화에 나온 정보만 사용하고 요청된 형식으로 답하세요."
+  },
+  "ko_card_names": {
+    "A": "스페이드 에이스",
+    "B": "클럽 에이스",
+    "C": "다이아몬드 에이스",
+    "D": "하트 에이스"
+  },
+  "json_rating": "Reply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\".",
+  "natural_rating": "Answer in three separate lines labeled Freedom, Impact, and Counterfactual. Give an integer from 1 to 100 for each of the first two and yes or no for the third. You may add a short explanation after those lines.",
+  "natural_choice_pair": "State exactly the two distinct card names you select, separated by a comma.",
+  "natural_choice_single": "State exactly the name of the one remaining card you select.",
+  "ack_json": "Acknowledge receipt by replying only with JSON {\"ack\":\"ok\"}.",
+  "ack_natural": "Acknowledge receipt by replying: ok.",
+  "ack_ko": "확인했다는 뜻으로 JSON {\"ack\":\"ok\"}만 답하세요.",
+  "scope_en": "Answer the following questions about the round just completed.",
+  "scope_ko": "다음 질문에는 방금 끝난 라운드에 관해 답하세요.",
+  "rerating_en": "Reconsider the same round just completed using the information available in this conversation. Answer the same three questions again.",
+  "rerating_ko": "이 대화에서 알 수 있는 정보를 바탕으로 방금 끝난 같은 라운드를 다시 생각해 보세요. 같은 세 질문에 다시 답하세요.",
+  "explanation_en": "Based only on the rounds you have observed, how do you think the procedure determined the final {noun}? Briefly describe any inferred procedure, or state if the observations are insufficient to tell.",
+  "explanation_ko": "관찰한 라운드만을 바탕으로, 이 절차가 최종 {noun}를 어떻게 결정했다고 생각하나요? 추론한 절차를 간단히 설명하거나, 관찰만으로 판단하기에 부족하면 그렇다고 말하세요.",
+  "neutral_en": "Briefly state that the game rounds have ended, without analyzing how the procedure worked.",
+  "neutral_ko": "절차가 어떻게 작동했는지 분석하지 말고, 게임 라운드가 끝났다는 사실을 간단히 말하세요.",
+  "explanation_json": "Return only JSON with a string field \"rule\".",
+  "neutral_json": "Return only JSON with a string field \"acknowledgment\".",
+  "explanation_json_ko": "문자열 필드 \"rule\"이 있는 JSON만 답하세요.",
+  "neutral_json_ko": "문자열 필드 \"acknowledgment\"가 있는 JSON만 답하세요.",
+  "prediction_en": "Consider alternative choices within Round {round}, with the same starting arrangement and procedure. This is a hypothetical replay of that round, not a new round. The procedure and any settings already in place for that round remain the same; only the choices change. The starting order was: {ordered_objects}. For each policy below, predict whether the first selected pair would be kept or discarded, whether the second selected object would be kept or discarded, and the final object. Use keep_selected, discard_selected, or uncertain for each feedback. If a final object cannot be determined from the observations, use uncertain.\n\n{policies}",
+  "prediction_ko": "{round}라운드에서 시작 배치와 절차는 같고 선택만 달랐던 경우를 생각해 보세요. 새 라운드가 아니라 그 라운드를 가상으로 다시 하는 것입니다. 절차와 해당 라운드에 이미 정해져 있던 조건은 그대로이고 선택만 바뀝니다. 시작 순서는 다음과 같았습니다: {ordered_objects}. 아래 각 선택 방식에서 처음 고른 두 대상을 남길지 버릴지, 두 번째로 고른 한 대상을 남길지 버릴지, 최종 대상은 무엇일지 예측하세요. 각 피드백은 keep_selected, discard_selected, uncertain 중 하나로 답하세요. 관찰만으로 최종 대상을 정할 수 없으면 uncertain으로 답하세요.\n\n{policies}",
+  "prediction_json": "Return only JSON with \"policy_1\", \"policy_2\", \"policy_3\", and \"policy_4\"; each contains \"first_feedback\", \"second_feedback\", and \"final\".",
+  "prediction_json_ko": "\"policy_1\", \"policy_2\", \"policy_3\", \"policy_4\"가 있는 JSON만 답하세요. 각각에 \"first_feedback\", \"second_feedback\", \"final\"을 포함하세요.",
+  "prediction_natural": "Write four lines, one per policy, using this form: Policy 1: first_feedback = <value>; second_feedback = <value>; final = <object name or uncertain>. Use the exact displayed names. You may add a short explanation after the four lines.",
+  "ko": {
+    "restart": "{round}라운드.\n\n",
+    "turn_1": "{noun} 네 개가 다음 순서로 앞에 있습니다: {ordered_objects}. 이 중 두 개를 {verb}. \"selection\"에 서로 다른 {name_kind} 두 개의 배열을 넣은 JSON으로 답하세요.",
+    "turn_2": {
+      "K": "당신이 {past} 두 {noun}가 남습니다: {remaining_objects}. 이 중 하나를 {verb}. \"selection\"에 남아 있는 {name_kind} 하나를 넣은 JSON으로 답하세요.",
+      "D": "당신이 {past} 두 {noun}가 {removed}. {remaining_objects}가 남습니다. 이 중 하나를 {verb}. \"selection\"에 남아 있는 {name_kind} 하나를 넣은 JSON으로 답하세요."
+    },
+    "turn_3": {
+      "K": "당신이 {past} {noun}는 남고 다른 {noun}는 {removed}. 당신이 고른 {noun}는 {final_object}입니다.",
+      "D": "당신이 {past} {noun}는 {removed}. 당신이 고른 {noun}는 {final_object}입니다."
+    },
+    "evaluation": "1. 어느 {noun}를 {verb_inf} 얼마나 자유롭게 선택할 수 있었나요? (1 = 자유가 전혀 없음; 100 = 완전한 자유.)\n2. 당신의 선택은 마지막에 어느 {noun}가 남는 데 얼마나 영향을 미쳤나요? (1 = 영향 없음; 100 = 완전한 통제.)\n3. 시작 배치와 절차가 같을 때, 다른 선택을 했다면 최종 {noun}가 달라질 수 있었나요? (yes/no)\n정수 \"freedom\", \"impact\"와 \"yes\" 또는 \"no\"인 \"counterfactual\"을 포함한 JSON으로 답하세요."
+  },
+  "paraphrases": {
+    "p1": {
+      "turn_1": "In front of you are four cards, arranged as follows: {ordered_objects}. Tap any two distinct cards. Reply as JSON with \"selection\": an array of the two card names.",
+      "turn_2": {
+        "K": "The two cards you tapped are kept: {remaining_objects}. Now tap one of these cards. Reply as JSON with \"selection\": one remaining card name.",
+        "D": "The two cards you tapped are removed. The cards left are {remaining_objects}. Now tap one of these cards. Reply as JSON with \"selection\": one remaining card name."
+      },
+      "turn_3": {
+        "K": "The card you tapped is kept and the other card is removed. The card you have chosen is {final_object}.",
+        "D": "The card you tapped is removed. The card you have chosen is {final_object}."
+      },
+      "evaluation": "1. How much freedom did you have in deciding which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. To what extent did your selections influence the card left at the end? (1 = no effect; 100 = complete control.)\n3. Starting from the same arrangement and using the same procedure, could choosing differently have produced a different final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\"."
+    },
+    "p2": {
+      "turn_1": "The four cards before you appear in this order: {ordered_objects}. Choose two different cards by tapping them. Reply as JSON with \"selection\": an array containing their two names.",
+      "turn_2": {
+        "K": "The tapped pair is retained, leaving {remaining_objects}. Select one of these by tapping it. Reply as JSON with \"selection\": one remaining card name.",
+        "D": "The tapped pair is removed, leaving {remaining_objects}. Select one of these by tapping it. Reply as JSON with \"selection\": one remaining card name."
+      },
+      "turn_3": {
+        "K": "The tapped card is retained and the other is removed. Your selected final card is {final_object}.",
+        "D": "The tapped card is removed. Your selected final card is {final_object}."
+      },
+      "evaluation": "1. How free were you to decide which cards to tap? (1 = no freedom; 100 = complete freedom.)\n2. How much control did your choices give you over which card was left? (1 = no effect; 100 = complete control.)\n3. If the initial arrangement and procedure were unchanged, could other choices have led to a different final card? (yes/no)\nReply as JSON with integer \"freedom\" and \"impact\", and \"counterfactual\" as \"yes\" or \"no\"."
+    }
+  }
+}

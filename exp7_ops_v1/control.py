@@ -97,8 +97,8 @@ def process_alive(pid):
 
 
 @contextmanager
-def quiescent_worker(work_dir, old_worker_pid, old_supervisor_pid):
-    """No signals: require process exit, available locks, and settled records."""
+def quiescent_worker(work_dir, old_worker_pid, old_supervisor_pid, reconciliation_receipt=None):
+    """Require quiescence; an explicit verified receipt never permits replay."""
     work_dir = Path(work_dir).resolve()
     if process_alive(old_worker_pid) or process_alive(old_supervisor_pid):
         raise Conflict("Old worker or supervisor is still active; wait without interrupting conversations")
@@ -109,12 +109,34 @@ def quiescent_worker(work_dir, old_worker_pid, old_supervisor_pid):
         for path in paths:
             lock = stack.enter_context(path.open("a"))
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        reconciled = set()
+        if reconciliation_receipt is not None:
+            # Import only after both operational locks are held. recovery uses
+            # this module's read-only helpers, so a module-level import cycles.
+            from .recovery import verify_reconciliation
+            reconciled = {Path(path).resolve() for path in
+                          verify_reconciliation(work_dir, reconciliation_receipt)}
+            if len(reconciled) != 3:
+                raise Conflict("This operation requires exactly three verified original interruptions")
+            for path in reconciled:
+                if not path.is_relative_to(work_dir):
+                    raise Conflict("Reconciled state is outside this worker directory")
+                parts = path.relative_to(work_dir).parts
+                if len(parts) != 4 or parts[0] != "jobs" or parts[2] != "states" or path.suffix != ".json":
+                    raise Conflict("Reconciliation may exempt only original job states")
         sources = list((work_dir / "jobs").glob("*/states/*.json"))
         sources += list((work_dir / "calibration").glob("attempt-*/states/*.json"))
+        matched = set()
         for path in sources:
             state = read(path)
-            if state.get("status") == "active" or state.get("pending_turn") is not None:
+            if state.get("status") == "active":
                 raise Conflict("Active or uncertain request records remain; preserve and reconcile them")
+            if state.get("pending_turn") is not None:
+                if state.get("status") != "interrupted" or path.resolve() not in reconciled:
+                    raise Conflict("Active or uncertain request records remain; preserve and reconcile them")
+                matched.add(path.resolve())
+        if matched != reconciled:
+            raise Conflict("Reconciliation no longer matches all three immutable pending states")
         yield
 
 
@@ -173,10 +195,12 @@ def reserve_target(coordinator, work_dir, operation_dir, concurrency=10):
         return audit
 
 
-def resize_local(coordinator, work_dir, operation_dir, old_worker_pid, old_supervisor_pid):
+def resize_local(coordinator, work_dir, operation_dir, old_worker_pid, old_supervisor_pid,
+                 reconciliation_receipt=None):
     """Apply the reserved pool size locally only after the previous run drained."""
     work_dir = Path(work_dir).resolve()
-    with operation_lock(operation_dir) as (directory, hold), quiescent_worker(work_dir, old_worker_pid, old_supervisor_pid):
+    with operation_lock(operation_dir) as (directory, hold), quiescent_worker(
+            work_dir, old_worker_pid, old_supervisor_pid, reconciliation_receipt):
         audit = read(directory / "capacity.private.json")
         bound = read(work_dir / "identity.private.json")
         board = coordinator.status()
@@ -232,14 +256,15 @@ def verify_capacity_evidence(ready, attempt, audit):
 
 
 def release_hold(coordinator, work_dir, operation_dir, old_worker_pid, old_supervisor_pid,
-                 calibration_attempt, freeze_path):
+                 calibration_attempt, freeze_path, reconciliation_receipt=None):
     """Release only after the fresh capacity calibration is independently valid."""
     from exp7_main_v2.worker import verify_freeze, verify_readiness, ROOT
     from exp7_main_v2.schedule import load_bundle
     if not calibration_attempt or calibration_attempt == "01" or "/" in calibration_attempt or "\\" in calibration_attempt:
         raise ValueError("A fresh explicit capacity calibration attempt is required")
     work_dir=Path(work_dir).resolve()
-    with operation_lock(operation_dir) as (directory,hold), quiescent_worker(work_dir,old_worker_pid,old_supervisor_pid):
+    with operation_lock(operation_dir) as (directory,hold), quiescent_worker(
+            work_dir,old_worker_pid,old_supervisor_pid,reconciliation_receipt):
         audit=read(directory/"capacity.private.json")
         bound=read(work_dir/"identity.private.json")
         if any(bound.get(key) != hold.get(key) for key in ("run_id","model","owner","model_token")):
@@ -299,6 +324,8 @@ def main(argv=None):
         child=commands.add_parser(name)
         child.add_argument("--old-worker-pid",type=int,required=True)
         child.add_argument("--old-supervisor-pid",type=int,required=True)
+        child.add_argument("--reconciliation-receipt",
+                           help="Explicit hash-verified exemption for three immutable original interruptions; never replay them")
         if name=="release":
             child.add_argument("--calibration-attempt",required=True)
             child.add_argument("--freeze",required=True)
@@ -308,10 +335,11 @@ def main(argv=None):
         if args.command=="reserve":
             result=reserve_target(coordinator,args.work_dir,args.operation_dir,args.concurrency)
         elif args.command=="resize-local":
-            result=resize_local(coordinator,args.work_dir,args.operation_dir,args.old_worker_pid,args.old_supervisor_pid)
+            result=resize_local(coordinator,args.work_dir,args.operation_dir,args.old_worker_pid,args.old_supervisor_pid,
+                                args.reconciliation_receipt)
         elif args.command=="release":
             result=release_hold(coordinator,args.work_dir,args.operation_dir,args.old_worker_pid,args.old_supervisor_pid,
-                                args.calibration_attempt,args.freeze)
+                                args.calibration_attempt,args.freeze,args.reconciliation_receipt)
         else:
             board=coordinator.status();hold=read(Path(args.operation_dir)/"hold.private.json")
             result={"status":"inspection","model":hold["model"],"held_job":hold["held_job"]["job_id"],

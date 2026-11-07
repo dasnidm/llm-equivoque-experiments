@@ -3,8 +3,8 @@
 **STOP — 새 호출 중단**
 
 - 실행: `equivoque-2026-11-07-exp7-main-v2`
-- 갱신 시각: 2026-11-07T14:31:12+00:00 (UTC)
-- 상태 사유: Capacity/authentication diagnostic observed; preserve requests and inspect before resuming
+- 갱신 시각: 2026-11-07T14:34:37+00:00 (UTC)
+- 상태 사유: Astra c10: CLI model-catalog refresh HTTP429 in6 successful responses;100 generations OK; technical check interrupted, no evaluation continuation
 - 예약 병렬 수 / 전역 상한: **20 / 30**
 - 배정: **77,856대화 · 2,600작업**
 - 보고된 대화: 완료 **83**, 실패 **0**, 중단 **3**, 미시작·미보고 **77,770**

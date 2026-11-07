@@ -3,8 +3,8 @@
 **STOP — 새 호출 중단**
 
 - 실행: `equivoque-2026-11-07-exp7-main-v1`
-- 갱신 시각: 2026-11-07T11:48:10+00:00 (UTC)
-- 상태 사유: Awaiting launch readiness
+- 갱신 시각: 2026-11-07T11:59:34+00:00 (UTC)
+- 상태 사유: Storage hardening requested before collection; v1 has no calibration or evaluation sessions. Prepare v2 and retain this board.
 - 예약 병렬 수 / 전역 상한: **0 / 10**
 - 배정: **77,856대화 · 2,600작업**
 - 보고된 대화: 완료 **0**, 실패 **0**, 중단 **0**, 미시작·미보고 **77,856**

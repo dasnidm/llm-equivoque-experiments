@@ -1,10 +1,10 @@
 # 실험 7 작업 현황
 
-**STOP — 새 호출 중단**
+**ENABLED — 작업 선점·실행 허용**
 
 - 실행: `equivoque-2026-11-07-exp7-main-v2`
-- 갱신 시각: 2026-11-07T14:34:37+00:00 (UTC)
-- 상태 사유: Astra c10: CLI model-catalog refresh HTTP429 in6 successful responses;100 generations OK; technical check interrupted, no evaluation continuation
+- 갱신 시각: 2026-11-07T14:50:04+00:00 (UTC)
+- 상태 사유: Astra catalog refresh429 mitigation validated; fresh c10-02 technical check under pinned metadata; primary held until pass
 - 예약 병렬 수 / 전역 상한: **20 / 30**
 - 배정: **77,856대화 · 2,600작업**
 - 보고된 대화: 완료 **83**, 실패 **0**, 중단 **3**, 미시작·미보고 **77,770**

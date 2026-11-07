@@ -3,9 +3,9 @@
 **ENABLED — 작업 선점·실행 허용**
 
 - 실행: `equivoque-2026-11-07-exp7-main-v2`
-- 갱신 시각: 2026-11-07T13:23:30+00:00 (UTC)
+- 갱신 시각: 2026-11-07T13:25:41+00:00 (UTC)
 - 상태 사유: User authorized launch; 61 offline storage/worker/coordination tests passed; each model must pass separate live calibration before evaluation.
-- 예약 병렬 수 / 전역 상한: **10 / 10**
+- 예약 병렬 수 / 전역 상한: **10 / 20**
 - 배정: **77,856대화 · 2,600작업**
 - 보고된 대화: 완료 **60**, 실패 **0**, 중단 **0**, 미시작·미보고 **77,796**
 - 보고된 논리 호출: **2,040 / 2,647,104**

@@ -62,6 +62,13 @@ def main():
         item = coordinator._model(board, model, owner, identity['model_token'], allow_stop=True)
         if board['run_id'] != identity['run_id'] or item['concurrency'] != identity['concurrency']:
             raise ValueError('Board identity or reservation mismatch')
+        prior = item.get('technical_status', {})
+        if board['global_stop'] and prior.get('failed'):
+            status['failed'] = True
+            status['readiness_and_backup_verified'] = False
+            for key in ('continuation_exit', 'final_backup_exit', 'operator_failure'):
+                if key in prior:
+                    status[key] = prior[key]
         item['technical_status'] = status
     coordinator._mutate('Technical status for ' + model, update)
     print(json.dumps(status))

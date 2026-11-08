@@ -26,7 +26,8 @@ from exp7_main_v2.worker import verify_freeze
 from exp7_pre.runner import CallBudget, atomic_json
 
 ROOT = Path(__file__).resolve().parents[1]
-PROFILES = {'p6-r100': (6, 100), 'p8-r110': (8, 110), 'p10-r160': (10, 160), 'p10-r100': (10, 100)}
+PROFILES = {'p6-r100': (6, 100), 'p8-r110': (8, 110), 'p10-r160': (10, 160), 'p10-r100': (10, 100),
+            'p10-unpaced': (10, None), 'p20-unpaced': (20, None), 'p40-unpaced': (40, None)}
 
 
 def timestamp(value):
@@ -115,6 +116,10 @@ def main():
     p.add_argument('--profile', choices=sorted(PROFILES), required=True)
     p.add_argument('--sessions', type=int, default=12)
     p.add_argument('--physical-budget', type=int, default=600)
+    p.add_argument('--max-retries', type=int, default=4)
+    p.add_argument('--max-wait-seconds', type=float, default=240)
+    p.add_argument('--stage-seconds', type=float, default=900)
+    p.add_argument('--retry-wait-scope', choices=['shared', 'request'], default='shared')
     args = p.parse_args()
     if args.sessions < 10 or args.sessions % 2:
         p.error('At least ten sessions and an even model balance are required')
@@ -132,17 +137,27 @@ def main():
     templates = [next(t for t in assignments if t['model'] == model and t['effort'] == 'medium'
                       and t['arm'] == 'en_schema' and t['frame'] == 'cards' and t['game'] == 'seq') for model in models]
     pool, rpm = PROFILES[args.profile]
+    if args.sessions < pool:
+        raise ValueError('Sessions must fill the declared pool')
     run = args.study_id + '-' + root.name
     trials = [{**templates[i % 2], 'trial_id': f'retry-{i+1:02d}', 'run_id': run, 'cohort': 'technical_retry_efficiency'}
               for i in range(args.sessions)]
     atomic_json(root / 'assignments.json', trials)
     launcher, database = isolated_sqlite_launcher(root, 'native', args.binary.resolve())
-    relay, client, admission = retry_relay(root, 60 / rpm, args.sessions * 34,
-                                         physical_limit=args.physical_budget)
+    interval = 0 if rpm is None else 60 / rpm
+    relay, client, admission = retry_relay(root, interval, args.sessions * 34,
+                                         physical_limit=args.physical_budget,
+                                         max_retries=args.max_retries,
+                                         max_wait_seconds=args.max_wait_seconds,
+                                         max_seconds=args.stage_seconds,
+                                         shared_cooldown=args.retry_wait_scope == 'shared')
     profile = {'run_id': run, 'created_at': now(), 'profile': args.profile, 'pool': pool,
                'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
                'sessions': args.sessions, 'models': models, 'effort': 'medium',
-               'physical_start_ceiling_per_minute': rpm, 'cli_version': '0.167.0',
+               'physical_start_ceiling_per_minute': rpm, 'physical_start_interval_seconds': interval,
+               'transport_local_start_interval_seconds': 0, 'CLI_gate_interval_seconds': 0,
+               'logical_turn_timeout_seconds': max(360, args.max_wait_seconds + 120),
+               'cli_version': '0.167.0',
                'binary_sha256': hashlib.sha256(args.binary.read_bytes()).hexdigest(),
                'source_sha256': {name: hashlib.sha256((ROOT / 'scripts' / name).read_bytes()).hexdigest()
                                  for name in ['exp7_retry_efficiency_study.py', 'exp7_retry_transport.py', 'exp7_header_probe.py']},
@@ -153,14 +168,17 @@ def main():
                'native_request_retries': 0, 'native_stream_retries': 0,
                'retry_policy': {'only': 'complete pre-stream HTTP 429 rate_limit_error/turn_rate_limit_exceeded',
                                 'admission_queue': 'FIFO across new requests and capacity retries',
-                                'max_retries_per_logical_request': 4, 'max_wait_seconds_per_request': 240,
-                                'server_Retry_After_honored': True, 'shared_cooldown_all_models': True,
-                                'physical_budget': args.physical_budget, 'new_admission_deadline_seconds': 900,
+                                'max_retries_per_logical_request': args.max_retries,
+                                'max_wait_seconds_per_request': args.max_wait_seconds,
+                                'server_Retry_After_honored': True,
+                                'shared_cooldown_all_models': args.retry_wait_scope == 'shared',
+                                'physical_budget': args.physical_budget,
+                                'new_admission_deadline_seconds': args.stage_seconds,
                                 'byte_identical_request_retry': True, 'new_turn_start_on_retry': False},
                'main_sample_inclusion': False, 'old_STOPs_preserved': True}
     atomic_json(root / 'profile.json', profile)
     transport = header_transport(launcher, relay.base_url)
-    transport.timeout = 360
+    transport.timeout = max(360, args.max_wait_seconds + 120)
     checked = [0.]
     check_lock = __import__('threading').Lock()
     def before_send():

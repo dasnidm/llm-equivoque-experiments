@@ -218,6 +218,43 @@ class RetryTransportTests(unittest.TestCase):
             self.assertEqual(len(results), 10)
             self.assertFalse(admission.queue)
 
+    def test_uncapped_request_backoff_does_not_pause_healthy_requests(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            seen, rejected = [], threading.Event()
+            class Handler(http.server.BaseHTTPRequestHandler):
+                def log_message(self, *args): pass
+                def do_POST(self):
+                    body = self.rfile.read(int(self.headers['Content-Length']))
+                    seen.append(body)
+                    fail = body == b'rejected' and not rejected.is_set()
+                    if fail: rejected.set()
+                    data = json.dumps(CAPACITY if fail else {'ok': True}).encode()
+                    self.send_response(429 if fail else 200)
+                    self.send_header('Retry-After', '1')
+                    self.send_header('Content-Length', str(len(data)))
+                    self.end_headers(); self.wfile.write(data); self.wfile.flush()
+            server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+            thread = threading.Thread(target=server.serve_forever, daemon=True); thread.start()
+            try:
+                relay, client, admission = retry_relay(root, 0, 2, shared_cooldown=False,
+                    upstream=f'http://127.0.0.1:{server.server_port}', offline=True)
+                with relay, httpx.Client(timeout=5) as caller, ThreadPoolExecutor(max_workers=2) as executor:
+                    slow = executor.submit(caller.post, relay.base_url + '/responses', content=b'rejected')
+                    self.assertTrue(rejected.wait(2))
+                    healthy = caller.post(relay.base_url + '/responses', content=b'healthy')
+                    self.assertEqual(healthy.status_code, 200)
+                    self.assertEqual(slow.result().status_code, 200)
+                self.assertEqual(seen, [b'rejected', b'healthy', b'rejected'])
+                group = [r for r in client.records if r['request_body_sha256'] == __import__('hashlib').sha256(b'rejected').hexdigest()]
+                group.sort(key=lambda r: r['attempt'])
+                self.assertGreaterEqual(group[1]['started_monotonic'] - group[0]['ended_monotonic'], 1)
+                self.assertFalse(any(e['kind'] == 'cooldown' for e in admission.events))
+                self.assertEqual(admission.interval, 0)
+                self.assertFalse(relay.gate.stop.is_set())
+            finally:
+                server.shutdown(); server.server_close(); thread.join(2)
+
     def test_stopped_waiter_leaves_no_queue_entry_or_physical_attempt(self):
         from exp7_retry_transport import Admission, RetryGate
         with tempfile.TemporaryDirectory() as temp:

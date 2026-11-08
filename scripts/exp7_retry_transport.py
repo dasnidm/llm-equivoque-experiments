@@ -169,9 +169,11 @@ class CompletedResponse:
 
 
 class CapacityRetryClient:
-    def __init__(self, root, client, admission, secrets, max_retries=4, max_wait_seconds=240):
+    def __init__(self, root, client, admission, secrets, max_retries=4, max_wait_seconds=240,
+                 shared_cooldown=True):
         self.root, self.client, self.admission = Path(root), client, admission
         self.secrets, self.max_retries, self.max_wait_seconds = secrets, max_retries, max_wait_seconds
+        self.shared_cooldown = shared_cooldown
         self.lock = threading.Lock()
         self.logical_count = 0
         self.records = []
@@ -234,8 +236,10 @@ class CapacityRetryClient:
                             jitter = .1 + int(body_hash[:4], 16) / 65535 * .3
                             delay += jitter
                             if time.monotonic() - began + delay <= self.max_wait_seconds:
-                                self.admission.cooldown(delay, logical_id, attempt)
-                                record.update(retry_scheduled=True, required_delay_seconds=delay)
+                                if self.shared_cooldown:
+                                    self.admission.cooldown(delay, logical_id, attempt)
+                                record.update(retry_scheduled=True, required_delay_seconds=delay,
+                                              retry_wait_scope='shared' if self.shared_cooldown else 'request')
                                 retry = True
                         if not retry:
                             record['retry_scheduled'] = False
@@ -251,6 +255,12 @@ class CapacityRetryClient:
                 record.update(ended_at=now(), ended_monotonic=time.monotonic(),
                               duration_seconds=time.monotonic() - started)
                 self._record(record)
+            if retry and not self.shared_cooldown:
+                with self.admission.lock:
+                    self.admission._record('request_retry_wait', logical_id=logical_id,
+                                           attempt=attempt, delay_seconds=delay)
+                if self.admission.gate.stop.wait(delay):
+                    raise RuntimeError('STOP during rejected request backoff; no replay')
         raise AssertionError('Retry loop exhausted without returning terminal response')
 
     def close(self):
@@ -258,7 +268,8 @@ class CapacityRetryClient:
 
 
 def retry_relay(root, interval, logical_limit, *, upstream=None, offline=False,
-                max_retries=4, physical_limit=600, max_seconds=900):
+                max_retries=4, physical_limit=600, max_seconds=900,
+                max_wait_seconds=240, shared_cooldown=True):
     gate = RetryGate(root, 0, logical_limit)
     kwargs = {'offline': offline}
     if upstream is not None:
@@ -266,7 +277,8 @@ def retry_relay(root, interval, logical_limit, *, upstream=None, offline=False,
     relay = Relay(root, gate, **kwargs)
     admission = Admission(root, gate, interval, physical_limit, max_seconds)
     client = CapacityRetryClient(root, relay.client, admission,
-                                 lambda: tuple(relay._credential_values), max_retries)
+                                 lambda: tuple(relay._credential_values), max_retries,
+                                 max_wait_seconds, shared_cooldown)
     relay.client = client
     return relay, client, admission
 

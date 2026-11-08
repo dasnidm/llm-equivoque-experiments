@@ -1,0 +1,182 @@
+{
+  "run_id": "equivoque-2026-11-08-exp7-header-probe-v1-load",
+  "sample_role": "technical header diagnosis; main samples=0",
+  "source_sha256": "c144d0ac8cbc25676b336cf6842cfc2468c9309353cf8a33e2c1e68b61d789bf",
+  "cli_version": "0.167.0",
+  "binary_sha256": "cdcb45aaa01d0f14e298985e09465aebccd47f64ecd298aea44814af7b62bbda",
+  "models": [
+    "gpt-5.6-sol",
+    "gpt-6-astra"
+  ],
+  "effort": "medium",
+  "transport": "HTTP/SSE via loopback relay; original study uses WS",
+  "configured_pool": 8,
+  "configured_minimum_start_interval_seconds": 0.375,
+  "configured_start_ceiling_per_minute": 160.0,
+  "load": {
+    "upstream_requests": 105,
+    "successful_logical_turns": 104,
+    "status_counts": {
+      "200": 104,
+      "429": 1
+    },
+    "loopback_http_attempts": 108,
+    "local_gate_denials_not_upstream": 3,
+    "first_start": "2026-11-08T14:52:47.167924+00:00",
+    "first_429_start": "2026-11-08T14:53:26.197106+00:00",
+    "first_429_headers_at": "2026-11-08T14:53:26.456972+00:00",
+    "last_response_closed": "2026-11-08T14:53:27.835751+00:00",
+    "admission_span_seconds": 39.02918378499453,
+    "elapsed_first_start_to_last_response_seconds": 40.667827129364014,
+    "short_burst_successes_per_minute_not_sustained": 153.43824444199126,
+    "actual_peak_inflight_http": 8,
+    "mean_inflight_http": 5.547547906550166,
+    "success_latency_median_seconds": 2.1880365815086407,
+    "success_latency_p95_seconds_inclusive": 3.3261522379478263,
+    "native_retry_warning_records": 0,
+    "new_upstream_starts_after_stop": 0,
+    "conversation_status_counts": {
+      "failed": 4,
+      "interrupted": 4
+    },
+    "conversations": [
+      {
+        "trial_id": "header-load-01",
+        "model": "gpt-6-astra",
+        "status": "failed",
+        "successful_turns": 11,
+        "unsuccessful_recorded_turns": 1,
+        "unsent_pending_turn": false,
+        "successful_turn_pid_count": 1,
+        "successful_turn_thread_count": 1,
+        "actual_tool_events": 0
+      },
+      {
+        "trial_id": "header-load-02",
+        "model": "gpt-5.6-sol",
+        "status": "interrupted",
+        "successful_turns": 14,
+        "unsuccessful_recorded_turns": 0,
+        "unsent_pending_turn": true,
+        "successful_turn_pid_count": 1,
+        "successful_turn_thread_count": 1,
+        "actual_tool_events": 0
+      },
+      {
+        "trial_id": "header-load-03",
+        "model": "gpt-6-astra",
+        "status": "failed",
+        "successful_turns": 11,
+        "unsuccessful_recorded_turns": 1,
+        "unsent_pending_turn": false,
+        "successful_turn_pid_count": 1,
+        "successful_turn_thread_count": 1,
+        "actual_tool_events": 0
+      },
+      {
+        "trial_id": "header-load-04",
+        "model": "gpt-5.6-sol",
+        "status": "interrupted",
+        "successful_turns": 15,
+        "unsuccessful_recorded_turns": 0,
+        "unsent_pending_turn": true,
+        "successful_turn_pid_count": 1,
+        "successful_turn_thread_count": 1,
+        "actual_tool_events": 0
+      },
+      {
+        "trial_id": "header-load-05",
+        "model": "gpt-6-astra",
+        "status": "failed",
+        "successful_turns": 11,
+        "unsuccessful_recorded_turns": 1,
+        "unsent_pending_turn": false,
+        "successful_turn_pid_count": 1,
+        "successful_turn_thread_count": 1,
+        "actual_tool_events": 0
+      },
+      {
+        "trial_id": "header-load-06",
+        "model": "gpt-5.6-sol",
+        "status": "failed",
+        "successful_turns": 14,
+        "unsuccessful_recorded_turns": 1,
+        "unsent_pending_turn": false,
+        "successful_turn_pid_count": 1,
+        "successful_turn_thread_count": 1,
+        "actual_tool_events": 0
+      },
+      {
+        "trial_id": "header-load-07",
+        "model": "gpt-6-astra",
+        "status": "interrupted",
+        "successful_turns": 13,
+        "unsuccessful_recorded_turns": 0,
+        "unsent_pending_turn": true,
+        "successful_turn_pid_count": 1,
+        "successful_turn_thread_count": 1,
+        "actual_tool_events": 0
+      },
+      {
+        "trial_id": "header-load-08",
+        "model": "gpt-5.6-sol",
+        "status": "interrupted",
+        "successful_turns": 15,
+        "unsuccessful_recorded_turns": 0,
+        "unsent_pending_turn": true,
+        "successful_turn_pid_count": 1,
+        "successful_turn_thread_count": 1,
+        "actual_tool_events": 0
+      }
+    ]
+  },
+  "canary": {
+    "upstream_requests": 2,
+    "status_counts": {
+      "200": 2
+    },
+    "credential_scan_clean": true
+  },
+  "all_live_upstream_requests_canary_plus_load": 107,
+  "main_freeze_sha256": "16f61a400ff1280c54614719efb416df76fb5b696af47ee7b59342474ddbb75a",
+  "main_freeze_unchanged": true,
+  "main_STOP_preserved": true,
+  "old_technical_HALT_preserved": true,
+  "credential_scan_clean_both_phases": true,
+  "private_backup_readback_receipts": {
+    "canary": {
+      "stage": "exp7-header-probe-20261108-canary-v1",
+      "private_repository_id": 1449348734,
+      "remote_commit": "c1d22f548496ed87635e93c17ec4839b8dfb69e4",
+      "branch": "headers/equivoque-2026-11-08-exp7-header-probe-v1",
+      "files": {
+        "exp7-header-probe-20261108-canary-v1/evidence.tar.gz": {
+          "bytes": 2158227,
+          "sha256": "c67308b1a1c124aeb3b381ed4e8bb6bfae3eb3b44a180b4e560d1c8529fee699"
+        },
+        "exp7-header-probe-20261108-canary-v1/index.json": {
+          "bytes": 13407,
+          "sha256": "9e800cecd6126bcfaeca8e38ad16ed732d324289617aa025d65b4edcd9dba892"
+        }
+      },
+      "local_sources_retained": true
+    },
+    "load": {
+      "stage": "exp7-header-probe-20261108-load-v1",
+      "private_repository_id": 1449348734,
+      "remote_commit": "6b205eb0e7b93dd3eb47f484d557100ec9ef9ba9",
+      "branch": "headers/equivoque-2026-11-08-exp7-header-probe-v1",
+      "files": {
+        "exp7-header-probe-20261108-load-v1/evidence.tar.gz": {
+          "bytes": 10390050,
+          "sha256": "f252061b0c7c39c2dca4cab2a7a1fb255c309eb12dc603d3bedb36f3d3581d57"
+        },
+        "exp7-header-probe-20261108-load-v1/index.json": {
+          "bytes": 173078,
+          "sha256": "f4ee679f7e61cfba87a7dc0894feefc830ef6b5fa9084abc22a26c05cfcb7417"
+        }
+      },
+      "local_sources_retained": true
+    }
+  }
+}

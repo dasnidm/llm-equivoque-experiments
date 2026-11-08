@@ -41,11 +41,13 @@ if 'app-server' in sys.argv[1:]:
     database = Path(settings['database'])
     database.mkdir(parents=True, exist_ok=True)
     env['CODEX_SQLITE_HOME'] = str(database)
+    env['RUST_LOG'] = env.get('RUST_LOG', 'error') + ',codex_core::responses_retry=warn'
     launches = database / 'launches'
     launches.mkdir(exist_ok=True)
     with (launches / (str(os.getpid()) + '.json')).open('x') as out:
         json.dump({'pid': os.getpid(), 'sqlite_home': str(database),
-                   'native_home_preserved': True, 'proxy_environment_inherited': True}, out)
+                   'native_home_preserved': True, 'proxy_environment_inherited': True,
+                   'native_retry_log_level': 'warn'}, out)
 os.execve(settings['binary'], [settings['binary']] + sys.argv[1:], env)
 """ % {'binary': str(binary), 'database': str(database)}
     with launcher.open('x') as out:
@@ -142,7 +144,11 @@ def main():
     args = p.parse_args()
     if not re.fullmatch(r'[A-Za-z0-9_-]+', args.stage):
         p.error('Invalid stage name')
+    if not args.offline and not args.sqlite_isolation:
+        p.error('Live comparison requires isolated native SQLite retry telemetry')
     args.root.mkdir(parents=True, exist_ok=True)
+    if not args.offline and (args.root / 'HALT').exists():
+        raise RuntimeError('Technical STOP is active; no startup or inference is permitted')
     profile_path = args.root / (args.stage + '.comparison-profile.json')
     if profile_path.exists():
         raise FileExistsError('A comparison stage cannot be replayed')
@@ -166,6 +172,7 @@ def main():
         profile.update(sqlite_home=str(database), sqlite_isolation=True,
                        launcher=str(effective_binary), launcher_sha256=hashlib.sha256(effective_binary.read_bytes()).hexdigest())
         profile['changes'].append('Child-only supported CODEX_SQLITE_HOME; serial DB migration before pool launch')
+        profile['changes'].append('Expose codex_core::responses_retry warnings in child stderr; does not disable retries')
     with profile_path.open('x') as out:
         json.dump(profile, out, indent=2); out.write('\n')
     if args.offline:
@@ -211,6 +218,13 @@ def main():
                 shutil.copytree(database, stage / 'native-sqlite')
             if warmup:
                 shutil.copytree(warmup, stage / 'serial-db-initialization')
+            from exp7_native_retry_audit import audit_native_retries
+            native_audit = audit_native_retries(stage)
+            with (stage / 'native-retry-audit.json').open('x') as out:
+                json.dump(native_audit, out, indent=2); out.write('\n')
+    if (not native_audit['available'] or native_audit['native_429_retry_log_records']
+            or native_audit['other_native_retry_log_records']):
+        raise SystemExit('Native telemetry did not establish a retry-free stage; preserve evidence and keep STOP')
 
 
 if __name__ == '__main__':

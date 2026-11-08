@@ -3,10 +3,13 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, deque
+from datetime import datetime
 import hashlib
 import json
 import math
 from pathlib import Path
+
+from exp7_native_retry_audit import audit_native_retries
 
 
 def read(path):
@@ -76,12 +79,17 @@ def collect(root):
             initialize_versions.extend(m.get('params', {}).get('clientInfo', {}).get('version')
                                        for m in (json.loads(line) for line in first.read_text().splitlines())
                                        if m.get('method') == 'initialize')
-        valid = (summary['sessions_complete'] == summary['sessions_planned']
-                 and summary['complete_session_audits_ok'] and not summary['stop_reason']
-                 and not any(summary['diagnostics'].values()))
+        rpc_complete = (summary['sessions_complete'] == summary['sessions_planned']
+                        and summary['complete_session_audits_ok'] and not summary['stop_reason']
+                        and not any(summary['diagnostics'].values()))
+        native = audit_native_retries(directory)
+        valid = (rpc_complete and native['available']
+                 and native['native_429_retry_log_records'] == 0
+                 and native['other_native_retry_log_records'] == 0)
         receipt = root / 'backups' / directory.name / 'receipt.json'
         stages.append({
             **summary, 'version': profile['version'], 'sqlite_isolation': profile.get('sqlite_isolation', False),
+            'rpc_complete_stage': rpc_complete, 'native_retry_audit': native,
             'valid_complete_stage': valid,
             'matched_speed_comparison_exclusion': exclusions.get(directory.name),
             'stable_throughput_estimate': summary['successful_turns_per_minute'] if valid else None,
@@ -98,7 +106,7 @@ def collect(root):
             'summary_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
             'backup': read(receipt) if receipt.is_file() else None,
         })
-    return stages
+    return sorted(stages, key=lambda s: s['ended_at'])
 
 
 def main():
@@ -131,15 +139,20 @@ def main():
                              'Finite successful load does not demonstrate long-run stability for all model-effort combinations.']}
     (args.output / 'metrics.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
     lines = ['# CLI version technical comparison', '', 'All observations are technical and excluded from the scientific sample.', '',
-             '| Stage | CLI | Pool | Models | Completed conversations | Successful turns/min | p95 adapter seconds | Result |',
-             '| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |']
+             '| Stage | CLI | Pool | Models | Completed conversations | Successful turns/min | Native 429 retry logs | p95 adapter seconds | Result |',
+             '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |']
     for s in stages:
         speed = f"{s['successful_turns_per_minute']:.1f}" if s['valid_complete_stage'] else 'not estimable'
         latency = f"{s['p95_response_seconds']:.2f}" if s['p95_response_seconds'] is not None else '—'
         result_label = ('integrity pass; operator pause, excluded from speed comparison'
                         if s['matched_speed_comparison_exclusion'] else
                         ('pass' if s['valid_complete_stage'] else s['stop_reason']))
-        lines.append(f"| {s['stage']} | {s['version']} | {s['pool']} | {len(s['model_metrics'])} | {s['sessions_complete']}/{s['sessions_planned']} | {speed} | {latency} | {result_label} |")
+        native_count = s['native_retry_audit']['native_429_retry_log_records']
+        if native_count:
+            result_label = 'native response 429; rejected as a zero-429 load'
+        elif not s['native_retry_audit']['available']:
+            result_label = 'native telemetry unavailable' if s['rpc_complete_stage'] else s['stop_reason']
+        lines.append(f"| {s['stage']} | {s['version']} | {s['pool']} | {len(s['model_metrics'])} | {s['sessions_complete']}/{s['sessions_planned']} | {speed} | {native_count if native_count is not None else 'unknown'} | {latency} | {result_label} |")
     (args.output / 'TABLE.md').write_text('\n'.join(lines) + '\n')
     if versions:
         import matplotlib
@@ -160,16 +173,43 @@ def main():
                     axes[1].text(i, s['successful_turns_per_minute'] + 3, f"{s['successful_turns_per_minute']:.1f}", ha='center')
                 else:
                     axes[1].scatter([i], [0], color='#c44e52', marker='x', s=90)
-                    axes[1].text(i, 5, 'Stopped\nNo valid rate', ha='center', color='#a23638')
+                    n = s['native_retry_audit']['native_429_retry_log_records']
+                    axes[1].text(i, 5, f'Native 429: {n}\nNo zero-429 rate', ha='center', color='#a23638', fontsize=8)
             axes[1].set_xticks(range(len(others)), [f"{len(s['model_metrics'])} models\npool {s['pool']}\nceiling {s['request_ceiling_per_minute']:.0f}/min" for s in others])
             axes[1].set(ylabel='Successful turns / minute', title='Separate load profiles; not a matched CLI comparison')
-            axes[1].set_ylim(bottom=-5)
+            passed_rates = [s['successful_turns_per_minute'] for s in others if s['valid_complete_stage']]
+            axes[1].set_ylim(-5, max(passed_rates, default=40) * 1.25)
+            axes[1].set_xlim(-.6, len(others) - .35)
         else:
             axes[1].axis('off')
             axes[1].text(.03, .5, 'No additional closed load stages yet.', transform=axes[1].transAxes)
         figure.suptitle('Experiment 7: independent CLI upgrade checks\nTechnical conversations only; failed partial stages are not throughput estimates', fontsize=12)
         figure.savefig(args.output / 'comparison.png', dpi=170)
         plt.close(figure)
+        distributed = next((s for s in stages if s['stage'] == 'stable-i-models8-rpm160-p8'), None)
+        if distributed:
+            events = distributed['native_retry_audit']['events']
+            models = list(distributed['model_metrics'])
+            figure, panels = plt.subplots(1, 2, figsize=(11.8, 5.1), sharey=True, constrained_layout=True)
+            for panel, minute in zip(panels, ('2026-11-08T10:13:', '2026-11-08T10:14:')):
+                for event in events:
+                    if not event['is_response_429'] or not event['utc'].startswith(minute):
+                        continue
+                    start = datetime.fromisoformat(event['utc'])
+                    end = datetime.fromisoformat(event['logged_retry_deadline_utc'])
+                    x = start.second + start.microsecond / 1e6
+                    y = models.index(event['model'])
+                    panel.barh(y, (end-start).total_seconds(), left=x, height=.55, color='#d89445', alpha=.8)
+                    panel.scatter(x, y, color='#b4403f', s=24, zorder=3)
+                    panel.scatter(end.second + end.microsecond / 1e6, y, color='#267a87', marker='|', s=100, zorder=3)
+                panel.set(xlim=(0, 30), xlabel='Seconds within the minute', title=minute[11:16] + ' UTC')
+                panel.grid(axis='x', alpha=.2)
+            panels[0].set_yticks(range(len(models)), models)
+            panels[0].invert_yaxis()
+            figure.suptitle('Eight different models encountered two shared cooldown windows', fontsize=13)
+            figure.supxlabel('Red: native 429 retry warning. Bars: logged retry delay. Teal: computed retry deadline.\nRaw Retry-After headers were not retained; the limiting component remains unidentified.', fontsize=9)
+            figure.savefig(args.output / 'shared_cooldowns.png', dpi=170)
+            plt.close(figure)
     print(json.dumps({'stages': len(stages), 'version_summary': versions, 'output': str(args.output)}, ensure_ascii=False))
 
 

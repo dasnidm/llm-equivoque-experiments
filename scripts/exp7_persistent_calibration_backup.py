@@ -3,6 +3,7 @@ import argparse
 import fcntl
 import hashlib
 import json
+import re
 from pathlib import Path
 import tarfile
 
@@ -18,6 +19,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('--work-dir', required=True, type=Path)
     p.add_argument('--attempt', default='01')
+    p.add_argument('--snapshot', help='Immutable additional snapshot name; preserves the original backup')
     p.add_argument('--repository', default='dasnidm/llm-equivoque-exp7-raw')
     args = p.parse_args()
     work = args.work_dir.resolve()
@@ -26,10 +28,14 @@ def main():
     folder = work / 'calibration' / ('attempt-' + args.attempt)
     if not folder.is_dir() or '/' in args.attempt or '..' in args.attempt:
         raise ValueError('Invalid or absent calibration attempt')
+    if args.snapshot is not None and not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,40}', args.snapshot):
+        raise ValueError('Invalid snapshot name')
     with (work / 'worker.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         metadata = verify_private_repository(args.repository)
         output = work / 'calibration-backups' / ('attempt-' + args.attempt)
+        if args.snapshot:
+            output = output / 'snapshots' / args.snapshot
         output.mkdir(parents=True, exist_ok=True)
         archive = output / 'calibration.tar.gz'
         manifest = output / 'manifest.json'
@@ -66,7 +72,10 @@ def main():
         publisher = ResultPublisher(remote, branch, output / 'publication.git')
         expected = {}
         for path in (archive, manifest):
-            target = 'calibration/attempt-' + args.attempt + '/' + path.name
+            target = 'calibration/attempt-' + args.attempt + '/'
+            if args.snapshot:
+                target += 'snapshots/' + args.snapshot + '/'
+            target += path.name
             data = path.read_bytes()
             publisher.publish(path, target)
             expected[target] = {'bytes': len(data), 'sha256': digest(data)}

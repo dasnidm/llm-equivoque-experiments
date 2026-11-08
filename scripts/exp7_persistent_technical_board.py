@@ -24,7 +24,10 @@ def main():
         'scripts.exp7_persistent_technical_metrics', '--work-dir', str(work),
         '--concurrency', str(identity['concurrency'])], text=True))
     progress = json.loads((attempt / 'progress.json').read_text()) if (attempt / 'progress.json').exists() else {}
-    receipt = work / 'calibration-backups' / 'attempt-01' / 'receipt.json'
+    backup_root = work / 'calibration-backups' / 'attempt-01'
+    require_final = (backup_root / 'requires-final-snapshot').exists()
+    receipt = (backup_root / 'snapshots' / 'final' / 'receipt.json' if require_final
+               else backup_root / 'receipt.json')
     readiness = attempt / 'readiness.json'
     verified = False
     if receipt.exists() and readiness.exists():
@@ -38,7 +41,7 @@ def main():
         if r['repository_id'] != repository['id'] or r['branch'] != 'raw/' + identity['run_id'] + '/' + model:
             raise ValueError('Technical backup receipt does not belong to this run/model')
         publisher = ResultPublisher('https://github.com/' + repository['full_name'] + '.git',
-                                    r['branch'], work / 'calibration-backups' / 'attempt-01' / 'publication.git')
+                                    r['branch'], receipt.parent / 'publication.git')
         _remote_readback(publisher, r['files'])
         verified = True
     status = {'updated_at': datetime.now(timezone.utc).isoformat(),

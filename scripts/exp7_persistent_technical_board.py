@@ -7,6 +7,9 @@ import sys
 from datetime import datetime, timezone
 
 from exp7_main_v2.coordination import GitCoordinator
+from exp7_main_v2.schedule import load_bundle
+from exp7_main_v2.worker import ResultPublisher, verify_freeze, verify_readiness
+from exp7_backup_v1.sidecar import verify_private_repository, _remote_readback
 
 
 def main():
@@ -23,16 +26,33 @@ def main():
     progress = json.loads((attempt / 'progress.json').read_text()) if (attempt / 'progress.json').exists() else {}
     receipt = work / 'calibration-backups' / 'attempt-01' / 'receipt.json'
     readiness = attempt / 'readiness.json'
+    verified = False
+    if receipt.exists() and readiness.exists():
+        freeze = Path('manifests/equivoque-2026-11-08-exp7-persistent-v1/freeze.json')
+        frozen, freeze_hash = verify_freeze(freeze)
+        plan = load_bundle(Path(frozen['bundle']))
+        verify_readiness(readiness, model, freeze_hash, plan['trials'], owner,
+                         transport='persistent', profile=frozen['transport_profile'])
+        r = json.loads(receipt.read_text())
+        repository = verify_private_repository('dasnidm/llm-equivoque-exp7-raw')
+        if r['repository_id'] != repository['id'] or r['branch'] != 'raw/' + identity['run_id'] + '/' + model:
+            raise ValueError('Technical backup receipt does not belong to this run/model')
+        publisher = ResultPublisher('https://github.com/' + repository['full_name'] + '.git',
+                                    r['branch'], work / 'calibration-backups' / 'attempt-01' / 'publication.git')
+        _remote_readback(publisher, r['files'])
+        verified = True
     status = {'updated_at': datetime.now(timezone.utc).isoformat(),
               'attempt': '01', 'finished': progress.get('finished', 0), 'assigned': 18,
               'failed': progress.get('failed', False),
               'readiness_file_present': readiness.exists(),
               'backup_receipt_present': receipt.exists(),
+              'readiness_and_backup_verified': verified,
               'successful_turns': metrics['successful_turns'],
               'successful_turns_per_minute': metrics['successful_turns_per_minute'],
               'p95_seconds': metrics['p95_recorded_duration_seconds'],
               'local_pending_peak': metrics['observed_local_pending_peak'],
-              'diagnostics': metrics['diagnostics']}
+              'diagnostics': metrics['diagnostics'],
+              'completed_request_intervals': metrics['completed_request_intervals'] if verified else []}
     coordinator = GitCoordinator('https://github.com/dasnidm/llm-equivoque-experiments.git',
                                  'exp7/persistent-v1-coordination', work / 'coordination.git')
     def update(board):

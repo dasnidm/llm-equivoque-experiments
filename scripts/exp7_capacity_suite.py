@@ -50,6 +50,11 @@ def main():
     p3, p4 = summaries[-2:]
     if p4['successful_turns_per_minute'] > p3['successful_turns_per_minute'] * 1.10:
         stage('p6', 6, 12)
+        if summaries[-1]['successful_turns_per_minute'] > p4['successful_turns_per_minute'] * 1.10:
+            previous = summaries[-1]
+            stage('p8', 8, 16)
+            if summaries[-1]['successful_turns_per_minute'] > previous['successful_turns_per_minute'] * 1.10:
+                stage('p10', 10, 20)
     best = max(s['successful_turns_per_minute'] for s in summaries)
     chosen = min(s['pool'] for s in summaries if s['successful_turns_per_minute'] >= best * .95)
     stage('confirm-p' + str(chosen), chosen, max(4, chosen * 2))

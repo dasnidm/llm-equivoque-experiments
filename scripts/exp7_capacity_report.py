@@ -16,6 +16,8 @@ def main():
     history = json.loads((root / 'historical-summary.json').read_text())
     quota = json.loads((root / 'quota-metadata-summary.json').read_text())
     frontier = json.loads((root / 'frontier-summary.json').read_text()) if (root/'frontier-summary.json').exists() else None
+    mixed_path = root/'mixed80-p4'/'summary.json'
+    mixed = json.loads(mixed_path.read_text()) if mixed_path.exists() else None
     evidence = {'suite': suite, 'historical_checkpoint_summary': history, 'historical_quota_metadata': quota,
                 'stage_source_sha256': {s['stage']: hashlib.sha256((root/s['stage']/'summary.json').read_bytes()).hexdigest()
                                         for s in suite['stages']}}
@@ -23,6 +25,9 @@ def main():
         evidence['request_rate_frontier'] = frontier
         evidence['stage_source_sha256'].update({s['stage']: hashlib.sha256((root/s['stage']/'summary.json').read_bytes()).hexdigest()
                                                for s in frontier['stages']})
+    if mixed:
+        evidence['mixed_design_validation'] = mixed
+        evidence['stage_source_sha256']['mixed80-p4'] = hashlib.sha256(mixed_path.read_bytes()).hexdigest()
     (output / 'results.json').write_text(json.dumps(evidence, indent=2) + '\n')
     stages = suite['stages'] + (frontier['stages'] if frontier else [])
     timing = {}
@@ -83,6 +88,13 @@ def main():
         lines.extend([f"오류 없이 통과한 전체 설정 중 최고 관측 처리량의 95% 이내에 드는 가장 작은 pool은 "
                       f"`{efficient['stage']}`: pool {efficient['pool']}, 합계 송신 간격 {efficient['account_interval_seconds']:.3f}초, "
                       f"관측 {efficient['successful_turns_per_minute']:.1f}턴/분이다.", ''])
+    if mixed:
+        mixed_ok = (mixed['sessions_complete']==6 and mixed['complete_session_audits_ok']
+                    and not mixed['uncertain_pending_states'] and not mixed['stop_reason'] and not any(mixed['diagnostics'].values()))
+        lines.extend([f"혼합 조건 별도 확인: 4 pool, 합계 상한 80회/분, 완료 {mixed['sessions_complete']}/6, "
+                      f"성공 {mixed['successful_turns']}턴, 관측 {mixed['successful_turns_per_minute']:.1f}턴/분, "
+                      f"429 진단 {sum(mixed['diagnostics'].values())}, 전체 통과 {mixed_ok}.",
+                      '혼합 확인은 두 모델에서 각 low·medium·high 한 개씩, 여섯 game·네 format·R 조건을 포함한 작은 확인이며 전체 교차 설계나 다른 모델에 일반화하지 않는다.', ''])
     (output / 'REPORT.ko.md').write_text('\n'.join(lines))
     import matplotlib
     matplotlib.use('Agg')

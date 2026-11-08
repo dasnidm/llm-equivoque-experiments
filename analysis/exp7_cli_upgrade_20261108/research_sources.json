@@ -1,0 +1,71 @@
+{
+  "accessed_utc": "2026-11-08",
+  "sources": [
+    {
+      "url": "https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan",
+      "type": "official_documentation",
+      "finding": "Codex local CLI and Cloud usage count toward applicable Codex allowances; the plan allowance is not a documented fixed RPM guarantee."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/rate-limits",
+      "type": "official_documentation",
+      "finding": "API limits can apply to requests, tokens, organizations, projects and model families. Public API limits do not establish this signed-in Codex account's limit."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/fast-mode",
+      "type": "official_documentation",
+      "finding": "Fast mode targets latency and has pay-as-you-go pricing; a latency improvement is not evidence of a proportional admission-limit increase."
+    },
+    {
+      "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0",
+      "type": "official_release",
+      "finding": "Latest stable release, published 2026-11-06; installed separately with npm archive integrity verification."
+    },
+    {
+      "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.3",
+      "type": "official_release",
+      "finding": "Latest npm alpha at lookup, published 2026-11-07; installed separately, not chosen for main collection."
+    },
+    {
+      "url": "https://github.com/openai/codex/blob/rust-v0.167.0/codex-rs/codex-api/src/api_bridge.rs",
+      "type": "official_source",
+      "finding": "The generic HTTP 429 mapping retains status/request tracking but drops most response body/header detail. A generic RPC 429 does not identify the precise limiter."
+    },
+    {
+      "url": "https://github.com/openai/codex/blob/rust-v0.167.0/codex-rs/core/src/responses_retry.rs",
+      "type": "official_source",
+      "finding": "Server retry advice affects scheduling, including transport fallback. This does not justify automatic replay of uncertain scientific requests."
+    },
+    {
+      "url": "https://github.com/openai/codex/blob/rust-v0.167.0/codex-rs/state/src/lib.rs",
+      "type": "official_source",
+      "finding": "CODEX_SQLITE_HOME is the supported database-only override; confirmed also at the old 0.159.0-alpha.3 tag. Authentication HOME need not change."
+    },
+    {
+      "url": "https://github.com/openai/codex/issues/58883",
+      "type": "unconfirmed_user_report",
+      "finding": "Reports 429 and long shared cooldown deadlines despite remaining weekly allowance on 0.166.0. It is corroborating symptom evidence, not proof of our root cause."
+    },
+    {
+      "url": "https://github.com/openai/codex/issues/57084",
+      "type": "unconfirmed_user_report",
+      "finding": "Reports inference 429 with allowance remaining and explicitly leaves the precise rejecting condition unresolved."
+    },
+    {
+      "url": "https://github.com/openai/codex/issues/55477",
+      "type": "unconfirmed_user_report",
+      "finding": "Reports gpt-5.6-sol low effort failing while medium succeeds. Limits or availability may depend on model/effort."
+    },
+    {
+      "url": "https://github.com/openai/codex/issues/60069",
+      "type": "unconfirmed_user_report",
+      "finding": "Reports no supported zero-advertised-tools option despite many disabled features. Our local wire capture independently shows additional tool definitions and version differences."
+    }
+  ],
+  "network": {
+    "policy": "unrestricted, enforced, current",
+    "proxy": "inherited Cloud HTTP(S) proxy",
+    "retained_diagnostic_captures": 0,
+    "conclusion": "Proxy-generated 429 is possible per runtime guidance but unproven; no proxy bypass was attempted."
+  }
+}

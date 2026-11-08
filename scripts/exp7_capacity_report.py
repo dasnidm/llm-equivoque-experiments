@@ -50,6 +50,9 @@ def main():
     (output / 'results.json').write_text(json.dumps(evidence, indent=2) + '\n')
     lines = ['# Persistent 실험 7의 429 및 병렬 효율', '',
         '본실험은 STOP을 유지했다. 아래 부하 측정은 별도 기술 실행이며 본실험에 포함하지 않는다.', '',
+        '시행 하나는 10라운드와 후속 질문을 합친 34턴이다. persistent는 프로세스와 대화를 재사용하지만 '
+        '매 턴의 모델 추론 요청을 한 번으로 합치는 기능은 아니다. 대화가 길어지면 각 요청의 입력 context도 커진다. '
+        'ThreadPool의 대화 수, 실제 진행 중인 RPC 턴, 분당 송신 수, 입력 토큰량을 별도로 관리해야 한다.', '',
         '두 worker의 1초 간격 제한은 각자 적용되어 합계 요청량을 통제하지 못했다. 기존 오류는 응답 RPC의 '
         '`responseTooManyFailedAttempts/httpStatusCode:429`이고, 목록 조회 오류는 관측되지 않았다. '
         '당시 계정 상태에는 사용량 63%가 표시됐고 소진 표시는 없었다. 이것은 순간 부하 원인을 지지하지만 '

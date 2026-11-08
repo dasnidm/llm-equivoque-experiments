@@ -39,6 +39,14 @@ def main():
             'input_tokens_summed':sum(t.get('usage_last',{}).get('input_tokens',0) for t in turns),
             'cached_input_tokens_summed':sum(t.get('usage_last',{}).get('cached_input_tokens',0) for t in turns)}
     evidence['derived_timing_and_usage'] = timing
+    valid = [s for s in stages if s['sessions_complete']==s['sessions_planned'] and s['complete_session_audits_ok']
+             and not s['uncertain_pending_states'] and not s['stop_reason'] and not any(s['diagnostics'].values())]
+    fastest = max(valid, key=lambda s:s['successful_turns_per_minute']) if valid else None
+    if fastest:
+        candidates = [s for s in valid if s['successful_turns_per_minute'] >= .95*fastest['successful_turns_per_minute']]
+        efficient = min(candidates, key=lambda s:(s['pool'],60/s['account_interval_seconds']))
+        evidence['efficient_observed_configuration'] = {k:efficient[k] for k in ('stage','pool','account_interval_seconds',
+            'successful_turns_per_minute','successful_turns','sessions_complete')}
     (output / 'results.json').write_text(json.dumps(evidence, indent=2) + '\n')
     lines = ['# Persistent 실험 7의 429 및 병렬 효율', '',
         '본실험은 STOP을 유지했다. 아래 부하 측정은 별도 기술 실행이며 본실험에 포함하지 않는다.', '',
@@ -68,6 +76,10 @@ def main():
         'p95는 로컬 adapter 측정이며 일부 admission 대기를 포함할 수 있다. 한 VM의 공유 limiter 검증이 여러 VM 사이의 분산 제한 구현을 검증하는 것은 아니다. '
         '영구적으로 429가 없다는 보장은 아니며, 다른 모델·effort·context 길이에서는 재평가해야 한다.', '',
         '본실험의 기존 실패·중단 시행과 원본 로그는 보존했고 재전송·대체하지 않았다.', ''])
+    if fastest:
+        lines.extend([f"오류 없이 통과한 전체 설정 중 최고 관측 처리량의 95% 이내에 드는 가장 작은 pool은 "
+                      f"`{efficient['stage']}`: pool {efficient['pool']}, 합계 송신 간격 {efficient['account_interval_seconds']:.3f}초, "
+                      f"관측 {efficient['successful_turns_per_minute']:.1f}턴/분이다.", ''])
     (output / 'REPORT.ko.md').write_text('\n'.join(lines))
     import matplotlib
     matplotlib.use('Agg')
@@ -88,6 +100,21 @@ def main():
     fig.suptitle('Two-model technical load test | shared admission: 1 turn/second', fontsize=11)
     fig.savefig(output / 'capacity.png', dpi=180)
     plt.close(fig)
+    if frontier:
+        fig, ax = plt.subplots(figsize=(7,4), constrained_layout=True)
+        passed = [s for s in frontier['stages'] if s in valid]
+        failed = [s for s in frontier['stages'] if s not in valid]
+        if passed:
+            ax.plot([60/s['account_interval_seconds'] for s in passed],
+                    [s['successful_turns_per_minute'] for s in passed], 'o-',label='Completed, audited, no 429')
+        if failed:
+            ax.scatter([60/s['account_interval_seconds'] for s in failed],
+                       [s['successful_turns_per_minute'] for s in failed],marker='x',s=80,color='#b52d2d',label='Stopped: partial rate before failure')
+        ax.set(xlabel='Configured aggregate send ceiling / minute',ylabel='Observed successful turns / minute',
+               title='Two independently paced model workers with shared account admission')
+        ax.grid(alpha=.2);ax.legend(fontsize=8)
+        fig.savefig(output/'request_rate_frontier.png',dpi=180)
+        plt.close(fig)
     print(json.dumps({'output': str(output), 'recommended_tested_pool': chosen}))
 
 

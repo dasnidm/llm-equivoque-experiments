@@ -11,8 +11,11 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
+import shutil
 import subprocess
 import sys
+import time
 import unittest
 
 import exp7_persistent.transport as native
@@ -21,6 +24,61 @@ from equivoque.transport import overrides
 BASE_TRANSPORT = native.PersistentTransport
 BASE_CONVERSATION = native._Conversation
 ALLOWED = {'0.159.0-alpha.3', '0.167.0', '0.169.0-alpha.3'}
+
+
+def isolated_sqlite_launcher(root, stage, binary):
+    """Use the supported DB-only override in the child, retaining native auth."""
+    database = (root / 'native-dbs' / stage).resolve()
+    shims = root / 'shims'
+    shims.mkdir(exist_ok=True)
+    launcher = shims / (stage + '.py')
+    source = """#!/usr/bin/env python3
+import json, os, sys
+from pathlib import Path
+settings = %r
+env = os.environ.copy()
+if 'app-server' in sys.argv[1:]:
+    database = Path(settings['database'])
+    database.mkdir(parents=True, exist_ok=True)
+    env['CODEX_SQLITE_HOME'] = str(database)
+    launches = database / 'launches'
+    launches.mkdir(exist_ok=True)
+    with (launches / (str(os.getpid()) + '.json')).open('x') as out:
+        json.dump({'pid': os.getpid(), 'sqlite_home': str(database),
+                   'native_home_preserved': True, 'proxy_environment_inherited': True}, out)
+os.execve(settings['binary'], [settings['binary']] + sys.argv[1:], env)
+""" % {'binary': str(binary), 'database': str(database)}
+    with launcher.open('x') as out:
+        out.write(source)
+    launcher.chmod(0o700)
+    return launcher, database
+
+
+def initialize_sqlite_without_inference(root, stage):
+    """One serial app-server initialize; no thread/start or turn/start."""
+    directory = root / 'warmups' / stage
+    directory.mkdir(parents=True, exist_ok=False)
+    subject = directory / 'subject'
+    subject.mkdir()
+    native.isolation_preflight(subject)
+    system = directory / 'subject-system.txt'
+    native._write(system, 'Technical startup only. No model request is submitted.')
+    catalog = Path(__file__).resolve().parents[1] / 'manifests/equivoque-2026-11-08-exp7-persistent-v1/model-catalog.json'
+    transport = native.PersistentTransport(catalog_path=catalog)
+    command = transport._command({'effort': 'medium'}, system)
+    conversation = native._Conversation(command, subject, directory, ())
+    try:
+        with (directory / 'rpc-sent.jsonl').open('xb') as sent, (directory / 'rpc-received.jsonl').open('xb') as received:
+            conversation.rpc('initialize', {'clientInfo': {'name': 'codex_exec', 'version': ''},
+                             'capabilities': {'experimentalApi': True}}, time.monotonic() + 30, sent, received, [])
+            conversation.send({'method': 'initialized'}, sent)
+    finally:
+        conversation.close()
+    if conversation.process.returncode not in (0, -15):
+        raise RuntimeError('Serial SQLite initialization did not exit normally')
+    with (directory / 'summary.json').open('x') as out:
+        json.dump({'success': True, 'model_requests': 0, 'methods': ['initialize', 'initialized']}, out)
+    return directory
 
 
 def select_adapter(version, binary):
@@ -75,17 +133,24 @@ def main():
     p.add_argument('--root', required=True, type=Path)
     p.add_argument('--stage', required=True)
     p.add_argument('--offline', action='store_true')
+    p.add_argument('--sqlite-isolation', action='store_true',
+                   help='Supported child-only CODEX_SQLITE_HOME, with serial migration and unchanged auth')
     p.add_argument('--pool', type=int, default=4)
     p.add_argument('--sessions', type=int, default=4)
     p.add_argument('--account-interval', type=float, default=.75)
     p.add_argument('--models', nargs='+', default=['gpt-6-astra', 'gpt-5.6-sol'])
     args = p.parse_args()
+    if not re.fullmatch(r'[A-Za-z0-9_-]+', args.stage):
+        p.error('Invalid stage name')
     args.root.mkdir(parents=True, exist_ok=True)
     profile_path = args.root / (args.stage + '.comparison-profile.json')
     if profile_path.exists():
         raise FileExistsError('A comparison stage cannot be replayed')
     binary = args.binary.resolve()
-    select_adapter(args.version, binary)
+    effective_binary, database = binary, None
+    if args.sqlite_isolation:
+        effective_binary, database = isolated_sqlite_launcher(args.root, args.stage, binary)
+    select_adapter(args.version, effective_binary)
     profile = {'version': args.version, 'binary': str(binary),
                'binary_sha256': hashlib.sha256(binary.read_bytes()).hexdigest(),
                'comparison_source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
@@ -97,12 +162,16 @@ def main():
                              'tool use rejection', 'no request replay', 'main STOP'],
                'pool': args.pool, 'sessions': args.sessions, 'models': args.models,
                'account_interval_seconds': args.account_interval}
+    if database:
+        profile.update(sqlite_home=str(database), sqlite_isolation=True,
+                       launcher=str(effective_binary), launcher_sha256=hashlib.sha256(effective_binary.read_bytes()).hexdigest())
+        profile['changes'].append('Child-only supported CODEX_SQLITE_HOME; serial DB migration before pool launch')
     with profile_path.open('x') as out:
         json.dump(profile, out, indent=2); out.write('\n')
     if args.offline:
         # Existing fixture uses dummy auth, a child-only home and loopback;
         # real authentication is never copied, modified or read by this test.
-        os.environ['CODEX_TEST_BINARY'] = str(binary)
+        os.environ['CODEX_TEST_BINARY'] = str(effective_binary)
         from exp7_persistent import test_real_cli
         original_events = test_real_cli.LocalResponses.events
         wire_path = args.root / (args.stage + '.offline-wire.jsonl')
@@ -125,12 +194,23 @@ def main():
         return
     import exp7_persistent_capacity_study as study
     study.MODELS = tuple(args.models)
+    warmup = initialize_sqlite_without_inference(args.root, args.stage) if database else None
     # The measured harness meters turn/start admissions across all selected
     # models; no model-specific or provider-internal quota is inferred.
     sys.argv = [sys.argv[0], '--root', str(args.root), '--stage', args.stage,
                 '--pool', str(args.pool), '--sessions', str(args.sessions),
                 '--account-interval', str(args.account_interval), '--per-model-workers']
-    study.main()
+    try:
+        study.main()
+    finally:
+        stage = args.root / args.stage
+        if stage.is_dir():
+            shutil.copyfile(profile_path, stage / 'version-profile.json')
+            if database:
+                shutil.copyfile(effective_binary, stage / 'cli-launcher.py')
+                shutil.copytree(database, stage / 'native-sqlite')
+            if warmup:
+                shutil.copytree(warmup, stage / 'serial-db-initialization')
 
 
 if __name__ == '__main__':

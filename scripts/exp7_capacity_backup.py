@@ -18,6 +18,8 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('--root', required=True, type=Path)
     p.add_argument('--stage', required=True)
+    p.add_argument('--branch', default='capacity/equivoque-2026-11-08-exp7-capacity-v1',
+                   help='Separate immutable raw-evidence branch for a technical study')
     args = p.parse_args()
     if not re.fullmatch(r'[A-Za-z0-9_-]+', args.stage):
         raise ValueError('Invalid stage')
@@ -53,7 +55,7 @@ def main():
                                  'members': members}, indent=2) + '\n')
     repository = verify_private_repository('dasnidm/llm-equivoque-exp7-raw')
     publisher = ResultPublisher('https://github.com/' + repository['full_name'] + '.git',
-                               'capacity/equivoque-2026-11-08-exp7-capacity-v1', out / 'publication.git')
+                               args.branch, out / 'publication.git')
     expected = {}
     for path in (archive, index):
         target = args.stage + '/' + path.name

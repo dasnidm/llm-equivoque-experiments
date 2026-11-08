@@ -20,10 +20,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--binary', type=Path, required=True)
+    parser.add_argument('--study-id', required=True, help='Use a new technical study ID; never reuse a completed cohort')
     args = parser.parse_args()
     root = args.root.resolve()
     root.mkdir(parents=True, exist_ok=False)
-    record = {'run_id': 'equivoque-2026-11-08-exp7-unpaced-retry-v1', 'started_at': now(),
+    record = {'run_id': args.study_id, 'started_at': now(),
               'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True).strip(),
               'VMs_measured': 1, 'samples_in_main': 0, 'rate_cap': None,
               'retry_wait_scope': 'request', 'stages': []}

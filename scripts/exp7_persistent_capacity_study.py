@@ -130,6 +130,33 @@ class ProbeTransport:
         return self.transport.close_trial(trial_id)
 
 
+class ModelWorkerTransports:
+    """Two independently paced worker transports, with one account send meter."""
+    name = native.PersistentTransport.name
+
+    def __init__(self, **kwargs):
+        self.workers = {model: native.PersistentTransport(**kwargs) for model in MODELS}
+
+    @property
+    def before_send(self):
+        return next(iter(self.workers.values())).before_send
+
+    @before_send.setter
+    def before_send(self, value):
+        for worker in self.workers.values():
+            worker.before_send = value
+
+    def request(self, trial, *args, **kwargs):
+        return self.workers[trial['model']].request(trial, *args, **kwargs)
+
+    def close_trial(self, trial_id):
+        return [entry for worker in self.workers.values() for entry in worker.close_trial(trial_id)]
+
+    def close(self):
+        for worker in self.workers.values():
+            worker.close()
+
+
 def summarize(root, guard):
     states = [json.loads(p.read_text()) for p in sorted((root / 'states').glob('*.json'))]
     records = [json.loads(line) for line in (root / 'meter.jsonl').read_text().splitlines()] if (root / 'meter.jsonl').exists() else []
@@ -184,6 +211,7 @@ def main():
     p.add_argument('--pool', required=True, type=int)
     p.add_argument('--sessions', required=True, type=int)
     p.add_argument('--account-interval', required=True, type=float)
+    p.add_argument('--per-model-workers', action='store_true')
     args = p.parse_args()
     if not re.fullmatch(r'[a-zA-Z0-9_-]+', args.stage) or not 1 <= args.pool <= 10 or args.sessions < args.pool or args.account_interval < 0:
         p.error('Invalid bounded stage')
@@ -206,12 +234,14 @@ def main():
         trials.append(trial)
     atomic_json(root / 'profile.json', {'stage': args.stage, 'created_at': now(), 'pool': args.pool, 'sessions': args.sessions,
         'account_interval_seconds': args.account_interval, 'per_transport_interval_seconds': 1,
-        'models': list(MODELS), 'effort': 'medium', 'frozen_scientific_sha256': freeze_hash,
+        'models': list(MODELS), 'effort': 'medium', 'per_model_workers': args.per_model_workers,
+        'frozen_scientific_sha256': freeze_hash,
         'probe_source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), 'sample_inclusion': False,
         'trials': trials, 'source_commit': frozen['source_commit']})
     meter = Meter(root, guard, args.account_interval)
     instrument(meter, guard)
-    transport = native.PersistentTransport(timeout=180, min_start_interval=1, catalog_path=BUNDLE / 'model-catalog.json')
+    factory = ModelWorkerTransports if args.per_model_workers else native.PersistentTransport
+    transport = factory(timeout=180, min_start_interval=1, catalog_path=BUNDLE / 'model-catalog.json')
     wrapped = ProbeTransport(transport, guard)
     budget = CallBudget(root / 'budget.json', 'capacity-' + args.stage, args.sessions * 34)
     iterator = iter(trials)
@@ -239,7 +269,7 @@ def main():
     finally:
         summary = summarize(root, guard)
         summary.update(stage=args.stage, pool=args.pool, sessions_planned=args.sessions,
-                       account_interval_seconds=args.account_interval)
+                       account_interval_seconds=args.account_interval, per_model_workers=args.per_model_workers)
         atomic_json(root / 'summary.json', summary)
         print(json.dumps(summary), flush=True)
     if guard.stop.is_set() or summary['sessions_complete'] != args.sessions or any(summary['diagnostics'].values()) or not summary['complete_session_audits_ok']:

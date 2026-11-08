@@ -1,0 +1,200 @@
+{
+  "new_model_calls": 0,
+  "exp5": {
+    "successful_turns": 83160,
+    "overall_turns_per_minute": 126.73178195262251,
+    "full_60s_bins": 655,
+    "full_bin_median": 142,
+    "full_bins_over100": 560,
+    "fraction_full_bins_over100": 0.8549618320610687,
+    "bin_origin": "First retained successful completion; final partial minute excluded",
+    "source": "analysis/results/equivoque-2026-10-12-sequence-replication-v1/attempt-01/tables/turns.csv",
+    "source_sha256": "f3ae38c03e4e7ed3e94f5fa1334f60349ebe29c38828652756bf2cd0c3dab0fc",
+    "interval_sources": [
+      {
+        "path": "sequence_replication/runtime/coordinator-launch-01.json",
+        "sha256": "a3bbe1067e52adae5ad44eee9de1e26c673d4f52f37c34f4eaa7c3ef949c8ecd"
+      },
+      {
+        "path": "sequence_replication/runtime/direct-progress.json",
+        "sha256": "883b7406f639df6ff38fcd7ab301554e9a54d095e1e7afa3637ef9a97d08adfb"
+      }
+    ],
+    "released_at": "2026-10-12T17:38:31.689726+00:00",
+    "final_status_at": "2026-10-13T04:34:43.029126+00:00"
+  },
+  "stages": [
+    {
+      "stage": "p10-unpaced",
+      "pool": 10,
+      "successful_turns": 680,
+      "successful_turns_per_minute": 100.2881847400131,
+      "success_burst_threshold_seconds": 10,
+      "success_burst_counts": [
+        105,
+        100,
+        101,
+        104,
+        100,
+        100,
+        70
+      ],
+      "consecutive_100_burst_start_gaps_seconds": [
+        60.6043095250061
+      ],
+      "median_100_burst_start_gap_seconds": 60.6043095250061,
+      "sum_required_backoff_seconds": 2108.6783794918747,
+      "available_worker_slot_seconds": 4068.2758498191833,
+      "lower_bound_slot_fraction_required_backoff": 0.518322369803315,
+      "backoff_fraction_note": "Overlapping waits are summed across different worker slots; not an estimate of causal wall-time savings.",
+      "retained_429_examples_for_support": [
+        {
+          "local_headers_at": "2026-11-08T18:04:55.747902+00:00",
+          "server_date": "Sun, 08 Nov 2026 18:04:55 GMT",
+          "retry_after_seconds": 39.0,
+          "server_advised_retry_epoch": 1794161134.0,
+          "request_id": "b9fa950c-b55e-49e0-967b-6e6ef4f38a86",
+          "error_type": "rate_limit_error",
+          "error_code": "turn_rate_limit_exceeded"
+        },
+        {
+          "local_headers_at": "2026-11-08T18:04:56.074024+00:00",
+          "server_date": "Sun, 08 Nov 2026 18:04:56 GMT",
+          "retry_after_seconds": 39.0,
+          "server_advised_retry_epoch": 1794161135.0,
+          "request_id": "a4b8e05b-ae9f-4b1b-ba70-4006686dee17",
+          "error_type": "rate_limit_error",
+          "error_code": "turn_rate_limit_exceeded"
+        }
+      ],
+      "source": "/workspace/work/exp7-unpaced-retry-20261108-v1/p10-unpaced/http-attempts.jsonl",
+      "source_sha256": "447d52ce393e13d1497551c45d8c4d13fcdf3a74933725b54002863d90f6791b",
+      "summary_source": "/workspace/work/exp7-unpaced-retry-20261108-v1/p10-unpaced/summary.json",
+      "summary_source_sha256": "70651fb06107665ceff9bd3fe7bfec9d9e74e84f7fcc2b489b92b9854546b4f1"
+    },
+    {
+      "stage": "p20-unpaced",
+      "pool": 20,
+      "successful_turns": 680,
+      "successful_turns_per_minute": 104.36962786287633,
+      "success_burst_threshold_seconds": 10,
+      "success_burst_counts": [
+        110,
+        100,
+        100,
+        100,
+        100,
+        100,
+        70
+      ],
+      "consecutive_100_burst_start_gaps_seconds": [
+        60.3617162139999,
+        60.41759608600114,
+        60.47968538499845,
+        60.63129908400879
+      ],
+      "median_100_burst_start_gap_seconds": 60.448640735499794,
+      "sum_required_backoff_seconds": 5741.65778439002,
+      "available_worker_slot_seconds": 7818.366479873657,
+      "lower_bound_slot_fraction_required_backoff": 0.73438074298134,
+      "backoff_fraction_note": "Overlapping waits are summed across different worker slots; not an estimate of causal wall-time savings.",
+      "retained_429_examples_for_support": [
+        {
+          "local_headers_at": "2026-11-08T18:11:52.109617+00:00",
+          "server_date": "Sun, 08 Nov 2026 18:11:52 GMT",
+          "retry_after_seconds": 49.0,
+          "server_advised_retry_epoch": 1794161561.0,
+          "request_id": "b5793ef0-7360-4cf2-82ac-d487fbd364b3",
+          "error_type": "rate_limit_error",
+          "error_code": "turn_rate_limit_exceeded"
+        },
+        {
+          "local_headers_at": "2026-11-08T18:11:51.979854+00:00",
+          "server_date": "Sun, 08 Nov 2026 18:11:51 GMT",
+          "retry_after_seconds": 49.0,
+          "server_advised_retry_epoch": 1794161560.0,
+          "request_id": "fe3d0487-4a06-497f-b827-244807987f2f",
+          "error_type": "rate_limit_error",
+          "error_code": "turn_rate_limit_exceeded"
+        }
+      ],
+      "source": "/workspace/work/exp7-unpaced-retry-20261108-v1/p20-unpaced/http-attempts.jsonl",
+      "source_sha256": "f236b68d386f277473cd4e9bbe5d542ba7fee1b094c0d84c66c1267bef6d466a",
+      "summary_source": "/workspace/work/exp7-unpaced-retry-20261108-v1/p20-unpaced/summary.json",
+      "summary_source_sha256": "a0d290c118c8fd74675d192a1763e38d14a32765ef026a837c615a91d6a40ac0"
+    },
+    {
+      "stage": "p40-unpaced",
+      "pool": 40,
+      "successful_turns": 1360,
+      "successful_turns_per_minute": 100.52776907418477,
+      "success_burst_threshold_seconds": 10,
+      "success_burst_counts": [
+        50,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        10
+      ],
+      "consecutive_100_burst_start_gaps_seconds": [
+        60.50280212899088,
+        60.49746097299794,
+        60.43201360201056,
+        60.49331539699051,
+        60.46528735299944,
+        60.47738621200551,
+        60.46491403499385,
+        60.46372706400871,
+        60.416223134001484,
+        60.57283157999336,
+        60.37526477400388,
+        60.28404042599141
+      ],
+      "median_100_burst_start_gap_seconds": 60.465100693996646,
+      "sum_required_backoff_seconds": 25594.328400091556,
+      "available_worker_slot_seconds": 32468.64055633545,
+      "lower_bound_slot_fraction_required_backoff": 0.7882784114623936,
+      "backoff_fraction_note": "Overlapping waits are summed across different worker slots; not an estimate of causal wall-time savings.",
+      "retained_429_examples_for_support": [
+        {
+          "local_headers_at": "2026-11-08T18:18:34.796281+00:00",
+          "server_date": "Sun, 08 Nov 2026 18:18:34 GMT",
+          "retry_after_seconds": 10.0,
+          "server_advised_retry_epoch": 1794161924.0,
+          "request_id": "184fe700-542f-411e-8bcb-df470c9e0ff8",
+          "error_type": "rate_limit_error",
+          "error_code": "turn_rate_limit_exceeded"
+        },
+        {
+          "local_headers_at": "2026-11-08T18:18:34.850463+00:00",
+          "server_date": "Sun, 08 Nov 2026 18:18:34 GMT",
+          "retry_after_seconds": 9.0,
+          "server_advised_retry_epoch": 1794161923.0,
+          "request_id": "40874c41-a689-45af-9f3c-a2773cde1a3f",
+          "error_type": "rate_limit_error",
+          "error_code": "turn_rate_limit_exceeded"
+        }
+      ],
+      "source": "/workspace/work/exp7-unpaced-retry-20261108-v1/p40-unpaced/http-attempts.jsonl",
+      "source_sha256": "10eeeebc24cafbe2ceef8dc0f3ee8b012f2cf5f0c0d72444425fd5bc5182d37e",
+      "summary_source": "/workspace/work/exp7-unpaced-retry-20261108-v1/p40-unpaced/summary.json",
+      "summary_source_sha256": "fc0a0f200b7e4a5d2fcc8e4ff9cca6d0bb1df3ec22ae2b940b347666e5c31068"
+    }
+  ],
+  "burst_method": "Exploratory: split chronologically ordered successful HTTP start times at gaps over 10 seconds. Not a preregistered hypothesis test or a provider-declared quota.",
+  "inference": "Approximately 100 successful admissions per roughly 60-second cycle on this account/path; exact scope and provider policy remain unidentified.",
+  "full_plan_turns": 2647104,
+  "days_at_100_per_minute": 18.38266666666667,
+  "days_at_exp5_average": 14.505174931998395,
+  "required_turns_per_minute_for_three_days": 612.7555555555556
+}

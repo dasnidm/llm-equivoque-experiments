@@ -18,6 +18,8 @@ def main():
     frontier = json.loads((root / 'frontier-summary.json').read_text()) if (root/'frontier-summary.json').exists() else None
     mixed_path = root/'mixed80-p4'/'summary.json'
     mixed = json.loads(mixed_path.read_text()) if mixed_path.exists() else None
+    diagnostics_path = root/'frontier-diagnostics.json'
+    diagnostics = json.loads(diagnostics_path.read_text()) if diagnostics_path.exists() else None
     evidence = {'suite': suite, 'historical_checkpoint_summary': history, 'historical_quota_metadata': quota,
                 'stage_source_sha256': {s['stage']: hashlib.sha256((root/s['stage']/'summary.json').read_bytes()).hexdigest()
                                         for s in suite['stages']}}
@@ -28,6 +30,8 @@ def main():
     if mixed:
         evidence['mixed_design_validation'] = mixed
         evidence['stage_source_sha256']['mixed80-p4'] = hashlib.sha256(mixed_path.read_bytes()).hexdigest()
+    if diagnostics:
+        evidence['frontier_diagnostics'] = diagnostics
     (output / 'results.json').write_text(json.dumps(evidence, indent=2) + '\n')
     stages = suite['stages'] + (frontier['stages'] if frontier else [])
     timing = {}
@@ -64,8 +68,8 @@ def main():
         '원래 실패 응답의 HTTP 헤더가 없어 RPM·TPM·동시 요청·중간 게이트웨이 제한 중 하나로 확정할 수 없다.', '',
         '기존 두 VM의 checkpoint 기록 합계는 최대 122회/60초였다. checkpoint는 송신 전 대기를 포함하므로 '
         '공급자에게 실제 도착한 HTTP 요청 수로 해석하지 않는다. CLI 내부 HTTP 재시도 횟수도 확인되지 않았다.', '',
-        '새 측정은 Astra와 5.6 Sol의 medium/영어/schema/cards/seq를 사용했다. 전체 turn/start 송신 간격을 '
-        '1초로 공유해 계정 전체 부하를 제한했다. 모든 대화는 새 프로세스·대화로 시작했고 34턴 원본 감사를 수행했다.', '',
+        '새 측정은 Astra와 5.6 Sol의 medium/영어/schema/cards/seq를 사용했다. 기본 pool 비교는 전체 turn/start 송신 간격을 '
+        '1초로 공유했고, 후속 요청 속도 경계 시험은 표의 다른 간격을 사용했다. 모든 대화는 새 프로세스·대화로 시작했고 완료된 대화에 34턴 원본 감사를 수행했다.', '',
         '| 단계 | pool | 합계 송신 상한/분 | 완료 대화 | 성공 턴 | 성공 턴/분 | p95 초 | 429 진단 |',
         '|---|---:|---:|---:|---:|---:|---:|---:|']
     for s in stages:
@@ -77,7 +81,7 @@ def main():
         lines.append(f"| {s['stage']} | {s['pool']} | {ceiling:.0f} | {s['sessions_complete']}/{s['sessions_planned']} | "
                      f"{s['successful_turns']} | {rate_text} | {latency_text} | {sum(s['diagnostics'].values())} |")
     chosen = suite.get('recommended_tested_pool')
-    lines.extend(['', f'선택된 시험상 효율 pool: {chosen if chosen is not None else "미확정"}.', '',
+    lines.extend(['', f'합계 송신 상한 60회/분에서 선택된 시험상 효율 pool: {chosen if chosen is not None else "미확정"}.', '',
         '선택 규칙은 429·미확정 요청이 없고 감사가 통과한 단계 중 최대 관측 처리량의 95% 이내에 드는 '
         '가장 작은 pool이다. 별도 확인 단계도 보존한다. 이 숫자는 두 모델/medium 및 시험 시점의 조건에 한정한다. '
         '계정 공통 간격 1초 비교와 더 빠른 요청 경계 시험은 별도의 설정이다. 단계를 순서대로 수행해 시점과 캐시 상태는 무작위 통제하지 않았다. '
@@ -95,6 +99,12 @@ def main():
                       f"성공 {mixed['successful_turns']}턴, 관측 {mixed['successful_turns_per_minute']:.1f}턴/분, "
                       f"429 진단 {sum(mixed['diagnostics'].values())}, 전체 통과 {mixed_ok}.",
                       '혼합 확인은 두 모델에서 각 low·medium·high 한 개씩, 여섯 game·네 format·R 조건을 포함한 작은 확인이며 전체 교차 설계나 다른 모델에 일반화하지 않는다.', ''])
+    elif frontier and frontier.get('stopped_at'):
+        lines.extend(['경계 시험의 첫 429에서 신규 송신을 중단했으므로 이후 120회/분과 혼합 조건 검증은 수행하지 않았다.', ''])
+    if diagnostics:
+        lines.extend(['실제 로컬 turn/start admission의 최대 60초 창 횟수는 ' + ', '.join(
+            f"{name}: {item['peak_rolling60_actual_turn_start_admissions']}회" for name,item in diagnostics.items()) +
+            '였다. 이 횟수는 공급자 내부 HTTP 재시도까지 세는 값은 아니다.', ''])
     (output / 'REPORT.ko.md').write_text('\n'.join(lines))
     import matplotlib
     matplotlib.use('Agg')

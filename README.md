@@ -3,12 +3,12 @@
 **STOP — 새 호출 중단**
 
 - 실행: `equivoque-2026-11-08-exp7-persistent-v1`
-- 갱신 시각: 2026-11-08T07:59:52+00:00 (UTC)
+- 갱신 시각: 2026-11-08T07:59:55+00:00 (UTC)
 - 상태 사유: Response or unclassified rate-limit diagnostic observed; preserve requests and inspect before resuming
 - 예약 병렬 수 / 전역 상한: **20 / 20**
 - 배정: **77,856대화 · 2,600작업**
-- 보고된 대화: 완료 **0**, 실패 **1**, 중단 **9**, 미시작·미보고 **77,846**
-- 보고된 논리 호출: **197 / 2,647,104**
+- 보고된 대화: 완료 **0**, 실패 **2**, 중단 **18**, 미시작·미보고 **77,836**
+- 보고된 논리 호출: **287 / 2,647,104**
 
 [전체 작업·소유권·결과 참조 JSON](board.json)
 
@@ -17,7 +17,7 @@
 | 모델 | 담당 VM | 예약 병렬 | 작업 상태¹ | 대화 상태² | 보고 호출 | 마지막 heartbeat (UTC) |
 |---|---|---:|---|---|---:|---|
 | gpt-5.6-luna | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
-| gpt-5.6-sol | vm-236658afc9cb | 10 | 324/0/1/0/0/0 | 0/0/0/9,732 | 0 | 2026-11-08T07:53:42+00:00 |
+| gpt-5.6-sol | vm-236658afc9cb | 10 | 324/0/0/0/0/1 | 0/1/9/9,722 | 90 | 2026-11-08T07:53:42+00:00 |
 | gpt-5.6-terra | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
 | gpt-6-astra | vm-persistent-astra | 10 | 324/0/0/0/0/1 | 0/1/9/9,722 | 197 | 2026-11-08T06:34:13+00:00 |
 | gpt-6-luna | 미배정 | 0 | 325/0/0/0/0/0 | 0/0/0/9,732 | 0 | — |
@@ -40,6 +40,7 @@
 
 | 작업 | 모델 | 상태 | 결과 |
 |---|---|---|---|
+| model-02-job-0001 | gpt-5.6-sol | blocked | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/26845606894746e70fed7ab36dbdb69d8063d846/results/equivoque-2026-11-08-exp7-persistent-v1/gpt-5.6-sol/model-02-job-0001.jsonl.gz) |
 | model-04-job-0001 | gpt-6-astra | blocked | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/4655906bdc1067f39d725a3cd3527eaf8904d639/results/equivoque-2026-11-08-exp7-persistent-v1/gpt-6-astra/model-04-job-0001.jsonl.gz) |
 
 작업은 원격 선점 확인 후 실행한다. 중단·응답 불확실·보류 작업은 자동으로 재배정하지 않는다.

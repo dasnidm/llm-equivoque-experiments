@@ -25,6 +25,21 @@ def main():
                                                for s in frontier['stages']})
     (output / 'results.json').write_text(json.dumps(evidence, indent=2) + '\n')
     stages = suite['stages'] + (frontier['stages'] if frontier else [])
+    timing = {}
+    for stage in stages:
+        directory = root / stage['stage']
+        records = [json.loads(line) for line in (directory/'meter.jsonl').read_text().splitlines()]
+        first = records[0]['monotonic'] if records else 0
+        last = records[-1]['monotonic'] if records else 0
+        steady = [r for r in records if r['kind']=='turn/completed' and r.get('status')=='completed'
+                  and first+20 <= r['monotonic'] < first+140]
+        turns = [t for path in (directory/'states').glob('*.json') for t in json.loads(path.read_text()).get('turns',[])]
+        timing[stage['stage']] = {'fixed_20_to_140_seconds_turns_per_minute': len(steady)/2 if last-first>=140 else None,
+            'max_recorded_duration_seconds':max((t.get('duration_seconds',0) for t in turns),default=None),
+            'input_tokens_summed':sum(t.get('usage_last',{}).get('input_tokens',0) for t in turns),
+            'cached_input_tokens_summed':sum(t.get('usage_last',{}).get('cached_input_tokens',0) for t in turns)}
+    evidence['derived_timing_and_usage'] = timing
+    (output / 'results.json').write_text(json.dumps(evidence, indent=2) + '\n')
     lines = ['# Persistent 실험 7의 429 및 병렬 효율', '',
         '본실험은 STOP을 유지했다. 아래 부하 측정은 별도 기술 실행이며 본실험에 포함하지 않는다.', '',
         '두 worker의 1초 간격 제한은 각자 적용되어 합계 요청량을 통제하지 못했다. 기존 오류는 응답 RPC의 '
@@ -60,7 +75,8 @@ def main():
     normal = [s for s in suite['stages'] if not s['stage'].startswith('confirm')]
     fig, axes = plt.subplots(1, 2, figsize=(11, 4), constrained_layout=True)
     pools = [s['pool'] for s in normal]
-    axes[0].plot(pools, [s['successful_turns_per_minute'] for s in normal], 'o-', color='#2463ad')
+    axes[0].plot(pools, [s['successful_turns_per_minute'] for s in normal], 'o-', color='#2463ad', label='Full-stage completion rate')
+    axes[0].plot(pools, [timing[s['stage']]['fixed_20_to_140_seconds_turns_per_minute'] for s in normal], 's--', color='#24918b', label='Fixed seconds 20-140')
     axes[0].axhline(60, color='#888888', linestyle='--', linewidth=1, label='1-second send ceiling')
     axes[0].set(xlabel='Total conversation pool', ylabel='Successful turns / minute', title='Measured throughput')
     axes[0].legend(fontsize=8)

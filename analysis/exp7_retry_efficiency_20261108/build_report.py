@@ -67,6 +67,7 @@ def main():
                   FIFO_live_operator_gate_passed=False,
                   post_completion_HTTP_close_fix_live_validated=False,
                   post_completion_HTTP_close_fix_offline_regression_passed=True,
+                  post_completion_HTTP_close_policy='Only RemoteProtocolError after a fully forwarded response.completed with completed status, id and usage is a close diagnostic; never replay. Before terminal completion preserve STOP.',
                   exact_selected_pool_FIFO_live_measured=decision['selected_global_pool'] == 10,
                   observed_HTTP_stream_interval_peak=fifo_row['actual_peak_inflight_http'] if decision['selected_global_pool'] == 10 else None,
                   observed_active_logical_turn_peak=fifo_row['actual_peak_active_logical_turns'] if decision['selected_global_pool'] == 10 else None)

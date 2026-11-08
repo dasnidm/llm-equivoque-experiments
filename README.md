@@ -3,8 +3,8 @@
 **STOP — 새 호출 중단**
 
 - 실행: `equivoque-2026-11-08-exp7-persistent-v1`
-- 갱신 시각: 2026-11-08T10:01:52+00:00 (UTC)
-- 상태 사유: Response or unclassified rate-limit diagnostic observed; preserve requests and inspect before resuming User-directed full restart: this cohort is retired; do not resume it.
+- 갱신 시각: 2026-11-08T10:33:14+00:00 (UTC)
+- 상태 사유: Response or unclassified rate-limit diagnostic observed; preserve requests and inspect before resuming User-directed full restart: this cohort is retired; do not resume it. Technical CLI comparison also halted after hidden native 429 retries; preserve pending requests.
 - 예약 병렬 수 / 전역 상한: **20 / 20**
 - 배정: **77,856대화 · 2,600작업**
 - 보고된 대화: 완료 **0**, 실패 **2**, 중단 **18**, 미시작·미보고 **77,836**

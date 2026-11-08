@@ -70,6 +70,12 @@ def collect(root):
             text = stderr.read_text(errors='replace')
             if 'failed to initialize sqlite state runtime' in text:
                 startup_errors.append('local_sqlite_initialization')
+        initialize_versions = []
+        tool_events = sum(t.get('tool_events', 0) for t in turns)
+        for first in (directory / 'native').rglob('turn-01/rpc-sent.jsonl'):
+            initialize_versions.extend(m.get('params', {}).get('clientInfo', {}).get('version')
+                                       for m in (json.loads(line) for line in first.read_text().splitlines())
+                                       if m.get('method') == 'initialize')
         valid = (summary['sessions_complete'] == summary['sessions_planned']
                  and summary['complete_session_audits_ok'] and not summary['stop_reason']
                  and not any(summary['diagnostics'].values()))
@@ -85,6 +91,9 @@ def collect(root):
             'p99_adapter_seconds': percentile([t['duration_seconds'] for t in turns], .99),
             'max_adapter_seconds': max((t['duration_seconds'] for t in turns), default=None),
             'model_metrics': model_metrics, 'startup_error_types': dict(Counter(startup_errors)),
+            'initialize_versions': sorted(set(initialize_versions)),
+            'initialize_version_matches_profile': bool(initialize_versions) and all(v == profile['version'] for v in initialize_versions),
+            'successful_turn_tool_events': tool_events,
             'profile_sha256': hashlib.sha256(external_profile.read_bytes()).hexdigest(),
             'summary_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
             'backup': read(receipt) if receipt.is_file() else None,

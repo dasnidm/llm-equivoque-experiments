@@ -18,6 +18,10 @@ def evaluate(board, identity, freeze_hash):
     if (own.get('owner'), own.get('model_token'), own.get('concurrency')) != (
             identity['owner'], identity['model_token'], identity['concurrency']):
         return {'ready': False, 'terminal': True, 'reason': 'model ownership or reservation mismatch'}
+    for name, item in models.items():
+        tech = item.get('technical_status', {})
+        if tech.get('failed') or any(tech.get('diagnostics', {}).values()):
+            return {'ready': False, 'terminal': True, 'reason': 'technical failure or 429 requires inspection', 'model': name}
     missing = [name for name, item in models.items()
                if not item.get('technical_status', {}).get('readiness_and_backup_verified')]
     if missing:

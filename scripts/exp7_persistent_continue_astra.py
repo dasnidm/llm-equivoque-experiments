@@ -20,20 +20,23 @@ def main():
     with (work / 'calibration-final-backup.log').open('x') as log:
         backup = subprocess.run([sys.executable, '-m', 'scripts.exp7_persistent_calibration_backup',
                                  '--work-dir', str(work), '--snapshot', 'final'], stdout=log, stderr=subprocess.STDOUT)
-    if result.returncode or backup.returncode:
+    verification = None
+    if not result.returncode and not backup.returncode:
+        verification = subprocess.run([sys.executable, '-m', 'scripts.exp7_persistent_technical_board',
+                                       '--work-dir', str(work)])
+    if result.returncode or backup.returncode or (verification is not None and verification.returncode):
         c = GitCoordinator('https://github.com/dasnidm/llm-equivoque-experiments.git',
                            'exp7/persistent-v1-coordination', work / 'coordination.git')
         def fail(board):
             if not board['global_stop']:
-                board.update(global_stop=True, stop_reason='Astra continued technical calibration or final backup failed',
+                board.update(global_stop=True, stop_reason='Astra continued technical calibration, final backup or verification failed',
                              stop_updated_at=utc_now())
             status = board['models']['gpt-6-astra'].setdefault('technical_status', {})
             status.update(failed=True, readiness_and_backup_verified=False,
-                          continuation_exit=result.returncode, final_backup_exit=backup.returncode)
-        c._mutate('Stop after Astra continued calibration or final backup failure', fail)
-        raise SystemExit('Calibration or backup failed; STOP preserved')
-    subprocess.run([sys.executable, '-m', 'scripts.exp7_persistent_technical_board',
-                    '--work-dir', str(work)], check=True)
+                          continuation_exit=result.returncode, final_backup_exit=backup.returncode,
+                          verification_exit=None if verification is None else verification.returncode)
+        c._mutate('Stop after Astra continued calibration, final backup or verification failure', fail)
+        raise SystemExit('Calibration, backup or verification failed; STOP preserved')
 
 
 if __name__ == '__main__':

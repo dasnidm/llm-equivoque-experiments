@@ -22,7 +22,7 @@ from exp7_main_v2.coordination import GitCoordinator
 from exp7_main_v2.protocol import MainProtocol
 from exp7_main_v2.runner import run_trial
 from exp7_main_v2.schedule import load_bundle
-from exp7_main_v2.worker import verify_freeze
+from exp7_main_v2.worker import verify_freeze, calibration_trials
 from exp7_pre.runner import CallBudget, atomic_json
 from exp7_persistent.audit import audit_trial
 
@@ -212,6 +212,7 @@ def main():
     p.add_argument('--sessions', required=True, type=int)
     p.add_argument('--account-interval', required=True, type=float)
     p.add_argument('--per-model-workers', action='store_true')
+    p.add_argument('--design-mix', action='store_true', help='Six prespecified mixed effort/game/format sessions')
     args = p.parse_args()
     if not re.fullmatch(r'[a-zA-Z0-9_-]+', args.stage) or not 1 <= args.pool <= 10 or args.sessions < args.pool or args.account_interval < 0:
         p.error('Invalid bounded stage')
@@ -225,16 +226,22 @@ def main():
     plan = load_bundle(BUNDLE)
     templates = [next(t for t in plan['trials'] if t['model'] == m and t['effort'] == 'medium'
                       and t['arm'] == 'en_schema' and t['frame'] == 'cards' and t['game'] == 'seq') for m in MODELS]
+    if args.design_mix:
+        if args.sessions != 6:
+            raise ValueError('Mixed validation has exactly six prespecified sessions')
+        source = {m:calibration_trials(plan['trials'],m,'capacity') for m in MODELS}
+        templates = [source[MODELS[0 if i<3 else 1]][(i%3)*6+i] for i in range(6)]
     trials = []
     for i in range(args.sessions):
         trial = dict(templates[i % len(templates)])
-        trial.update(evaluation_source_trial_id=trial['trial_id'], trial_id=f'capacity-{args.stage}-{i+1:03d}',
+        trial.update(evaluation_source_trial_id=trial.get('evaluation_source_trial_id',trial['trial_id']), trial_id=f'capacity-{args.stage}-{i+1:03d}',
                      run_id='equivoque-2026-11-08-exp7-capacity-v1-' + args.stage,
                      cohort='technical_capacity', split='calibration', fold=None)
         trials.append(trial)
     atomic_json(root / 'profile.json', {'stage': args.stage, 'created_at': now(), 'pool': args.pool, 'sessions': args.sessions,
         'account_interval_seconds': args.account_interval, 'per_transport_interval_seconds': 1,
-        'models': list(MODELS), 'effort': 'medium', 'per_model_workers': args.per_model_workers,
+        'models': list(MODELS), 'effort': ['low','medium','high'] if args.design_mix else 'medium',
+        'design_mix': args.design_mix, 'per_model_workers': args.per_model_workers,
         'frozen_scientific_sha256': freeze_hash,
         'probe_source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), 'sample_inclusion': False,
         'trials': trials, 'source_commit': frozen['source_commit']})
@@ -269,7 +276,8 @@ def main():
     finally:
         summary = summarize(root, guard)
         summary.update(stage=args.stage, pool=args.pool, sessions_planned=args.sessions,
-                       account_interval_seconds=args.account_interval, per_model_workers=args.per_model_workers)
+                       account_interval_seconds=args.account_interval, per_model_workers=args.per_model_workers,
+                       design_mix=args.design_mix)
         atomic_json(root / 'summary.json', summary)
         print(json.dumps(summary), flush=True)
     if guard.stop.is_set() or summary['sessions_complete'] != args.sessions or any(summary['diagnostics'].values()) or not summary['complete_session_audits_ok']:

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "operation_id": "sol-persistent-no-calibration-ten-01",
+  "authorized_at": "2026-11-08T07:57:23.114515+00:00",
+  "user_instruction": "기술점검 하지말고 바로 10병렬로 시작해",
+  "run_id": "equivoque-2026-11-08-exp7-persistent-v1",
+  "model": "gpt-5.6-sol",
+  "owner": "vm-236658afc9cb",
+  "concurrency": 10,
+  "freeze_sha256": "16f61a400ff1280c54614719efb416df76fb5b696af47ee7b59342474ddbb75a",
+  "calibration_passed": false,
+  "calibration_requirement_waived": true,
+  "shared_technical_gate_bypassed": true,
+  "request_interval": 1,
+  "transport": "persistent",
+  "preserved_technical_states": [
+    {
+      "path": "calibration/attempt-01/states/cal-01-gpt-5.6-sol-low-01.json",
+      "sha256": "2deabce8ba6b095b81d1f3c3f56a035d85055ff2fc4f59ff31d04478326ada37",
+      "status": "complete",
+      "pending": false
+    },
+    {
+      "path": "calibration/attempt-01/states/cal-01-gpt-5.6-sol-low-02.json",
+      "sha256": "59f9a8caba4e8258e9649f59be267263556a679ceab2adc1b50e90f2304af2f9",
+      "status": "complete",
+      "pending": false
+    },
+    {
+      "path": "calibration/attempt-01/states/cal-01-gpt-5.6-sol-low-03.json",
+      "sha256": "a4945ae7bc3309d44851b88f4d85295a0b09e7e681afe33dd95c951f9901fd02",
+      "status": "active",
+      "pending": true
+    }
+  ],
+  "protocol_deviation": "User explicitly requested evaluation without completed technical calibration and shared technical validation, at concurrency 10. Interrupted technical request remains preserved and is never replayed. This deviates from initial persistent operating policy."
+}

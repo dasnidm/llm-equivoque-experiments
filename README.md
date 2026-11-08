@@ -1,10 +1,10 @@
 # 실험 7 작업 현황
 
-**ENABLED — 작업 선점·실행 허용**
+**STOP — 새 호출 중단**
 
 - 실행: `equivoque-2026-11-08-exp7-persistent-v1`
-- 갱신 시각: 2026-11-08T04:49:10+00:00 (UTC)
-- 상태 사유: New isolated persistent run: user authorized initial one-worker technical calibration; evaluation only after all model checks and backup
+- 갱신 시각: 2026-11-08T04:49:41+00:00 (UTC)
+- 상태 사유: Astra technical calibration interrupted after heartbeat Git fetch exit 128; preserve evidence and inspect coordination before any new calls
 - 예약 병렬 수 / 전역 상한: **1 / 2**
 - 배정: **77,856대화 · 2,600작업**
 - 보고된 대화: 완료 **0**, 실패 **0**, 중단 **0**, 미시작·미보고 **77,856**

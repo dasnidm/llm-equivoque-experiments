@@ -24,10 +24,6 @@ def digest(value):
     return hashlib.sha256(value).hexdigest()
 
 
-def json_digest(value):
-    return digest(json.dumps(value, sort_keys=True, separators=(',', ':')).encode())
-
-
 def retry_delay(headers, attempt):
     """Honor server time; fallback is bounded exponential backoff."""
     value = headers.get('retry-after')
@@ -130,20 +126,17 @@ class CapacityRetryClient:
             logical_id = self.logical_count
         began = time.monotonic()
         body_hash = digest(content)
-        # Safe model/config hashes, never the request headers or body text.
-        body = json.loads(content)
-        summary = {'model': body.get('model'), 'effort': body.get('reasoning', {}).get('effort'),
-                   'instructions_sha256': json_digest(body.get('instructions')),
-                   'schema_sha256': json_digest(body.get('text', {}).get('format')),
-                   'user_input_sha256': [json_digest(item) for item in body.get('input', [])
-                                         if item.get('role') == 'user']}
+        # OAuth CLI can compress the HTTP request. Treat its bytes opaquely;
+        # parsing or recompressing them is unnecessary and could change a retry.
+        encoding = next((v.lower() for k, v in headers.items() if k.lower() == 'content-encoding'), 'identity')
+        encoding = encoding if encoding in ('identity', 'gzip', 'zstd', 'deflate', 'br') else 'other'
         for attempt in range(self.max_retries + 1):
             ticket = self.admission.admit(logical_id, attempt)
             started = time.monotonic()
             record = {'ticket': ticket, 'logical_id': logical_id, 'attempt': attempt,
                       'started_at': now(), 'started_monotonic': started,
                       'request_body_sha256': body_hash, 'request_body_bytes': len(content),
-                      'request_summary': summary}
+                      'request_content_encoding': encoding}
             retry = False
             try:
                 with self.client.stream(method, url, headers=headers, content=content) as response:

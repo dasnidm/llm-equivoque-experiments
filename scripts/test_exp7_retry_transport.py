@@ -1,6 +1,7 @@
 """Loopback-only tests, including a real 34-turn CLI recovery conversation."""
 from concurrent.futures import ThreadPoolExecutor
 import http.server
+import gzip
 import json
 from pathlib import Path
 import tempfile
@@ -163,6 +164,35 @@ class RetryTransportTests(unittest.TestCase):
                 results = list(executor.map(lambda i: admission.admit(i, 0), range(3)))
             self.assertEqual(len(results), 3)
             self.assertTrue(all(row['monotonic'] >= until for row in admission.events if row['kind'] == 'admit'))
+
+    def test_compressed_request_is_retried_without_decode_or_reencode(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); received = []
+            data = gzip.compress(b'{"input":[{"role":"user","content":"SAME QUESTION"}]}')
+            class Handler(http.server.BaseHTTPRequestHandler):
+                def log_message(self, *args): pass
+                def do_POST(self):
+                    body = self.rfile.read(int(self.headers['Content-Length']))
+                    received.append((body, self.headers.get('Content-Encoding')))
+                    payload = json.dumps(CAPACITY if len(received) == 1 else {'ok': True}).encode()
+                    self.send_response(429 if len(received) == 1 else 200)
+                    self.send_header('Retry-After', '0.1')
+                    self.send_header('Content-Length', str(len(payload)))
+                    self.end_headers(); self.wfile.write(payload); self.wfile.flush()
+            server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+            thread = threading.Thread(target=server.serve_forever, daemon=True); thread.start()
+            try:
+                relay, client, _ = retry_relay(root, 0, 1,
+                    upstream=f'http://127.0.0.1:{server.server_port}', offline=True)
+                with relay:
+                    response = httpx.post(relay.base_url + '/responses', content=data,
+                                          headers={'Content-Encoding': 'gzip', 'Content-Type': 'application/json'})
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(received, [(data, 'gzip'), (data, 'gzip')])
+                self.assertEqual(len(client.records), 2)
+                self.assertFalse(relay.gate.stop.is_set())
+            finally:
+                server.shutdown(); server.server_close(); thread.join(2)
 
 
 if __name__ == '__main__': unittest.main()

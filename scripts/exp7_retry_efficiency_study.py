@@ -70,7 +70,9 @@ def summarize(root, client, relay, admission, trials, freeze, url):
     atomic_json(root / 'native-retry-audit.json', native)
     statuses = {str(status): sum(row.get('status') == status for row in records)
                 for status in sorted({row['status'] for row in records if 'status' in row})}
-    clean_audit = (len(audits) == len(trials) and all(row['integrity_ok'] for row in audits)
+    clean_audit = (len(audits) == len(trials) and len(states) == len(trials)
+                   and all(state['status'] == 'complete' for state in states)
+                   and all(row['integrity_ok'] for row in audits)
                    and not invariant_errors and native['available']
                    and not native['native_429_retry_log_records'] and not native['other_native_retry_log_records'])
     scan = json.loads((root / 'credential-scan.json').read_text())
@@ -99,6 +101,7 @@ def summarize(root, client, relay, admission, trials, freeze, url):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--root', type=Path, required=True)
+    p.add_argument('--study-id', required=True)
     p.add_argument('--binary', type=Path, required=True)
     p.add_argument('--profile', choices=sorted(PROFILES), required=True)
     p.add_argument('--sessions', type=int, default=12)
@@ -119,7 +122,7 @@ def main():
     templates = [next(t for t in assignments if t['model'] == model and t['effort'] == 'medium'
                       and t['arm'] == 'en_schema' and t['frame'] == 'cards' and t['game'] == 'seq') for model in models]
     pool, rpm = PROFILES[args.profile]
-    run = 'equivoque-2026-11-08-exp7-retry-efficiency-v1-' + root.name
+    run = args.study_id + '-' + root.name
     trials = [{**templates[i % 2], 'trial_id': f'retry-{i+1:02d}', 'run_id': run, 'cohort': 'technical_retry_efficiency'}
               for i in range(args.sessions)]
     atomic_json(root / 'assignments.json', trials)

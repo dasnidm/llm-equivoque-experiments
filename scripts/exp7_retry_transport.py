@@ -18,6 +18,8 @@ from pathlib import Path
 import threading
 import time
 
+import httpx
+
 from exp7_header_probe import Gate, Relay, header_transport, safe_headers, now
 
 
@@ -123,6 +125,49 @@ class Admission:
                          delay_seconds=delay, until_monotonic=self.cooldown_until)
 
 
+class CompletedResponse:
+    """Keep complete SSE answers when only subsequent HTTP framing is broken.
+
+    No request is replayed. Before a complete, forwarded provider terminal event,
+    the same framing exception remains an uncertain-completion failure.
+    """
+    def __init__(self, response, record):
+        self.response, self.record = response, record
+
+    def __getattr__(self, name):
+        return getattr(self.response, name)
+
+    def iter_bytes(self):
+        pending = b''
+        terminal_forwarded = False
+        try:
+            for chunk in self.response.iter_bytes():
+                pending = (pending + chunk).replace(b'\r\n', b'\n')
+                terminal_in_chunk = False
+                while b'\n\n' in pending:
+                    block, pending = pending.split(b'\n\n', 1)
+                    data = b'\n'.join(line[5:].lstrip() for line in block.splitlines() if line.startswith(b'data:'))
+                    try:
+                        event = json.loads(data)
+                        response = event.get('response')
+                        if (event.get('type') == 'response.completed' and isinstance(response, dict)
+                                and response.get('status') == 'completed' and response.get('id')
+                                and isinstance(response.get('usage'), dict)):
+                            terminal_in_chunk = True
+                    except (ValueError, TypeError, AttributeError):
+                        pass
+                yield chunk
+                # Reached only after the relay consumed/forwarded that chunk.
+                if terminal_in_chunk:
+                    terminal_forwarded = True
+                    self.record['provider_completed_frame_forwarded'] = True
+        except httpx.RemoteProtocolError as exc:
+            if not terminal_forwarded:
+                raise
+            self.record['post_completion_HTTP_close_error'] = type(exc).__name__
+            self.record['post_completion_close_handled_without_replay'] = True
+
+
 class CapacityRetryClient:
     def __init__(self, root, client, admission, secrets, max_retries=4, max_wait_seconds=240):
         self.root, self.client, self.admission = Path(root), client, admission
@@ -196,7 +241,7 @@ class CapacityRetryClient:
                             record['retry_scheduled'] = False
                     if not retry:
                         # Yield exactly once: never replay exceptions during SSE consumption.
-                        yield response
+                        yield CompletedResponse(response, record) if response.status_code == 200 else response
                         return
             except Exception as exc:
                 record['exception_type'] = type(exc).__name__

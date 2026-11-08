@@ -3,6 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 import http.server
 import gzip
 import json
+import os
 from pathlib import Path
 import tempfile
 import threading
@@ -20,11 +21,20 @@ from exp7_pre.runner import CallBudget
 from exp7_persistent.test_real_cli import LocalResponses, make_cli_wrapper, prompt_texts
 from exp7_retry_transport import retry_relay, audit_retry_trial
 
-BINARY = Path('/workspace/work/exp7-cli-upgrade-20261108/cli-0.167.0/codex')
+BINARY = Path(os.environ.get('CODEX_TEST_BINARY', '/workspace/work/exp7-cli-upgrade-20261108/cli-0.167.0/codex'))
 CAPACITY = {'error': {'type': 'rate_limit_error', 'code': 'turn_rate_limit_exceeded', 'message': 'Synthetic capacity'}}
 
 
 class RetryTransportTests(unittest.TestCase):
+    def setUp(self):
+        import exp7_persistent.transport as native
+        self.native_classes = native.PersistentTransport, native._Conversation
+
+    def tearDown(self):
+        import exp7_persistent.transport as native
+        native.PersistentTransport, native._Conversation = self.native_classes
+
+    @unittest.skipUnless(BINARY.is_file(), 'Set CODEX_TEST_BINARY to the supported CLI 0.167.0')
     def test_full_34_turn_real_cli_retry_preserves_exact_body_and_history(self):
         with tempfile.TemporaryDirectory() as temp, LocalResponses(schema_answers=True) as service:
             root = Path(temp)
@@ -55,7 +65,7 @@ class RetryTransportTests(unittest.TestCase):
             template = next(t for t in templates if t['model'] == 'gpt-6-astra' and t['effort'] == 'medium'
                             and t['arm'] == 'en_schema' and t['frame'] == 'cards' and t['game'] == 'seq')
             trial = {**template, 'trial_id': 'offline-retry-34', 'cohort': 'technical_retry_efficiency'}
-            _, freeze = verify_freeze(BUNDLE / 'freeze.json')
+            _, freeze = verify_freeze(BUNDLE / 'freeze.json', check_cli=False)
             state_path = root / 'state.json'
             try:
                 with relay:
@@ -217,6 +227,38 @@ class RetryTransportTests(unittest.TestCase):
             with self.assertRaises(RuntimeError): admission.admit(1, 0)
             self.assertFalse(admission.queue)
             self.assertEqual(admission.count, 0)
+
+    @unittest.skipUnless(BINARY.is_file(), 'Set CODEX_TEST_BINARY to the supported CLI 0.167.0')
+    def test_HTTP_tail_failure_after_complete_SSE_does_not_replay_or_STOP(self):
+        with tempfile.TemporaryDirectory() as temp, LocalResponses() as service:
+            root = Path(temp)
+            class Handler(service.server.RequestHandlerClass):
+                def do_POST(self):
+                    body = json.loads(self.rfile.read(int(self.headers['Content-Length'])))
+                    payload = ''.join('data: ' + json.dumps(event) + '\n\n'
+                                      for event in service.events(body, 'https', None)).encode()
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'text/event-stream')
+                    self.send_header('Content-Length', str(len(payload) + 100))
+                    self.end_headers(); self.wfile.write(payload); self.wfile.flush()
+                    self.close_connection = True
+            service.server.RequestHandlerClass = Handler
+            relay, client, _ = retry_relay(root, 0, 1, upstream=service.base_url, offline=True)
+            fixture = root / 'fixture'; fixture.mkdir()
+            wrapper = make_cli_wrapper(fixture, BINARY, relay.base_url)
+            transport = header_transport(wrapper, relay.base_url)
+            try:
+                with relay:
+                    result = transport.request({'trial_id': 'offline-complete-tail', 'model': 'gpt-6-astra', 'effort': 'medium'},
+                                               'Reply exactly OK.', None, 'Synthetic close check.', None, root / 'native', 1)
+            finally:
+                transport.close()
+            self.assertTrue(result['ok'], result.get('protocol_violations'))
+            self.assertEqual(result['text'], 'ACK1')
+            self.assertEqual(len(service.requests), 1)
+            self.assertEqual(len(client.records), 1)
+            self.assertTrue(client.records[0]['post_completion_close_handled_without_replay'])
+            self.assertFalse(relay.gate.stop.is_set())
 
 
 if __name__ == '__main__': unittest.main()

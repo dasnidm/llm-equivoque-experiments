@@ -1,0 +1,88 @@
+{
+  "status": "proposal_only_no_collection",
+  "created_at": "2026-11-08T09:35:37.346736+00:00",
+  "original_freeze_sha256": "16f61a400ff1280c54614719efb416df76fb5b696af47ee7b59342474ddbb75a",
+  "rates": {
+    "fast_tested_turns_per_minute": 83.65063786346403,
+    "margin_tested_turns_per_minute": 66.72227250051952
+  },
+  "measured_rate_scope": "Astra and 5.6 Sol, medium, fixed English/schema sequence; not all profiles or full format mixture",
+  "original_allocation_blocks": {
+    "core_obj_seq": 46080,
+    "R_A": 8736,
+    "fixed_rule_controls": 23040
+  },
+  "scenarios": {
+    "full_unchanged": {
+      "conversations": 77856,
+      "turns": 2647104,
+      "hours_at_fast_test": 527.4125951318003,
+      "hours_at_margin_test": 661.2244809206172,
+      "hours_at_fast_with_20percent_lower_rate": 659.2657439147504,
+      "hours_at_margin_with_20percent_lower_rate": 826.5306011507715
+    },
+    "A_two_models_medium_full_cells": {
+      "conversations": 6488,
+      "turns": 220592,
+      "hours_at_fast_test": 43.95104959431669,
+      "hours_at_margin_test": 55.10204007671811,
+      "hours_at_fast_with_20percent_lower_rate": 54.93881199289587,
+      "hours_at_margin_with_20percent_lower_rate": 68.87755009589763
+    },
+    "B_all_profiles_core80_english_schema": {
+      "conversations": 7680,
+      "turns": 261120,
+      "hours_at_fast_test": 52.025903342224446,
+      "hours_at_margin_test": 65.22559614506706,
+      "hours_at_fast_with_20percent_lower_rate": 65.03237917778056,
+      "hours_at_margin_with_20percent_lower_rate": 81.53199518133381
+    },
+    "B96_all_profiles_core96_english_schema": {
+      "conversations": 9216,
+      "turns": 313344,
+      "hours_at_fast_test": 62.43108401066934,
+      "hours_at_margin_test": 78.27071537408047,
+      "hours_at_fast_with_20percent_lower_rate": 78.03885501333667,
+      "hours_at_margin_with_20percent_lower_rate": 97.83839421760058
+    },
+    "B120_all_profiles_core120_english_schema": {
+      "conversations": 11520,
+      "turns": 391680,
+      "hours_at_fast_test": 78.03885501333667,
+      "hours_at_margin_test": 97.83839421760058,
+      "hours_at_fast_with_20percent_lower_rate": 97.54856876667084,
+      "hours_at_margin_with_20percent_lower_rate": 122.29799277200073
+    },
+    "C_one_model_all_efforts_full_cells": {
+      "conversations": 9732,
+      "turns": 330888,
+      "hours_at_fast_test": 65.92657439147504,
+      "hours_at_margin_test": 82.65306011507715,
+      "hours_at_fast_with_20percent_lower_rate": 82.4082179893438,
+      "hours_at_margin_with_20percent_lower_rate": 103.31632514384644
+    }
+  },
+  "full_design_required_rates": {
+    "2": {
+      "sustained_turns_per_minute": 919.1333333333333,
+      "capacity_if_20percent_unavailable": 1148.9166666666667,
+      "illustrative_input_tokens_per_minute": 4101513.307575758
+    },
+    "3": {
+      "sustained_turns_per_minute": 612.7555555555556,
+      "capacity_if_20percent_unavailable": 765.9444444444445,
+      "illustrative_input_tokens_per_minute": 2734342.205050505
+    }
+  },
+  "illustrative_mean_input_tokens_per_turn": 4462.370320855615,
+  "current_eight_worker_nominal_ceiling_per_minute": 480,
+  "full_design_days_at_that_client_ceiling": 3.8297222222222222,
+  "notes": [
+    "No original manifest, freeze, result, STOP or worker was modified.",
+    "The 20-percent loss is a scenario assumption, not a measured deadline forecast.",
+    "A and B are smaller first-stage scopes, not completion of all original 24-profile/all-format goals.",
+    "A preserves within-cell counts and all formats/games/R for two medium profiles; omits other profiles.",
+    "B retains all 24 profiles and both frames for English/schema obj/seq; other formats/controls/R deferred.",
+    "B proposes 40 development and 40 holdout conversations per cell, target-balanced for obj; not instantiated."
+  ]
+}

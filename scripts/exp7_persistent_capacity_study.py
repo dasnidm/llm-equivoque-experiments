@@ -6,6 +6,7 @@ The main run must remain stopped. All probe sessions are new, use the frozen
 from __future__ import annotations
 
 import argparse
+from contextlib import closing
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from datetime import datetime, timezone
 import hashlib
@@ -215,7 +216,7 @@ def main():
     budget = CallBudget(root / 'budget.json', 'capacity-' + args.stage, args.sessions * 34)
     iterator = iter(trials)
     try:
-        with transport, ThreadPoolExecutor(max_workers=args.pool) as pool:
+        with closing(transport), ThreadPoolExecutor(max_workers=args.pool) as pool:
             pending = {}
             def submit():
                 if guard.stop.is_set(): return

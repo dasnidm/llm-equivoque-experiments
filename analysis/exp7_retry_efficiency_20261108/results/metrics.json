@@ -1,0 +1,298 @@
+{
+  "role": "Technical operational comparison; no main samples",
+  "study_root": "/workspace/work/exp7-retry-efficiency-20261108-v3-job30",
+  "decision": {
+    "at": "2026-11-08T16:52:26.568512+00:00",
+    "validation_kind": "adaptive targeted 30-conversation smoothed-admission comparison, not an identical-profile repeat",
+    "baseline_turns_per_minute": 94.35707530319142,
+    "candidate_turns_per_minute": 95.47998814917905,
+    "candidate_gain_percent": 1.190067456393118,
+    "baseline_common_window_turns_per_minute": 94.5,
+    "candidate_common_window_turns_per_minute": 99.5,
+    "confirmed": false,
+    "selected_profile": "p6-r100"
+  },
+  "stages": [
+    {
+      "ended_at": "2026-11-08T16:39:32.214185+00:00",
+      "sessions_planned": 30,
+      "sessions_complete": 30,
+      "successful_turns": 1020,
+      "logical_turns_recorded": 1020,
+      "duration_seconds_including_retries": 648.6000101566315,
+      "successful_turns_per_minute": 94.35707530319142,
+      "p95_turn_seconds": 6.474267928909103,
+      "physical_attempts": 1020,
+      "status_counts": {
+        "200": 1020
+      },
+      "explicit_capacity_429": 0,
+      "retried_attempts": 0,
+      "recovered_logical_requests": 0,
+      "actual_peak_inflight_http": 7,
+      "rolling_60s_start_peak": 100,
+      "physical_attempts_per_successful_turn": 1.0,
+      "complete_session_audits_ok": true,
+      "retry_invariant_errors": [],
+      "credential_scan_clean": true,
+      "actual_tool_events": 0,
+      "stop_reason": null,
+      "samples_in_main": 0,
+      "main_freeze_sha256": "16f61a400ff1280c54614719efb416df76fb5b696af47ee7b59342474ddbb75a",
+      "http_response_diagnostics_only": true,
+      "driver_exception_type": null,
+      "pool": 6,
+      "physical_start_ceiling_per_minute": 100,
+      "main_STOP_preserved": true,
+      "stage": "comparison-p6-r100",
+      "profile": "p6-r100",
+      "source_commit": "b0c1b56ab66fb687c3a778a4f86cc4c27ed9b71a",
+      "source_sha256": {
+        "exp7_retry_efficiency_study.py": "6f0867861dfba570f523f899069a41ec60b96ee5a19fbbe610c659bd6ab6bb1c",
+        "exp7_retry_transport.py": "88e2e7b97d180d0182c5ddc1796d9920b8d32befa3e5869f7f0096ef37a95711",
+        "exp7_header_probe.py": "c144d0ac8cbc25676b336cf6842cfc2468c9309353cf8a33e2c1e68b61d789bf"
+      },
+      "cli_version": "0.167.0",
+      "binary_sha256": "cdcb45aaa01d0f14e298985e09465aebccd47f64ecd298aea44814af7b62bbda",
+      "models": [
+        "gpt-6-astra",
+        "gpt-5.6-sol"
+      ],
+      "effort": "medium",
+      "model_token_diagnostics": {
+        "gpt-6-astra": {
+          "successful_turns": 510,
+          "mean_last_turn_input_tokens": 5054.635294117647,
+          "mean_last_turn_output_tokens": 27.658823529411766
+        },
+        "gpt-5.6-sol": {
+          "successful_turns": 510,
+          "mean_last_turn_input_tokens": 5187.707843137255,
+          "mean_last_turn_output_tokens": 58.08039215686274
+        }
+      },
+      "actual_peak_active_logical_turns": 6,
+      "physical_HTTP_roundtrip_p95_seconds": 4.473324156797753,
+      "measured_admission_wait_p95_seconds": null,
+      "measured_admission_wait_max_seconds": null,
+      "approximate_local_admission_wait_p95_seconds": 3.367909010686708,
+      "approximate_local_admission_wait_max_seconds": 8.369664903992089,
+      "secondary_post60_to180s_successful_turns": 189,
+      "secondary_post60_to180s_turns_per_minute": 94.5,
+      "secondary_post60_to480s_turns_per_minute": 97.14285714285714,
+      "HTTP_close_overlap_above_conversation_pool_seconds": 0.4047092119726585,
+      "request_content_encodings": [
+        "zstd"
+      ],
+      "native_429_retry_warning_records": 0,
+      "native_other_retry_warning_records": 0,
+      "catalog_429_log_lines": 0,
+      "other_native_429_log_lines": 0,
+      "private_backup_receipt": {
+        "stage": "comparison-p6-r100",
+        "private_repository_id": 1449348734,
+        "remote_commit": "d9c0cf449f0ef3a1ecb9018e792829bdb61e966e",
+        "branch": "retry/equivoque-2026-11-08-exp7-retry-efficiency-v3-job30",
+        "files": {
+          "comparison-p6-r100/evidence.tar.gz": {
+            "bytes": 34546971,
+            "sha256": "f08d4cc78f4563090ff200027940bf0d6868afe774c706086d8cd09d04ee5234"
+          },
+          "comparison-p6-r100/index.json": {
+            "bytes": 1449938,
+            "sha256": "92c664476b3c79b04c33268120fc98c27ee58d64589369e7f26559c8587cc30a"
+          }
+        },
+        "local_sources_retained": true
+      }
+    },
+    {
+      "ended_at": "2026-11-08T16:51:57.884685+00:00",
+      "sessions_planned": 30,
+      "sessions_complete": 30,
+      "successful_turns": 1020,
+      "logical_turns_recorded": 1020,
+      "duration_seconds_including_retries": 640.9720108509064,
+      "successful_turns_per_minute": 95.47998814917905,
+      "p95_turn_seconds": 13.853485968944005,
+      "physical_attempts": 1021,
+      "status_counts": {
+        "200": 1020,
+        "429": 1
+      },
+      "explicit_capacity_429": 1,
+      "retried_attempts": 1,
+      "recovered_logical_requests": 1,
+      "actual_peak_inflight_http": 9,
+      "rolling_60s_start_peak": 100,
+      "physical_attempts_per_successful_turn": 1.0009803921568627,
+      "complete_session_audits_ok": true,
+      "retry_invariant_errors": [],
+      "credential_scan_clean": true,
+      "actual_tool_events": 0,
+      "stop_reason": null,
+      "samples_in_main": 0,
+      "main_freeze_sha256": "16f61a400ff1280c54614719efb416df76fb5b696af47ee7b59342474ddbb75a",
+      "http_response_diagnostics_only": true,
+      "driver_exception_type": null,
+      "pool": 10,
+      "physical_start_ceiling_per_minute": 100,
+      "main_STOP_preserved": true,
+      "stage": "comparison-p10-r100",
+      "profile": "p10-r100",
+      "source_commit": "b0c1b56ab66fb687c3a778a4f86cc4c27ed9b71a",
+      "source_sha256": {
+        "exp7_retry_efficiency_study.py": "6f0867861dfba570f523f899069a41ec60b96ee5a19fbbe610c659bd6ab6bb1c",
+        "exp7_retry_transport.py": "88e2e7b97d180d0182c5ddc1796d9920b8d32befa3e5869f7f0096ef37a95711",
+        "exp7_header_probe.py": "c144d0ac8cbc25676b336cf6842cfc2468c9309353cf8a33e2c1e68b61d789bf"
+      },
+      "cli_version": "0.167.0",
+      "binary_sha256": "cdcb45aaa01d0f14e298985e09465aebccd47f64ecd298aea44814af7b62bbda",
+      "models": [
+        "gpt-6-astra",
+        "gpt-5.6-sol"
+      ],
+      "effort": "medium",
+      "model_token_diagnostics": {
+        "gpt-6-astra": {
+          "successful_turns": 510,
+          "mean_last_turn_input_tokens": 5057.537254901961,
+          "mean_last_turn_output_tokens": 27.92156862745098
+        },
+        "gpt-5.6-sol": {
+          "successful_turns": 510,
+          "mean_last_turn_input_tokens": 5182.792156862745,
+          "mean_last_turn_output_tokens": 59.87450980392157
+        }
+      },
+      "actual_peak_active_logical_turns": 10,
+      "physical_HTTP_roundtrip_p95_seconds": 4.75122419104664,
+      "measured_admission_wait_p95_seconds": null,
+      "measured_admission_wait_max_seconds": null,
+      "approximate_local_admission_wait_p95_seconds": 10.663949639780185,
+      "approximate_local_admission_wait_max_seconds": 31.648815240012482,
+      "secondary_post60_to180s_successful_turns": 199,
+      "secondary_post60_to180s_turns_per_minute": 99.5,
+      "secondary_post60_to480s_turns_per_minute": 99.85714285714286,
+      "HTTP_close_overlap_above_conversation_pool_seconds": 0.0,
+      "request_content_encodings": [
+        "zstd"
+      ],
+      "native_429_retry_warning_records": 0,
+      "native_other_retry_warning_records": 0,
+      "catalog_429_log_lines": 0,
+      "other_native_429_log_lines": 0,
+      "private_backup_receipt": {
+        "stage": "comparison-p10-r100",
+        "private_repository_id": 1449348734,
+        "remote_commit": "69d169f72200014570037a77816e436d57754073",
+        "branch": "retry/equivoque-2026-11-08-exp7-retry-efficiency-v3-job30",
+        "files": {
+          "comparison-p10-r100/evidence.tar.gz": {
+            "bytes": 34705586,
+            "sha256": "8543694b90cb1b7901fad1691c4f6b71edd8a0dbba713da21fc5ef3c7faa189d"
+          },
+          "comparison-p10-r100/index.json": {
+            "bytes": 1450094,
+            "sha256": "f4e71eae1c24d5c0c6b5c40e78614856b528a5393cab74b40993ef6bc60c8f25"
+          }
+        },
+        "local_sources_retained": true
+      }
+    }
+  ],
+  "prior_WS_derived_retry_inclusive_metrics": [
+    {
+      "stage": "stable-i-rpm100-p6",
+      "successful_turns": 204,
+      "complete_conversations": 6,
+      "planned_conversations": 6,
+      "duration_seconds": 146.199977915996,
+      "successful_turns_per_minute_including_native_retries": 83.72094287888946,
+      "native_429_retry_warning_records": 0,
+      "complete_session_audits_ok": true,
+      "censored_incomplete_stage": false
+    },
+    {
+      "stage": "stable-i-models2-rpm110-p8",
+      "successful_turns": 272,
+      "complete_conversations": 8,
+      "planned_conversations": 8,
+      "duration_seconds": 166.36388214401086,
+      "successful_turns_per_minute_including_native_retries": 98.0982157285365,
+      "native_429_retry_warning_records": 10,
+      "complete_session_audits_ok": true,
+      "censored_incomplete_stage": false
+    },
+    {
+      "stage": "stable-i-models8-rpm160-p8",
+      "successful_turns": 272,
+      "complete_conversations": 8,
+      "planned_conversations": 8,
+      "duration_seconds": 169.77989290199184,
+      "successful_turns_per_minute_including_native_retries": 96.12445691328702,
+      "native_429_retry_warning_records": 16,
+      "complete_session_audits_ok": true,
+      "censored_incomplete_stage": false
+    },
+    {
+      "stage": "stable-i-models8-rpm200-p10",
+      "successful_turns": 395,
+      "complete_conversations": 10,
+      "planned_conversations": 16,
+      "duration_seconds": 216.40827335200447,
+      "successful_turns_per_minute_including_native_retries": 109.51522154354123,
+      "native_429_retry_warning_records": 30,
+      "complete_session_audits_ok": true,
+      "censored_incomplete_stage": true
+    }
+  ],
+  "runtime_sources_identical_across_new_stages": true,
+  "limitations": [
+    "Sequential short stages, not randomized causal comparisons.",
+    "Two models, medium effort, one VM; no all-model/high-effort capacity guarantee.",
+    "HTTP/SSE profile differs from retired WS profile; no response-distribution equivalence claim.",
+    "Pool and physical start rate are compared jointly.",
+    "RPC/native and byte-identical retry audits do not prove provider-internal exactly-once execution."
+  ],
+  "final_FIFO_decision": {
+    "review_type": "Read-only post-completion audit; original operational STOP is retained",
+    "original_operator_stage_passed": false,
+    "original_HALT_preserved": true,
+    "original_STOP_sha256": "9ff773bddaf4d278d31e305d133c68a41ccca807b04d224c2b32438f605209fa",
+    "all_model_records_complete": true,
+    "complete_conversations": 30,
+    "successful_turns": 1020,
+    "last_original_RPC_completion_received_at": "2026-11-08T17:09:48.432260+00:00",
+    "HTTP_tail_error_at": "2026-11-08T17:09:48.514260+00:00",
+    "HTTP_tail_error_after_RPC_completion_milliseconds": 82.0,
+    "HTTP_tail_exception": "RemoteProtocolError",
+    "request_replayed_after_tail_error": false,
+    "FIFO_policy_adopted": true,
+    "FIFO_live_test_pool": 10,
+    "FIFO_live_turns_per_minute": 96.80346389763045,
+    "FIFO_live_p95_turn_seconds": 7.942659872992226,
+    "FIFO_live_admission_wait_p95_seconds": 4.443836220099183,
+    "prior6_turns_per_minute": 94.35707530319142,
+    "prior10_turns_per_minute": 95.47998814917905,
+    "gain_vs_prior6_percent": 2.5926922666670293,
+    "gain_vs_prior10_percent": 1.386128940845266,
+    "pool_promotion_passed": false,
+    "selected_profile": "p6-r100",
+    "selected_global_pool": 6,
+    "selected_source_commit": "ed9b408cc1d23de0130bc7bc996f6043631510d2",
+    "selected_source_sha256": {
+      "exp7_retry_efficiency_study.py": "1bc98b095ccb315ff7c352a21620476d45c483049201945d65ec0b0d9dd99654",
+      "exp7_retry_transport.py": "3ffc3510d674fb550edcca9ee9f134cab362d9559a2f510a8c400a62730f685e",
+      "exp7_header_probe.py": "c144d0ac8cbc25676b336cf6842cfc2468c9309353cf8a33e2c1e68b61d789bf"
+    },
+    "live_FIFO_source_commit": "36a7297469ffa73cfa946031c7cf5e7848b1740b",
+    "post_completion_fix_validation": "Offline real-CLI fixture; no new live requests",
+    "post_completion_fix_live_validated": false,
+    "offline_regression_tests_passed": 49,
+    "validation_kind": "Adaptive FIFO check plus read-only terminal audit; operational STOP not overridden",
+    "main_collection_enabled": false,
+    "no_further_live_tests": true
+  },
+  "FIFO_followup_metrics": "fifo-v4/metrics.json"
+}

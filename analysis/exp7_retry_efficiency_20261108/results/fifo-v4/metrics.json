@@ -1,0 +1,196 @@
+{
+  "role": "Technical operational comparison; no main samples",
+  "study_root": "/workspace/work/exp7-retry-efficiency-20261108-v4-fifo",
+  "decision": {
+    "review_type": "Read-only post-completion audit; original operational STOP is retained",
+    "original_operator_stage_passed": false,
+    "original_HALT_preserved": true,
+    "original_STOP_sha256": "9ff773bddaf4d278d31e305d133c68a41ccca807b04d224c2b32438f605209fa",
+    "all_model_records_complete": true,
+    "complete_conversations": 30,
+    "successful_turns": 1020,
+    "last_original_RPC_completion_received_at": "2026-11-08T17:09:48.432260+00:00",
+    "HTTP_tail_error_at": "2026-11-08T17:09:48.514260+00:00",
+    "HTTP_tail_error_after_RPC_completion_milliseconds": 82.0,
+    "HTTP_tail_exception": "RemoteProtocolError",
+    "request_replayed_after_tail_error": false,
+    "FIFO_policy_adopted": true,
+    "FIFO_live_test_pool": 10,
+    "FIFO_live_turns_per_minute": 96.80346389763045,
+    "FIFO_live_p95_turn_seconds": 7.942659872992226,
+    "FIFO_live_admission_wait_p95_seconds": 4.443836220099183,
+    "prior6_turns_per_minute": 94.35707530319142,
+    "prior10_turns_per_minute": 95.47998814917905,
+    "gain_vs_prior6_percent": 2.5926922666670293,
+    "gain_vs_prior10_percent": 1.386128940845266,
+    "pool_promotion_passed": false,
+    "selected_profile": "p6-r100",
+    "selected_global_pool": 6,
+    "selected_source_commit": "ed9b408cc1d23de0130bc7bc996f6043631510d2",
+    "selected_source_sha256": {
+      "exp7_retry_efficiency_study.py": "1bc98b095ccb315ff7c352a21620476d45c483049201945d65ec0b0d9dd99654",
+      "exp7_retry_transport.py": "3ffc3510d674fb550edcca9ee9f134cab362d9559a2f510a8c400a62730f685e",
+      "exp7_header_probe.py": "c144d0ac8cbc25676b336cf6842cfc2468c9309353cf8a33e2c1e68b61d789bf"
+    },
+    "live_FIFO_source_commit": "36a7297469ffa73cfa946031c7cf5e7848b1740b",
+    "post_completion_fix_validation": "Offline real-CLI fixture; no new live requests",
+    "post_completion_fix_live_validated": false,
+    "offline_regression_tests_passed": 49,
+    "validation_kind": "Adaptive FIFO check plus read-only terminal audit; operational STOP not overridden",
+    "main_collection_enabled": false,
+    "no_further_live_tests": true
+  },
+  "stages": [
+    {
+      "ended_at": "2026-11-08T17:09:52.703946+00:00",
+      "sessions_planned": 30,
+      "sessions_complete": 30,
+      "successful_turns": 1020,
+      "logical_turns_recorded": 1020,
+      "duration_seconds_including_retries": 632.2087819576263,
+      "successful_turns_per_minute": 96.80346389763045,
+      "p95_turn_seconds": 7.942659872992226,
+      "physical_attempts": 1023,
+      "status_counts": {
+        "200": 1020,
+        "429": 3
+      },
+      "explicit_capacity_429": 3,
+      "retried_attempts": 3,
+      "recovered_logical_requests": 3,
+      "actual_peak_inflight_http": 11,
+      "rolling_60s_start_peak": 101,
+      "admission_queue_policy": "FIFO",
+      "FIFO_order_ok": true,
+      "admission_wait_p95_seconds": 4.443836220099183,
+      "physical_attempts_per_successful_turn": 1.0029411764705882,
+      "complete_session_audits_ok": true,
+      "retry_invariant_errors": [],
+      "credential_scan_clean": true,
+      "actual_tool_events": 0,
+      "stop_reason": "HTTP/stream completion uncertain; no automatic replay",
+      "samples_in_main": 0,
+      "main_freeze_sha256": "16f61a400ff1280c54614719efb416df76fb5b696af47ee7b59342474ddbb75a",
+      "http_response_diagnostics_only": true,
+      "driver_exception_type": null,
+      "pool": 10,
+      "physical_start_ceiling_per_minute": 100,
+      "main_STOP_preserved": true,
+      "stage": "comparison-p10-r100",
+      "profile": "p10-r100",
+      "source_commit": "36a7297469ffa73cfa946031c7cf5e7848b1740b",
+      "source_sha256": {
+        "exp7_retry_efficiency_study.py": "1bc98b095ccb315ff7c352a21620476d45c483049201945d65ec0b0d9dd99654",
+        "exp7_retry_transport.py": "3c5b825f609a70575b04a8e70a48babaa15b84342a6c8a45594574ab7cdf57ab",
+        "exp7_header_probe.py": "c144d0ac8cbc25676b336cf6842cfc2468c9309353cf8a33e2c1e68b61d789bf"
+      },
+      "cli_version": "0.167.0",
+      "binary_sha256": "cdcb45aaa01d0f14e298985e09465aebccd47f64ecd298aea44814af7b62bbda",
+      "models": [
+        "gpt-6-astra",
+        "gpt-5.6-sol"
+      ],
+      "effort": "medium",
+      "model_token_diagnostics": {
+        "gpt-6-astra": {
+          "successful_turns": 510,
+          "mean_last_turn_input_tokens": 5060.643137254902,
+          "mean_last_turn_output_tokens": 27.95098039215686
+        },
+        "gpt-5.6-sol": {
+          "successful_turns": 510,
+          "mean_last_turn_input_tokens": 5169.719607843137,
+          "mean_last_turn_output_tokens": 56.188235294117646
+        }
+      },
+      "actual_peak_active_logical_turns": 10,
+      "physical_HTTP_roundtrip_p95_seconds": 4.712072538056236,
+      "measured_admission_wait_p95_seconds": 4.443836220099183,
+      "measured_admission_wait_max_seconds": 5.790669883994269,
+      "approximate_local_admission_wait_p95_seconds": 4.4462859641942485,
+      "approximate_local_admission_wait_max_seconds": 7.938433637389203,
+      "secondary_post60_to180s_successful_turns": 196,
+      "secondary_post60_to180s_turns_per_minute": 98.0,
+      "secondary_post60_to480s_turns_per_minute": 99.14285714285714,
+      "HTTP_close_overlap_above_conversation_pool_seconds": 0.012191771005745977,
+      "request_content_encodings": [
+        "zstd"
+      ],
+      "native_429_retry_warning_records": 0,
+      "native_other_retry_warning_records": 0,
+      "catalog_429_log_lines": 0,
+      "other_native_429_log_lines": 0,
+      "private_backup_receipt": {
+        "stage": "comparison-p10-r100",
+        "private_repository_id": 1449348734,
+        "remote_commit": "dc7f5e00150eb67fb51f6da1964385aaad08007a",
+        "branch": "retry/equivoque-2026-11-08-exp7-retry-efficiency-v4-fifo",
+        "files": {
+          "comparison-p10-r100/evidence.tar.gz": {
+            "bytes": 34761228,
+            "sha256": "af2e934fa8f56d85bbba6f9b61693f2da296a778dc6a4893c33351362ecb3765"
+          },
+          "comparison-p10-r100/index.json": {
+            "bytes": 1449861,
+            "sha256": "416e2c83875417c8248c8cac0af741b23cde34d4580ee1cd73ac72b23bbfe614"
+          }
+        },
+        "local_sources_retained": true
+      }
+    }
+  ],
+  "prior_WS_derived_retry_inclusive_metrics": [
+    {
+      "stage": "stable-i-rpm100-p6",
+      "successful_turns": 204,
+      "complete_conversations": 6,
+      "planned_conversations": 6,
+      "duration_seconds": 146.199977915996,
+      "successful_turns_per_minute_including_native_retries": 83.72094287888946,
+      "native_429_retry_warning_records": 0,
+      "complete_session_audits_ok": true,
+      "censored_incomplete_stage": false
+    },
+    {
+      "stage": "stable-i-models2-rpm110-p8",
+      "successful_turns": 272,
+      "complete_conversations": 8,
+      "planned_conversations": 8,
+      "duration_seconds": 166.36388214401086,
+      "successful_turns_per_minute_including_native_retries": 98.0982157285365,
+      "native_429_retry_warning_records": 10,
+      "complete_session_audits_ok": true,
+      "censored_incomplete_stage": false
+    },
+    {
+      "stage": "stable-i-models8-rpm160-p8",
+      "successful_turns": 272,
+      "complete_conversations": 8,
+      "planned_conversations": 8,
+      "duration_seconds": 169.77989290199184,
+      "successful_turns_per_minute_including_native_retries": 96.12445691328702,
+      "native_429_retry_warning_records": 16,
+      "complete_session_audits_ok": true,
+      "censored_incomplete_stage": false
+    },
+    {
+      "stage": "stable-i-models8-rpm200-p10",
+      "successful_turns": 395,
+      "complete_conversations": 10,
+      "planned_conversations": 16,
+      "duration_seconds": 216.40827335200447,
+      "successful_turns_per_minute_including_native_retries": 109.51522154354123,
+      "native_429_retry_warning_records": 30,
+      "complete_session_audits_ok": true,
+      "censored_incomplete_stage": true
+    }
+  ],
+  "runtime_sources_identical_across_new_stages": true,
+  "limitations": [
+    "Sequential short stages, not randomized causal comparisons.",
+    "Two models, medium effort, one VM; no all-model/high-effort capacity guarantee.",
+    "HTTP/SSE profile differs from retired WS profile; no response-distribution equivalence claim.",
+    "Pool and physical start rate are compared jointly.",
+    "RPC/native and byte-identical retry audits do not prove provider-internal exactly-once execution."
+  ]
+}

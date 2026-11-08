@@ -1,10 +1,10 @@
 # 실험 7 작업 현황
 
-**ENABLED — 작업 선점·실행 허용**
+**STOP — 새 호출 중단**
 
 - 실행: `equivoque-2026-11-08-exp7-persistent-v1`
-- 갱신 시각: 2026-11-08T07:58:54+00:00 (UTC)
-- 상태 사유: Explicit user-directed continuation: completed four states verified no replay; prior backup preserved; final snapshot required
+- 갱신 시각: 2026-11-08T07:59:40+00:00 (UTC)
+- 상태 사유: Response or unclassified rate-limit diagnostic observed; preserve requests and inspect before resuming
 - 예약 병렬 수 / 전역 상한: **20 / 20**
 - 배정: **77,856대화 · 2,600작업**
 - 보고된 대화: 완료 **0**, 실패 **0**, 중단 **0**, 미시작·미보고 **77,856**

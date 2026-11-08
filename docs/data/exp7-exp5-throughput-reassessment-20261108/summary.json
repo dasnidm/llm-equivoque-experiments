@@ -1,0 +1,115 @@
+{
+  "analysis_only": true,
+  "new_model_requests": 0,
+  "original_records_changed": false,
+  "exp5": {
+    "successful_retained_turns": 83160,
+    "release_at": "2026-10-12T17:38:31.689726+00:00",
+    "final_status_at": "2026-10-13T04:34:43.029126+00:00",
+    "elapsed_seconds": 39371.339399814606,
+    "turns_per_minute": 126.73178195262251,
+    "mean_adapter_seconds": 16.317427768929335,
+    "mean_checkpoint_interval_seconds": 16.366926945095855,
+    "mean_overlapping_retained_request_intervals": 34.570163614006496,
+    "peak_overlapping_retained_request_intervals": 40,
+    "interval_unit": "Client execution/checkpoint intervals, not server-internal inference count",
+    "mean_adapter_by_model_medium_cards_seq_first30": {
+      "gpt-6-astra": 17.164493085283294,
+      "gpt-5.6-sol": 15.332617794796572
+    },
+    "source": "analysis/results/equivoque-2026-10-12-sequence-replication-v1/attempt-01/tables/turns.csv",
+    "source_sha256": "f3ae38c03e4e7ed3e94f5fa1334f60349ebe29c38828652756bf2cd0c3dab0fc",
+    "timing_sources": {
+      "sequence_replication/runtime/coordinator-launch-01.json": "a3bbe1067e52adae5ad44eee9de1e26c673d4f52f37c34f4eaa7c3ef949c8ecd",
+      "sequence_replication/runtime/direct-progress.json": "883b7406f639df6ff38fcd7ab301554e9a54d095e1e7afa3637ef9a97d08adfb"
+    }
+  },
+  "historical_two_VM_main_attempt": {
+    "workers": {
+      "Astra_VM": {
+        "retained_successful_turns": 187,
+        "recorded_failures": 1,
+        "span_seconds": 202.83881497383118,
+        "successes_per_minute_own_span": 55.31485678146721,
+        "mean_adapter_seconds": 2.454703129865562,
+        "mean_checkpoint_interval_seconds": 10.365536874628322,
+        "mean_pre_adapter_gap_seconds": 7.91083374476276,
+        "successes_completed_during_overlap": 92
+      },
+      "Sol_VM": {
+        "retained_successful_turns": 80,
+        "recorded_failures": 1,
+        "span_seconds": 93.66182899475098,
+        "successes_per_minute_own_span": 51.24819845519996,
+        "mean_adapter_seconds": 1.6404208798752733,
+        "mean_checkpoint_interval_seconds": 10.739995348453522,
+        "mean_pre_adapter_gap_seconds": 9.099574468578249,
+        "successes_completed_during_overlap": 80
+      }
+    },
+    "overlap_start": "2026-11-08T07:58:09.840253+00:00",
+    "overlap_end": "2026-11-08T07:59:43.502082+00:00",
+    "timezone": "UTC",
+    "overlap_seconds": 93.66182899475098,
+    "overlap_successful_completions": 172,
+    "overlap_successful_turns_per_minute": 110.18362667867991,
+    "Astra_before_overlap": {
+      "successful_completions": 95,
+      "seconds": 106.30831813812256,
+      "turns_per_minute": 53.617629361741905
+    },
+    "illustrative_posthoc_window_start_offset_seconds": 20,
+    "successes_in_complete_60second_window": {
+      "Astra_VM": 59,
+      "Sol_VM": 60
+    },
+    "note": "Short completion window; boundary carry-in, later failures and interruption prevent treating this as long-run capacity.",
+    "source_reference": "26845606894746e70fed7ab36dbdb69d8063d846:results/equivoque-2026-11-08-exp7-persistent-v1/gpt-5.6-sol/model-02-job-0001.jsonl.gz",
+    "source_provenance": {
+      "sol_public_ref": "26845606894746e70fed7ab36dbdb69d8063d846:results/equivoque-2026-11-08-exp7-persistent-v1/gpt-5.6-sol/model-02-job-0001.jsonl.gz",
+      "sol_research_sha256": "9a4a60b6a339716f6411c15ff3abd40a9d218e304c55f4af944304c7f286178d",
+      "astra_state_sha256": {
+        "jobs/model-04-job-0001/states/main-029637.json": "d9b1b6f1ce20dad6ad4bc300310702cbc03aba2b9710e3bfa9da2de362079ed7",
+        "jobs/model-04-job-0001/states/main-031038.json": "00064979b832552db3d01da05a7f9b2dd39d454388d3692633aaf5d5c8ffcb75",
+        "jobs/model-04-job-0001/states/main-033191.json": "efc6476b3f4e8c2004f4d82ff74dadfe480b62f39a43e9111c3b61099c53d4d4",
+        "jobs/model-04-job-0001/states/main-033624.json": "f44182007e8273dafe41e9092c986fc641a0963093d47b09eae5ab6473349f87",
+        "jobs/model-04-job-0001/states/main-034174.json": "d590cc083d55cf4fd416efd18c12f769890e8ed77a1ddb95574701e6044cc18e",
+        "jobs/model-04-job-0001/states/main-034702.json": "89e5701a9de8901bc4c5eaccc65cbc1de92cfeb0aaaf8502741b4c70cd11f51b",
+        "jobs/model-04-job-0001/states/main-035582.json": "99c03dc61cbd5a11756df90e9a76afac529b9d9ffcf69e186fe3ccdd76663e9f",
+        "jobs/model-04-job-0001/states/main-035986.json": "f9ea2fc9c686d260d7a00357b3fb1bec79b1dbecc60ed370f2b0418cfb231474",
+        "jobs/model-04-job-0001/states/main-036016.json": "c0459d4489bba495f46a7c9ae11f83931f35caa043b5f30d05771228a55670a9",
+        "jobs/model-04-job-0001/states/main-036441.json": "7116117de472eafecaae9a3b1966ca979a1b148c189c9f959912d50a8b436935"
+      }
+    },
+    "source_hashes_checked": true
+  },
+  "recent_capped_single_VM_benchmark": {
+    "physical_VM_count_measured": 1,
+    "model_count": 2,
+    "effort": "medium",
+    "imposed_account_physical_start_cap_per_minute": 100,
+    "FIFO10_successful_turns_per_minute": 96.80346389763045,
+    "6worker_original_queue_turns_per_minute": 94.35707530319142,
+    "mean_adapter_by_model_medium_cards_seq_first30": {
+      "gpt-6-astra": 3.6631478755492006,
+      "gpt-5.6-sol": 3.1314815102241442
+    },
+    "not_an_identified_provider_limit": true,
+    "not_a_two_VM_benchmark": true
+  },
+  "configured_upper_bounds": {
+    "two_original_workers_interval1_second_each": 120,
+    "two_original_workers_with_one_extra_start_per34turn_trial": 116.57142857142857,
+    "current_imposed_account_cap": 100
+  },
+  "arithmetic_not_causal_decomposition": {
+    "exp5_rate_minus_current_cap": 26.731781952622512,
+    "current_cap_minus_FIFO10_observed_rate": 3.1965361023695493,
+    "note": "An admission cap below the old rate precludes matching it in this test; removing it is not proof the service would accept the old rate."
+  },
+  "limitations": [
+    "Different dates, transports, CLI versions, model mix, workloads and failure policies.",
+    "No matched uncapped multi-VM throughput estimate or fixed backend limit identified.",
+    "New retry policy was tested on one VM with two models, not two physical VMs."
+  ]
+}

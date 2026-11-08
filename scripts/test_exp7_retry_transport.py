@@ -194,5 +194,29 @@ class RetryTransportTests(unittest.TestCase):
             finally:
                 server.shutdown(); server.server_close(); thread.join(2)
 
+    def test_shared_queue_preserves_arrival_order_under_contention(self):
+        from exp7_retry_transport import Admission, RetryGate
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); gate = RetryGate(root, 0, 50)
+            admission = Admission(root, gate, .005)
+            admission.cooldown(.2, 0, 0)
+            with ThreadPoolExecutor(max_workers=10) as executor:
+                results = list(executor.map(lambda i: admission.admit(i, 0), range(10)))
+            enqueued = [row['logical_id'] for row in admission.events if row['kind'] == 'enqueue']
+            admitted = [row['logical_id'] for row in admission.events if row['kind'] == 'admit']
+            self.assertEqual(admitted, enqueued)
+            self.assertEqual(len(results), 10)
+            self.assertFalse(admission.queue)
+
+    def test_stopped_waiter_leaves_no_queue_entry_or_physical_attempt(self):
+        from exp7_retry_transport import Admission, RetryGate
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); gate = RetryGate(root, 0, 2)
+            admission = Admission(root, gate, 0)
+            gate.halt('Synthetic existing STOP')
+            with self.assertRaises(RuntimeError): admission.admit(1, 0)
+            self.assertFalse(admission.queue)
+            self.assertEqual(admission.count, 0)
+
 
 if __name__ == '__main__': unittest.main()

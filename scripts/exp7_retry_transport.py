@@ -7,6 +7,7 @@ unknown completion, authentication error, quota error, or process failure.
 from __future__ import annotations
 
 from contextlib import contextmanager
+from collections import deque
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 import hashlib
@@ -66,6 +67,8 @@ class Admission:
         self.next_start = self.cooldown_until = 0.
         self.count = 0
         self.events = []
+        self.queue = deque()
+        self.enqueued_count = 0
 
     def _record(self, kind, **fields):
         event = {'at': now(), 'monotonic': time.monotonic(), 'kind': kind, **fields}
@@ -74,29 +77,44 @@ class Admission:
             out.write(json.dumps(event) + '\n'); out.flush(); os.fsync(out.fileno())
 
     def admit(self, logical_id, attempt):
-        while True:
-            reason = None
+        with self.lock:
+            self.enqueued_count += 1
+            queue_ticket = self.enqueued_count
+            enqueued_at = time.monotonic()
+            self.queue.append(queue_ticket)
+            self._record('enqueue', queue_ticket=queue_ticket, logical_id=logical_id, attempt=attempt)
+        try:
+            while True:
+                reason = None
+                with self.lock:
+                    if self.gate.stop.is_set():
+                        raise RuntimeError('Retry study STOP active; no send')
+                    if (self.root / 'HALT').exists() or (self.root.parent / 'HALT').exists():
+                        reason = 'Operator HALT; preserve pending without replay'
+                    elif time.monotonic() >= self.deadline:
+                        reason = 'Prespecified stage time budget reached'
+                    elif self.count >= self.physical_limit:
+                        reason = 'Prespecified physical request budget reached'
+                    if reason is None:
+                        head = self.queue[0] == queue_ticket
+                        delay = max(self.next_start, self.cooldown_until) - time.monotonic() if head else .1
+                        if head and delay <= 0:
+                            self.queue.popleft()
+                            self.count += 1
+                            self.next_start = time.monotonic() + self.interval
+                            self._record('admit', physical_ticket=self.count, queue_ticket=queue_ticket,
+                                         logical_id=logical_id, attempt=attempt,
+                                         queue_wait_seconds=time.monotonic() - enqueued_at)
+                            return self.count
+                if reason is not None:
+                    self.gate.halt(reason)
+                    raise RuntimeError(reason)
+                self.gate.stop.wait(min(delay, .1))
+        finally:
             with self.lock:
-                if self.gate.stop.is_set():
-                    raise RuntimeError('Retry study STOP active; no send')
-                if (self.root / 'HALT').exists() or (self.root.parent / 'HALT').exists():
-                    reason = 'Operator HALT; preserve pending without replay'
-                elif time.monotonic() >= self.deadline:
-                    reason = 'Prespecified stage time budget reached'
-                elif self.count >= self.physical_limit:
-                    reason = 'Prespecified physical request budget reached'
-                if reason is None:
-                    delay = max(self.next_start, self.cooldown_until) - time.monotonic()
-                    if delay <= 0:
-                        self.count += 1
-                        self.next_start = time.monotonic() + self.interval
-                        self._record('admit', physical_ticket=self.count,
-                                     logical_id=logical_id, attempt=attempt)
-                        return self.count
-            if reason is not None:
-                self.gate.halt(reason)
-                raise RuntimeError(reason)
-            self.gate.stop.wait(min(delay, .1))
+                if queue_ticket in self.queue:
+                    self.queue.remove(queue_ticket)
+                    self._record('queue_cancel', queue_ticket=queue_ticket, logical_id=logical_id, attempt=attempt)
 
     def cooldown(self, delay, logical_id, attempt):
         with self.lock:

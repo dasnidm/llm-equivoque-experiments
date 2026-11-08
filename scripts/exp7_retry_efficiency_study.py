@@ -54,6 +54,13 @@ def summarize(root, client, relay, admission, trials, freeze, url):
         if any(not row.get('explicit_capacity_429') or not row.get('retry_scheduled') for row in group[:-1]):
             invariant_errors.append(f'Logical {logical_id}: replay without explicit capacity rejection')
     admits = [row for row in admission.events if row['kind'] == 'admit']
+    enqueues = [row for row in admission.events if row['kind'] == 'enqueue']
+    admitted_tickets = [row['queue_ticket'] for row in admits]
+    admitted_set = set(admitted_tickets)
+    expected_tickets = [row['queue_ticket'] for row in enqueues if row['queue_ticket'] in admitted_set]
+    fifo_ok = admitted_tickets == expected_tickets
+    if not fifo_ok:
+        invariant_errors.append('Physical admission overtook an older queued request')
     for cooldown in [row for row in admission.events if row['kind'] == 'cooldown']:
         if any(cooldown['monotonic'] < row['monotonic'] < cooldown['until_monotonic'] for row in admits):
             invariant_errors.append('New admission occurred during shared cooldown')
@@ -87,6 +94,8 @@ def summarize(root, client, relay, admission, trials, freeze, url):
                'retried_attempts': sum(row.get('retry_scheduled', False) for row in records),
                'recovered_logical_requests': sum(len(group) > 1 and group[-1].get('status') == 200 for group in groups.values()),
                'actual_peak_inflight_http': peak, 'rolling_60s_start_peak': rolling_peak,
+               'admission_queue_policy': 'FIFO', 'FIFO_order_ok': fifo_ok,
+               'admission_wait_p95_seconds': statistics.quantiles([row['queue_wait_seconds'] for row in admits], n=100, method='inclusive')[94] if len(admits) > 1 else None,
                'physical_attempts_per_successful_turn': len(records) / len(good) if good else None,
                'complete_session_audits_ok': clean_audit,
                'retry_invariant_errors': invariant_errors,
@@ -143,6 +152,7 @@ def main():
                'upstream': UPSTREAM, 'loopback_base_url': relay.base_url,
                'native_request_retries': 0, 'native_stream_retries': 0,
                'retry_policy': {'only': 'complete pre-stream HTTP 429 rate_limit_error/turn_rate_limit_exceeded',
+                                'admission_queue': 'FIFO across new requests and capacity retries',
                                 'max_retries_per_logical_request': 4, 'max_wait_seconds_per_request': 240,
                                 'server_Retry_After_honored': True, 'shared_cooldown_all_models': True,
                                 'physical_budget': args.physical_budget, 'new_admission_deadline_seconds': 900,

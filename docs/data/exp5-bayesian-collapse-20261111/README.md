@@ -8,6 +8,8 @@
 
 별도 50:50 K/D 예측 모델의 라운드별 surprisal: [21개 모델·추론 조합별 그래프](kd_surprisal/README.md)
 
+최초 라벨과 전환 가설을 반영한 하이브리드 모델: [설명과 시행별 누적 의심 그래프](hybrid_model/README.md)
+
 ![모델과 추론 수준별 첫 전환 시점의 확률](collapse_all.png)
 
 - [전체 그래프](collapse_all.png) · [90–100% 확대](collapse_zoom.png) · [두 그래프 PDF](collapse_plots.pdf)

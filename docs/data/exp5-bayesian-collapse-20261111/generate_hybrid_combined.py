@@ -1,0 +1,76 @@
+"""Overlay all individual cumulative-suspicion trajectories per configuration."""
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib import font_manager
+from matplotlib.backends.backend_pdf import PdfPages
+from matplotlib.lines import Line2D
+
+HERE=Path(__file__).resolve().parent
+OUT=HERE/'hybrid_combined'
+OUT.mkdir(exist_ok=True)
+data=pd.read_csv(HERE/'hybrid_model/hybrid_rounds.csv.gz').sort_values(['trial_id','round'])
+assert len(data)==25200 and data.trial_id.nunique()==2520 and data.first_event.sum()==342
+assert data.groupby(['configuration_id','kind','frame']).trial_id.nunique().eq(30).all()
+assert data.groupby('trial_id').round.agg(list).apply(lambda x:x==list(range(1,11))).all()
+font=font_manager.FontProperties(fname='/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc')
+plt.rcParams.update({'font.family':font.get_name(),'axes.unicode_minus':False,'font.size':11,'pdf.fonttype':42,
+                     'axes.spines.top':False,'axes.spines.right':False})
+models=['gpt-5.6-luna','gpt-5.6-terra','gpt-5.6-sol','gpt-6-luna','gpt-6-sol','gpt-6-astra','gpt-6.1-sol']
+efforts=['low','medium','high']
+colors={'obj':'#2878ad','seq':'#e58631'}
+linestyles={'cards':'solid','cats':'dashed'}
+handles=[Line2D([0],[0],color=colors['obj'],lw=2,label='obj · 동일 목표'),
+         Line2D([0],[0],color=colors['seq'],lw=2,label='seq · 변동 목표'),
+         Line2D([0],[0],color='#536474',lw=2,linestyle='solid',label='카드'),
+         Line2D([0],[0],color='#536474',lw=2,linestyle='dashed',label='고양이'),
+         Line2D([0],[0],marker='*',color='none',markerfacecolor='#cf2939',markeredgecolor='white',
+                markeredgewidth=.5,markersize=11,label='첫 공동 보고')]
+
+def make(cfg):
+    d=data[data.configuration_id.eq(cfg)]
+    assert d.trial_id.nunique()==120
+    fig,ax=plt.subplots(figsize=(13,8.5));fig.subplots_adjust(left=.105,right=.965,bottom=.21,top=.79)
+    fig.suptitle(f'{cfg} | 시행별 누적 의심 D',fontsize=20,fontweight='bold',y=.98)
+    fig.text(.5,.925,'선 하나 = 독립 대화 하나  ·  빨간 별 = 통제 판단이 처음 바뀐 지점',ha='center',fontsize=11.5)
+    fig.text(.5,.895,'120개 대화: obj 60개, seq 60개. 같은 선과 별은 겹쳐 보일 수 있음.',ha='center',fontsize=10.5,color='#4c6073')
+    for (kind,frame),sub in d.groupby(['kind','frame'],sort=False):
+        for _,g in sub.groupby('trial_id',sort=False):
+            ax.plot(g['round'],g.cumulative_surprise_bits,color=colors[kind],
+                    linestyle=linestyles[frame],linewidth=1.0,alpha=.2,zorder=1)
+    ev=d[d.first_event]
+    # Numerically identical plotted coordinates may represent many trials.
+    # Label multiplicities; do not move any underlying x/y coordinates.
+    points=ev.assign(display_d=ev.cumulative_surprise_bits.round(6)).groupby(
+        ['round','display_d'],as_index=False).size()
+    assert int(points['size'].sum())==len(ev)
+    ax.scatter(points['round'],points.display_d,marker='*',s=90,c='#cf2939',
+               edgecolors='white',linewidths=.45,alpha=.9,zorder=5)
+    for point in points.itertuples(index=False):
+        if point.size>1:
+            ax.annotate(f'×{point.size}',(point.round,point.display_d),xytext=(5,5),
+                        textcoords='offset points',fontsize=8,color='#a41f2b',fontweight='bold',
+                        bbox={'facecolor':'white','edgecolor':'none','alpha':.75,'pad':.4},zorder=6)
+    nobj=int(ev.kind.eq('obj').sum());nseq=int(ev.kind.eq('seq').sum())
+    ax.text(.018,.96,f'첫 공동 보고: obj {nobj}/60 · seq {nseq}/60',transform=ax.transAxes,
+            ha='left',va='top',fontsize=11,color='#33485a',bbox={'facecolor':'white','edgecolor':'none','alpha':.85})
+    ax.set_xlim(.75,10.25);ax.set_ylim(-.5,25.5);ax.set_xticks(range(1,11));ax.set_yticks([0,5,10,15,20,25])
+    ax.set_xlabel('라운드',fontsize=12,labelpad=8)
+    ax.set_ylabel('누적 의심 D = surprisal 합 (bits)',fontsize=12,labelpad=8)
+    ax.grid(color='#d9e1e8',linewidth=.7,alpha=.8,zorder=0)
+    fig.legend(handles=handles,loc='lower center',bbox_to_anchor=(.5,.10),ncol=5,frameon=False,fontsize=10)
+    fig.text(.5,.035,'별 옆 ×숫자 = 해당 위치에 겹친 전환 수. D는 임시 모델 값이며 개별 K/D는 별도 그래프 참조.',
+             ha='center',fontsize=9.5,color='#52687b')
+    return fig
+
+with PdfPages(OUT/'all_21_configurations.pdf') as pdf:
+    for model in models:
+        for effort in efforts:
+            cfg=f'{model}-{effort}';fig=make(cfg)
+            fig.savefig(OUT/(cfg+'.png'),dpi=160,facecolor='white')
+            pdf.savefig(fig,facecolor='white');plt.close(fig)
+            print(cfg,flush=True)
+print('PASS: 21 combined graphs; 2,520 conversations; 342 first reports')

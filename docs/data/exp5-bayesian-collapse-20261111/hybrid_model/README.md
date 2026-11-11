@@ -2,6 +2,8 @@
 
 사용자가 제시한 *Equivoque Hybrid Cognitive Model*을 실험 5 기록에 맞게 구체화한 **탐색적 모델**이다. 10라운드의 두 K/D 피드백을 순서대로 처리하고, 선택 의미가 유지되는지 혹은 전환되는지를 베이지안 가설로 추론한다. 새 LLM 호출은 없다.
 
+[모델·추론 수준별로 120개 시행을 합친 그래프](../hybrid_combined/README.md)
+
 | 모델 | Low | Medium | High |
 | --- | --- | --- | --- |
 | gpt-5.6-luna | [전체 PDF](gpt-5.6-luna-low.pdf) · [예시](gpt-5.6-luna-low-example.png) | [전체 PDF](gpt-5.6-luna-medium.pdf) · [예시](gpt-5.6-luna-medium-example.png) | [전체 PDF](gpt-5.6-luna-high.pdf) · [예시](gpt-5.6-luna-high-example.png) |

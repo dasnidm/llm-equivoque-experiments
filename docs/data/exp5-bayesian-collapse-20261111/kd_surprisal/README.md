@@ -2,6 +2,8 @@
 
 기존 강제 가설 모델과 별도로, **K와 D의 관측 빈도를 바탕으로 다음 피드백을 예상**하는 탐색적 모델이다. 실험 5의 대화들을 사용하며 새 LLM 호출은 없다.
 
+[시행별로 선 하나씩 분리한 그래프](../individual_runs/README.md)
+
 | 모델 | Low | Medium | High |
 | --- | --- | --- | --- |
 | gpt-5.6-luna | [Low](gpt-5.6-luna-low.png) | [Medium](gpt-5.6-luna-medium.png) | [High](gpt-5.6-luna-high.png) |

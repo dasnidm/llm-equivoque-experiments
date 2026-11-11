@@ -6,6 +6,8 @@
 
 라운드별 개별 대화의 K/D 경로와 확률 변화: [21개 모델·추론 조합별 그래프](trajectories/README.md)
 
+별도 50:50 K/D 예측 모델의 라운드별 surprisal: [21개 모델·추론 조합별 그래프](kd_surprisal/README.md)
+
 ![모델과 추론 수준별 첫 전환 시점의 확률](collapse_all.png)
 
 - [전체 그래프](collapse_all.png) · [90–100% 확대](collapse_zoom.png) · [두 그래프 PDF](collapse_plots.pdf)

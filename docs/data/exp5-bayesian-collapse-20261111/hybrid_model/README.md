@@ -4,6 +4,8 @@
 
 [모델·추론 수준별로 120개 시행을 합친 그래프](../hybrid_combined/README.md)
 
+[모델·추론 수준별로 카드와 고양이를 분리한 그래프](../hybrid_by_frame/README.md)
+
 | 모델 | Low | Medium | High |
 | --- | --- | --- | --- |
 | gpt-5.6-luna | [전체 PDF](gpt-5.6-luna-low.pdf) · [예시](gpt-5.6-luna-low-example.png) | [전체 PDF](gpt-5.6-luna-medium.pdf) · [예시](gpt-5.6-luna-medium-example.png) | [전체 PDF](gpt-5.6-luna-high.pdf) · [예시](gpt-5.6-luna-high-example.png) |

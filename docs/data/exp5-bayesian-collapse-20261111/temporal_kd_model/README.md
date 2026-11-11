@@ -2,6 +2,8 @@
 
 실험 5의 각 대화에서 라운드별 K/D를 **끊지 않고 한 줄로 연결**해 다음 피드백을 예측한다. 예를 들어 `KK | DD | DD`는 `KKDDDD`이며, K→D 전환이 한 번이다. 이것은 기존 자료에 적용한 탐색적 모델이며 새 LLM 호출은 없다.
 
+[모델·추론 수준별 평균 전환 surprisal](../mean_surprisal/README.md)
+
 | 모델 | Low | Medium | High |
 | --- | --- | --- | --- |
 | gpt-5.6-luna | [카드](gpt-5.6-luna-low-cards.png) · [고양이](gpt-5.6-luna-low-cats.png) | [카드](gpt-5.6-luna-medium-cards.png) · [고양이](gpt-5.6-luna-medium-cats.png) | [카드](gpt-5.6-luna-high-cards.png) · [고양이](gpt-5.6-luna-high-cats.png) |

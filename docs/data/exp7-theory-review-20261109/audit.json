@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-09",
+  "status": "offline_design_review_not_experiment",
+  "new_model_calls": 0,
+  "frozen_design_changed": false,
+  "source_sha256": {
+    "/workspace/exp7-persistent-2026-11-08/exp7_main/analysis_contract.json": "bb28dd29f65ba32a8a59b4248f4b041dfea0a5777a08300fa303937763716ec7",
+    "/workspace/exp7-persistent-2026-11-08/exp7_main/schedule.py": "7447be4f80456d6bc59d499a8dee4e68308f301d776f9c0ce0218dc730f9611d",
+    "/workspace/llm-equivoque-experiments/docs/EXP7_HYBRID_COGNITIVE_MODEL.ko.md": "4c4d2a4921a8b709f3a2aea95b7cc0ed4ce07cb96f8f4e857fc62c14545d794b",
+    "/workspace/llm-equivoque-experiments/docs/EXP7_PRE_RESULTS.ko.md": "84364b9a86ce35ea8647fa0c0f412b57458b4bca75cb94a77837e95f469cfd21",
+    "/workspace/llm-equivoque-experiments/docs/EXP7_METHODS_CRITICAL_REVIEW.ko.md": "a2d6cf2b146d6df03e577a6d550bcc37c1870c28004339f195dfcb7c8e14250b"
+  },
+  "variance_counterexample": [
+    {
+      "sequence": "KKKKDDDD",
+      "binary_population_variance": "1/4",
+      "adjacent_switches": 1
+    },
+    {
+      "sequence": "KDKDKDKD",
+      "binary_population_variance": "1/4",
+      "adjacent_switches": 7
+    }
+  ],
+  "five_round_uniform_outcome_example": {
+    "preselected_exact_string_AAAAA_or_ABCDA": "1/1024",
+    "any_one_object_repeated_five_times": "1/256",
+    "AAAAA_likelihood_under_uniform_unknown_constant_target": "1/4",
+    "constant_target_vs_iid_uniform_Bayes_factor_after_AAAAA": 256,
+    "assumption": "Uniform independent final outcomes under comparison null; not actual LLM choice probabilities."
+  },
+  "observational_equivalence_audit": {
+    "deterministic_within_round_choice_policies_checked": 24,
+    "equal_exact_transcript_distributions": 24,
+    "forced_process": "Fresh iid uniform target, chosen before actions; adapt K/D to retain it.",
+    "unforced_process": "Two iid fair K/D rules chosen before actions; apply them to free choices.",
+    "scope": "4->2->1, noiseless feedback, no generator cues. Fresh iid rounds extend equality; a fixed balanced sequence bank is not covered by this exact equality.",
+    "first_policy_example": [
+      {
+        "trace": [
+          [
+            "A",
+            "B"
+          ],
+          "K",
+          [
+            "A",
+            "B"
+          ],
+          [
+            "A"
+          ],
+          "K",
+          "A"
+        ],
+        "probability": "1/4"
+      },
+      {
+        "trace": [
+          [
+            "A",
+            "B"
+          ],
+          "K",
+          [
+            "A",
+            "B"
+          ],
+          [
+            "A"
+          ],
+          "D",
+          "B"
+        ],
+        "probability": "1/4"
+      },
+      {
+        "trace": [
+          [
+            "A",
+            "B"
+          ],
+          "D",
+          [
+            "C",
+            "D"
+          ],
+          [
+            "C"
+          ],
+          "K",
+          "C"
+        ],
+        "probability": "1/4"
+      },
+      {
+        "trace": [
+          [
+            "A",
+            "B"
+          ],
+          "D",
+          [
+            "C",
+            "D"
+          ],
+          [
+            "C"
+          ],
+          "D",
+          "D"
+        ],
+        "probability": "1/4"
+      }
+    ],
+    "counterfactual_example": {
+      "factual_outcome": "A",
+      "changed_choices_forced_outcome": "A",
+      "changed_choices_fixed_KK_outcome": "C"
+    },
+    "interpretation": "Different causal generators can be indistinguishable from the observed transcript; more repetitions alone do not identify the generator."
+  },
+  "independent_binomial_precision_examples": [
+    {
+      "event_probability_per_arm": 0.1,
+      "n_per_arm": 120,
+      "expected_90pct_CI_half_width": 0.06370490704131916,
+      "equivalence_margin_absolute": 0.05,
+      "n_per_arm_for_expected_CI_half_width": 195,
+      "n_per_arm_for_approx_80pct_TOST_power": 617
+    },
+    {
+      "event_probability_per_arm": 0.25,
+      "n_per_arm": 120,
+      "expected_90pct_CI_half_width": 0.09195011307251426,
+      "equivalence_margin_absolute": 0.05,
+      "n_per_arm_for_expected_CI_half_width": 406,
+      "n_per_arm_for_approx_80pct_TOST_power": 1285
+    },
+    {
+      "event_probability_per_arm": 0.5,
+      "n_per_arm": 120,
+      "expected_90pct_CI_half_width": 0.10617484506886526,
+      "equivalence_margin_absolute": 0.05,
+      "n_per_arm_for_expected_CI_half_width": 542,
+      "n_per_arm_for_approx_80pct_TOST_power": 1713
+    }
+  ],
+  "power_scope": "Normal approximation, known planning p, independent arms, true difference zero, one comparison. Final sample size needs clustered/factorial/survival and model-recovery simulations."
+}

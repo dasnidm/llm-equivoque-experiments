@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "selected_for_fresh_execution_profile",
+  "main_collection_enabled": false,
+  "retired_main_STOP_preserved": true,
+  "selected_strategy": "p6-r100",
+  "selection_validation_passed": false,
+  "validation_kind": "Original short-batch screening and conditional repeat",
+  "global_pool": 6,
+  "physical_starts_per_minute_global": 100,
+  "pool_unit": "Concurrent conversation/CLI worker slots, not provider-internal inference count",
+  "observed_HTTP_stream_interval_peak": 7,
+  "observed_active_logical_turn_peak": 6,
+  "scope": "One shared admission/cooldown controller; never multiply these limits by VM count",
+  "cli_version": "0.167.0",
+  "transport": "persistent CLI HTTP/SSE",
+  "binary_sha256": "cdcb45aaa01d0f14e298985e09465aebccd47f64ecd298aea44814af7b62bbda",
+  "original_scientific_freeze_sha256": "16f61a400ff1280c54614719efb416df76fb5b696af47ee7b59342474ddbb75a",
+  "model_catalog_sha256": "34eeb78f87da08a64e827d361c7e6f4b52ee61692f1b8c9c74d4e68829735483",
+  "CLI_local_min_start_interval_seconds": 0,
+  "physical_admission_owner": "One shared controller; avoid a second independent per-model pacer",
+  "native_request_max_retries": 0,
+  "native_stream_max_retries": 0,
+  "sqlite_isolation": "Child-only CODEX_SQLITE_HOME; serial migration before pool launch; native auth home retained",
+  "native_retry_warning_visibility": "Child RUST_LOG appends codex_core::responses_retry=warn",
+  "retry_only": {
+    "status": 429,
+    "error_type": "rate_limit_error",
+    "error_code": "turn_rate_limit_exceeded",
+    "before_stream": true
+  },
+  "max_retries_per_logical_request": 4,
+  "max_elapsed_plus_next_wait_for_retry_scheduling_seconds": 240,
+  "CLI_logical_turn_timeout_seconds": 360,
+  "respect_retry_after": true,
+  "shared_cooldown": true,
+  "jitter_seconds": [
+    0.1,
+    0.4
+  ],
+  "retry_changes_request_bytes": false,
+  "retry_adds_turn_start_or_user_message": false,
+  "automatic_uncertain_completion_replay": false,
+  "automatic_STOP_release": false,
+  "verified_models": [
+    "gpt-6-astra",
+    "gpt-5.6-sol"
+  ],
+  "verified_effort": "medium",
+  "scientific_allocation_changed": false,
+  "fresh_main_requirements": [
+    "New execution ID and freeze, full original allocation preserved.",
+    "Exact-profile model/effort readiness and raw audit.",
+    "All VM physical attempts, retries and concurrency share one account budget."
+  ],
+  "selection_evidence": {
+    "at": "2026-11-08T16:25:21.635522+00:00",
+    "baseline_turns_per_minute": 90.07224384106924,
+    "comparison_profiles": [
+      "p6-r100",
+      "p8-r110",
+      "p10-r160"
+    ],
+    "best_candidate": "p8-r110",
+    "candidate_gain_percent": -1.942315907716008,
+    "confirmed": false,
+    "selected_profile": "p6-r100"
+  },
+  "source_commit": "8f43038f93dffe8fe67d58a3675f98204c356964",
+  "source_sha256": {
+    "exp7_retry_efficiency_study.py": "a15e00481dd0efb97f8d7f196e94685ffab34560b5e07272017c866b9e813d29",
+    "exp7_retry_transport.py": "88e2e7b97d180d0182c5ddc1796d9920b8d32befa3e5869f7f0096ef37a95711",
+    "exp7_header_probe.py": "c144d0ac8cbc25676b336cf6842cfc2468c9309353cf8a33e2c1e68b61d789bf"
+  }
+}

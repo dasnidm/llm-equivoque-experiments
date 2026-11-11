@@ -1,0 +1,46 @@
+{
+  "run_id": "equivoque-2026-11-08-exp7-unpaced-retry-v1-p10-unpaced",
+  "created_at": "2026-11-08T18:04:21.371836+00:00",
+  "profile": "p10-unpaced",
+  "pool": 10,
+  "source_commit": "942467a5a3241acd6c37bb25b11fe0c48f9748b8",
+  "sessions": 20,
+  "models": [
+    "gpt-6-astra",
+    "gpt-5.6-sol"
+  ],
+  "effort": "medium",
+  "physical_start_ceiling_per_minute": null,
+  "physical_start_interval_seconds": 0,
+  "transport_local_start_interval_seconds": 0,
+  "CLI_gate_interval_seconds": 0,
+  "logical_turn_timeout_seconds": 1020.0,
+  "cli_version": "0.167.0",
+  "binary_sha256": "cdcb45aaa01d0f14e298985e09465aebccd47f64ecd298aea44814af7b62bbda",
+  "source_sha256": {
+    "exp7_retry_efficiency_study.py": "552588b31ea33b12f1ec6ec2a0f9fe2986202df6856b29d354c1fa7b49b5b79a",
+    "exp7_retry_transport.py": "2c4dd18d985055b4fbb0a6ef5a8f964b4b88419342a04de63e4fc8aa61ebff97",
+    "exp7_header_probe.py": "c144d0ac8cbc25676b336cf6842cfc2468c9309353cf8a33e2c1e68b61d789bf"
+  },
+  "scientific_freeze_sha256": "16f61a400ff1280c54614719efb416df76fb5b696af47ee7b59342474ddbb75a",
+  "assignment_science_sha256": "64242d723ea75e3b6c88ee1f65b1903a6d48bb8c02c908f38fec3f08daebfc45",
+  "transport": "persistent CLI HTTP/SSE; distinct from retired WS main profile",
+  "upstream": "https://chatgpt.com/backend-api/codex",
+  "loopback_base_url": "http://127.0.0.1:35957",
+  "native_request_retries": 0,
+  "native_stream_retries": 0,
+  "retry_policy": {
+    "only": "complete pre-stream HTTP 429 rate_limit_error/turn_rate_limit_exceeded",
+    "admission_queue": "FIFO across new requests and capacity retries",
+    "max_retries_per_logical_request": 20,
+    "max_wait_seconds_per_request": 900.0,
+    "server_Retry_After_honored": true,
+    "shared_cooldown_all_models": false,
+    "physical_budget": 10000,
+    "new_admission_deadline_seconds": 1800.0,
+    "byte_identical_request_retry": true,
+    "new_turn_start_on_retry": false
+  },
+  "main_sample_inclusion": false,
+  "old_STOPs_preserved": true
+}

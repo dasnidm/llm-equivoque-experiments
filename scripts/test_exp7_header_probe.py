@@ -1,6 +1,7 @@
 """Offline security and no-retry checks for the response-header relay."""
 import http.server
 import json
+import os
 from pathlib import Path
 import tempfile
 import threading
@@ -11,10 +12,18 @@ import httpx
 from exp7_header_probe import Gate, Relay, header_transport
 from exp7_persistent.test_real_cli import LocalResponses, make_cli_wrapper
 
-BINARY=Path('/workspace/work/exp7-cli-upgrade-20261108/cli-0.167.0/codex')
+BINARY=Path(os.environ.get('CODEX_TEST_BINARY','/workspace/work/exp7-cli-upgrade-20261108/cli-0.167.0/codex'))
 
 
 class HeaderProbeTests(unittest.TestCase):
+    def setUp(self):
+        import exp7_persistent.transport as native
+        self.native_classes = native.PersistentTransport, native._Conversation
+
+    def tearDown(self):
+        import exp7_persistent.transport as native
+        native.PersistentTransport, native._Conversation = self.native_classes
+
     def test_response_headers_and_body_capture_without_request_credentials(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary)
@@ -46,6 +55,7 @@ class HeaderProbeTests(unittest.TestCase):
                     if path.is_file():self.assertNotIn(secret.encode(),path.read_bytes())
             finally:server.shutdown();server.server_close();thread.join(2)
 
+    @unittest.skipUnless(BINARY.is_file(),'Set CODEX_TEST_BINARY to the supported CLI 0.167.0')
     def test_real_cli_has_exactly_one_http_attempt_on_429(self):
         with tempfile.TemporaryDirectory() as temporary,LocalResponses() as service:
             root=Path(temporary)
@@ -75,6 +85,7 @@ class HeaderProbeTests(unittest.TestCase):
             for path in (root/'native').rglob('*'):
                 if path.is_file():self.assertNotIn(b'local-test-key-not-a-credential',path.read_bytes())
 
+    @unittest.skipUnless(BINARY.is_file(),'Set CODEX_TEST_BINARY to the supported CLI 0.167.0')
     def test_real_cli_success_sse_is_preserved(self):
         with tempfile.TemporaryDirectory() as temporary,LocalResponses() as service:
             root=Path(temporary)

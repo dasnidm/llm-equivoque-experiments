@@ -1,0 +1,289 @@
+{
+  "status": "proposal_and_resource_estimate_only",
+  "new_model_calls": 0,
+  "new_manifest_created": false,
+  "frozen_design_changed": false,
+  "manifest_sha256": "be484924299b4e571bd4e2f13a42ffd693a683131d6fef35dd7913c2364771b1",
+  "prices_sha256": "e38868a30ec0d5d60d34580d294eb7858b7e3cdb6ec88ad79268187803554d99",
+  "previous_token_source_digests": {
+    "unpaced": {
+      "file_count": 80,
+      "ordered_source_hashes_sha256": "9a3c933f102af681d7f6bd4d230576583f6eb41cc5eb3ce999f7d0b127d08065"
+    },
+    "eight_model": {
+      "file_count": 8,
+      "ordered_source_hashes_sha256": "57d1f36c58af6ea877159b098c12be01813d8ef9c91d76698c1062bf3f00ab1c"
+    },
+    "exp5": {
+      "file_count": 2520,
+      "ordered_source_hashes_sha256": "2ff7d116fffe98894f8be6bb8aed3764353262f4d0bb8f7cb72b6d60260fbd95"
+    }
+  },
+  "credit_rate_source": "https://help.openai.com/en/articles/11481834-chatgpt-rate-card-business-enterpriseedu-credit-based-pricing",
+  "scenarios": [
+    {
+      "rounds": 10,
+      "core_n_per_cell": 120,
+      "fixed_rule_n_per_cell": 30,
+      "main_conversations": 34560,
+      "R_conversations": 8736,
+      "total_conversations": 43296,
+      "calls_per_conversation": 34,
+      "calls_with_R": 1472064,
+      "calls_without_R": 1175040,
+      "days_at_100_with_R": 10.222666666666667,
+      "days_at_100_without_R": 8.16,
+      "days_at_80_percent_uptime_with_R": 12.778333333333334,
+      "standard_codex_credit_scenarios_excluding_included_allowance": {
+        "constant_cost_per_call_credits": 197825.04030300002,
+        "linear_history_growth_credits": 197825.04030300002
+      }
+    },
+    {
+      "rounds": 15,
+      "core_n_per_cell": 120,
+      "fixed_rule_n_per_cell": 30,
+      "main_conversations": 34560,
+      "R_conversations": 8736,
+      "total_conversations": 43296,
+      "calls_per_conversation": 49,
+      "calls_with_R": 2121504,
+      "calls_without_R": 1693440,
+      "days_at_100_with_R": 14.732666666666667,
+      "days_at_100_without_R": 11.76,
+      "days_at_80_percent_uptime_with_R": 18.41583333333333,
+      "standard_codex_credit_scenarios_excluding_included_allowance": {
+        "constant_cost_per_call_credits": 285100.79337785294,
+        "linear_history_growth_credits": 319078.9072031832
+      }
+    },
+    {
+      "rounds": 20,
+      "core_n_per_cell": 120,
+      "fixed_rule_n_per_cell": 30,
+      "main_conversations": 34560,
+      "R_conversations": 8736,
+      "total_conversations": 43296,
+      "calls_per_conversation": 64,
+      "calls_with_R": 2770944,
+      "calls_without_R": 2211840,
+      "days_at_100_with_R": 19.24266666666667,
+      "days_at_100_without_R": 15.36,
+      "days_at_80_percent_uptime_with_R": 24.053333333333335,
+      "standard_codex_credit_scenarios_excluding_included_allowance": {
+        "constant_cost_per_call_credits": 372376.54645270586,
+        "linear_history_growth_credits": 463138.97631817986
+      }
+    },
+    {
+      "rounds": 10,
+      "core_n_per_cell": 200,
+      "fixed_rule_n_per_cell": 30,
+      "main_conversations": 49920,
+      "R_conversations": 8736,
+      "total_conversations": 58656,
+      "calls_per_conversation": 34,
+      "calls_with_R": 1994304,
+      "calls_without_R": 1697280,
+      "days_at_100_with_R": 13.849333333333334,
+      "days_at_100_without_R": 11.786666666666667,
+      "days_at_80_percent_uptime_with_R": 17.311666666666667,
+      "standard_codex_credit_scenarios_excluding_included_allowance": {
+        "constant_cost_per_call_credits": 268006.872783,
+        "linear_history_growth_credits": 268006.872783
+      }
+    }
+  ],
+  "credit_projection_models": {
+    "gpt-5.6-sol": {
+      "observed_conversations": 40,
+      "observed_cache_fraction": 0.7640272549771239,
+      "round_input_token_slope": 920.9492424242421,
+      "projections_per_conversation": {
+        "10": {
+          "constant_cost_per_call_credits": 6.4179105,
+          "linear_history_growth_credits": 6.4179105
+        },
+        "15": {
+          "constant_cost_per_call_credits": 9.249341602941175,
+          "linear_history_growth_credits": 10.188527630729464
+        },
+        "20": {
+          "constant_cost_per_call_credits": 12.080772705882353,
+          "linear_history_growth_credits": 14.67834964377856
+        }
+      }
+    },
+    "gpt-6-astra": {
+      "observed_conversations": 40,
+      "observed_cache_fraction": 0.7578025180710053,
+      "round_input_token_slope": 853.4774242424243,
+      "projections_per_conversation": {
+        "10": {
+          "constant_cost_per_call_credits": 14.86279375,
+          "linear_history_growth_credits": 14.86279375
+        },
+        "15": {
+          "constant_cost_per_call_credits": 21.41990863970588,
+          "linear_history_growth_credits": 24.024602089246496
+        },
+        "20": {
+          "constant_cost_per_call_credits": 27.977023529411763,
+          "linear_history_growth_credits": 34.88257803571503
+        }
+      }
+    },
+    "gpt-6-luna": {
+      "observed_conversations": 1,
+      "observed_cache_fraction": 0.6202757930287179,
+      "round_input_token_slope": 1005.0363636363636,
+      "projections_per_conversation": {
+        "10": {
+          "constant_cost_per_call_credits": 0.2224545,
+          "linear_history_growth_credits": 0.2224545
+        },
+        "15": {
+          "constant_cost_per_call_credits": 0.3205961911764706,
+          "linear_history_growth_credits": 0.3614188257532004
+        },
+        "20": {
+          "constant_cost_per_call_credits": 0.4187378823529412,
+          "linear_history_growth_credits": 0.5281316895630785
+        }
+      }
+    },
+    "gpt-5.6-luna": {
+      "observed_conversations": 1,
+      "observed_cache_fraction": 0.6473125670718449,
+      "round_input_token_slope": 911.7757575757576,
+      "projections_per_conversation": {
+        "10": {
+          "constant_cost_per_call_credits": 0.353899,
+          "linear_history_growth_credits": 0.353899
+        },
+        "15": {
+          "constant_cost_per_call_credits": 0.5100309117647059,
+          "linear_history_growth_credits": 0.572740612593378
+        },
+        "20": {
+          "constant_cost_per_call_credits": 0.6661628235294118,
+          "linear_history_growth_credits": 0.8391562554328238
+        }
+      }
+    },
+    "gpt-6-sol": {
+      "observed_conversations": 1,
+      "observed_cache_fraction": 0.617296239724029,
+      "round_input_token_slope": 874.49696969697,
+      "projections_per_conversation": {
+        "10": {
+          "constant_cost_per_call_credits": 4.20237,
+          "linear_history_growth_credits": 4.20237
+        },
+        "15": {
+          "constant_cost_per_call_credits": 6.056356764705883,
+          "linear_history_growth_credits": 6.778362429051356
+        },
+        "20": {
+          "constant_cost_per_call_credits": 7.910343529411765,
+          "linear_history_growth_credits": 9.840174417799428
+        }
+      }
+    },
+    "gpt-5.6-terra": {
+      "observed_conversations": 1,
+      "observed_cache_fraction": 0.651569346582696,
+      "round_input_token_slope": 930.7393939393938,
+      "projections_per_conversation": {
+        "10": {
+          "constant_cost_per_call_credits": 4.04557,
+          "linear_history_growth_credits": 4.04557
+        },
+        "15": {
+          "constant_cost_per_call_credits": 5.830380294117647,
+          "linear_history_growth_credits": 6.565203280625266
+        },
+        "20": {
+          "constant_cost_per_call_credits": 7.6151905882352935,
+          "linear_history_growth_credits": 9.566014387583426
+        }
+      }
+    },
+    "gpt-6.1-terra": {
+      "observed_conversations": 1,
+      "observed_cache_fraction": 0.5963565296293711,
+      "round_input_token_slope": 847.7030303030303,
+      "projections_per_conversation": {
+        "10": {
+          "constant_cost_per_call_credits": 1.9813100000000001,
+          "linear_history_growth_credits": 1.9813100000000001
+        },
+        "15": {
+          "constant_cost_per_call_credits": 2.855417352941177,
+          "linear_history_growth_credits": 3.2101851572329707
+        },
+        "20": {
+          "constant_cost_per_call_credits": 3.729524705882353,
+          "linear_history_growth_credits": 4.668714348753819
+        }
+      }
+    },
+    "gpt-6.1-sol": {
+      "observed_conversations": 1,
+      "observed_cache_fraction": 0.5354433325575984,
+      "round_input_token_slope": 857.5272727272726,
+      "projections_per_conversation": {
+        "10": {
+          "constant_cost_per_call_credits": 4.46673,
+          "linear_history_growth_credits": 4.46673
+        },
+        "15": {
+          "constant_cost_per_call_credits": 6.437346176470589,
+          "linear_history_growth_credits": 7.256629450596257
+        },
+        "20": {
+          "constant_cost_per_call_credits": 8.407962352941176,
+          "linear_history_growth_credits": 10.573188745058214
+        }
+      }
+    }
+  },
+  "Exp5_first_joint_reports": {
+    "seq": {
+      "conversations": 1260,
+      "round10_joint": 1,
+      "none_by_round10": 1251,
+      "ever_joint": 9,
+      "first_round_2": 3,
+      "first_round_8_to_10": 0,
+      "first_round_3": 5,
+      "first_round_4": 1
+    },
+    "obj": {
+      "conversations": 1260,
+      "round10_joint": 319,
+      "none_by_round10": 927,
+      "ever_joint": 333,
+      "first_round_3": 69,
+      "first_round_8_to_10": 90,
+      "first_round_9": 25,
+      "first_round_4": 62,
+      "first_round_5": 22,
+      "first_round_6": 39,
+      "first_round_7": 28,
+      "first_round_2": 23,
+      "first_round_10": 33,
+      "first_round_8": 32
+    }
+  },
+  "assumptions": [
+    "R remains the existing single English/schema condition; its final rating moves to the proposed endpoint. It is not duplicated for English natural language.",
+    "Each proposed control and R conversation has the same round length as the main conversations.",
+    "100 successful calls/minute includes retry waits; 80% uptime adds other operational downtime.",
+    "Throughput for all efforts and rounds 11+ is not measured. Same-account VMs are not assumed to multiply capacity.",
+    "Credit scenarios are not confidence bounds. Current English/schema/medium usage is a proxy for all profiles/formats/games.",
+    "History-growth sensitivity extrapolates round-input slope, fixes cache fraction and mean output per added round, and shifts four final turns.",
+    "Codex cache writes are free under the cited card. Included plan allowance, future resets and other work are excluded.",
+    "Changing rounds requires new protocol, target schedule, allocation, analysis contract and freeze; current frozen source rejects rounds other than 10."
+  ]
+}

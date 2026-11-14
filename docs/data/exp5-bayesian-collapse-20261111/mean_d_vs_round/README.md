@@ -6,9 +6,12 @@
 
 [평균 라운드–평균 D 그래프](mean_d_vs_mean_round.png) · [전환 유무와 건수 그래프](reported_and_unreported_counts.png) · [두 그래프 PDF](mean_d_vs_round_and_counts.pdf) · [조합별 집계 CSV](mean_d_and_round.csv) · [첫 보고점 데이터](first_report_points.csv)
 
+[같은 모델을 연결한 그래프](mean_d_vs_mean_round_connected.png) · [연결 그래프 PDF](mean_d_vs_mean_round_connected.pdf) · [연결 여부 CSV](connected_edges.csv)
+
 ## 읽는 법
 
 - 패널은 카드·고양이와 obj·seq를 나눈다. 색은 모델, 점 모양은 추론 수준이다. 점 하나는 한 조건의 모델 × 추론 수준 한 조합이다.
+- 연결 그래프는 각 패널에서 같은 모델의 low–medium과 medium–high를 연결한다. 한쪽 수준에서 보고가 없으면 선을 끊고, 중간 수준을 건너뛰어 연결하지 않는다. 각 점은 별도 대화들의 평균이므로 선은 개별 대화의 시간 경로나 추론 수준의 인과효과를 뜻하지 않는다.
 - X축은 `impact=1 AND counterfactual=no`가 처음 함께 나타난 라운드의 평균이다. Y축은 **같은 각 대화의 그 전환 시점**에 계산된 누적 surprisal D의 평균이다. 각 점 옆 숫자는 전환이 관찰된 대화 수이며 각 조건은 30개 대화다.
 - 실제 첫 공동 보고를 한 대화만 두 평균의 분모에 포함한다. 10라운드까지 보고가 없으면 이후 시점이 알려지지 않은 관측이므로, 임의로 10라운드에서 전환한 것으로 넣지 않는다. 해당 조건에서 보고가 0개이면 평균을 계산할 수 없어 점이 없다.
 - 전환 유무 그림의 색 막대는 보고가 있던 대화 수이고 회색 막대는 10라운드까지 없던 대화 수다. 2,520개 대화 중 342개에서 첫 공동 보고가 있었고 2,178개에서는 관찰되지 않았다. 조건 84개 중 47개는 보고가 0개, 17개는 1~4개다.
@@ -23,3 +26,5 @@
 ## 재생성
 
 저장소 루트에서 `python docs/data/exp5-bayesian-collapse-20261111/generate_temporal_kd_model.py`를 실행한 뒤 `python docs/data/exp5-bayesian-collapse-20261111/generate_mean_d_vs_round.py`를 실행한다. `numpy`, `pandas`, `matplotlib`과 Noto Sans CJK 글꼴이 필요하다. 보존된 실험 기록만 읽는다.
+
+연결 그래프는 위의 집계를 만든 후 `python docs/data/exp5-bayesian-collapse-20261111/generate_mean_d_vs_round_connected.py`로 재생성한다. 기존 평균과 구간을 그대로 읽는다.

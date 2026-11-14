@@ -6,6 +6,8 @@
 
 [전환하지 않은 대화를 포함한 같은 라운드 비교](../no_report_comparison/README.md)
 
+[평균 누적 D와 평균 첫 전환 라운드](../mean_d_vs_round/README.md)
+
 | 모델 | Low | Medium | High |
 | --- | --- | --- | --- |
 | gpt-5.6-luna | [카드](gpt-5.6-luna-low-cards.png) · [고양이](gpt-5.6-luna-low-cats.png) | [카드](gpt-5.6-luna-medium-cards.png) · [고양이](gpt-5.6-luna-medium-cats.png) | [카드](gpt-5.6-luna-high-cards.png) · [고양이](gpt-5.6-luna-high-cats.png) |

@@ -3,7 +3,7 @@
 **STOP — 새 호출 중단**
 
 - 실행: `equivoque-exp7-cards-200-20261115`
-- 갱신 시각: 2026-11-15T01:11:07+00:00 (UTC)
+- 갱신 시각: 2026-11-15T01:11:12+00:00 (UTC)
 - 상태 사유: Card-study compaction or failed native response; inspect before resuming
 - 예약 병렬 수 / 전역 상한: **7 / 7**
 - 배정: **8,400대화 · 280작업**
@@ -50,7 +50,7 @@
 | 모델 | 완료 / 배정 | 상태 |
 |---|---:|---|
 | gpt-5.6-luna | 3 / 3 | 완료 |
-| gpt-5.6-sol | 2 / 3 | 진행 중 |
+| gpt-5.6-sol | 3 / 3 | 실패 |
 | gpt-5.6-terra | 3 / 3 | 완료 |
 | gpt-6-astra | 3 / 3 | 완료 |
 | gpt-6-luna | 3 / 3 | 완료 |

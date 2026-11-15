@@ -11,6 +11,7 @@ from exp7_pre.protocol import phase
 from exp7_pre.runner import CallBudget, run_trial
 from .protocol import CardProtocol, adapt
 from .features import risk_rows
+from .context_probe_summary import summarize
 from .schedule import audit, audit_jobs, build, make_jobs, save
 
 
@@ -129,6 +130,25 @@ class PreparationTests(unittest.TestCase):
         rows, reason = risk_rows(state)
         self.assertEqual(len(rows), 1)
         self.assertEqual(reason, 'missing_or_invalid_round')
+
+    def test_technical_summary_reports_usage_without_exposing_ids(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d)
+            trial = {'model': 'example', 'effort': 'high', 'frame': 'cards', 'game': 'seq'}
+            state = {'trial': trial, 'status': 'complete', 'turns': [
+                {'ok': True, 'session_id': 'private-id', 'process_pid': 123,
+                 'compaction_events': 0}]}
+            (p/'state.json').write_text(json.dumps(state))
+            event_dir = p/'native'/'private'/'turn-01'
+            event_dir.mkdir(parents=True)
+            event = {'method': 'thread/tokenUsage/updated', 'params': {'tokenUsage': {
+                'modelContextWindow': 1000, 'last': {'totalTokens': 33,
+                'inputTokens': 30, 'outputTokens': 3}}}}
+            (event_dir/'rpc-received.jsonl').write_text(json.dumps(event)+'\n')
+            output = summarize(p)
+            self.assertTrue(output['same_session'] and output['same_process'])
+            self.assertEqual(output['usage_by_turn'][0]['last_total_tokens'], 33)
+            self.assertNotIn('private-id', json.dumps(output))
 
 
 if __name__ == '__main__':

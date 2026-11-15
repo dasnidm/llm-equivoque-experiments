@@ -3,7 +3,7 @@
 **STOP — 새 호출 중단**
 
 - 실행: `equivoque-exp7-cards-200-20261115`
-- 갱신 시각: 2026-11-15T01:11:41+00:00 (UTC)
+- 갱신 시각: 2026-11-15T01:11:46+00:00 (UTC)
 - 상태 사유: Card-study conversation failed or was interrupted; preserve evidence
 - 예약 병렬 수 / 전역 상한: **7 / 7**
 - 배정: **8,400대화 · 280작업**
@@ -16,7 +16,7 @@
 
 | 모델 | 담당 VM | 예약 병렬 | 작업 상태¹ | 대화 상태² | 보고 호출 | 마지막 heartbeat (UTC) |
 |---|---|---:|---|---|---:|---|
-| gpt-5.6-luna | vm-f0d82bb4fc55 | 1 | 39/0/1/0/0/0 | 0/0/1/1,199 | 23 | 2026-11-15T01:09:18+00:00 |
+| gpt-5.6-luna | vm-f0d82bb4fc55 | 1 | 39/0/0/0/0/1 | 0/0/1/1,199 | 23 | 2026-11-15T01:09:18+00:00 |
 | gpt-5.6-sol | vm-4eaf5171ce4c | 1 | 40/0/0/0/0/0 | 0/0/0/1,200 | 0 | 2026-11-15T01:01:42+00:00 |
 | gpt-5.6-terra | vm-94784466ed24 | 1 | 39/0/1/0/0/0 | 0/0/0/1,200 | 0 | 2026-11-15T01:10:47+00:00 |
 | gpt-6-astra | vm-042c192747a2 | 1 | 39/0/1/0/0/0 | 0/0/0/1,200 | 0 | 2026-11-15T01:10:15+00:00 |
@@ -39,6 +39,7 @@
 
 | 작업 | 모델 | 상태 | 결과 |
 |---|---|---|---|
+| m01-initial-50-job01 | gpt-5.6-luna | blocked | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/2a87eb6cee0a1a41be1a19970f4d190c38ebbffd/results/equivoque-exp7-cards-200-20261115/gpt-5.6-luna/m01-initial-50-job01.jsonl.gz) |
 | m07-initial-50-job01 | gpt-6.1-sol | blocked | [결과 보기](https://github.com/dasnidm/llm-equivoque-experiments/blob/85aca2f873d88c34aec1692e3d386745f7fe1789/results/equivoque-exp7-cards-200-20261115/gpt-6.1-sol/m07-initial-50-job01.jsonl.gz) |
 
 작업은 원격 선점 확인 후 실행한다. 중단·응답 불확실·보류 작업은 자동으로 재배정하지 않는다.

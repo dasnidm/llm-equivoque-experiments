@@ -12,13 +12,13 @@ from exp7_persistent.test_real_cli import LocalResponses, make_cli_wrapper
 from exp7_persistent.transport import PersistentTransport
 
 
-def probe(binary, catalog):
+def probe(binary, catalog, model='gpt-6-astra', effort='high'):
     with tempfile.TemporaryDirectory() as d, LocalResponses() as service:
         root = Path(d)
         wrapper = make_cli_wrapper(root, binary, service.base_url)
         transport = PersistentTransport(timeout=30, codex_binary=str(wrapper), catalog_path=catalog)
         try:
-            result = transport.request({'trial_id': 'offline-tool-surface', 'model': 'gpt-6-astra', 'effort': 'high'},
+            result = transport.request({'trial_id': 'offline-tool-surface', 'model': model, 'effort': effort},
                                        'Synthetic question.', None, 'Synthetic system.', None, root/'native', 1)
         finally:
             transport.close()

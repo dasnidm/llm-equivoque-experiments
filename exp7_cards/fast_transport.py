@@ -1,8 +1,8 @@
 """Persistent CLI adapter with shared pacing at the actual turn/start send.
 
 Prototype only: the old experimental profile and its freeze are untouched.
-The CLI still advertises collaboration tools; this adapter does not solve that
-scientific isolation problem and must not be used for main collection yet.
+The default model catalogue advertises tools. A separately validated no-tool
+catalogue profile is required before use; main collection is not yet enabled.
 """
 import threading
 

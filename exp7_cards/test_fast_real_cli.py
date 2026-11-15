@@ -39,10 +39,12 @@ class FastRealCliTests(unittest.TestCase):
                 self.assertEqual(len({t['process_pid'] for t in state['turns']}), 1)
                 audited = audit_trial(trial, CardProtocol(), root/'state.json', 'a'*64)
                 self.assertTrue(audited['integrity_ok'], audited['errors'])
-                # This is a limitation, not a pass for no-tool isolation.
                 exposed = [item for request in service.warmups for item in request['body'].get('input', [])
-                           if item.get('type') == 'additional_tools']
-                self.assertTrue(exposed, 'reassess the known no-tool deployment blocker')
+                           if item.get('type') == 'additional_tools' and item.get('tools')]
+                if os.environ.get('EXP7_EXPECT_NO_TOOLS') == '1':
+                    self.assertFalse(exposed, 'no-tool catalogue unexpectedly advertised tools')
+                else:
+                    self.assertTrue(exposed, 'reassess the known legacy tool exposure')
             finally:
                 transport.close()
 

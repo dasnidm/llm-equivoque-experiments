@@ -3,7 +3,7 @@
 **ENABLED — 작업 선점·실행 허용**
 
 - 실행: `equivoque-exp7-cards-200-20261115`
-- 갱신 시각: 2026-11-15T01:10:38+00:00 (UTC)
+- 갱신 시각: 2026-11-15T01:10:43+00:00 (UTC)
 - 상태 사유: User requested start; seven-model technical readiness precedes initial 50-per-cell stage
 - 예약 병렬 수 / 전역 상한: **7 / 7**
 - 배정: **8,400대화 · 280작업**
@@ -51,7 +51,7 @@
 |---|---:|---|
 | gpt-5.6-luna | 3 / 3 | 완료 |
 | gpt-5.6-sol | 2 / 3 | 진행 중 |
-| gpt-5.6-terra | 2 / 3 | 진행 중 |
+| gpt-5.6-terra | 3 / 3 | 완료 |
 | gpt-6-astra | 3 / 3 | 완료 |
 | gpt-6-luna | 3 / 3 | 완료 |
 | gpt-6-sol | 3 / 3 | 완료 |

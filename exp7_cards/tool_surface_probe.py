@@ -31,9 +31,13 @@ def probe(binary, catalog, model='gpt-6-astra', effort='high'):
                     for group in item.get('tools', []):
                         for tool in group.get('tools', []):
                             names.add(group.get('name', 'unknown')+'.'+tool.get('name', 'unknown'))
+        # A successful response alone is insufficient: a nested or misconfigured
+        # wrapper might have sent the request somewhere other than this fixture.
+        fixture_received = len(service.requests) > 0
         return {'cli_response_ok': bool(result.get('ok')), 'model_calls': 0,
+                'fixture_received_request': fixture_received,
                 'advertised_tool_count': len(names), 'advertised_tools': sorted(names),
-                'no_tool_isolation_passed': bool(result.get('ok')) and not names}
+                'no_tool_isolation_passed': bool(result.get('ok')) and fixture_received and not names}
 
 
 if __name__ == '__main__':

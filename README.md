@@ -3,7 +3,7 @@
 **STOP — 새 호출 중단**
 
 - 실행: `equivoque-exp7-cards-200-20261115`
-- 갱신 시각: 2026-11-15T01:12:03+00:00 (UTC)
+- 갱신 시각: 2026-11-15T01:12:07+00:00 (UTC)
 - 상태 사유: Card-study supervisor observed worker failure; inspect before resuming
 - 예약 병렬 수 / 전역 상한: **7 / 7**
 - 배정: **8,400대화 · 280작업**

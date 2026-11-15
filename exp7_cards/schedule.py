@@ -199,6 +199,10 @@ def save(destination):
                 'assignments.jsonl.gz': gzip.compress(b''.join(encoded(t) + b'\n' for t in trials), mtime=0),
                 'jobs.json': encoded(jobs) + b'\n',
                 'audit.json': encoded(result) + b'\n'}
+    summary = {**result, 'run_id': RUN_ID,
+               'files': {name: {'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data)}
+                         for name, data in payloads.items()}}
+    payloads['summary.json'] = encoded(summary) + b'\n'
     for name, data in payloads.items():
         path = dest / name
         if path.exists() and path.read_bytes() != data:
@@ -206,6 +210,28 @@ def save(destination):
         if not path.exists():
             path.write_bytes(data)
     return result
+
+
+def load_bundle(directory):
+    directory = Path(directory)
+    summary = json.loads((directory / 'summary.json').read_text())
+    expected_names = {'schedule.json', 'assignments.jsonl.gz', 'jobs.json', 'audit.json'}
+    if set(summary.get('files', {})) != expected_names:
+        raise ValueError('Unexpected allocation files')
+    for name, info in summary['files'].items():
+        data = (directory / name).read_bytes()
+        if len(data) != info['bytes'] or hashlib.sha256(data).hexdigest() != info['sha256']:
+            raise ValueError('Allocation checksum mismatch: ' + name)
+    meta = json.loads((directory / 'schedule.json').read_text())
+    trials = [json.loads(line) for line in gzip.decompress((directory / 'assignments.jsonl.gz').read_bytes()).splitlines()]
+    jobs = json.loads((directory / 'jobs.json').read_text())
+    result = audit(meta, trials)
+    result.update(audit_jobs(trials, jobs))
+    if result != json.loads((directory / 'audit.json').read_text()):
+        raise ValueError('Allocation audit differs')
+    if any(summary.get(k) != v for k, v in {**result, 'run_id': RUN_ID}.items()):
+        raise ValueError('Allocation summary differs')
+    return {**meta, 'trials': trials, 'jobs': jobs}
 
 
 if __name__ == '__main__':

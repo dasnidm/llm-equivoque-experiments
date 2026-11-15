@@ -4,6 +4,7 @@ Unlike the main-study validator, the pre-study protocol accepts a permuted
 card order. No historical protocol or runner is modified.
 """
 from exp7_pre.protocol import PreProtocol, validate_trial as validate_pre
+from exp7_pre.protocol import phase
 
 
 def adapt(trial):
@@ -41,3 +42,7 @@ class CardProtocol:
 
     def display(self, trial, labels):
         return self.base.display(adapt(trial), labels)
+
+
+# Compatibility with the isolated worker adapter; historical modules are unchanged.
+MainProtocol = CardProtocol

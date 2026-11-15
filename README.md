@@ -4,7 +4,7 @@
 
 기존 [본 실험 현황판](https://github.com/dasnidm/llm-equivoque-experiments/tree/exp7/cards-200-coordination-20261115)은 중단 상태다.
 
-갱신: 2026-11-15 14:52:58 UTC
+갱신: 2026-11-15 14:53:46 UTC
 기술 시험 프로세스: 실행 중
 
 ## stage-01
@@ -20,19 +20,19 @@
 
 | 모델 | 추론 수준 | 상태 | 완료 턴 / 34 |
 |---|---|---|---:|
-| gpt-5.6-luna | low | active | 10 / 34 |
-| gpt-5.6-terra | medium | active | 12 / 34 |
-| gpt-5.6-sol | high | active | 14 / 34 |
-| gpt-6-luna | low | active | 15 / 34 |
-| gpt-6-sol | medium | active | 12 / 34 |
-| gpt-6-astra | high | active | 14 / 34 |
-| gpt-6.1-sol | low | active | 13 / 34 |
-| gpt-5.6-luna | high | active | 14 / 34 |
-| gpt-5.6-terra | low | active | 10 / 34 |
-| gpt-5.6-sol | medium | active | 15 / 34 |
-| gpt-6-luna | high | active | 8 / 34 |
-| gpt-6-sol | low | active | 14 / 34 |
-| gpt-6-astra | medium | active | 8 / 34 |
-| gpt-6.1-sol | high | active | 15 / 34 |
+| gpt-5.6-luna | low | active | 19 / 34 |
+| gpt-5.6-terra | medium | active | 19 / 34 |
+| gpt-5.6-sol | high | active | 17 / 34 |
+| gpt-6-luna | low | active | 22 / 34 |
+| gpt-6-sol | medium | active | 17 / 34 |
+| gpt-6-astra | high | active | 19 / 34 |
+| gpt-6.1-sol | low | active | 19 / 34 |
+| gpt-5.6-luna | high | active | 20 / 34 |
+| gpt-5.6-terra | low | active | 17 / 34 |
+| gpt-5.6-sol | medium | active | 21 / 34 |
+| gpt-6-luna | high | active | 13 / 34 |
+| gpt-6-sol | low | active | 19 / 34 |
+| gpt-6-astra | medium | active | 12 / 34 |
+| gpt-6.1-sol | high | active | 21 / 34 |
 
 자동 속도 탐색 상태: `increase_concurrency`

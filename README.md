@@ -3,8 +3,8 @@
 **STOP — 새 호출 중단**
 
 - 실행: `equivoque-exp7-cards-200-20261115`
-- 갱신 시각: 2026-11-15T01:11:12+00:00 (UTC)
-- 상태 사유: Card-study compaction or failed native response; inspect before resuming
+- 갱신 시각: 2026-11-15T01:11:14+00:00 (UTC)
+- 상태 사유: Card-study conversation failed or was interrupted; preserve evidence
 - 예약 병렬 수 / 전역 상한: **7 / 7**
 - 배정: **8,400대화 · 280작업**
 - 보고된 대화: 완료 **0**, 실패 **0**, 중단 **0**, 미시작·미보고 **8,400**

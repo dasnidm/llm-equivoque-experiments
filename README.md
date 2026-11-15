@@ -1,10 +1,10 @@
 # 실험 7 작업 현황
 
-**STOP — 새 호출 중단**
+**ENABLED — 작업 선점·실행 허용**
 
 - 실행: `equivoque-exp7-cards-200-20261115`
-- 갱신 시각: 2026-11-15T00:43:16+00:00 (UTC)
-- 상태 사유: Awaiting launch readiness
+- 갱신 시각: 2026-11-15T00:43:28+00:00 (UTC)
+- 상태 사유: User requested start; seven-model technical readiness precedes initial 50-per-cell stage
 - 예약 병렬 수 / 전역 상한: **0 / 7**
 - 배정: **8,400대화 · 280작업**
 - 보고된 대화: 완료 **0**, 실패 **0**, 중단 **0**, 미시작·미보고 **8,400**

@@ -4,7 +4,7 @@
 
 기존 [본 실험 현황판](https://github.com/dasnidm/llm-equivoque-experiments/tree/exp7/cards-200-coordination-20261115)은 중단 상태다.
 
-갱신: 2026-11-15 14:49:01 UTC
+갱신: 2026-11-15 14:49:49 UTC
 기술 시험 프로세스: 실행 중
 
 ## stage-01
@@ -13,12 +13,12 @@
 
 | 모델 | 추론 수준 | 상태 | 완료 턴 / 34 |
 |---|---|---|---:|
-| gpt-5.6-luna | low | active | 21 / 34 |
-| gpt-5.6-terra | medium | active | 13 / 34 |
-| gpt-5.6-sol | high | active | 19 / 34 |
-| gpt-6-luna | low | active | 18 / 34 |
-| gpt-6-sol | medium | active | 16 / 34 |
-| gpt-6-astra | high | active | 16 / 34 |
-| gpt-6.1-sol | low | active | 14 / 34 |
+| gpt-5.6-luna | low | active | 31 / 34 |
+| gpt-5.6-terra | medium | active | 21 / 34 |
+| gpt-5.6-sol | high | active | 30 / 34 |
+| gpt-6-luna | low | active | 31 / 34 |
+| gpt-6-sol | medium | active | 29 / 34 |
+| gpt-6-astra | high | active | 25 / 34 |
+| gpt-6.1-sol | low | active | 24 / 34 |
 
 자동 속도 탐색 상태: `running`

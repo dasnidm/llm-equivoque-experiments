@@ -59,7 +59,8 @@ def audit_retry_evidence(state):
     return {'integrity_ok':not errors,'errors':errors}
 
 
-def run(root, catalog, *, concurrency=28, sessions=56, max_attempts=5, binary='/opt/codex/bin/codex'):
+def run(root, catalog, *, concurrency=28, sessions=56, max_attempts=5, label='maxretry',
+        binary='/opt/codex/bin/codex'):
     if type(concurrency) is not int or type(sessions) is not int or not 7 <= concurrency <= sessions <= 70:
         raise ValueError('Expected 7 <= concurrency <= sessions <= 70')
     catalog = Path(catalog).resolve()
@@ -68,7 +69,7 @@ def run(root, catalog, *, concurrency=28, sessions=56, max_attempts=5, binary='/
         raise ValueError('Missing requested models')
     if not probe_tool_surface(binary, catalog)['no_tool_isolation_passed']:
         raise RuntimeError('Tool-free isolation check failed')
-    trials = technical_trials('maxretry', sessions)
+    trials = technical_trials(label, sessions)
     root = Path(root).resolve()
     root.mkdir(parents=True, mode=0o700, exist_ok=False)
     gate = TechnicalGate(GitCoordinator(REMOTE, BOARD, root/'guard.git'))
@@ -77,7 +78,7 @@ def run(root, catalog, *, concurrency=28, sessions=56, max_attempts=5, binary='/
     transport = MaxRetryTransport(timeout=180,codex_binary=str(wrapper),catalog_path=catalog,max_attempts=max_attempts)
     initialize_sqlite(root, transport)
     transport.before_send = gate.check
-    metadata = {'scope':'independent technical test only', 'target_rpm':None, 'concurrency':concurrency,
+    metadata = {'scope':'independent technical test only', 'label':label, 'target_rpm':None, 'concurrency':concurrency,
                 'sessions':sessions,'max_attempts_per_turn':max_attempts,'pacing':'none',
                 'catalog_sha256':hashlib.sha256(catalog.read_bytes()).hexdigest(),
                 'source_sha256':{name:hashlib.sha256((Path(__file__).parent/name).read_bytes()).hexdigest()
@@ -146,5 +147,6 @@ if __name__=='__main__':
     p.add_argument('--root',required=True);p.add_argument('--catalog',required=True)
     p.add_argument('--concurrency',type=int,default=28);p.add_argument('--sessions',type=int,default=56)
     p.add_argument('--max-attempts',type=int,default=5)
+    p.add_argument('--label',default='maxretry')
     a=p.parse_args()
-    print(json.dumps(run(a.root,a.catalog,concurrency=a.concurrency,sessions=a.sessions,max_attempts=a.max_attempts),ensure_ascii=False,indent=2))
+    print(json.dumps(run(a.root,a.catalog,concurrency=a.concurrency,sessions=a.sessions,max_attempts=a.max_attempts,label=a.label),ensure_ascii=False,indent=2))

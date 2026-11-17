@@ -36,7 +36,8 @@ class TechnicalStageTests(unittest.TestCase):
             wrapper=make_cli_wrapper(root,os.environ['CODEX_TEST_BINARY'],service.base_url)
             with patch('exp7_cards.max_retry_stage.GitCoordinator',Board), \
                  patch('exp7_cards.max_retry_stage.probe_tool_surface',actual_probe):
-                result=run(root/'stage',os.environ['EXP7_TEST_CATALOG'],concurrency=7,sessions=7,binary=str(wrapper))
+                result=run(root/'stage',os.environ['EXP7_TEST_CATALOG'],concurrency=7,sessions=7,
+                           label='fixture-second',binary=str(wrapper))
             self.assertEqual(result['session_statuses'],{'complete':7},result)
             self.assertEqual(result['successful_calls'],238,result)
             self.assertEqual(result['actual_turn_starts'],240,result)

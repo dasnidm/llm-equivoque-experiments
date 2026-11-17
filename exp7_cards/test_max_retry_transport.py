@@ -93,6 +93,9 @@ class RetryTransportTests(unittest.TestCase):
         self.assertTrue(retryable(result,msg,'t','x'))
         self.assertFalse(retryable({**result,'compaction_events':1},msg,'t','x'))
         self.assertFalse(retryable({**result,'protocol_violations':['Forbidden item started']},msg,'t','x'))
+        fallback = {'method':'warning','params':{'message':'Falling back from WebSockets to HTTPS transport. test'}}
+        self.assertTrue(retryable(result,msg+[fallback],'t','x'))
+        self.assertFalse(retryable(result,msg+[{'method':'warning','params':{'message':'Unknown warning'}}],'t','x'))
         self.assertFalse(retryable(result,[], 't','x'))
         self.assertFalse(retryable({**result,'events':[{'type':'error','message':'retry_429=false'}]},msg,'t','x'))
 
@@ -173,6 +176,45 @@ class RealCliTests(unittest.TestCase):
                 self.assertEqual(second['session_id'],first['session_id'])
                 self.assertEqual(len(t._conversations[trial['trial_id']].completed_turn_ids),2)
                 self.assertEqual(prompt_texts(service.requests[-1]['body']).count('Second question.'),1)
+            finally:
+                t.close()
+
+    def test_actual_cli_retry_after_websocket_fallback(self):
+        class FallBackResponses(LocalResponses):
+            def __init__(self): super().__init__(); self.failed=0
+        with tempfile.TemporaryDirectory() as d, FallBackResponses() as service:
+            # Force the real CLI's WebSocket-to-HTTP fallback through a 403
+            # handshake, as observed in the first live unpaced stage.
+            def reject_websocket(handler):
+                handler.send_error(403)
+            def rate_limit_http(handler):
+                body=json.loads(handler.rfile.read(int(handler.headers['Content-Length'])))
+                if body.get('generate') is not False and service.failed < 6:
+                    service.failed+=1
+                    payload=json.dumps({'error':{'type':'rate_limit_error','code':'rate_limit_exceeded',
+                                                 'message':'429 Too Many Requests'}}).encode()
+                    handler.send_response(429)
+                    handler.send_header('Content-Type','application/json')
+                else:
+                    events=service.events(body,'https',None)
+                    payload=''.join('data: '+json.dumps(event)+'\n\n' for event in events).encode()
+                    handler.send_response(200)
+                    handler.send_header('Content-Type','text/event-stream')
+                handler.send_header('Content-Length',str(len(payload)))
+                handler.end_headers();handler.wfile.write(payload);handler.wfile.flush()
+            service.server.RequestHandlerClass.do_GET=reject_websocket
+            service.server.RequestHandlerClass.do_POST=rate_limit_http
+            root=Path(d)
+            wrapper=make_cli_wrapper(root,os.environ['CODEX_TEST_BINARY'],service.base_url)
+            t=MaxRetryTransport(timeout=90,max_attempts=20,codex_binary=str(wrapper),catalog_path=os.environ['EXP7_TEST_CATALOG'])
+            t.before_send=lambda:None
+            trial={'trial_id':'fallback-429','model':'gpt-6-astra','effort':'high'}
+            try:
+                result=t.request(trial,'Fallback question.',None,'Synthetic system.',None,root/'native',1)
+                self.assertTrue(result['ok'],(result['protocol_violations'],result['events']))
+                self.assertTrue(service.failed)
+                self.assertGreaterEqual(len(result['retry_records']),1)
+                self.assertEqual(len(t._conversations[trial['trial_id']].completed_turn_ids),1)
             finally:
                 t.close()
 

@@ -29,9 +29,16 @@ def retryable(result, messages, thread_id, turn_id):
             or terms[0].get('turn', {}).get('id') != turn_id
             or terms[0].get('turn', {}).get('status') != 'failed'):
         return False
-    if any(m.get('method') in ('thread/compacted', 'model/rerouted', 'warning', 'configWarning', 'guardianWarning')
-           or ('id' in m and 'method' in m) for m in messages):
-        return False
+    for m in messages:
+        method = m.get('method')
+        if method in ('thread/compacted', 'model/rerouted', 'configWarning', 'guardianWarning') or ('id' in m and method):
+            return False
+        if method == 'warning':
+            warning = str(m.get('params', {}).get('message', ''))
+            # The base adapter already recognizes this transport fallback;
+            # it does not imply the model changed or a tool was invoked.
+            if not warning.startswith('Falling back from WebSockets to HTTPS transport.'):
+                return False
     errors = [e for e in result.get('events', []) if e.get('type') == 'error']
     if not errors:
         return False

@@ -4,7 +4,7 @@
 
 기존 [본 실험 현황판](https://github.com/dasnidm/llm-equivoque-experiments/tree/exp7/cards-200-coordination-20261115)은 중단 상태다.
 
-갱신: 2026-11-17 19:59:51 UTC
+갱신: 2026-11-17 20:00:39 UTC
 기술 시험 프로세스: 실행 중
 
 ## stage-01
@@ -13,31 +13,31 @@
 
 | 모델 | 추론 수준 | 상태 | 완료 턴 / 34 |
 |---|---|---|---:|
-| gpt-5.6-luna | low | active | 16 / 34 |
-| gpt-5.6-terra | medium | active | 13 / 34 |
-| gpt-5.6-sol | high | active | 10 / 34 |
-| gpt-6-luna | low | active | 14 / 34 |
-| gpt-6-sol | medium | active | 14 / 34 |
-| gpt-6-astra | high | active | 10 / 34 |
-| gpt-6.1-sol | low | active | 11 / 34 |
-| gpt-5.6-luna | high | active | 10 / 34 |
-| gpt-5.6-terra | low | active | 12 / 34 |
-| gpt-5.6-sol | medium | active | 12 / 34 |
-| gpt-6-luna | high | active | 10 / 34 |
-| gpt-6-sol | low | active | 12 / 34 |
-| gpt-6-astra | medium | active | 9 / 34 |
-| gpt-6.1-sol | high | active | 6 / 34 |
-| gpt-5.6-luna | medium | active | 9 / 34 |
-| gpt-5.6-terra | high | active | 9 / 34 |
-| gpt-5.6-sol | low | active | 11 / 34 |
-| gpt-6-luna | medium | active | 10 / 34 |
-| gpt-6-sol | high | active | 11 / 34 |
-| gpt-6-astra | low | active | 10 / 34 |
-| gpt-6.1-sol | medium | active | 9 / 34 |
-| gpt-5.6-luna | low | active | 11 / 34 |
-| gpt-5.6-terra | medium | active | 10 / 34 |
-| gpt-5.6-sol | high | active | 11 / 34 |
-| gpt-6-luna | low | active | 15 / 34 |
-| gpt-6-sol | medium | active | 11 / 34 |
-| gpt-6-astra | high | active | 7 / 34 |
-| gpt-6.1-sol | low | active | 7 / 34 |
+| gpt-5.6-luna | low | active | 21 / 34 |
+| gpt-5.6-terra | medium | active | 17 / 34 |
+| gpt-5.6-sol | high | active | 14 / 34 |
+| gpt-6-luna | low | active | 17 / 34 |
+| gpt-6-sol | medium | active | 18 / 34 |
+| gpt-6-astra | high | active | 13 / 34 |
+| gpt-6.1-sol | low | active | 14 / 34 |
+| gpt-5.6-luna | high | active | 13 / 34 |
+| gpt-5.6-terra | low | active | 14 / 34 |
+| gpt-5.6-sol | medium | active | 17 / 34 |
+| gpt-6-luna | high | active | 13 / 34 |
+| gpt-6-sol | low | active | 16 / 34 |
+| gpt-6-astra | medium | active | 12 / 34 |
+| gpt-6.1-sol | high | active | 9 / 34 |
+| gpt-5.6-luna | medium | active | 13 / 34 |
+| gpt-5.6-terra | high | active | 12 / 34 |
+| gpt-5.6-sol | low | active | 15 / 34 |
+| gpt-6-luna | medium | active | 15 / 34 |
+| gpt-6-sol | high | active | 14 / 34 |
+| gpt-6-astra | low | active | 12 / 34 |
+| gpt-6.1-sol | medium | active | 12 / 34 |
+| gpt-5.6-luna | low | active | 15 / 34 |
+| gpt-5.6-terra | medium | active | 14 / 34 |
+| gpt-5.6-sol | high | active | 15 / 34 |
+| gpt-6-luna | low | active | 20 / 34 |
+| gpt-6-sol | medium | active | 15 / 34 |
+| gpt-6-astra | high | active | 9 / 34 |
+| gpt-6.1-sol | low | active | 10 / 34 |

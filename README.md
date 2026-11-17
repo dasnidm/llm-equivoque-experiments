@@ -4,7 +4,7 @@
 
 기존 [본 실험 현황판](https://github.com/dasnidm/llm-equivoque-experiments/tree/exp7/cards-200-coordination-20261115)은 중단 상태다.
 
-갱신: 2026-11-17 20:11:04 UTC
+갱신: 2026-11-17 20:11:51 UTC
 기술 시험 프로세스: 실행 중
 
 ## stage-01
@@ -41,31 +41,31 @@
 | gpt-6-sol | medium | complete | 34 / 34 |
 | gpt-6-astra | high | complete | 34 / 34 |
 | gpt-6.1-sol | low | complete | 34 / 34 |
-| gpt-5.6-luna | high | active | 29 / 34 |
-| gpt-5.6-terra | low | active | 28 / 34 |
-| gpt-5.6-sol | medium | active | 19 / 34 |
-| gpt-6-luna | high | active | 23 / 34 |
-| gpt-6-sol | low | active | 23 / 34 |
-| gpt-6-astra | medium | active | 16 / 34 |
-| gpt-6.1-sol | high | active | 18 / 34 |
-| gpt-5.6-luna | medium | active | 24 / 34 |
-| gpt-5.6-terra | high | active | 20 / 34 |
-| gpt-5.6-sol | low | active | 20 / 34 |
-| gpt-6-luna | medium | active | 18 / 34 |
-| gpt-6-sol | high | active | 17 / 34 |
-| gpt-6-astra | low | active | 13 / 34 |
-| gpt-6.1-sol | medium | active | 15 / 34 |
-| gpt-5.6-luna | low | active | 18 / 34 |
-| gpt-5.6-terra | medium | active | 15 / 34 |
-| gpt-5.6-sol | high | active | 15 / 34 |
-| gpt-6-luna | low | active | 13 / 34 |
-| gpt-6-sol | medium | active | 12 / 34 |
-| gpt-6-astra | high | active | 9 / 34 |
-| gpt-6.1-sol | low | active | 12 / 34 |
-| gpt-5.6-luna | high | active | 15 / 34 |
-| gpt-5.6-terra | low | active | 10 / 34 |
-| gpt-5.6-sol | medium | active | 13 / 34 |
-| gpt-6-luna | high | active | 11 / 34 |
-| gpt-6-sol | low | active | 14 / 34 |
-| gpt-6-astra | medium | active | 8 / 34 |
-| gpt-6.1-sol | high | active | 0 / 34 |
+| gpt-5.6-luna | high | active | 31 / 34 |
+| gpt-5.6-terra | low | active | 30 / 34 |
+| gpt-5.6-sol | medium | active | 22 / 34 |
+| gpt-6-luna | high | active | 26 / 34 |
+| gpt-6-sol | low | active | 29 / 34 |
+| gpt-6-astra | medium | active | 19 / 34 |
+| gpt-6.1-sol | high | active | 23 / 34 |
+| gpt-5.6-luna | medium | active | 25 / 34 |
+| gpt-5.6-terra | high | active | 24 / 34 |
+| gpt-5.6-sol | low | active | 23 / 34 |
+| gpt-6-luna | medium | active | 25 / 34 |
+| gpt-6-sol | high | active | 20 / 34 |
+| gpt-6-astra | low | active | 15 / 34 |
+| gpt-6.1-sol | medium | active | 20 / 34 |
+| gpt-5.6-luna | low | active | 21 / 34 |
+| gpt-5.6-terra | medium | active | 19 / 34 |
+| gpt-5.6-sol | high | active | 19 / 34 |
+| gpt-6-luna | low | active | 17 / 34 |
+| gpt-6-sol | medium | active | 16 / 34 |
+| gpt-6-astra | high | active | 14 / 34 |
+| gpt-6.1-sol | low | active | 15 / 34 |
+| gpt-5.6-luna | high | active | 21 / 34 |
+| gpt-5.6-terra | low | active | 13 / 34 |
+| gpt-5.6-sol | medium | active | 17 / 34 |
+| gpt-6-luna | high | active | 13 / 34 |
+| gpt-6-sol | low | active | 16 / 34 |
+| gpt-6-astra | medium | active | 11 / 34 |
+| gpt-6.1-sol | high | active | 4 / 34 |

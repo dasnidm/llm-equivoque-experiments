@@ -24,13 +24,16 @@ def snapshot(root, running):
         summary = stage/'summary.json'
         if profile.exists():
             p = json.loads(profile.read_text())
-            lines += [f"요청 상한 {p['target_rpm']:g}회/분 · 동시 대화 {p['concurrency']}개", '']
+            limit = '없음' if p['target_rpm'] is None else f"{p['target_rpm']:g}회/분"
+            lines += [f"요청 상한 {limit} · 동시 대화 {p['concurrency']}개", '']
         if summary.exists():
             s = json.loads(summary.read_text())
             lines += [f"완료 대화 {s['session_statuses'].get('complete', 0)}개 / {s['planned_sessions']}개 · "
                       f"성공 턴 {s['successful_calls']}개 · 관측 처리량 {s['observed_successes_per_minute']:.1f}회/분",
                       f"미확정 대화 {s['uncertain_sessions']}개 · 도구 이벤트 {s['forbidden_tool_events']}개 · "
                       f"컨텍스트 압축 {s['compaction_events']}개 · native 429 기록 {s['native_429_retry_log_records']}", '']
+            if 'rpc_429_error_attempts' in s:
+                lines += [f"RPC 429 오류 {s['rpc_429_error_attempts']}개 · 재시도 가능한 오류 {s['retryable_error_attempts']}개", '']
         else:
             lines += ['| 모델 | 추론 수준 | 상태 | 완료 턴 / 34 |', '|---|---|---|---:|']
             for path in sorted((stage/'states').glob('tech-*.json')):
@@ -50,7 +53,7 @@ def snapshot(root, running):
 def active(pid):
     try:
         cmd = Path(f'/proc/{pid}/cmdline').read_bytes()
-        return b'exp7_cards.technical_sweep' in cmd
+        return b'exp7_cards.technical_sweep' in cmd or b'exp7_cards.max_retry_stage' in cmd
     except OSError:
         return False
 

@@ -4,7 +4,7 @@
 
 기존 [본 실험 현황판](https://github.com/dasnidm/llm-equivoque-experiments/tree/exp7/cards-200-coordination-20261115)은 중단 상태다.
 
-갱신: 2026-11-17 20:14:59 UTC
+갱신: 2026-11-17 20:15:46 UTC
 기술 시험 프로세스: 실행 중
 
 ## stage-01
@@ -43,29 +43,29 @@
 | gpt-6.1-sol | low | complete | 34 / 34 |
 | gpt-5.6-luna | high | complete | 34 / 34 |
 | gpt-5.6-terra | low | complete | 34 / 34 |
-| gpt-5.6-sol | medium | active | 32 / 34 |
+| gpt-5.6-sol | medium | complete | 34 / 34 |
 | gpt-6-luna | high | complete | 34 / 34 |
 | gpt-6-sol | low | complete | 34 / 34 |
-| gpt-6-astra | medium | active | 27 / 34 |
-| gpt-6.1-sol | high | active | 32 / 34 |
+| gpt-6-astra | medium | active | 31 / 34 |
+| gpt-6.1-sol | high | active | 33 / 34 |
 | gpt-5.6-luna | medium | complete | 34 / 34 |
 | gpt-5.6-terra | high | complete | 34 / 34 |
-| gpt-5.6-sol | low | active | 32 / 34 |
+| gpt-5.6-sol | low | complete | 34 / 34 |
 | gpt-6-luna | medium | complete | 34 / 34 |
-| gpt-6-sol | high | active | 32 / 34 |
-| gpt-6-astra | low | active | 25 / 34 |
-| gpt-6.1-sol | medium | active | 29 / 34 |
+| gpt-6-sol | high | complete | 34 / 34 |
+| gpt-6-astra | low | active | 28 / 34 |
+| gpt-6.1-sol | medium | active | 32 / 34 |
 | gpt-5.6-luna | low | complete | 34 / 34 |
-| gpt-5.6-terra | medium | active | 33 / 34 |
-| gpt-5.6-sol | high | active | 33 / 34 |
-| gpt-6-luna | low | active | 32 / 34 |
-| gpt-6-sol | medium | active | 30 / 34 |
-| gpt-6-astra | high | active | 27 / 34 |
-| gpt-6.1-sol | low | active | 26 / 34 |
+| gpt-5.6-terra | medium | complete | 34 / 34 |
+| gpt-5.6-sol | high | complete | 34 / 34 |
+| gpt-6-luna | low | complete | 34 / 34 |
+| gpt-6-sol | medium | active | 33 / 34 |
+| gpt-6-astra | high | active | 31 / 34 |
+| gpt-6.1-sol | low | active | 30 / 34 |
 | gpt-5.6-luna | high | complete | 34 / 34 |
-| gpt-5.6-terra | low | active | 27 / 34 |
-| gpt-5.6-sol | medium | active | 27 / 34 |
-| gpt-6-luna | high | active | 28 / 34 |
-| gpt-6-sol | low | active | 30 / 34 |
-| gpt-6-astra | medium | active | 24 / 34 |
-| gpt-6.1-sol | high | active | 16 / 34 |
+| gpt-5.6-terra | low | active | 31 / 34 |
+| gpt-5.6-sol | medium | active | 30 / 34 |
+| gpt-6-luna | high | active | 31 / 34 |
+| gpt-6-sol | low | complete | 34 / 34 |
+| gpt-6-astra | medium | active | 29 / 34 |
+| gpt-6.1-sol | high | active | 22 / 34 |

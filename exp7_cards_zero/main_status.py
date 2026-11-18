@@ -95,8 +95,15 @@ class Dashboard:
         if result.returncode:raise RuntimeError('Dashboard Git operation failed: '+args[0])
         return result.stdout.decode().strip()
 
+    def sync(self):
+        branch=self.git('branch','--show-current')
+        if not branch:raise RuntimeError('Dashboard branch is not checked out')
+        tracking='refs/remotes/origin/'+branch
+        self.git('fetch','-q','--no-tags','origin','refs/heads/'+branch+':'+tracking)
+        self.git('merge','--ff-only','-q',tracking)
+
     def publish(self,text):
-        self.git('pull','--ff-only','-q')
+        self.sync()
         (self.repo/'README.md').write_text(text)
         self.git('add','README.md')
         self.git('commit','-q','-m','Update experiment 7 progress')

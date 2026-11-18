@@ -9,7 +9,7 @@ import unittest
 
 from .main_backup import archive_conversation, PrivateGitBackup, restore_archive, sha
 from .main_schedule import audit, build, load, save
-from .main_status import StatusDB, render
+from .main_status import Dashboard, StatusDB, render
 
 
 class MainPreparationTests(unittest.TestCase):
@@ -67,6 +67,19 @@ class MainPreparationTests(unittest.TestCase):
             self.assertIn('| 백업 대기 | 1 |',view)
             db.update(trial['trial_id'],'complete')
             self.assertIn('**1 / 8,400**',render(db,Transport(),'1차 수집 중'))
+
+    def test_dashboard_syncs_only_its_own_branch(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);remote=root/'remote.git';repo=root/'board'
+            subprocess.run(['git','init','--bare','-q',str(remote)],check=True)
+            subprocess.run(['git','init','-q','-b','board/test',str(repo)],check=True)
+            def git(*args):
+                subprocess.run(['git','-C',str(repo),*args],check=True,capture_output=True)
+            git('config','user.name','test');git('config','user.email','test@example.invalid')
+            (repo/'README.md').write_text('initial\n')
+            git('add','README.md');git('commit','-q','-m','initial')
+            git('remote','add','origin',str(remote));git('push','-qu','origin','HEAD')
+            Dashboard(repo).sync()
 
     @unittest.skipUnless(os.environ.get('CODEX_TEST_BINARY') and os.environ.get('EXP7_TEST_CATALOG'),
                          'Explicit loopback CLI fixture required')

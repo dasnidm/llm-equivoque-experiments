@@ -127,7 +127,7 @@ def controller(root, dashboard_repo, catalog, binary='/opt/codex/bin/codex', con
     backup_worker=BackupThread(root,db,backup,metadata['id'])
     state={'text':'준비 완료','done':False,'dashboard_error':None}
     # Publish a runnable control only after every read-only preflight succeeds.
-    dashboard.git('pull','--ff-only','-q')
+    dashboard.sync()
     (dashboard_repo/'control.json').write_text(json.dumps({'run_id':RUN_ID,'stop':False,'reason':'user authorized main run'})+'\n')
     dashboard.git('add','control.json');dashboard.git('commit','-q','-m','Enable experiment 7 main run');dashboard.git('push','-q')
     if not control.check_once():raise RuntimeError('Remote board has STOP set')

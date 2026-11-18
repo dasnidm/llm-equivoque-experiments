@@ -119,6 +119,20 @@ class DiesAfterUnsafeTurn(LiveConversation):
 
 
 class QueuedRetryTests(unittest.TestCase):
+    def test_stderr_is_consumed_incrementally_and_truncation_is_not_hidden(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);subject=root/'subject';subject.mkdir()
+            c=LiveConversation(['codex','app-server','--stdio'],subject,root,())
+            c.stderr_consumed=0
+            t=QueuedRetryTransport(timeout=5);t._install_queue(c,'fixture')
+            c.stderr_path.write_bytes(b'first\n')
+            self.assertEqual(c.consume_stderr(),'first\n')
+            with c.stderr_path.open('ab') as out:out.write(b'second\n')
+            self.assertEqual(c.consume_stderr(),'second\n')
+            c.stderr_path.write_bytes(b'x')
+            with self.assertRaises(ValueError):c.consume_stderr()
+            t.close()
+
     def test_duplicate_concurrent_sample_is_rejected_before_second_run(self):
         _,rows=build();trial=next(x for x in rows if x['model']=='gpt-6-astra' and x['effort']=='high')
         with tempfile.TemporaryDirectory() as d:
@@ -397,6 +411,7 @@ class QueuedRetryTests(unittest.TestCase):
         result={'ok':False,'tool_events':0,'compaction_events':0,
                 'events':[{'type':'error','message':'any explicit terminal error'}]}
         self.assertTrue(retryable(result,msg,'t','x'))
+        self.assertTrue(retryable({**result,'events':[]},msg,'t','x'))
         self.assertFalse(retryable(result,[], 't','x'))
         self.assertFalse(retryable({**result,'tool_events':1},msg,'t','x'))
         self.assertFalse(retryable({**result,'compaction_events':1},msg,'t','x'))

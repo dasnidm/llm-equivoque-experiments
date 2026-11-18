@@ -37,7 +37,9 @@ def run(root,catalog,*,sessions=7,label='queue-check',binary='/opt/codex/bin/cod
     root.mkdir(parents=True,mode=0o700,exist_ok=False)
     gate=TechnicalGate(GitCoordinator(REMOTE,BOARD,root/'guard.git'))
     gate.check()
-    storage=StorageMonitor([root],gate,ttl=60)
+    # Unlimited retries can create files quickly; refresh capacity without
+    # imposing a transmission interval.
+    storage=StorageMonitor([root],gate,ttl=1)
     storage.check(force=True)
     wrapper,_=sqlite_wrapper(root,binary)
     transport=QueuedRetryTransport(timeout=180,codex_binary=str(wrapper),catalog_path=catalog)

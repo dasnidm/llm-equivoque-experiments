@@ -49,11 +49,9 @@ def retryable(result, messages, thread_id, turn_id):
             # it does not imply the model changed or a tool was invoked.
             if not warning.startswith('Falling back from WebSockets to HTTPS transport.'):
                 return False
-    errors = [e for e in result.get('events', []) if e.get('type') == 'error']
-    if not errors:
-        return False
     # A verified terminal failure, not an inferred code or ambiguous send, is
-    # the basis for retry. All terminal error classes follow the user's rule.
+    # the basis for retry, even if the server omits error details. All safe
+    # terminal error classes follow the user's rule.
     return True
 
 
@@ -131,6 +129,19 @@ class QueuedRetryTransport(native.PersistentTransport):
 
     def _install_queue(self, c, key):
         original_send, original_receive = c.send, c.receive
+        if hasattr(c,'stderr_consumed'):
+            def incremental_stderr():
+                # Re-reading the entire growing CLI log on every retry becomes
+                # quadratic and can exhaust memory during unlimited retries.
+                with c.stderr_path.open('rb') as stream:
+                    stream.seek(0,os.SEEK_END)
+                    if stream.tell() < c.stderr_consumed:
+                        raise ValueError('Process diagnostics log was truncated')
+                    stream.seek(c.stderr_consumed)
+                    data=stream.read()
+                c.stderr_consumed += len(data)
+                return data.decode('utf-8',errors='replace')
+            c.consume_stderr=incremental_stderr
         def queued_send(message, sent):
             if message.get('method') == 'turn/start':
                 self.admission_queue.admit(key, lambda: c.process.poll() is None)
@@ -330,7 +341,10 @@ class QueuedRetryTransport(native.PersistentTransport):
                 c.close()
             else:
                 self.held_processes[key] = {'reason':'live_process_unresolved','type':type(exc).__name__}
-            exc.transport_diagnostics = c.consume_stderr()
+            try:
+                exc.transport_diagnostics = c.consume_stderr()
+            except (OSError,ValueError) as diagnostic_error:
+                exc.transport_diagnostics = 'Diagnostics unavailable: '+type(diagnostic_error).__name__
             raise
         finally:
             c.lock.release()

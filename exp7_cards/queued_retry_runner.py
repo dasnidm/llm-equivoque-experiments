@@ -69,11 +69,25 @@ def _run_guarded(trial, protocol, transport, path, scratch, budget, freeze_sha25
     state = None
     try:
         if prior is not None:
-            if prior.get('status') in ('complete','failed','budget_exhausted','unstarted'):
+            if prior.get('status') in ('complete','unstarted'):
                 return prior
+            if prior.get('status') == 'failed' and prior.get('failure_kind') == 'process_exited':
+                return prior
+            # The inner runner may have checkpointed a terminal-looking state
+            # just before the controller died, before process status was
+            # classified. Do not infer that the subject process has exited.
+            if prior.get('status') in ('failed','budget_exhausted'):
+                prior.update(status='held',ended_at=None,hold_reason='process_identity_unknown')
+                append_event(path.with_suffix('.journal.jsonl'),
+                             {'type':'unclassified_terminal_held','at':now(),
+                              'pending':bool(prior.get('pending_turn'))})
+                atomic_json(path,prior)
             if prior.get('status') == 'held':
-                if transport.process_state(key) != 'exited':
+                process = transport.process_state(key)
+                if process != 'exited':
                     state = prior
+                    if process == 'alive':
+                        transport.held_processes.setdefault(key,{'reason':'live_session_requires_reconciliation'})
                     _watch_held(trial,transport,path,freeze_sha256)
                     return state
                 prior.update(status='failed',ended_at=now(),failure_kind='process_exited')
@@ -84,7 +98,7 @@ def _run_guarded(trial, protocol, transport, path, scratch, budget, freeze_sha25
                 transport.held_processes.pop(key,None)
                 return state
         state = durable_trial(trial, protocol, transport, path, scratch, budget, freeze_sha256)
-        if state.get('status') in ('interrupted', 'failed'):
+        if state.get('status') in ('interrupted', 'failed', 'budget_exhausted'):
             process = transport.process_state(key)
             if process == 'not_started':
                 state.update(status='unstarted', ended_at=now(), failure_kind='process_not_started')
@@ -105,6 +119,7 @@ def _run_guarded(trial, protocol, transport, path, scratch, budget, freeze_sha25
                              {'type':'sample_failed_process_exited','at':now(),
                               'pending':bool(state.get('pending_turn'))})
                 atomic_json(path,state)
+                transport.held_processes.pop(key,None)
         return state
     except Exception as exc:
         # A checkpoint/journal failure can occur outside transport.request.

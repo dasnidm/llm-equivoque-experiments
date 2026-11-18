@@ -100,7 +100,47 @@ class DiesBetweenTurns(LiveConversation):
         return message
 
 
+class LiveAfterFirst(DiesBetweenTurns):
+    def receive(self,deadline,received,messages):
+        return FakeConversation.receive(self,deadline,received,messages)
+
+
+class DiesAfterUnsafeTurn(LiveConversation):
+    def rpc(self,method,params,deadline,sent,received,messages):
+        result=super().rpc(method,params,deadline,sent,received,messages)
+        if method=='turn/start':
+            tid=result['turn']['id']
+            self.queue.insert(0,{'method':'item/completed','params':{'threadId':'same-thread','turnId':tid,
+                              'item':{'id':'forbidden-item','type':'commandExecution'}}})
+        return result
+    def consume_stderr(self):
+        self.process.returncode=9
+        return ''
+
+
 class QueuedRetryTests(unittest.TestCase):
+    def test_duplicate_concurrent_sample_is_rejected_before_second_run(self):
+        _,rows=build();trial=next(x for x in rows if x['model']=='gpt-6-astra' and x['effort']=='high')
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);t=QueuedRetryTransport(timeout=5);entered=threading.Event();release=threading.Event()
+            def blocked(*args):
+                entered.set()
+                if not release.wait(3):raise TimeoutError('fixture not released')
+                return {'status':'complete'}
+            def execute():
+                return run_trial(trial,CardProtocol(),t,root/'state.json',root/'native',
+                                 CallBudget(root/'budget.json','fixture',34),'a'*64)
+            with patch('exp7_cards.queued_retry_runner.durable_trial',side_effect=blocked):
+                with ThreadPoolExecutor(max_workers=1) as pool:
+                    future=pool.submit(execute)
+                    self.assertTrue(entered.wait(3))
+                    try:
+                        with self.assertRaises(BlockingIOError):execute()
+                    finally:release.set()
+                    self.assertEqual(future.result()['status'],'complete')
+            self.assertEqual(t.total_sent,0)
+            t.close()
+
     def test_missing_send_gate_fails_before_creating_process(self):
         with tempfile.TemporaryDirectory() as d, \
              patch('exp7_persistent.transport._Conversation') as conversation:
@@ -285,6 +325,73 @@ class QueuedRetryTests(unittest.TestCase):
             self.assertEqual(len(t.sent_stamps),1)
             t.close()
 
+    def test_dead_process_after_unsafe_turn_does_not_leave_stale_hold(self):
+        _,rows=build();trial=next(x for x in rows if x['model']=='gpt-6-astra' and x['effort']=='high')
+        with tempfile.TemporaryDirectory() as d, \
+             patch('exp7_persistent.transport._Conversation',DiesAfterUnsafeTurn), \
+             patch('exp7_persistent.transport.validate_startup',lambda *args:None), \
+             patch.object(QueuedRetryTransport,'_command',lambda *args:['codex','app-server','--stdio']):
+            root=Path(d);t=QueuedRetryTransport(timeout=5);t.before_send=lambda:None
+            state=run_trial(trial,CardProtocol(),t,root/'state.json',root/'native',CallBudget(root/'budget.json','fixture',34),'a'*64)
+            self.assertEqual(state['status'],'failed',state)
+            self.assertEqual(state['failure_kind'],'process_exited')
+            self.assertNotIn(trial['trial_id'],t.held_processes)
+            t.close()
+
+    def test_budget_exhaustion_does_not_kill_live_process(self):
+        _,rows=build();trial=next(x for x in rows if x['model']=='gpt-6-astra' and x['effort']=='high')
+        with tempfile.TemporaryDirectory() as d, \
+             patch('exp7_persistent.transport._Conversation',LiveAfterFirst), \
+             patch('exp7_persistent.transport.validate_startup',lambda *args:None), \
+             patch.object(QueuedRetryTransport,'_command',lambda *args:['codex','app-server','--stdio']):
+            root=Path(d);t=QueuedRetryTransport(timeout=5);t.before_send=lambda:None
+            state=run_trial(trial,CardProtocol(),t,root/'state.json',root/'native',CallBudget(root/'budget.json','fixture',1),'a'*64)
+            self.assertEqual(state['status'],'held',state)
+            self.assertEqual(len(state['turns']),1)
+            self.assertEqual(t.process_state(trial['trial_id']),'alive')
+            self.assertEqual(t.total_sent,1)
+            with self.assertRaises(RuntimeError):t.close()
+            t._conversations[trial['trial_id']].process.returncode=9
+            deadline=time.monotonic()+3
+            while time.monotonic()<deadline and trial['trial_id'] in t.held_processes:time.sleep(.01)
+            self.assertNotIn(trial['trial_id'],t.held_processes)
+            t.close()
+
+    def test_unclassified_failed_checkpoint_is_not_assumed_dead(self):
+        _,rows=build();trial=next(x for x in rows if x['model']=='gpt-6-astra' and x['effort']=='high')
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);t=QueuedRetryTransport(timeout=5)
+            path=root/'state.json'
+            path.write_text(json.dumps({'trial':trial,'freeze_sha256':'a'*64,'transport':t.name,
+                                        'status':'failed','pending_turn':{'turn':1}}))
+            result=run_trial(trial,CardProtocol(),t,path,root/'native',CallBudget(root/'budget.json','fixture',34),'a'*64)
+            self.assertEqual(result['status'],'held')
+            self.assertEqual(result['hold_reason'],'process_identity_unknown')
+            self.assertEqual(t.total_sent,0)
+            t.close()
+
+    def test_unclassified_failed_checkpoint_keeps_known_live_process_open(self):
+        _,rows=build();trial=next(x for x in rows if x['model']=='gpt-6-astra' and x['effort']=='high')
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);native_dir=root/'native';native_dir.mkdir()
+            subject=native_dir/'subject';subject.mkdir()
+            t=QueuedRetryTransport(timeout=5);c=LiveConversation(['codex','app-server','--stdio'],subject,native_dir,())
+            t._conversations[trial['trial_id']]=c
+            path=root/'state.json'
+            path.write_text(json.dumps({'trial':trial,'freeze_sha256':'a'*64,'transport':t.name,
+                                        'status':'failed','pending_turn':{'turn':1}}))
+            result=run_trial(trial,CardProtocol(),t,path,root/'native',CallBudget(root/'budget.json','fixture',34),'a'*64)
+            self.assertEqual(result['status'],'held')
+            self.assertIn(trial['trial_id'],t.held_processes)
+            self.assertEqual(t.process_state(trial['trial_id']),'alive')
+            with self.assertRaises(RuntimeError):t.close()
+            c.process.returncode=9
+            deadline=time.monotonic()+3
+            while time.monotonic()<deadline and trial['trial_id'] in t.held_processes:time.sleep(.01)
+            self.assertEqual(json.loads(path.read_text())['status'],'failed')
+            self.assertNotIn(trial['trial_id'],t.held_processes)
+            t.close()
+
     def test_only_verified_failed_terminal_turns_are_requeued(self):
         msg=[{'method':'turn/completed','params':{'threadId':'t','turn':{'id':'x','status':'failed'}}}]
         result={'ok':False,'tool_events':0,'compaction_events':0,
@@ -298,6 +405,35 @@ class QueuedRetryTests(unittest.TestCase):
 @unittest.skipUnless(os.environ.get('CODEX_TEST_BINARY') and os.environ.get('EXP7_TEST_CATALOG'),
                      'loopback CLI fixture required')
 class RealCliQueuedTests(unittest.TestCase):
+    def test_real_cli_process_death_marks_sample_failed_without_restart(self):
+        class Paused(LocalResponses):
+            def __init__(self):super().__init__(schema_answers=True);self.started=threading.Event();self.release=threading.Event()
+            def events(self,body,transport,connection_id):
+                if body.get('generate') is not False:
+                    self.started.set();self.release.wait(10)
+                return super().events(body,transport,connection_id)
+        _,rows=build();trial=next(x for x in rows if x['model']=='gpt-6-astra' and x['effort']=='high')
+        with tempfile.TemporaryDirectory() as d, Paused() as service:
+            root=Path(d);wrapper=make_cli_wrapper(root,os.environ['CODEX_TEST_BINARY'],service.base_url)
+            t=QueuedRetryTransport(timeout=30,codex_binary=str(wrapper),catalog_path=os.environ['EXP7_TEST_CATALOG'])
+            t.before_send=lambda:None
+            def execute():
+                return run_trial(trial,CardProtocol(),t,root/'state.json',root/'native',
+                                 CallBudget(root/'budget.json','fixture',34),'a'*64)
+            try:
+                with ThreadPoolExecutor(max_workers=1) as pool:
+                    future=pool.submit(execute)
+                    self.assertTrue(service.started.wait(10),'CLI did not start a model request')
+                    process=t._conversations[trial['trial_id']].process
+                    process.kill();process.wait(timeout=5);service.release.set()
+                    state=future.result(timeout=10)
+                self.assertEqual(state['status'],'failed',state)
+                self.assertEqual(state['failure_kind'],'process_exited')
+                self.assertIsNotNone(state['pending_turn'])
+                self.assertEqual(t.total_sent,1)
+            finally:
+                service.release.set();t.close()
+
     def test_actual_cli_retry_in_middle_of_session(self):
         class FailSixth(LocalResponses):
             def __init__(self):super().__init__(schema_answers=True);self.failures=0

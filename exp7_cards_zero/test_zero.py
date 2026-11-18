@@ -30,12 +30,41 @@ class ZeroTests(unittest.TestCase):
             prompt = p.prompt(self.trial, turn, 'K', ['A'])
             self.assertIn('0 = no freedom', prompt)
             self.assertIn('0 = no effect', prompt)
+            self.assertIn('100 = extreme impact', prompt)
+            self.assertNotIn('Reply as JSON', prompt)
+            self.assertNotIn('Your chosen card', prompt)
             schema = p.schema(turn, ['A'], 'cards', self.trial)
             for key in ('freedom', 'impact'):
                 self.assertEqual((schema['properties'][key]['minimum'],
                                   schema['properties'][key]['maximum']), (0, 100))
         old = CardProtocol().schema(3, ['A'], 'cards', self.trial)
         self.assertEqual(old['properties']['impact']['minimum'], 1)
+
+    def test_card_fields_and_game_prompt(self):
+        p = ZeroCardProtocol()
+        for turn, remaining, key in ((1, self.trial['order'], 'cards'),
+                                     (2, self.trial['order'][:2], 'card')):
+            schema = p.schema(turn, remaining, 'cards', self.trial)
+            self.assertEqual(schema['required'], [key])
+            self.assertNotIn('selection', schema['properties'])
+            prompt = p.prompt(self.trial, turn, 'K' if turn == 2 else None, remaining)
+            self.assertNotIn('selection', prompt.lower())
+            self.assertNotIn('JSON', prompt)
+        names = p.base.choice_names('cards', {**self.trial, 'arm': 'A'})
+        pair = [names[x] for x in self.trial['order'][:2]]
+        parsed = p.parse_response(json.dumps({'cards': pair}), 1,
+                                  self.trial['order'], 'cards', self.trial)
+        self.assertEqual(parsed['selection'], self.trial['order'][:2])
+        for invalid in ({'selection': pair}, {'cards': [pair[0], pair[0]]}):
+            with self.assertRaises(ValueError):
+                p.parse_response(json.dumps(invalid), 1, self.trial['order'], 'cards', self.trial)
+        for arm in ('explanation', 'neutral'):
+            prompt = p.prompt({**self.trial, 'probe_arm': arm}, 31, None, ['A'])
+            self.assertNotIn('JSON', prompt)
+        self.assertNotIn('JSON', p.prompt(self.trial, 32, None, ['A']))
+        disclosed = p.prompt(self.trial, 34, None, ['A'])
+        self.assertIn('| First tap |', disclosed)
+        self.assertNotIn('keep_selected', disclosed)
 
     def test_parser_zero_boundaries_and_invalids(self):
         p = ZeroCardProtocol()

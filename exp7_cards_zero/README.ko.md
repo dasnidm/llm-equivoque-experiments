@@ -48,6 +48,12 @@ obj/seq 설계만으로 검증하지 못한다. 200이라는 표본 수 자체�
 
 ## 구현과 남은 일
 
+정제된 전체 질문과 예시는 [프롬프트 원문](PROMPTS.ko.md)을 참고한다. 게임
+문장에서 반복적인 JSON 안내를 빼고, 결과를 “Your chosen card” 대신 “The
+remaining card”라고 제시한다. 영향력의 100점 기준은 기존 “complete control”에서
+“extreme impact”로 변경했다. 이 기준점 변경은 측정 문구의 실질적인 변화다.
+스키마는 별도로 전송되며 첫 선택 키는 `cards`, 두 번째는 `card`다.
+
 `protocol.py`는 질문, JSON 스키마, 파싱의 세 곳에서 0을 허용한다.
 `features.py`는 공동 사건 지표에서 0을 허용한다. `schedule.py`는 다른 실행 ID,
 시드, 시행 ID를 가진 8,400개 배정을 오프라인으로 만든다. 과거 프로토콜은

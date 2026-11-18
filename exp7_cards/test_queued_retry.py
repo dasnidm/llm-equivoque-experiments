@@ -280,6 +280,8 @@ class QueuedRetryTests(unittest.TestCase):
             self.assertEqual(state['status'],'held',state)
             self.assertEqual(t.process_state(trial['trial_id']),'alive')
             self.assertEqual(len(t.sent_stamps),1)
+            self.assertEqual(t.attempt_counts['retryable'],1)
+            self.assertEqual(t.attempt_counts['requeued'],0)
             with self.assertRaises(RuntimeError):t.close()
             again=run_trial(trial,CardProtocol(),t,root/'state.json',root/'native',CallBudget(root/'budget.json','fixture',34),'a'*64)
             self.assertEqual(again['status'],'held')

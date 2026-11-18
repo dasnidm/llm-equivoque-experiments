@@ -304,7 +304,7 @@ class QueuedRetryTransport(native.PersistentTransport):
                     self.attempt_statuses.append(status)
                     self.attempt_counts['attempts'] += 1
                     self.attempt_counts['success' if result['ok'] else 'error'] += 1
-                    if can_retry:self.attempt_counts['requeued'] += 1
+                    if can_retry:self.attempt_counts['retryable'] += 1
                     if status['http_status'] == 429:self.attempt_counts['rpc_429'] += 1
                 if can_retry:
                     self._rollback(c, attempt, tid, c.completed_turn_ids, time.monotonic()+self.timeout)
@@ -316,6 +316,8 @@ class QueuedRetryTransport(native.PersistentTransport):
                     if retry_count == 0:
                         _fsync_directory(directory)
                     retry_count += 1
+                    with self.meter_lock:
+                        self.attempt_counts['requeued'] += 1
                     continue
                 c.last_turn = turn
                 if result['ok']:

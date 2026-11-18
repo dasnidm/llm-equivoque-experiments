@@ -37,6 +37,7 @@ class QueuedStageTests(unittest.TestCase):
             self.assertEqual(result['successful_calls'],238,result)
             self.assertEqual(result['actual_turn_starts'],240,result)
             self.assertEqual(result['retryable_error_attempts'],2,result)
+            self.assertEqual(result['successfully_requeued_failures'],2,result)
             self.assertEqual(result['rpc_429_error_attempts'],2,result)
             self.assertEqual(result['audits_passed'],7,result)
             self.assertEqual(result['uncertain_sessions'],0,result)

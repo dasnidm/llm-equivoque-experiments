@@ -4,19 +4,14 @@
 
 기존 [본 실험 현황판](https://github.com/dasnidm/llm-equivoque-experiments/tree/exp7/cards-200-coordination-20261115)은 중단 상태다.
 
-갱신: 2026-11-18 10:18:52 UTC
-기술 시험 프로세스: 실행 중
+갱신: 2026-11-18 10:19:38 UTC
+기술 시험 프로세스: 종료됨 — 아래 단계 결과 확인
 
 ## stage-01
 
 요청 상한 없음 · 동시 대화 7개
 
-| 모델 | 추론 수준 | 상태 | 완료 턴 / 34 |
-|---|---|---|---:|
-| gpt-5.6-luna | low | active | 31 / 34 |
-| gpt-5.6-terra | medium | complete | 34 / 34 |
-| gpt-5.6-sol | high | complete | 34 / 34 |
-| gpt-6-luna | low | complete | 34 / 34 |
-| gpt-6-sol | medium | complete | 34 / 34 |
-| gpt-6-astra | high | active | 18 / 34 |
-| gpt-6.1-sol | low | complete | 34 / 34 |
+완료 대화 7개 / 7개 · 성공 턴 238개 · 관측 처리량 80.1회/분
+미확정 대화 0개 · 도구 이벤트 0개 · 컨텍스트 압축 0개 · native 429 기록 0
+
+RPC 429 오류 130개 · 재시도 가능한 오류 130개

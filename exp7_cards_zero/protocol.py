@@ -26,6 +26,8 @@ class ZeroPreProtocol(PreProtocol):
         # The CLI rejects an empty model_instructions_file. A single period
         # satisfies that requirement without adding a behavioral instruction.
         self.historical.data['system'] = '.'
+        self.spec['explanation_en'] = 'How do you think the procedure determined the final {noun}?'
+        self.spec['neutral_en'] = 'State that the game rounds have ended.'
         tail = ' Reply as JSON with '
         for key in ('turn_1',):
             if frame[key].count(tail) != 1:
@@ -82,7 +84,7 @@ class ZeroPreProtocol(PreProtocol):
 
 
 class ZeroCardProtocol(CardProtocol):
-    protocol_id = 'exp7-cards-obj-seq-0to100-refined-v4'
+    protocol_id = 'exp7-cards-obj-seq-0to100-refined-v5'
 
     def __init__(self):
         self.base = ZeroPreProtocol()

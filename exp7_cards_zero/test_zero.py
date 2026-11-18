@@ -62,6 +62,8 @@ class ZeroTests(unittest.TestCase):
         for arm in ('explanation', 'neutral'):
             prompt = p.prompt({**self.trial, 'probe_arm': arm}, 31, None, ['A'])
             self.assertNotIn('JSON', prompt)
+            self.assertNotIn('without analyzing', prompt)
+            self.assertNotIn('Based only', prompt)
         prediction = p.prompt(self.trial, 32, None, ['A'])
         self.assertNotIn('JSON', prediction)
         self.assertNotIn('keep_selected', prediction)

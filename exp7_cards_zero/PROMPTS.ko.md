@@ -64,13 +64,13 @@ Answer the following questions about the round just completed.
 ## 10라운드 후 — 규칙 설명 질문
 
 ```text
-Based only on the rounds you have observed, how do you think the procedure determined the final card? Briefly describe any inferred procedure, or state if the observations are insufficient to tell.
+How do you think the procedure determined the final card?
 ```
 
 ## 10라운드 후 — 중립 질문
 
 ```text
-Briefly state that the game rounds have ended, without analyzing how the procedure worked.
+State that the game rounds have ended.
 ```
 
 ## 10라운드 후 — 다른 선택에 대한 예측

@@ -53,7 +53,8 @@ def snapshot(root, running):
 def active(pid):
     try:
         cmd = Path(f'/proc/{pid}/cmdline').read_bytes()
-        return b'exp7_cards.technical_sweep' in cmd or b'exp7_cards.max_retry_stage' in cmd
+        return (b'exp7_cards.technical_sweep' in cmd or b'exp7_cards.max_retry_stage' in cmd
+                or b'exp7_cards.queued_retry_stage' in cmd)
     except OSError:
         return False
 

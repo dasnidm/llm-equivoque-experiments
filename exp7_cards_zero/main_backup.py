@@ -139,6 +139,22 @@ class PrivateGitBackup:
         if remote_heads.stdout.strip():
             raise FileExistsError('Private backup branch already exists')
 
+    @classmethod
+    def reopen(cls, cache, remote, branch):
+        """Attach only to a confirmed matching private branch and readback ref."""
+        obj=cls.__new__(cls);obj.cache=Path(cache);obj.remote=remote;obj.branch=branch
+        obj.verify_cache=obj.cache.parent/(obj.cache.name+'-readback');obj.pending=None
+        if not obj.cache.is_dir() or not obj.verify_cache.is_dir():
+            raise ValueError('Missing existing backup or verification cache')
+        obj.parent=obj.git('rev-parse','refs/heads/'+branch)
+        remote_head=obj.git('ls-remote','--heads',remote,'refs/heads/'+branch).split()
+        if not remote_head or remote_head[0]!=obj.parent:
+            raise ValueError('Local and remote private heads differ')
+        readback=subprocess.check_output(['git','--git-dir',str(obj.verify_cache),'rev-parse',
+                                          'refs/remotes/exp7/backup'],text=True,timeout=30).strip()
+        if readback!=obj.parent:raise ValueError('Independent backup readback head differs')
+        return obj
+
     def git(self, *args, env=None, input_bytes=None):
         variables = {**os.environ, 'GIT_TERMINAL_PROMPT':'0', 'GIT_AUTHOR_NAME':'Exp7 backup',
                      'GIT_AUTHOR_EMAIL':'exp7-backup@localhost', 'GIT_COMMITTER_NAME':'Exp7 backup',

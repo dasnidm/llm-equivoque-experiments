@@ -6,6 +6,7 @@ import subprocess
 import tarfile
 import tempfile
 import unittest
+import signal
 from unittest.mock import patch
 
 from .main_backup import archive_conversation, PrivateGitBackup, restore_archive, sha
@@ -54,6 +55,8 @@ class MainPreparationTests(unittest.TestCase):
             listing=subprocess.check_output(['git','--git-dir',str(remote),'ls-tree','-r','--name-only',second],text=True)
             self.assertIn('archives/sample.tar.gz',listing)
             self.assertIn('archives/sample2.tar.gz',listing)
+            reopened=PrivateGitBackup.reopen(root/'local.git',str(remote),'raw/test')
+            self.assertEqual(reopened.parent,second)
             with self.assertRaises(FileExistsError): archive_conversation(work,'sample',scratch)
 
     def test_backup_reconciles_a_lost_push_ack_without_rewriting(self):
@@ -110,6 +113,32 @@ class MainPreparationTests(unittest.TestCase):
             self.assertIn('| 백업 대기 | 1 |',view)
             db.update(trial['trial_id'],'complete')
             self.assertIn('**1 / 8,400**',render(db,Transport(),'1차 수집 중'))
+
+    def test_attach_preserves_completed_trials_and_holds_only_expected_active(self):
+        with tempfile.TemporaryDirectory() as d:
+            rows=build();path=Path(d)/'status.sqlite';db=StatusDB(path,rows)
+            db.update(rows[0]['trial_id'],'active');db.update(rows[1]['trial_id'],'complete')
+            reopened=StatusDB.attach(path,rows)
+            with self.assertRaises(ValueError):reopened.hold_active([rows[2]['trial_id']])
+            reopened.hold_active([rows[0]['trial_id']])
+            statuses=reopened.resume_snapshot()
+            self.assertEqual(statuses[rows[0]['trial_id']],'held')
+            self.assertEqual(statuses[rows[1]['trial_id']],'complete')
+            self.assertEqual(statuses[rows[2]['trial_id']],'unstarted')
+
+    def test_pause_preserves_process_and_atomically_holds_samples(self):
+        from .main_resume import pause_and_hold
+        with tempfile.TemporaryDirectory() as d:
+            rows=build();db=StatusDB(Path(d)/'status.sqlite',rows)
+            db.update(rows[0]['trial_id'],'active')
+            process=subprocess.Popen(['python','-c','import time; time.sleep(30)'])
+            try:
+                pause_and_hold(process.pid,db,[rows[0]['trial_id']])
+                self.assertIsNone(process.poll())
+                self.assertIn('State:\tT',Path(f'/proc/{process.pid}/status').read_text())
+                self.assertEqual(db.resume_snapshot()[rows[0]['trial_id']],'held')
+            finally:
+                os.kill(process.pid,signal.SIGCONT);process.terminate();process.wait(timeout=5)
 
     def test_dashboard_syncs_only_its_own_branch(self):
         with tempfile.TemporaryDirectory() as d:

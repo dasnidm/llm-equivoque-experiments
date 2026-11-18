@@ -25,6 +25,35 @@ class StatusDB:
             [(t['trial_id'],t['model'],t['effort'],t['game'],t['stage'],'unstarted',0) for t in trials])
         self.db.commit()
 
+    @classmethod
+    def attach(cls,path,trials):
+        """Open an existing run without inserting or restarting assignments."""
+        obj=cls.__new__(cls);obj.lock=threading.RLock()
+        obj.db=sqlite3.connect(path,check_same_thread=False,timeout=3)
+        obj.db.execute('PRAGMA journal_mode=WAL');obj.db.execute('PRAGMA synchronous=FULL')
+        existing=obj.db.execute('SELECT id,model,effort,game,wave FROM trials').fetchall()
+        expected={(t['trial_id'],t['model'],t['effort'],t['game'],t['stage']) for t in trials}
+        if len(existing)!=len(expected) or set(existing)!=expected:
+            obj.db.close();raise ValueError('Existing run does not match frozen assignments')
+        return obj
+
+    def resume_snapshot(self):
+        with self.lock:
+            rows=self.db.execute('SELECT id,status FROM trials').fetchall()
+        return dict(rows)
+
+    def hold_active(self, expected_ids):
+        """Atomically classify previously running samples without replaying them."""
+        expected=set(expected_ids)
+        with self.lock:
+            self.db.execute('BEGIN IMMEDIATE')
+            current={row[0] for row in self.db.execute("SELECT id FROM trials WHERE status='active'")}
+            if current!=expected:
+                self.db.rollback();raise ValueError('Active trial set changed while preparing recovery')
+            self.db.executemany("UPDATE trials SET status='held',error='previous_controller_paused' WHERE id=?",
+                                [(x,) for x in expected])
+            self.db.commit()
+
     def update(self, ident, status, **kwargs):
         allowed={'turns','archive','archive_sha','archive_bytes','scratch','backup_commit','error'}
         if not set(kwargs)<=allowed:raise ValueError('Unexpected status field')

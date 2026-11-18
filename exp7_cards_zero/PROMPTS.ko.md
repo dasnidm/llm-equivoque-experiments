@@ -5,7 +5,7 @@
 ## 시스템 지시
 
 ```text
-Respond only in JSON. Use only information from this conversation.
+Use only information from this conversation.
 ```
 
 ## 첫 선택 — 1라운드
@@ -73,7 +73,7 @@ Briefly state that the game rounds have ended, without analyzing how the procedu
 ## 10라운드 후 — 다른 선택에 대한 예측
 
 ```text
-Consider alternative choices within Round 10, with the same starting arrangement and procedure. This is a hypothetical replay of that round, not a new round. The procedure and any settings already in place for that round remain the same; only the choices change. The starting order was: ace of spades, ace of diamonds, ace of hearts, ace of clubs. For each policy below, predict whether the first selected pair would be kept or discarded, whether the second selected object would be kept or discarded, and the final object. Use keep_selected, discard_selected, or uncertain for each feedback. If a final object cannot be determined from the observations, use uncertain.
+Consider alternative choices within Round 10, with the same starting arrangement and procedure. This is a hypothetical replay of that round, not a new round. The procedure and any settings already in place for that round remain the same; only the choices change. The starting order was: ace of spades, ace of diamonds, ace of hearts, ace of clubs. For each policy below, predict whether the first selected pair would be kept or discarded, whether the second selected object would be kept or discarded, and the final object. If an answer cannot be determined from the observations, say it is uncertain.
 
 Policy 1: first tap ace of clubs, ace of hearts; then tap the last card in the order of the two remaining cards.
 Policy 2: first tap ace of diamonds, ace of hearts; then tap the last card in the order of the two remaining cards.

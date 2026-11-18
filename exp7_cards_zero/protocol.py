@@ -23,7 +23,7 @@ class ZeroPreProtocol(PreProtocol):
             raise ValueError('Unexpected historical rating instruction')
         frame = self.historical.data['frames']['cards']
         frame['evaluation'] = evaluation[:-len(rating_tail)]
-        self.historical.data['system'] = 'Respond only in JSON. Use only information from this conversation.'
+        self.historical.data['system'] = 'Use only information from this conversation.'
         tail = ' Reply as JSON with '
         for key in ('turn_1',):
             if frame[key].count(tail) != 1:
@@ -80,7 +80,7 @@ class ZeroPreProtocol(PreProtocol):
 
 
 class ZeroCardProtocol(CardProtocol):
-    protocol_id = 'exp7-cards-obj-seq-0to100-refined-v2'
+    protocol_id = 'exp7-cards-obj-seq-0to100-refined-v3'
 
     def __init__(self):
         self.base = ZeroPreProtocol()
@@ -106,6 +106,12 @@ class ZeroCardProtocol(CardProtocol):
             raise ValueError('Unexpected follow-up format instruction')
         text = text[:-len(tail)]
         if local == 5:
+            old = ('Use keep_selected, discard_selected, or uncertain for each feedback. '
+                   'If a final object cannot be determined from the observations, use uncertain.')
+            new = 'If an answer cannot be determined from the observations, say it is uncertain.'
+            if text.count(old) != 1:
+                raise ValueError('Unexpected prediction format instruction')
+            text = text.replace(old, new)
             text = text.replace('first select ', 'first tap ')
             text = text.replace('; then select the ', '; then tap the ')
             text = text.replace(' object in the order of the two remaining objects.',

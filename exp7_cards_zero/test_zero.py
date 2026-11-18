@@ -42,6 +42,7 @@ class ZeroTests(unittest.TestCase):
 
     def test_card_fields_and_game_prompt(self):
         p = ZeroCardProtocol()
+        self.assertEqual(p.system(self.trial), 'Use only information from this conversation.')
         for turn, remaining, key in ((1, self.trial['order'], 'cards'),
                                      (2, self.trial['order'][:2], 'card')):
             schema = p.schema(turn, remaining, 'cards', self.trial)
@@ -61,7 +62,10 @@ class ZeroTests(unittest.TestCase):
         for arm in ('explanation', 'neutral'):
             prompt = p.prompt({**self.trial, 'probe_arm': arm}, 31, None, ['A'])
             self.assertNotIn('JSON', prompt)
-        self.assertNotIn('JSON', p.prompt(self.trial, 32, None, ['A']))
+        prediction = p.prompt(self.trial, 32, None, ['A'])
+        self.assertNotIn('JSON', prediction)
+        self.assertNotIn('keep_selected', prediction)
+        self.assertNotIn('discard_selected', prediction)
         disclosed = p.prompt(self.trial, 34, None, ['A'])
         self.assertIn('| First tap |', disclosed)
         self.assertNotIn('keep_selected', disclosed)

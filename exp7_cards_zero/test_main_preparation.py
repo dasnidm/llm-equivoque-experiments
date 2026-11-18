@@ -6,6 +6,7 @@ import subprocess
 import tarfile
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from .main_backup import archive_conversation, PrivateGitBackup, restore_archive, sha
 from .main_schedule import audit, build, load, save
@@ -54,6 +55,48 @@ class MainPreparationTests(unittest.TestCase):
             self.assertIn('archives/sample.tar.gz',listing)
             self.assertIn('archives/sample2.tar.gz',listing)
             with self.assertRaises(FileExistsError): archive_conversation(work,'sample',scratch)
+
+    def test_backup_reconciles_a_lost_push_ack_without_rewriting(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d); work=root/'run'; (work/'states').mkdir(parents=True)
+            scratch='b'*32;(work/'native'/scratch).mkdir(parents=True)
+            (work/'native'/scratch/'raw.txt').write_text('raw')
+            (work/'states'/'sample.json').write_text(json.dumps({'status':'complete'}))
+            (work/'states'/'sample.journal.jsonl').write_text('{}\n')
+            item=archive_conversation(work,'sample',scratch)
+            remote=root/'remote.git';subprocess.run(['git','init','--bare','-q',str(remote)],check=True)
+            backup=PrivateGitBackup(root/'local.git',str(remote),'raw/test')
+            original=backup.git
+            def lost_ack(*args,**kwargs):
+                result=original(*args,**kwargs)
+                if args[0]=='push':raise RuntimeError('simulated lost acknowledgement')
+                return result
+            with patch.object(backup,'git',side_effect=lost_ack):
+                with self.assertRaises(RuntimeError):backup.upload([item])
+            pending=backup.pending['commit']
+            self.assertTrue(subprocess.check_output(['git','--git-dir',str(remote),'rev-parse','refs/heads/raw/test'],text=True).strip()==pending)
+            self.assertEqual(backup.upload([item]),pending)
+            self.assertIsNone(backup.pending)
+
+    def test_backup_retries_the_same_commit_if_push_was_not_sent(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);work=root/'run';(work/'states').mkdir(parents=True)
+            scratch='c'*32;(work/'native'/scratch).mkdir(parents=True)
+            (work/'native'/scratch/'raw').write_text('raw')
+            (work/'states'/'sample.json').write_text('{}')
+            (work/'states'/'sample.journal.jsonl').write_text('{}\n')
+            item=archive_conversation(work,'sample',scratch)
+            remote=root/'remote.git';subprocess.run(['git','init','--bare','-q',str(remote)],check=True)
+            backup=PrivateGitBackup(root/'local.git',str(remote),'raw/test')
+            original=backup.git
+            def rejected_before_push(*args,**kwargs):
+                if args[0]=='push':raise RuntimeError('simulated disconnected push')
+                return original(*args,**kwargs)
+            with patch.object(backup,'git',side_effect=rejected_before_push):
+                with self.assertRaises(RuntimeError):backup.upload([item])
+            pending=backup.pending['commit']
+            self.assertEqual(backup.upload([item]),pending)
+            self.assertIsNone(backup.pending)
 
     def test_dashboard_does_not_count_pending_backup_as_complete(self):
         class Transport:

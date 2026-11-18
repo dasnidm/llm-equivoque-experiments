@@ -66,10 +66,10 @@ class BackupThread(threading.Thread):
 
     def run(self):
         while not self.stopping.is_set():
-            items=self.db.pending(20)
+            items=self.store.pending['batch'] if self.store.pending else self.db.pending(20)
             if not items:
                 self.wake.wait(10);self.wake.clear();continue
-            if len(items)<20 and not self.stopping.is_set():
+            if len(items)<20 and not self.store.pending and not self.stopping.is_set():
                 # Accumulate a small batch while sessions continue at full speed.
                 self.stopping.wait(8)
                 items=self.db.pending(20)
@@ -90,8 +90,9 @@ class BackupThread(threading.Thread):
                 self.error=None
             except Exception as exc:
                 self.error=type(exc).__name__
-                # Push acknowledgement can be ambiguous: never retry blindly.
-                return
+                # The exact pending commit is protected and remote identity is
+                # checked before retry; an uncertain write is never replayed blindly.
+                self.stopping.wait(15)
 
 
 def controller(root, dashboard_repo, catalog, binary='/opt/codex/bin/codex', concurrency=42):

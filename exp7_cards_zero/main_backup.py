@@ -133,6 +133,7 @@ class PrivateGitBackup:
             raise FileExistsError('Backup readback cache already exists')
         subprocess.run(['git', 'init', '--bare', '-q', str(self.verify_cache)], check=True)
         self.parent = None
+        self.pending = None
         remote_heads = subprocess.run(['git', 'ls-remote', '--heads', remote, 'refs/heads/'+branch],
                                       check=True, capture_output=True, text=True, timeout=45)
         if remote_heads.stdout.strip():
@@ -151,6 +152,10 @@ class PrivateGitBackup:
     def upload(self, items):
         if not items:
             return None
+        if self.pending:
+            if [(i['trial_id'],i['sha256']) for i in items] != self.pending['items']:
+                raise RuntimeError('Pending backup batch differs; manual reconciliation required')
+            return self._finish_pending(items)
         with tempfile.TemporaryDirectory(prefix='backup-index-', dir=self.cache.parent) as tmp:
             env={'GIT_INDEX_FILE':str(Path(tmp)/'index')}
             if self.parent:
@@ -170,25 +175,40 @@ class PrivateGitBackup:
             args=['commit-tree',tree]
             if self.parent: args+=['-p',self.parent]
             commit=self.git(*args,input_bytes=b'Back up terminal experiment conversations\n')
+            self.git('update-ref','refs/exp7/pending/'+commit,commit)
+            self.pending={'commit':commit,'parent':self.parent,
+                          'items':[(i['trial_id'],i['sha256']) for i in items],
+                          'batch':list(items)}
+        return self._finish_pending(items)
+
+    def _finish_pending(self,items):
+        pending=self.pending;commit=pending['commit']
+        observed=self.git('ls-remote','--heads',self.remote,'refs/heads/'+self.branch).split()
+        head=observed[0] if observed else None
+        if head == pending['parent']:
+            # No push occurred; send the same protected commit, never a new one.
             self.git('push',self.remote,commit+':refs/heads/'+self.branch)
-            observed=self.git('ls-remote','--heads',self.remote,'refs/heads/'+self.branch).split()
-            if not observed or observed[0] != commit:
-                raise RuntimeError('Private backup remote confirmation failed')
-            # Fetch into a separate object store and hash the remote blob bytes.
-            envvars={**os.environ,'GIT_TERMINAL_PROMPT':'0'}
-            subprocess.run(['git','--git-dir',str(self.verify_cache),'fetch','-q','--no-tags',
-                            self.remote,'refs/heads/'+self.branch+':refs/remotes/exp7/backup'],check=True,
-                           capture_output=True,timeout=120,env=envvars)
-            for item in items:
-                name='archives/'+item['trial_id']+'.tar.gz'
-                proc=subprocess.Popen(['git','--git-dir',str(self.verify_cache),'show',commit+':'+name],
-                                      stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,env=envvars)
-                digest=hashlib.sha256()
-                for chunk in iter(lambda:proc.stdout.read(1024*1024),b''):
-                    digest.update(chunk)
-                proc.stdout.close()
-                if proc.wait(timeout=120) or digest.hexdigest() != item['sha256']:
-                    raise RuntimeError('Remote archive bytes do not match original')
-            self.git('update-ref','refs/heads/'+self.branch,commit)
-            self.parent=commit
-            return commit
+        elif head != commit:
+            raise RuntimeError('Private branch moved unexpectedly; manual reconciliation required')
+        observed=self.git('ls-remote','--heads',self.remote,'refs/heads/'+self.branch).split()
+        if not observed or observed[0] != commit:
+            raise RuntimeError('Private backup remote confirmation failed')
+        envvars={**os.environ,'GIT_TERMINAL_PROMPT':'0'}
+        subprocess.run(['git','--git-dir',str(self.verify_cache),'fetch','-q','--no-tags',
+                        self.remote,'refs/heads/'+self.branch+':refs/remotes/exp7/backup'],check=True,
+                       capture_output=True,timeout=120,env=envvars)
+        for item in items:
+            name='archives/'+item['trial_id']+'.tar.gz'
+            proc=subprocess.Popen(['git','--git-dir',str(self.verify_cache),'show',commit+':'+name],
+                                  stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,env=envvars)
+            digest=hashlib.sha256()
+            for chunk in iter(lambda:proc.stdout.read(1024*1024),b''):
+                digest.update(chunk)
+            proc.stdout.close()
+            if proc.wait(timeout=120) or digest.hexdigest() != item['sha256']:
+                raise RuntimeError('Remote archive bytes do not match original')
+        self.git('update-ref','refs/heads/'+self.branch,commit)
+        self.parent=commit
+        self.git('update-ref','-d','refs/exp7/pending/'+commit)
+        self.pending=None
+        return commit

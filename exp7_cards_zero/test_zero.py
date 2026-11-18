@@ -42,7 +42,7 @@ class ZeroTests(unittest.TestCase):
 
     def test_card_fields_and_game_prompt(self):
         p = ZeroCardProtocol()
-        self.assertEqual(p.system(self.trial), 'Use only information from this conversation.')
+        self.assertEqual(p.system(self.trial), '.')
         for turn, remaining, key in ((1, self.trial['order'], 'cards'),
                                      (2, self.trial['order'][:2], 'card')):
             schema = p.schema(turn, remaining, 'cards', self.trial)

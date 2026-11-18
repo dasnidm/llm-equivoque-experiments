@@ -4,8 +4,11 @@
 
 ## 시스템 지시
 
+이 CLI는 빈 시스템 지시 파일을 거부하므로 행동 지시 없이 마침표만 전달한다.
+CLI 환경 정보와 비활성화된 도구 설정은 별도로 존재한다.
+
 ```text
-Use only information from this conversation.
+.
 ```
 
 ## 첫 선택 — 1라운드

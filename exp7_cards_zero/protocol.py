@@ -23,7 +23,9 @@ class ZeroPreProtocol(PreProtocol):
             raise ValueError('Unexpected historical rating instruction')
         frame = self.historical.data['frames']['cards']
         frame['evaluation'] = evaluation[:-len(rating_tail)]
-        self.historical.data['system'] = 'Use only information from this conversation.'
+        # The CLI rejects an empty model_instructions_file. A single period
+        # satisfies that requirement without adding a behavioral instruction.
+        self.historical.data['system'] = '.'
         tail = ' Reply as JSON with '
         for key in ('turn_1',):
             if frame[key].count(tail) != 1:
@@ -80,7 +82,7 @@ class ZeroPreProtocol(PreProtocol):
 
 
 class ZeroCardProtocol(CardProtocol):
-    protocol_id = 'exp7-cards-obj-seq-0to100-refined-v3'
+    protocol_id = 'exp7-cards-obj-seq-0to100-refined-v4'
 
     def __init__(self):
         self.base = ZeroPreProtocol()
